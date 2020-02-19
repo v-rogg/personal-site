@@ -44,13 +44,6 @@
         width: 100%;
         top: 0;
     }
-/*
-    #f1f7ee
-    #b0bea9
-    #92aa83
-    #e0edc5
-    #e7f59e
-  */
 </style>
 
 <div class="fixed">

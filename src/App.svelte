@@ -12,6 +12,14 @@
 
 <style>
 
+    /*
+    #f1f7ee
+    #b0bea9
+    #92aa83
+    #e0edc5
+    #e7f59e
+  */
+
     @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap');
 
     main {

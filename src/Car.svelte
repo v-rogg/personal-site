@@ -155,10 +155,10 @@
 
             }
 
-            pointLight = createLight( 0x0088ff );
+            pointLight = createLight( 0xff6978 );
             scene.add( pointLight );
 
-            pointLight2 = createLight( 0xff8888 );
+            pointLight2 = createLight( 0x340068 );
             scene.add( pointLight2 );
             //
 
