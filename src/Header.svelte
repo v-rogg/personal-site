@@ -19,6 +19,7 @@
         display: flex;
         justify-content: space-between;
         margin-bottom: 2rem;
+        padding-top: 3rem;
     }
 
     .flex-column {
@@ -38,7 +39,7 @@
     }
 </style>
 
-<div class="flex">
+<div class="flex container">
   {#if lang === "de" }
       <h2><b>Entwickler</b><br>mit Auge<br>für Design,<br><b>Macher</b></h2>
   {/if}

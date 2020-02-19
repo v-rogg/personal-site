@@ -16,5 +16,10 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
     "dev": "webpack-dev-server --content-base public"
+  },
+  "dependencies": {
+    "jquery": "^3.4.1",
+    "stats.js": "^0.17.0",
+    "three": "^0.113.2"
   }
 }

@@ -1,19 +1,19 @@
 <script>
-  import {createEventDispatcher} from "svelte";
+    import {createEventDispatcher} from "svelte";
 
-  const dispatch = createEventDispatcher();
+    const dispatch = createEventDispatcher();
 
-  function setEN() {
-      dispatch('language', {
-          lang: "en"
-      });
-  }
+    function setEN() {
+        dispatch('language', {
+            lang: "en"
+        });
+    }
 
-  function setDE() {
-      dispatch('language', {
-          lang: "de"
-      });
-  }
+    function setDE() {
+        dispatch('language', {
+            lang: "de"
+        });
+    }
 </script>
 
 <style>
@@ -37,13 +37,29 @@
         display: flex;
         justify-content: space-between;
     }
+
+    .fixed {
+        position: fixed;
+        background: white;
+        width: 100%;
+        top: 0;
+    }
+/*
+    #f1f7ee
+    #b0bea9
+    #92aa83
+    #e0edc5
+    #e7f59e
+  */
 </style>
 
-<div class="lang">
-    <h1>Valentin Rogg</h1>
-    <div>
-        <button on:click={setDE} >de</button>
-        /
-        <button on:click={setEN} >en</button>
+<div class="fixed">
+    <div class="lang container">
+        <h1>Valentin Rogg</h1>
+        <div>
+            <button on:click={setDE}>de</button>
+            /
+            <button on:click={setEN}>en</button>
+        </div>
     </div>
 </div>
