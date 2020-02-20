@@ -1,7 +1,7 @@
 <script>
     import Header from "./Header.svelte";
     import Lang from "./Lang.svelte";
-    import Car from "./Car.svelte";
+    import Render from "./Render.svelte";
 
     export let lang = "de";
 
@@ -12,14 +12,6 @@
 
 <style>
 
-    /*
-    #f1f7ee
-    #b0bea9
-    #92aa83
-    #e0edc5
-    #e7f59e
-  */
-
     @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap');
 
     main {
@@ -27,8 +19,32 @@
     }
 
     :global(.container){
-        max-width: 1200px;
+        max-width: 1140px;
         margin: 0 auto;
+    }
+
+    @media (min-width: 1200px) {
+        :global(.container) {
+            max-width: 1140px;
+        }
+    }
+
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+        :global(.container) {
+            max-width: 960px;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 991.98px) {
+        :global(.container) {
+            max-width: 720px;
+        }
+    }
+
+    @media (min-width: 576px) and (max-width: 767.98px)  {
+        :global(.container) {
+            max-width: 540px;
+        }
     }
 
     /* Box sizing rules */
@@ -119,5 +135,5 @@
 <main>
     <Lang on:language={changeLang}/>
     <Header {lang}/>
-    <Car />
+    <Render />
 </main>

@@ -4,7 +4,7 @@
 
     import Stats from "stats.js";
 
-    import OrbitControls from 'three-orbitcontrols';
+    import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 
 
     import {onMount} from "svelte";
@@ -191,7 +191,7 @@
             controls.update();
 
             stats = new Stats();
-            document.body.appendChild( stats.dom );
+            // document.body.appendChild( stats.dom );
 
             //
 
@@ -260,11 +260,26 @@
 
 <style>
     .renderBox {
+        /*width: 1200px;*/
+        height: 400px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .render {
         width: 1200px;
         height: 400px;
+        position: absolute;
+        top: -9999px;
+        bottom: -9999px;
+        left: -9999px;
+        right: -9999px;
+        margin: auto;
     }
 </style>
 
-<div id="view" class="container renderBox">
+<div class="container renderBox">
+    <div id="view" class="render">
 
+    </div>
 </div>
