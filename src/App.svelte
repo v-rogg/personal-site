@@ -1,7 +1,21 @@
+<svelte:head>
+    <title>Valentin Rogg</title>
+</svelte:head>
+
+<main>
+    <Style/>
+    <Lang on:language={changeLang} {lang}/>
+    <Header {lang}/>
+    <CV {lang}/>
+<!--    <Render />-->
+</main>
+
 <script>
+    import Style from "./Style.svelte";
     import Header from "./Header.svelte";
     import Lang from "./Lang.svelte";
-    import Render from "./Render.svelte";
+    // import Render from "./Render.svelte";
+    import CV from "./CV.svelte";
 
     export let lang = "de";
 
@@ -11,41 +25,6 @@
 </script>
 
 <style>
-
-    @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap');
-
-    main {
-        font-family: 'Source Sans Pro', sans-serif;
-    }
-
-    :global(.container){
-        max-width: 1140px;
-        margin: 0 auto;
-    }
-
-    @media (min-width: 1200px) {
-        :global(.container) {
-            max-width: 1140px;
-        }
-    }
-
-    @media (min-width: 992px) and (max-width: 1199.98px) {
-        :global(.container) {
-            max-width: 960px;
-        }
-    }
-
-    @media (min-width: 768px) and (max-width: 991.98px) {
-        :global(.container) {
-            max-width: 720px;
-        }
-    }
-
-    @media (min-width: 576px) and (max-width: 767.98px)  {
-        :global(.container) {
-            max-width: 540px;
-        }
-    }
 
     /* Box sizing rules */
     :global(*,
@@ -127,13 +106,3 @@
     }
 
 </style>
-
-<svelte:head>
-    <title>Valentin Rogg</title>
-</svelte:head>
-
-<main>
-    <Lang on:language={changeLang}/>
-    <Header {lang}/>
-    <Render />
-</main>

@@ -1,5 +1,19 @@
+<div class="fixed">
+    <section class="lang container">
+        <h1>Valentin Rogg</h1>
+        <div>
+            <button on:click={setDE} class:b="{lang === 'de'}">de</button>
+            /
+            <button on:click={setEN} class:b="{lang === 'en'}">en</button>
+        </div>
+    </section>
+</div>
+
+
 <script>
     import {createEventDispatcher} from "svelte";
+
+    export let lang;
 
     const dispatch = createEventDispatcher();
 
@@ -30,6 +44,10 @@
         background: none;
         margin: 0;
         cursor: pointer;
+        font-weight: 400;
+    }
+
+    .b {
         font-weight: 700;
     }
 
@@ -40,19 +58,8 @@
 
     .fixed {
         position: fixed;
-        background: white;
+        /*background: white;*/
         width: 100%;
         top: 0;
     }
 </style>
-
-<div class="fixed">
-    <div class="lang container">
-        <h1>Valentin Rogg</h1>
-        <div>
-            <button on:click={setDE}>de</button>
-            /
-            <button on:click={setEN}>en</button>
-        </div>
-    </div>
-</div>
