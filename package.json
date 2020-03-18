@@ -1,26 +1,21 @@
 {
   "name": "svelte-app",
   "version": "1.0.0",
-  "devDependencies": {
-    "cross-env": "^5.2.0",
-    "css-loader": "^2.1.1",
-    "mini-css-extract-plugin": "^0.6.0",
-    "serve": "^11.0.0",
-    "style-loader": "^0.23.1",
-    "svelte": "^3.0.0",
-    "svelte-loader": "2.13.3",
-    "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "^3.3.1"
-  },
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack",
-    "dev": "webpack-dev-server --content-base public"
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "start": "sirv public -s"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.0",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "rollup": "^1.20.0",
+    "rollup-plugin-livereload": "^1.0.0",
+    "rollup-plugin-svelte": "^5.0.3",
+    "rollup-plugin-terser": "^5.1.2",
+    "svelte": "^3.0.0"
   },
   "dependencies": {
-    "jquery": "^3.4.1",
-    "stats.js": "^0.17.0",
-    "three": "^0.113.2",
-    "three-orbitcontrols": "^2.110.3"
+    "sirv-cli": "^0.4.4"
   }
 }
