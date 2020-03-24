@@ -43,10 +43,10 @@
 </style>
 
 <div>
-    <div id="BG" class="container flex">
-        <div class="circle"></div>
-        <div class="rect"></div>
-    </div>
+<!--    <div id="BG" class="container flex">-->
+<!--        <div class="circle"></div>-->
+<!--        <div class="rect"></div>-->
+<!--    </div>-->
     <Header {currentRoute}/>
     <CV {currentRoute}/>
 </div>
