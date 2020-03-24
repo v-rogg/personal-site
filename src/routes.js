@@ -1,4 +1,4 @@
-import CV from './Profile/CV.svelte';
+import ProfileLayout from './ProfileLayout.svelte';
 
 const routes = [
     {
@@ -7,7 +7,7 @@ const routes = [
     },
     {
         name: '/lebenslauf',
-        component: CV,
+        component: ProfileLayout,
         lang: {en: 'cv'}
     }
 ]

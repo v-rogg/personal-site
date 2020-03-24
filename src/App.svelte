@@ -2,7 +2,7 @@
 
 <script>
     import Style from "./Style.svelte";
-    import Header from "./Header.svelte";
+    // import Header from "./Header.svelte";
     import Lang from "./Lang.svelte";
     // import Render from "./Render.svelte";
     // import CV from "./Profile/CV.svelte";
@@ -26,7 +26,6 @@
 <main>
     <Style/>
     <Lang on:language={changeLang} {lang} />
-    <Header />
     <Router {routes} {options}/>
     <!--    <Style/>-->
     <!--    <Lang on:language={changeLang} {lang}/>-->
