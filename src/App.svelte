@@ -1,28 +1,39 @@
-<svelte:head>
-    <title>Valentin Rogg</title>
-</svelte:head>
 
-<main>
-    <Style/>
-    <Lang on:language={changeLang} {lang}/>
-    <Header {lang}/>
-    <CV {lang}/>
-<!--    <Render />-->
-</main>
 
 <script>
     import Style from "./Style.svelte";
     import Header from "./Header.svelte";
     import Lang from "./Lang.svelte";
     // import Render from "./Render.svelte";
-    import CV from "./CV.svelte";
+    // import CV from "./Profile/CV.svelte";
+
+    import { Router } from 'svelte-router-spa';
+    import { routes } from './routes';
 
     export let lang = "de";
+
+    const options = { lang: 'de' };
 
     function changeLang(event) {
         lang = event.detail.lang
     }
 </script>
+
+<svelte:head>
+    <title>Valentin Rogg</title>
+</svelte:head>
+
+<main>
+    <Style/>
+    <Lang on:language={changeLang} {lang} />
+    <Header />
+    <Router {routes} {options}/>
+    <!--    <Style/>-->
+    <!--    <Lang on:language={changeLang} {lang}/>-->
+    <!--    <Header {lang}/>-->
+    <!--    <CV {lang}/>-->
+    <!--    <Render />-->
+</main>
 
 <style>
 

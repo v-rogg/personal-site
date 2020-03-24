@@ -1,16 +1,5 @@
-<div class="fixed">
-    <section class="lang container">
-        <h1>Valentin Rogg</h1>
-        <div>
-            <button on:click={setDE} class:b="{lang === 'de'}">de</button>
-            /
-            <button on:click={setEN} class:b="{lang === 'en'}">en</button>
-        </div>
-    </section>
-</div>
-
-
 <script>
+    import { navigateTo } from 'svelte-router-spa';
     import {createEventDispatcher} from "svelte";
 
     export let lang;
@@ -21,12 +10,18 @@
         dispatch('language', {
             lang: "en"
         });
+        navigateTo('lebenslauf', 'en');
     }
 
     function setDE() {
         dispatch('language', {
             lang: "de"
         });
+        navigateTo('lebenslauf', 'de');
+    }
+
+    function navMain() {
+        navigateTo('/');
     }
 </script>
 
@@ -47,6 +42,11 @@
         font-weight: 400;
     }
 
+    button:disabled {
+        color: black;
+        cursor: text;
+    }
+
     .b {
         font-weight: 700;
     }
@@ -62,4 +62,19 @@
         width: 100%;
         top: 0;
     }
+
+    .pointer {
+        cursor: pointer;
+    }
 </style>
+
+<div class="fixed">
+    <section class="lang container">
+        <h1 on:click={navMain} class="pointer">Valentin Rogg</h1>
+        <div>
+            <button on:click={setDE} class:b="{lang === 'de'}" disabled="{lang === 'de'}">de</button>
+            /
+            <button on:click={setEN} class:b="{lang === 'en'}" disabled="{lang === 'en'}">en</button>
+        </div>
+    </section>
+</div>
