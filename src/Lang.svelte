@@ -54,6 +54,8 @@
     .lang {
         display: flex;
         justify-content: space-between;
+        padding-top: 1rem;
+        /*background: rgba(255, 255, 255, 1);*/
     }
 
     .fixed {

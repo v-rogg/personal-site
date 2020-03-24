@@ -5,26 +5,26 @@
 </script>
 
 <style>
+    .flex {
+        display: flex;
+        justify-content: end;
+    }
     .rect {
         position: absolute;
-        z-index: -1;
+        z-index: -2;
         top: 70px;
-        left: auto;
-        right: 20%;
+        margin-right: -20px;
         width: 480px;
         height: 480px;
         background: linear-gradient(to right, rgba(49, 207, 171, 0.5), #50e3c2);
         transform: none;
         transition: all 250ms ease-out;
     }
-    .rect:hover {
-        transform: translateY(-15%) translateX(-10%) rotate(5deg);
-    }
     .circle {
         position: absolute;
+        z-index: -1;
         top: 270px;
-        left: auto;
-        right: 17%;
+        margin-right: -60px;
         width: 240px;
         height: 240px;
         border-radius: 50%;
@@ -43,7 +43,7 @@
 </style>
 
 <div>
-    <div id="BG">
+    <div id="BG" class="container flex">
         <div class="circle"></div>
         <div class="rect"></div>
     </div>
