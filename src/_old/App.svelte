@@ -3,7 +3,7 @@
 <script>
     import Style from "./Style.svelte";
     // import Header from "./Header.svelte";
-    import Lang from "./Lang.svelte";
+    import Lang from "../components/Header.svelte";
     // import Render from "./Render.svelte";
     // import CV from "./Profile/CV.svelte";
 

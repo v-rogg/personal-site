@@ -1,6 +1,5 @@
 <script>
     import Skills from './Skills.svelte';
-    import {Route} from 'svelte-router-spa';
     import Experience from "./Experience.svelte";
 
     export let currentRoute;

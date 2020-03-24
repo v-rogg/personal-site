@@ -1,5 +1,4 @@
 <script>
-    import { navigateTo } from 'svelte-router-spa';
     import {createEventDispatcher} from "svelte";
 
     export let lang;
@@ -10,18 +9,18 @@
         dispatch('language', {
             lang: "en"
         });
-        navigateTo('lebenslauf', 'en');
+        // navigateTo('lebenslauf', 'en');
     }
 
     function setDE() {
         dispatch('language', {
             lang: "de"
         });
-        navigateTo('lebenslauf', 'de');
+        // navigateTo('lebenslauf', 'de');
     }
 
     function navMain() {
-        navigateTo('/');
+        // navigateTo('/');
     }
 </script>
 
@@ -173,13 +172,12 @@
     /*}*/
 </style>
 
-<div class="fixed">
-    <section class="lang container">
-        <h1 on:click={navMain} class="pointer"><!--<span class="mr hvr-buzz-out">♛</span>--> Valentin Rogg</h1>
-        <div>
-            <button on:click={setDE} class:b="{lang === 'de'}" disabled="{lang === 'de'}">de</button>
-            /
-            <button on:click={setEN} class:b="{lang === 'en'}" disabled="{lang === 'en'}">en</button>
-        </div>
-    </section>
-</div>
+
+<section class="lang container">
+    <h1 on:click={navMain} class="pointer"><!--<span class="mr hvr-buzz-out">♛</span>--> Valentin Rogg</h1>
+    <div>
+        <button on:click={setDE} class:b="{lang === 'de'}" disabled="{lang === 'de'}">de</button>
+        /
+        <button on:click={setEN} class:b="{lang === 'en'}" disabled="{lang === 'en'}">en</button>
+    </div>
+</section>
