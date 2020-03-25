@@ -1,6 +1,6 @@
 <script>
-    import Header from './Header.svelte';
-    import CV from './CV.svelte';
+    import Header from '../routes/about/components/Slogan.svelte';
+    import CV from '../routes/about/components/CV.svelte';
     export let currentRoute;
 </script>
 

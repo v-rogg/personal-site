@@ -3,6 +3,8 @@
 	import Header from "../components/Header.svelte";
 
 	export let segment;
+
+	export let lang;
 </script>
 
 <style>

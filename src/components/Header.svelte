@@ -1,26 +1,12 @@
 <script>
-    import {createEventDispatcher} from "svelte";
-
-    export let lang;
-
-    const dispatch = createEventDispatcher();
+    import { lang } from '../stores';
 
     function setEN() {
-        dispatch('language', {
-            lang: "en"
-        });
-        // navigateTo('lebenslauf', 'en');
+        $lang = 'en';
     }
 
     function setDE() {
-        dispatch('language', {
-            lang: "de"
-        });
-        // navigateTo('lebenslauf', 'de');
-    }
-
-    function navMain() {
-        // navigateTo('/');
+        $lang = 'de';
     }
 </script>
 
@@ -174,10 +160,10 @@
 
 
 <section class="lang container">
-    <h1 on:click={navMain} class="pointer"><!--<span class="mr hvr-buzz-out">♛</span>--> Valentin Rogg</h1>
+    <h1 class="pointer"><!--<span class="mr hvr-buzz-out">♛</span>--> Valentin Rogg</h1>
     <div>
-        <button on:click={setDE} class:b="{lang === 'de'}" disabled="{lang === 'de'}">de</button>
+        <button on:click={setDE} class:b="{$lang === 'de'}" disabled="{$lang === 'de'}">de</button>
         /
-        <button on:click={setEN} class:b="{lang === 'en'}" disabled="{lang === 'en'}">en</button>
+        <button on:click={setEN} class:b="{$lang === 'en'}" disabled="{$lang === 'en'}">en</button>
     </div>
 </section>
