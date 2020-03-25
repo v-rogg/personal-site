@@ -1,4 +1,4 @@
-# sapper-template
+# sapper-template - Valentin Rogg
 
 The default [Sapper](https://github.com/sveltejs/sapper) template, available for Rollup and webpack.
 
