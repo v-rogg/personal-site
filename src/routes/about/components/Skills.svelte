@@ -21,13 +21,13 @@
     {#if $lang === "de" }
     <div class="experience">
         <h4><b>Sprachen</b></h4>
-        <p>Deutsch C2, Englisch C1, Französisch B2, Spanisch A1</p>
+        <p>Deutsch Muttersprache, Englisch C2, Französisch B2, Spanisch A1</p>
     </div>
     {/if}
     {#if $lang === "en" }
     <div class="experience">
         <h4><b>Languages</b></h4>
-        <p>German C2, English C1, French B2, Spanish A1</p>
+        <p>German native, English C2, French B2, Spanish A1</p>
     </div>
 
     {/if}
