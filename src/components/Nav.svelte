@@ -17,8 +17,8 @@
     /*}*/
 
     ul {
-    	margin: 0 -1em 0 -1em;
-    	padding: 0;
+    	margin: 0 -4em 0 -4em;
+        padding: 0 3em;
     }
 
     a {
@@ -72,10 +72,14 @@
     /*    padding: 1em 0.5em;*/
     /*    display: block;*/
     /*}*/
+
+    .nav {
+        border-bottom: 1px solid #000000;
+    }
 </style>
 
 <nav class="container">
-    <ul class="flex">
+    <ul class="flex nav">
         {#if $lang === 'de'}
             <li><a aria-current='{segment === undefined ? "page" : undefined}' href='.'>Projekte</a></li>
         {/if}

@@ -18,13 +18,13 @@
 	/*}*/
 	.fixed {
 		position: fixed;
-		/*background: white;*/
+		background: white;
 		width: 100%;
 		top: 0;
 	}
 
 	.main--mt {
-		margin-top: 12rem;
+		padding-top: 12rem;
 	}
 </style>
 
