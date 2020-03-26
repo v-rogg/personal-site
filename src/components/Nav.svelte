@@ -84,10 +84,10 @@
             <li><a aria-current='{segment === undefined ? "page" : undefined}' href='.'>Projekte</a></li>
         {/if}
         {#if $lang === 'en'}
-            <li><a aria-current='{segment === "about" ? "page" : undefined}' href='.'>Projects</a></li>
+            <li><a aria-current='{segment === undefined ? "page" : undefined}' href='.'>Projects</a></li>
         {/if}
         {#if $lang === 'de'}
-            <li><a aria-current='{segment === undefined ? "page" : undefined}' href='.'>Bio</a></li>
+            <li><a aria-current='{segment === "about" ? "page" : undefined}' href='.'>Bio</a></li>
         {/if}
         {#if $lang === 'en'}
             <li><a aria-current='{segment === "about" ? "page" : undefined}' href='about'>Bio</a></li>
