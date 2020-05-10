@@ -59,8 +59,8 @@
 
     .logo {
         width: 40%;
+        transform: translateX(2px);
     }
-
 
     @media (max-width: 991.98px) {
         .lang {
