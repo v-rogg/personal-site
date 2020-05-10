@@ -54,12 +54,12 @@
             </b>
         </h2>
         <div class="links">
-            <a href="https://www.theia-tracking.de">
+            <a href="https://app.theia-tracking.de">
                 {#if $lang === 'de'}
                     Zur Website
                 {/if}
                 {#if $lang === 'en' }
-                    To Website
+                    To website
                 {/if}
             </a>
         </div>
