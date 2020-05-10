@@ -6,15 +6,6 @@
 </script>
 
 <style lang="scss">
-    /*nav {*/
-    /*    border-bottom: 1px solid rgba(255,62,0,0.1);*/
-    /*    font-weight: 300;*/
-    /*    padding: 0 1em;*/
-    /*    ul {*/
-    /*        margin: 0;*/
-    /*        padding: 0;*/
-    /*    }*/
-    /*}*/
 
     ul {
     	margin: 0 -4em 0 -4em;
@@ -26,12 +17,46 @@
         color: black;
         text-decoration: none;
         padding: 0;
-        display: block;
+        /*display: block;*/
+        position: relative;
+        display: inline-block;
+
+            &:hover {
+                &:after {
+                    position: absolute;
+                    content: '';
+                    width: calc(100% - .5em);
+                    height: 3px;
+                    display: block;
+                    bottom: -7px;
+                    margin-left: .25em;
+                    /*background-color: #bfbfbf;*/
+                    /*background-color: #FF8000;*/
+                }
+            }
+
+            &:hover {
+                &:after {
+                    position: absolute;
+                    content: '';
+                    width: calc(100% - .5em);
+                    height: 3px;
+                    display: block;
+                    bottom: -7px;
+                    margin-left: .25em;
+                    /*background-color: #bfbfbf;*/
+                    /*background-color: #00BFA8;*/
+                }
+            }
+
     }
 
     .flex {
         display: flex;
         justify-content: start;
+    }
+
+    .nav {
     }
 
     li {
@@ -53,7 +78,6 @@
     [aria-current] {
         position: relative;
         display: inline-block;
-        /*font-weight: 700;*/
     }
 
     [aria-current]::after {
@@ -61,40 +85,39 @@
         content: '';
         width: calc(100% - .5em);
         height: 3px;
-        background-color: black;
         display: block;
         bottom: -7px;
         margin-left: .25em;
     }
 
-    /*a {*/
-    /*    text-decoration: none;*/
-    /*    padding: 1em 0.5em;*/
-    /*    display: block;*/
-    /*}*/
-
-    .nav {
-        border-bottom: 1px solid #000000;
+    .a::after {
+        background-color: #FF8000;
     }
+
+    .b::after {
+        background-color: #00BFA8;
+    }
+
+    .c::after {
+        background-color: #FF4040;
+    }
+
 </style>
 
 <nav class="container">
     <ul class="flex nav">
         {#if $lang === 'de'}
-            <li><a aria-current='{segment === undefined ? "page" : undefined}' href='.'>Projekte</a></li>
+            <li><a aria-current='{segment === undefined ? "page" : undefined}' class='a' href='.'>Projekte</a></li>
         {/if}
         {#if $lang === 'en'}
-            <li><a aria-current='{segment === undefined ? "page" : undefined}' href='.'>Projects</a></li>
+            <li><a aria-current='{segment === undefined ? "page" : undefined}' class='a' href='.'>Projects</a></li>
         {/if}
         {#if $lang === 'de'}
-            <li><a aria-current='{segment === "about" ? "page" : undefined}' href='about'>Bio</a></li>
+            <li><a aria-current='{segment === "about" ? "page" : undefined}' class='b' href='about'>About</a></li>
         {/if}
         {#if $lang === 'en'}
-            <li><a aria-current='{segment === "about" ? "page" : undefined}' href='about'>Bio</a></li>
+            <li><a aria-current='{segment === "about" ? "page" : undefined}' class='b' href='about'>About</a></li>
         {/if}
-        <li><a aria-current='{segment === "repertoire" ? "page" : undefined}' href='repertoire'>Repertoire</a></li>
-        <!-- for the blog link, we're using rel=prefetch so that Sapper prefetches
-             the blog data when we hover over the link or tap it on a touchscreen -->
-        		<li><a rel=prefetch aria-current='{segment === "blog" ? "page" : undefined}' href='blog'>What did I teach my Mom today?</a></li>
+<!--        <li><a aria-current='{segment === "repertoire" ? "page" : undefined}' class='{segment === "repertoire" ? "c" : undefined}' href='repertoire'>Repertoire</a></li>-->
     </ul>
 </nav>

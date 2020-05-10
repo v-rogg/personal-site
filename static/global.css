@@ -45,6 +45,7 @@ b {
 
 .container {
     max-width: 1140px;
+    min-width: 1148px;
     margin: 0 auto;
     padding: 0 1rem;
 }
@@ -52,24 +53,28 @@ b {
 @media (min-width: 1200px) {
     .container {
         max-width: 1140px;
+        min-width: 1140px;
     }
 }
 
 @media (min-width: 992px) and (max-width: 1199.98px) {
     .container {
         max-width: 960px;
+        min-width: 960px;
     }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
     .container {
         max-width: 720px;
+        min-width: 720px;
     }
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
     .container {
         max-width: 540px;
+        min-width: 540px;
     }
 }
 
@@ -114,6 +119,8 @@ body {
     scroll-behavior: smooth;
     text-rendering: optimizeSpeed;
     line-height: 1.5;
+
+    width: auto;
 }
 
 canvas {

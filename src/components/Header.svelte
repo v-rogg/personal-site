@@ -1,5 +1,5 @@
 <script>
-    import { lang } from '../stores';
+    import {lang} from '../stores';
 
     function setEN() {
         $lang = 'en';
@@ -39,129 +39,41 @@
     .lang {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         padding-top: 1rem;
         /*background: rgba(255, 255, 255, 1);*/
     }
 
-    .fixed {
-        position: fixed;
-        /*background: white;*/
-        width: 100%;
-        top: 0;
+    .lang-switches {
+        height: fit-content;
     }
 
     .pointer {
         cursor: pointer;
     }
 
-    /*!* Buzz Out *!*/
-    /*@-webkit-keyframes hvr-buzz-out {*/
-    /*    10% {*/
-    /*        -webkit-transform: translateX(3px) rotate(2deg);*/
-    /*        transform: translateX(3px) rotate(2deg);*/
-    /*    }*/
-    /*    20% {*/
-    /*        -webkit-transform: translateX(-3px) rotate(-2deg);*/
-    /*        transform: translateX(-3px) rotate(-2deg);*/
-    /*    }*/
-    /*    30% {*/
-    /*        -webkit-transform: translateX(3px) rotate(2deg);*/
-    /*        transform: translateX(3px) rotate(2deg);*/
-    /*    }*/
-    /*    40% {*/
-    /*        -webkit-transform: translateX(-3px) rotate(-2deg);*/
-    /*        transform: translateX(-3px) rotate(-2deg);*/
-    /*    }*/
-    /*    50% {*/
-    /*        -webkit-transform: translateX(2px) rotate(1deg);*/
-    /*        transform: translateX(2px) rotate(1deg);*/
-    /*    }*/
-    /*    60% {*/
-    /*        -webkit-transform: translateX(-2px) rotate(-1deg);*/
-    /*        transform: translateX(-2px) rotate(-1deg);*/
-    /*    }*/
-    /*    70% {*/
-    /*        -webkit-transform: translateX(2px) rotate(1deg);*/
-    /*        transform: translateX(2px) rotate(1deg);*/
-    /*    }*/
-    /*    80% {*/
-    /*        -webkit-transform: translateX(-2px) rotate(-1deg);*/
-    /*        transform: translateX(-2px) rotate(-1deg);*/
-    /*    }*/
-    /*    90% {*/
-    /*        -webkit-transform: translateX(1px) rotate(0);*/
-    /*        transform: translateX(1px) rotate(0);*/
-    /*    }*/
-    /*    100% {*/
-    /*        -webkit-transform: translateX(-1px) rotate(0);*/
-    /*        transform: translateX(-1px) rotate(0);*/
-    /*    }*/
-    /*}*/
-    /*@keyframes hvr-buzz-out {*/
-    /*    10% {*/
-    /*        -webkit-transform: translateX(3px) rotate(2deg);*/
-    /*        transform: translateX(3px) rotate(2deg);*/
-    /*    }*/
-    /*    20% {*/
-    /*        -webkit-transform: translateX(-3px) rotate(-2deg);*/
-    /*        transform: translateX(-3px) rotate(-2deg);*/
-    /*    }*/
-    /*    30% {*/
-    /*        -webkit-transform: translateX(3px) rotate(2deg);*/
-    /*        transform: translateX(3px) rotate(2deg);*/
-    /*    }*/
-    /*    40% {*/
-    /*        -webkit-transform: translateX(-3px) rotate(-2deg);*/
-    /*        transform: translateX(-3px) rotate(-2deg);*/
-    /*    }*/
-    /*    50% {*/
-    /*        -webkit-transform: translateX(2px) rotate(1deg);*/
-    /*        transform: translateX(2px) rotate(1deg);*/
-    /*    }*/
-    /*    60% {*/
-    /*        -webkit-transform: translateX(-2px) rotate(-1deg);*/
-    /*        transform: translateX(-2px) rotate(-1deg);*/
-    /*    }*/
-    /*    70% {*/
-    /*        -webkit-transform: translateX(2px) rotate(1deg);*/
-    /*        transform: translateX(2px) rotate(1deg);*/
-    /*    }*/
-    /*    80% {*/
-    /*        -webkit-transform: translateX(-2px) rotate(-1deg);*/
-    /*        transform: translateX(-2px) rotate(-1deg);*/
-    /*    }*/
-    /*    90% {*/
-    /*        -webkit-transform: translateX(1px) rotate(0);*/
-    /*        transform: translateX(1px) rotate(0);*/
-    /*    }*/
-    /*    100% {*/
-    /*        -webkit-transform: translateX(-1px) rotate(0);*/
-    /*        transform: translateX(-1px) rotate(0);*/
-    /*    }*/
-    /*}*/
-    /*.hvr-buzz-out {*/
-    /*    display: inline-block;*/
-    /*    vertical-align: middle;*/
-    /*    -webkit-transform: perspective(1px) translateZ(0);*/
-    /*    transform: perspective(1px) translateZ(0);*/
-    /*    box-shadow: 0 0 1px rgba(0, 0, 0, 0);*/
-    /*}*/
-    /*.hvr-buzz-out:hover, .hvr-buzz-out:focus, .hvr-buzz-out:active {*/
-    /*    -webkit-animation-name: hvr-buzz-out;*/
-    /*    animation-name: hvr-buzz-out;*/
-    /*    -webkit-animation-duration: 0.75s;*/
-    /*    animation-duration: 0.75s;*/
-    /*    -webkit-animation-timing-function: linear;*/
-    /*    animation-timing-function: linear;*/
-    /*    -webkit-animation-iteration-count: 1;*/
-    /*    animation-iteration-count: 1;*/
-    /*}*/
 </style>
 
 
 <section class="lang container">
-    <h1 class="pointer"><!--<span class="mr hvr-buzz-out">♛</span>--> Valentin Rogg</h1>
-    <div>
+    <h1 class="pointer">Valentin Rogg</h1>
+
+    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 338 100" width="12rem" xml:space="preserve">
+        <path style="fill:#FF8000;" d="M97,3l0,94H3L3,3H97 M100,0H0l0,100h100L100,0L100,0z"/>
+        <rect x="0" y="0" style="opacity:0.33; fill:#FF8000;" width="100" height="100"/>
+        <path style="fill:#FF8000;" d="M63.6,36.4l0,27.1H36.4l0-27.1H63.6 M66.6,33.4H33.4l0,33.1h33.1L66.6,33.4L66.6,33.4z"/>
+        <rect x="33.4" y="33.4" style="fill:#FF8000; opacity:0.33;" width="33.1" height="33.1"/>
+	    <circle style="opacity:0.33;fill:#00BFA8;" cx="166.8" cy="50" r="50"/>
+		<path style="fill:#00BFA8;" d="M166.8,3c25.9,0,47,21.1,47,47s-21.1,47-47,47s-47-21.1-47-47S140.9,3,166.8,3 M166.8,0c-27.6,0-50,22.4-50,50s22.4,50,50,50c27.6,0,50-22.4,50-50S194.4,0,166.8,0L166.8,0z"/>
+	    <circle style="opacity:0.33;fill:#00BFA8;" cx="166.8" cy="50" r="17"/>
+		<path style="fill:#00BFA8;" d="M166.8,36c7.7,0,14,6.3,14,14s-6.3,14-14,14s-14-6.3-14-14S159.1,36,166.8,36 M166.8,33c-9.4,0-17,7.6-17,17s7.6,17,17,17c9.4,0,17-7.6,17-17S176.2,33,166.8,33L166.8,33z"/>
+		<path style="fill:#FF4040;" d="M279.6,6l52.5,91H227L279.6,6 M279.6,0l-57.7,100h115.5L279.6,0L279.6,0z"/>
+		<polygon style="opacity:0.33; fill:#FF4040;" points="279.6,0 221.8,100 337.3,100"/>
+		<path style="fill:#FF4040;" d="M279.6,50.5l13.3,23.1h-26.7L279.6,50.5 M279.6,44.5l-18.5,32.1h37.1L279.6,44.5L279.6,44.5z"/>
+		<polygon style="opacity:0.33; fill:#FF4040;" points="279.6,44.5 261.1,76.6 298.1,76.6"/>
+    </svg>
+
+    <div class="lang-switches">
         <button on:click={setDE} class:b="{$lang === 'de'}" disabled="{$lang === 'de'}">de</button>
         /
         <button on:click={setEN} class:b="{$lang === 'en'}" disabled="{$lang === 'en'}">en</button>

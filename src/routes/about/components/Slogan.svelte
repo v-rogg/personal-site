@@ -13,7 +13,7 @@
     .flex-column {
         display: flex;
         flex-direction: column;
-        justify-content: end;
+        justify-content: start;
     }
 
     .info {
@@ -46,8 +46,8 @@
     {/if}
     <div class="flex-column">
         <a class="info" href="https://linkedin.com/in/vrogg">linkedin.com/in/vrogg</a>
-        <a class="info" href="tel:+49 (175) 7090991">+49 (175) 70 90 991</a>
-        <a class="info" href="mailto:valentin.rogg@hs-augsburg.de">valentin.rogg@hs-augsburg.de</a>
+<!--        <a class="info" href="tel:+49 (175) 7090991">+49 (175) 70 90 991</a>-->
+        <a class="info" href="mailto:valentin.rogg@hs-augsburg.de">mail@valentinrogg.de</a>
     </div>
 
 </section>

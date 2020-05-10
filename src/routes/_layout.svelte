@@ -3,8 +3,6 @@
     import Header from "../components/Header.svelte";
 
     export let segment;
-
-    export let lang;
 </script>
 
 <style>
@@ -20,7 +18,9 @@
         position: fixed;
         background: white;
         width: 100%;
+        /*width: 98%;*/
         top: 0;
+        margin: 0 auto;
     }
 
     .main--mt {
