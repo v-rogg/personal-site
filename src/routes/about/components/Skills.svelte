@@ -18,18 +18,15 @@
     {#if $lang === "en" }
         <h2><b>Skills</b></h2>
     {/if}
-    {#if $lang === "de" }
-    <div class="experience">
-        <h4><b>Sprachen</b></h4>
-        <p>Deutsch Muttersprache, Englisch C2, Französisch B2, Spanisch A1</p>
-    </div>
-    {/if}
-    {#if $lang === "en" }
-    <div class="experience">
-        <h4><b>Languages</b></h4>
-        <p>German native, English C2, French B2, Spanish A1</p>
-    </div>
 
-    {/if}
-
+    <div class="experience">
+        {#if $lang === "de" }
+            <h4><b>Sprachen</b></h4>
+            <p>Deutsch Muttersprache, Englisch C2, Französisch B2, Spanisch A1</p>
+        {/if}
+        {#if $lang === "en" }
+            <h4><b>Languages</b></h4>
+            <p>German native, English C2, French B2, Spanish A1</p>
+        {/if}
+    </div>
 </div>

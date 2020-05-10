@@ -12,8 +12,7 @@
 	<link rel='icon' type='image/png' href='favicon.png'>
 </svelte:head>
 
-<div>
-	<ACA></ACA>
-	<Dedun></Dedun>
-	<Montgolfiere></Montgolfiere>
-</div>
+<!--Projects-->
+<ACA></ACA>
+<Dedun></Dedun>
+<Montgolfiere></Montgolfiere>

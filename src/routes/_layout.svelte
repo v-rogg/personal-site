@@ -14,6 +14,7 @@
     /*	margin: 0 auto;*/
     /*	box-sizing: border-box;*/
     /*}*/
+
     .fixed {
         position: fixed;
         background: white;
@@ -32,10 +33,6 @@
             padding-top: 16rem;
         }
     }
-        /*.main--mt {*/
-        /*    */
-        /*}*/
-    /*}*/
 </style>
 
 <header class="fixed">

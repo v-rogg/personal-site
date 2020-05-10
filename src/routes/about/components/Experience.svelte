@@ -6,85 +6,117 @@
     .experience {
         margin-top: 1.25rem;
     }
-    .time {
-
-    }
     .w50 {
         width: 50%
     }
 </style>
 
 <div class="w50">
-    {#if $lang === "de" }
-        <h2><b>Erfahrungen</b></h2>
-    {/if}
-
-    {#if $lang === "en" }
-        <h2><b>Experience</b></h2>
-    {/if}
+    <h2>
+        <b>
+        {#if $lang === "de" }
+            Erfahrungen
+        {/if}
+        {#if $lang === "en" }
+            Experience
+        {/if}
+        </b>
+    </h2>
 
     <div class="experience">
-        {#if $lang === "de"}
-            <div class="time">10/2017 <span class="mono">-></span> vsl. 02/2021</div>
-        {/if}
-        {#if $lang === "en"}
-            <div class="time">10/2017 <span class="mono">-></span> planed 02/2021</div>
-        {/if}
-        {#if $lang === "de"}
-            <h4><b>Hochschule Augsburg</b></h4>
-            <div>Interaktive Medien B.Sc.</div>
-        {/if}
-        {#if $lang === "en"}
-            <h4><b>University of Applied Science Augsburg</b></h4>
-            <div>Interactive Media B.Sc.</div>
-        {/if}
+        <div class="time">
+            10/2017 <span class="mono">-></span>
+            {#if $lang === "de"}
+                vsl. 02/2021
+            {/if}
+            {#if $lang === "en"}
+                planned 02/2021
+            {/if}
+        </div>
+        <h4>
+            <b>
+                {#if $lang === "de"}
+                    Hochschule Augsburg
+                {/if}
+                {#if $lang === "en"}
+                    University of Applied Science Augsburg
+                {/if}
+                <div>
+                    {#if $lang === "de"}
+                        Interaktive Medien B.Sc.
+                    {/if}
+                    {#if $lang === "en"}
+                        Interactive Media B.Sc.
+                    {/if}
+                </div>
+            </b>
+        </h4>
     </div>
 
     <div class="experience">
-        {#if $lang === "de"}
-            <div class="time">2016 <span class="mono">-></span> HEUTE</div>
-        {/if}
-        {#if $lang === "en"}
-            <div class="time">2016 <span class="mono">-></span> TODAY</div>
-        {/if}
-        {#if $lang === "de"}
-            <h4><b>Selbstständig</b></h4>
-        {/if}
-        {#if $lang === "en"}
-            <h4><b>Freelance</b></h4>
-        {/if}
+        <div class="time">
+            2016 <span class="mono">-></span>
+            {#if $lang === "de"}
+                HEUTE
+            {/if}
+            {#if $lang === "en"}
+                TODAY
+            {/if}
+        </div>
+        <h4>
+            <b>
+                {#if $lang === "de"}
+                    Selbstständig
+                {/if}
+                {#if $lang === "en"}
+                    Freelance
+                {/if}
+            </b>
+        </h4>
     </div>
 
     <div class="experience">
-        <div class="time">09/2019 <span class="mono">-></span> 02/2020</div>
+        <div class="time">
+            09/2019 <span class="mono">-></span> 02/2020
+        </div>
         <h4><b>Planstack</b></h4>
-        {#if $lang === "de"}
-            <div>Praktikant Full-Stack Webentwicklung</div>
-        {/if}
-        {#if $lang === "en"}
-            <div>Inter Full-Stack Web development</div>
-        {/if}
+        <div>
+            {#if $lang === "de"}
+                Praktikant Full-Stack Webentwicklung
+            {/if}
+            {#if $lang === "en"}
+                Inter Full-Stack Web development
+            {/if}
+        </div>
     </div>
 
     <div class="experience">
-        <div class="time">10/2017 <span class="mono">-></span> 09/2019</div>
+        <div class="time">
+            10/2017 <span class="mono">-></span> 09/2019
+        </div>
         <h4><b>Starkstrom Augsburg e.V.</b></h4>
-        {#if $lang === "de"}
-            <div>Führende Position Marketing</div>
-        {/if}
-        {#if $lang === "en"}
-            <div>Lead Marketing and Public Relations</div>
-        {/if}
+        <div>
+            {#if $lang === "de"}
+                Führende Position Marketing
+            {/if}
+            {#if $lang === "en"}
+                Lead Marketing and Public Relations
+            {/if}
+        </div>
     </div>
 
     <div class="experience">
-        <div class="time">10/2018 <span class="mono">-></span> 07/2019</div>
+        <div class="time">
+            10/2018 <span class="mono">-></span> 07/2019
+        </div>
         <h4><b>.NFQ Digital Creatives</b></h4>
-        {#if $lang === "de"}
-            <div>Werkstudent</div>
-        {/if}
-        {#if $lang === "en"}
-            <div>Working student</div>
-        {/if}
+        <div>
+            {#if $lang === "de"}
+                Werkstudent
+            {/if}
+            {#if $lang === "en"}
+                Working student
+            {/if}
+        </div>
     </div>
 </div>
