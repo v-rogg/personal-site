@@ -11,13 +11,7 @@
 </script>
 
 <style>
-    h1 {
-        text-transform: uppercase;
-        font-size: 2rem;
-        margin-top: 0;
-        margin-bottom: 0;
-        font-weight: 700;
-    }
+
 
     button {
         border: none;
@@ -36,6 +30,10 @@
         font-weight: 700;
     }
 
+    .pointer {
+        cursor: pointer;
+    }
+
     .lang {
         display: flex;
         justify-content: space-between;
@@ -44,30 +42,56 @@
         /*background: rgba(255, 255, 255, 1);*/
     }
 
+    h1 {
+        text-transform: uppercase;
+        font-size: 2rem;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-weight: 700;
+        width: 30%;
+    }
+
     .lang-switches {
         height: fit-content;
         text-align: right;
+        width: 30%;
     }
 
-    .pointer {
-        cursor: pointer;
+    .logo {
+        width: 40%;
     }
 
-    .w-20 {
-        width: 20%;
-    }
 
-    .w-60 {
-        width: 60%;
-    }
+    @media (max-width: 991.98px) {
+        .lang {
+            flex-wrap: wrap;
+        }
 
+        h1 {
+            order: 2;
+            width: 70%;
+            /*flex: 2 0 50%;*/
+        }
+        .logo {
+            order: 1;
+            width: 100%;
+            min-width: 100%;
+            margin-bottom: 1rem;
+            /*padding-bottom: 1rem;*/
+        }
+        .lang-switches {
+            order: 3;
+            width: 30%;
+            /*flex: 2 0 50%;*/
+        }
+    }
 </style>
 
 
 <section class="lang container">
-    <h1 class="pointer w-20">Valentin Rogg</h1>
+    <h1 class="pointer">Valentin Rogg</h1>
 
-    <svg class="w-60" style="max-width: 12rem; max-height: 3rem;" version="1.1" id="Valentin Rogg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 338 100" xml:space="preserve">
+    <svg class="logo" style="max-width: 12rem; max-height: 3rem;" version="1.1" id="Valentin Rogg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 338 100" xml:space="preserve">
         <path style="fill:#FF8000;" d="M97,3l0,94H3L3,3H97 M100,0H0l0,100h100L100,0L100,0z"/>
         <rect x="0" y="0" style="opacity:0.33; fill:#FF8000;" width="100" height="100"/>
         <path style="fill:#FF8000;" d="M63.6,36.4l0,27.1H36.4l0-27.1H63.6 M66.6,33.4H33.4l0,33.1h33.1L66.6,33.4L66.6,33.4z"/>
@@ -82,7 +106,7 @@
 		<polygon style="opacity:0.33; fill:#FF4040;" points="279.6,44.5 261.1,76.6 298.1,76.6"/>
     </svg>
 
-    <div class="lang-switches w-20">
+    <div class="lang-switches">
         <button on:click={setDE} class:b="{$lang === 'de'}" disabled="{$lang === 'de'}">de</button>
         /
         <button on:click={setEN} class:b="{$lang === 'en'}" disabled="{$lang === 'en'}">en</button>
