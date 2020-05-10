@@ -10,12 +10,12 @@
     }
 
     .subline {
-        width: 50%;
+        /*width: 50%;*/
     }
 
     .description {
         margin-top: 2rem;
-        width: 50%;
+        /*width: 50%;*/
     }
 
     .header {
