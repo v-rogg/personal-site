@@ -1,8 +1,8 @@
 <script>
 	import {stores} from '@sapper/app';
-	import ACA from "../components/projects/ACA.svelte";
-	import Dedun from "../components/projects/Dedun.svelte";
-	import Montgolfiere from "../components/projects/Montgolfiere.svelte";
+	import ACA from "./projects/ACA.svelte";
+	import Dedun from "./projects/Dedun.svelte";
+	import Montgolfiere from "./projects/Montgolfiere.svelte";
 
 	const {preloading, page, session} = stores();
 </script>

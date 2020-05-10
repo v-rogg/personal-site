@@ -1,5 +1,5 @@
 <script>
-    import { lang } from '../../../stores';
+    import { lang } from '../../../../stores';
 </script>
 
 <style>
@@ -8,6 +8,12 @@
     }
     .w50 {
         width: 50%
+    }
+
+    @media (max-width: 991.98px) {
+        .w50 {
+            margin-bottom: 4rem;
+        }
     }
 </style>
 

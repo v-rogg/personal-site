@@ -1,18 +1,16 @@
 <script>
-
     import { lang } from '../stores';
 
     export let segment;
 </script>
 
 <style lang="scss">
+    @import "../../static/styles/theme.scss";
 
     ul {
     	margin: 0 -4em 0 -4em;
         padding: 0 3em;
     }
-
-
 
     .flex {
         display: flex;
@@ -87,16 +85,12 @@
     }
 
     .a::after {
-        background-color: #FF8000;
+        background-color: $orange;
     }
 
     .b::after {
-        background-color: #00BFA8;
+        background-color: $blue;
     }
-
-    /*.c::after {*/
-    /*    background-color: #FF4040;*/
-    /*}*/
 
 </style>
 
@@ -114,6 +108,5 @@
         {#if $lang === 'en'}
             <li><a aria-current='{segment === "about" ? "page" : undefined}' class='b' href='about'>About</a></li>
         {/if}
-<!--        <li><a aria-current='{segment === "repertoire" ? "page" : undefined}' class='{segment === "repertoire" ? "c" : undefined}' href='repertoire'>Repertoire</a></li>-->
     </ul>
 </nav>

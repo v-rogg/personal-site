@@ -1,40 +1,9 @@
 <script>
-    import {lang} from '../stores';
-
-    function setEN() {
-        $lang = 'en';
-    }
-
-    function setDE() {
-        $lang = 'de';
-    }
+    import Lang from './Lang.svelte';
 </script>
 
 <style>
-
-
-    button {
-        border: none;
-        background: none;
-        margin: 0;
-        cursor: pointer;
-        font-weight: 400;
-    }
-
-    button:disabled {
-        color: black;
-        cursor: text;
-    }
-
-    .b {
-        font-weight: 700;
-    }
-
-    .pointer {
-        cursor: pointer;
-    }
-
-    .lang {
+    .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -42,32 +11,31 @@
         /*background: rgba(255, 255, 255, 1);*/
     }
 
+    .pointer {
+        cursor: pointer;
+    }
+
     h1 {
         text-transform: uppercase;
         font-size: 2rem;
-        margin-top: 0;
-        margin-bottom: 0;
         font-weight: 700;
-        width: 30%;
     }
 
-    .lang-switches {
-        height: fit-content;
-        text-align: right;
+    a {
         width: 30%;
     }
 
     .logo {
         width: 40%;
-        transform: translateX(2px);
+        transform: translateX(1.5px);
     }
 
     @media (max-width: 991.98px) {
-        .lang {
+        .header {
             flex-wrap: wrap;
         }
 
-        h1 {
+        a {
             order: 2;
             width: 70%;
             /*flex: 2 0 50%;*/
@@ -79,17 +47,17 @@
             margin-bottom: 1rem;
             /*padding-bottom: 1rem;*/
         }
-        .lang-switches {
-            order: 3;
-            width: 30%;
-            /*flex: 2 0 50%;*/
-        }
+    }
+
+    a {
+        color: black;
+        text-decoration: none;
     }
 </style>
 
 
-<section class="lang container">
-    <h1 class="pointer">Valentin Rogg</h1>
+<section class="header container">
+    <a class="pointer" href='.'><h1>Valentin Rogg</h1></a>
 
     <svg class="logo" style="max-width: 12rem; max-height: 3rem;" version="1.1" id="Valentin Rogg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 338 100" xml:space="preserve">
         <path style="fill:#FF8000;" d="M97,3l0,94H3L3,3H97 M100,0H0l0,100h100L100,0L100,0z"/>
@@ -106,9 +74,5 @@
 		<polygon style="opacity:0.33; fill:#FF4040;" points="279.6,44.5 261.1,76.6 298.1,76.6"/>
     </svg>
 
-    <div class="lang-switches">
-        <button on:click={setDE} class:b="{$lang === 'de'}" disabled="{$lang === 'de'}">de</button>
-        /
-        <button on:click={setEN} class:b="{$lang === 'en'}" disabled="{$lang === 'en'}">en</button>
-    </div>
+    <Lang/>
 </section>

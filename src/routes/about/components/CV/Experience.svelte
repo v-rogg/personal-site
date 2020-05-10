@@ -1,5 +1,5 @@
 <script>
-    import { lang } from '../../../stores';
+    import { lang } from '../../../../stores';
 </script>
 
 <style>
