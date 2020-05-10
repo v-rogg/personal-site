@@ -9,6 +9,7 @@
 
 <svelte:head>
 	<title>Valentin Rogg</title>
+	<link rel='icon' type='image/png' href='favicon.png'>
 </svelte:head>
 
 <div>

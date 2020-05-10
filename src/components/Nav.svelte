@@ -113,7 +113,7 @@
             <li><a aria-current='{segment === undefined ? "page" : undefined}' class='a' href='.'>Projects</a></li>
         {/if}
         {#if $lang === 'de'}
-            <li><a aria-current='{segment === "about" ? "page" : undefined}' class='b' href='about'>About</a></li>
+            <li><a aria-current='{segment === "about" ? "page" : undefined}' class='b' href='about'>Über mich</a></li>
         {/if}
         {#if $lang === 'en'}
             <li><a aria-current='{segment === "about" ? "page" : undefined}' class='b' href='about'>About</a></li>
