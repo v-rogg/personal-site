@@ -26,6 +26,16 @@
     .main--mt {
         padding-top: 12rem;
     }
+
+    @media (max-width: 991.98px) {
+        .main--mt {
+            padding-top: 16rem;
+        }
+    }
+        /*.main--mt {*/
+        /*    */
+        /*}*/
+    /*}*/
 </style>
 
 <header class="fixed">
