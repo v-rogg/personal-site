@@ -17,7 +17,7 @@
 </style>
 
 
-<section class="flex">
+<section class="flex container">
     <Experience />
     <Skills />
 </section>

@@ -41,7 +41,7 @@
     }
 </style>
 
-<section class="flex">
+<section class="flex container">
     <div class="slogan">
         {#if $lang === 'de'}
             Zur Zeit arbeite ich an<br><b><span class="orange">Anonymer</span> <span class="blue">Personen</span> <span class="red">Analyse</span></b><br><br>Ich studiere <b>Interaktive Medien B.A.</b>

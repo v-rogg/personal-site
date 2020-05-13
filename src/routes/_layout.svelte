@@ -40,6 +40,6 @@
     <Nav {segment}/>
 </header>
 
-<main class="container main--mt">
+<main class="main--mt">
     <slot></slot>
 </main>
