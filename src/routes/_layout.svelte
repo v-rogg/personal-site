@@ -12,7 +12,7 @@
     let touchstartY = 0;
     let touchendX = 0;
     let touchendY = 0;
-    let swipe = "null";
+    let swipe = "";
 
     onMount(() => {
 
@@ -33,13 +33,13 @@
             if (touchendX < touchstartX) {
                 console.log('Swiped left');
                 goto("/");
-                swipe = "Left";
+                swipe = "Swipe Right";
             }
 
             if (touchendX > touchstartX) {
                 console.log('Swiped right');
                 goto("/about");
-                swipe = "Right";
+                swipe = "Swipe Left";
             }
 
             // if (touchendY < touchstartY) {
