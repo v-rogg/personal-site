@@ -30,15 +30,15 @@
         }, false);
 
         function handleGesture() {
-            if (touchendX < touchstartX) {
-                goto("/about");
-                swipe = "Nice one :D";
-            }
-
-            if (touchendX > touchstartX) {
-                goto("/");
-                swipe = "Uhh you swipped!";
-            }
+            // if (touchendX < touchstartX) {
+            //     goto("/about");
+            //     swipe = "Nice one :D";
+            // }
+            //
+            // if (touchendX > touchstartX) {
+            //     goto("/");
+            //     swipe = "Uhh you swipped!";
+            // }
 
             // if (touchendY < touchstartY) {
             //     console.log('Swiped up');
