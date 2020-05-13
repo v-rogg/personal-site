@@ -1,7 +1,7 @@
 {
   "name": "personal-site",
   "description": "My personal site",
-  "version": "0.0.1",
+  "version": "1.2",
   "scripts": {
     "dev": "sapper dev",
     "build": "sapper build --legacy",
