@@ -10,16 +10,6 @@
         display: flex;
         justify-content: space-between;
     }
-
-    a {
-        text-decoration: none;
-        color: black;
-
-        &:hover {
-            font-weight: 600;
-        }
-    }
-
     span {
         margin-right: .25em;
     }
