@@ -16,7 +16,7 @@
 
     onMount(() => {
 
-        const gestureZone = document.getElementById('modalContent');
+        const gestureZone = document.body;
 
         gestureZone.addEventListener('touchstart', function(event) {
             touchstartX = event.changedTouches[0].screenX;
@@ -31,15 +31,13 @@
 
         function handleGesture() {
             if (touchendX < touchstartX) {
-                console.log('Swiped left');
-                goto("/");
-                swipe = "Swipe Right";
+                goto("/about");
+                swipe = "Nice one :D";
             }
 
             if (touchendX > touchstartX) {
-                console.log('Swiped right');
-                goto("/about");
-                swipe = "Swipe Left";
+                goto("/");
+                swipe = "Uhh you swipped!";
             }
 
             // if (touchendY < touchstartY) {
