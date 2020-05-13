@@ -25,10 +25,10 @@
         width: 30%;
     }
 
-    .logo {
-        width: 40%;
-        transform: translateX(1.5px);
-    }
+    /*.logo {*/
+    /*    width: 40%;*/
+    /*    transform: translateX(1.5px);*/
+    /*}*/
 
     @media (max-width: 991.98px) {
         .header {
@@ -40,13 +40,13 @@
             width: 70%;
             /*flex: 2 0 50%;*/
         }
-        .logo {
-            order: 1;
-            width: 100%;
-            min-width: 100%;
-            margin-bottom: 1rem;
-            /*padding-bottom: 1rem;*/
-        }
+        /*.logo {*/
+        /*    order: 1;*/
+        /*    width: 100%;*/
+        /*    min-width: 100%;*/
+        /*    margin-bottom: 1rem;*/
+        /*    !*padding-bottom: 1rem;*!*/
+        /*}*/
     }
 
     a {
