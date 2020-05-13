@@ -1,6 +1,7 @@
 <script>
     import Nav from '../components/Nav.svelte';
     import Header from "../components/Header.svelte";
+    import Footer from "../components/Footer.svelte";
 
     export let segment;
 </script>
@@ -24,6 +25,10 @@
         margin: 0 auto;
     }
 
+    header {
+        z-index: 1090;
+    }
+
     .main--mt {
         padding-top: 12rem;
     }
@@ -41,5 +46,9 @@
 </header>
 
 <main class="main--mt">
-    <slot></slot>
+    <slot/>
 </main>
+
+<footer>
+    <Footer/>
+</footer>

@@ -7,6 +7,9 @@
         list-style: none;
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: .5rem;
+        z-index: -1;
 
         li {
             margin: 0;
@@ -26,7 +29,8 @@
     }
 
     section {
-        margin-bottom: 2rem;
+        /*<!--margin-top: -3rem;-->*/
+        margin-bottom: 5rem;
     }
 
     /* Shrink */

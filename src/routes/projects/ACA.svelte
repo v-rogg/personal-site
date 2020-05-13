@@ -2,7 +2,7 @@
     import { lang } from '../../stores';
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
     h2 {
         display: flex;
         flex-direction: column;

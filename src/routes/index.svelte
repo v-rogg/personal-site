@@ -15,8 +15,8 @@
 </svelte:head>
 
 <!--Projects-->
-<Jobs></Jobs>
-<Video></Video>
-<ACA></ACA>
-<Dedun></Dedun>
-<Montgolfiere></Montgolfiere>
+<Jobs/>
+<!--<Video></Video>-->
+<ACA/>
+<Dedun/>
+<Montgolfiere/>
