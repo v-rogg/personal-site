@@ -3,6 +3,8 @@
     import Header from "../components/Header.svelte";
     import Footer from "../components/Footer.svelte";
     import { onMount } from 'svelte';
+    import { goto } from '@sapper/app';
+
 
     export let segment;
 
@@ -30,28 +32,30 @@
         function handleGesture() {
             if (touchendX < touchstartX) {
                 console.log('Swiped left');
+                goto("/");
                 swipe = "Left";
             }
 
             if (touchendX > touchstartX) {
                 console.log('Swiped right');
+                goto("/about");
                 swipe = "Right";
             }
 
-            if (touchendY < touchstartY) {
-                console.log('Swiped up');
-                swipe = "Up";
-            }
+            // if (touchendY < touchstartY) {
+            //     console.log('Swiped up');
+            //     swipe = "Up";
+            // }
+            //
+            // if (touchendY > touchstartY) {
+            //     console.log('Swiped down');
+            //     swipe = "Down";
+            // }
 
-            if (touchendY > touchstartY) {
-                console.log('Swiped down');
-                swipe = "Down";
-            }
-
-            if (touchendY === touchstartY) {
-                console.log('Tap');
-                swipe = "Tap";
-            }
+            // if (touchendY === touchstartY) {
+            //     console.log('Tap');
+            //     swipe = "Tap";
+            // }
         }
     })
 
