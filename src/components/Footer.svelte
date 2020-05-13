@@ -33,6 +33,9 @@
 <!--        <a href="./impressum">Impressum</a>-->
 <!--    </div>-->
     <div>
+        <slot></slot>
+    </div>
+    <div>
         <span>v1.1</span> {#if $lang === 'en'}05/15/20{/if} {#if $lang === 'de'}15.05.20{/if}
     </div>
 </section>
