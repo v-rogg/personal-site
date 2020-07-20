@@ -7,10 +7,12 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        font-weight: 900 !important;
     }
 
     .subline {
         /*width: 50%;*/
+        font-weight: 600;
     }
 
     .description {
@@ -27,7 +29,10 @@
 
     a {
         text-decoration: none;
-        color: #FF8000;
+        /*color: #FF8000;*/
+        /*color: rgb(0, 0, 238);*/
+        color: #0000EE;
+        color: #551A8B;
 
         &:hover {
             text-decoration: underline;
@@ -45,14 +50,12 @@
     <div class="aca container">
         <div class="header">
             <h2>
-                <b>
-                    {#if $lang === 'de'}
-                        Anonyme Menschenmenge Analyse
-                    {/if}
-                    {#if $lang === 'en' }
-                        Anonymous Crowd Analysis
-                    {/if}
-                </b>
+                {#if $lang === 'de'}
+                    Kamerabasiertes Besuchertracking
+                {/if}
+                {#if $lang === 'en' }
+                    Camera-based visitor tracking
+                {/if}
             </h2>
             <div class="links">
                 <a href="https://app.theia-tracking.de">
@@ -67,7 +70,7 @@
         </div>
         <div class="subline">
             {#if $lang === 'de'}
-                Unser Produkt beschäftigt sich mit der anonymen Positionsefassung von Personen und Auswertung deren Verhalten.<br>
+                Unser Produkt beschäftigt sich mit der anonymen Positionserfassung von Personen und Auswertung deren Verhaltens.<br>
                 Das System kann vor allem im Einzelhandel, Sportstudios oder dem öffentlichen Raum zur Verwendung kommen.
             {/if}
             {#if $lang === 'en' }
@@ -77,10 +80,10 @@
         </div>
         <div class="description">
             {#if $lang === 'de'}
-                Mithilfe von Sensoren wir die Postition von Personen anonym erfasst und abgespeichert.
-                Diese Positionsdaten werden auf Laufwege und Aufenthaltsorte analysiert. Mithilfe diser Daten
-                können Statisitken erstellt, und Aussagen über die Beliebheit und Platzierung von bestimmten
-                Bezugspunkten getroffen werden. Diese Aussagen und Statisitken werden durch ein Dashboards aufbereitet präsentiert.
+                Mithilfe von Sensoren wird die Position von Personen anonym erfasst und abgespeichert.
+                Diese Positionsdaten werden auf Laufwege und Aufenthaltsorte analysiert. Mithilfe dieser Daten
+                können Statistiken erstellt, und Aussagen über die Beliebheit und Platzierung von bestimmten
+                Bezugspunkten getroffen werden. Diese Aussagen und Statistiken werden durch ein Dashboards aufbereitet präsentiert.
             {/if}
             {#if $lang === 'en' }
                 With the help of sensors, the position of people is anonymously tracked and stored.

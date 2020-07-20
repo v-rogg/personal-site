@@ -45,7 +45,7 @@
                 position: absolute;
                 content: '';
                 width: calc(100% - .5em);
-                height: 3px;
+                height: 1.5px;
                 display: block;
                 bottom: -7px;
                 margin-left: .25em;
@@ -78,18 +78,20 @@
         position: absolute;
         content: '';
         width: calc(100% - .5em);
-        height: 3px;
+        height: 1.5px;
         display: block;
         bottom: -7px;
         margin-left: .25em;
     }
 
     .a::after {
-        background-color: $orange;
+        // background-color: $orange;
+        background-color: #551A8B;
     }
 
     .b::after {
-        background-color: $blue;
+        // background-color: $blue;
+        background-color: #551A8B;
     }
 
 </style>
@@ -102,6 +104,7 @@
         {#if $lang === 'en'}
             <li><a aria-current='{segment === undefined ? "page" : undefined}' class='a' href='.'>Projects</a></li>
         {/if}
+
         {#if $lang === 'de'}
             <li><a aria-current='{segment === "about" ? "page" : undefined}' class='b' href='about'>Über mich</a></li>
         {/if}

@@ -39,15 +39,22 @@
     .red {
         color: $red;
     }
+
+    .colored {
+        color: #551A8B;
+        font-weight: 900;
+    }
 </style>
 
 <section class="flex container">
     <div class="slogan">
         {#if $lang === 'de'}
+<!--            Zur Zeit arbeite ich an<br><b><span class="orange">Anonymer</span> <span class="blue">Personen</span> <span class="red">Analyse</span></b><br><br>Ich studiere <b>Interaktive Medien B.A.</b>-->
             Zur Zeit arbeite ich an<br><b><span class="orange">Anonymer</span> <span class="blue">Personen</span> <span class="red">Analyse</span></b><br><br>Ich studiere <b>Interaktive Medien B.A.</b>
         {/if}
         {#if $lang === 'en' }
-            Currently working on<br><b><span class="orange">Anonymous</span> <span class="blue">Crowd</span> <span class="red">Analysis</span></b><br><br>Studying <b>Interactive Media B.A.</b>
+<!--            Currently working on<br><b><span class="orange">Anonymous</span> <span class="blue">Crowd</span> <span class="red">Analysis</span></b><br><br>Studying <b>Interactive Media B.A.</b>-->
+            Currently working on<br><span class="colored">Camera-based visitor tracking</span><br><br>Studying <b>Interactive Media B.A.</b>
         {/if}
     </div>
 

@@ -43,10 +43,10 @@
                 {/if}
                 <div>
                     {#if $lang === "de"}
-                        Interaktive Medien B.Sc.
+                        Interaktive Medien B.A.
                     {/if}
                     {#if $lang === "en"}
-                        Interactive Media B.Sc.
+                        Interactive Media B.A.
                     {/if}
                 </div>
             </b>
