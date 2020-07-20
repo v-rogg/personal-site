@@ -58,7 +58,7 @@
                 {/if}
             </h2>
             <div class="links">
-                <a href="https://app.theia-tracking.de">
+                <a href="https://theia-tracking.de">
                     {#if $lang === 'de'}
                         Zur Website
                     {/if}
