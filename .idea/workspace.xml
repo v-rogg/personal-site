@@ -22,14 +22,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a0e3c252-c5f8-4759-b937-075b36bb52c8" name="Default Changelist" comment="Update IBM Plex Serif Text">
-      <change afterPath="$PROJECT_DIR$/src/components/CV.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Header.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Skills.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/index.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/index.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/global.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/global.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/theme.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/theme.scss" afterDir="false" />
+    <list default="true" id="a0e3c252-c5f8-4759-b937-075b36bb52c8" name="Default Changelist" comment="Add JetBrains Mono">
       <change beforePath="$PROJECT_DIR$/src/template.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/template.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -313,7 +306,14 @@
       <option name="project" value="LOCAL" />
       <updated>1601039889374</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Add JetBrains Mono">
+      <created>1601042876881</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1601042876881</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -351,7 +351,8 @@
     <MESSAGE value="Update hotjar" />
     <MESSAGE value="Add global.scss, theme.scss, sanitize.scss" />
     <MESSAGE value="Update IBM Plex Serif Text" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update IBM Plex Serif Text" />
+    <MESSAGE value="Add JetBrains Mono" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add JetBrains Mono" />
   </component>
   <component name="WindowStateProjectService">
     <state x="564" y="901" width="1072" height="985" key="#HTML" timestamp="1599438296459">
