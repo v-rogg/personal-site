@@ -1,28 +1,25 @@
-<style lang="scss">
-    //@import "./src/styles/global";
+<script>
+    import Header from "../components/Header.svelte";
+    import CV from "../components/CV.svelte";
+    import Skills from "../components/Skills.svelte";
+</script>
 
-		p {
-			font-size: 2rem;
-            font-family: "IBM Plex Serif", serif;
-            font-weight: 450;
-		}
+<style lang="scss">
+    .split {
+        display: flex;
+    }
 </style>
 
 <svelte:head>
 	<title>Valentin Rogg</title>
+    <meta name="description" content="Valentin Rogg ist Entrepreneur aus Augsburg, Deutschland und Mitgründer der Rogg'n'Schunck GmbH" />
+    <meta name="keywords" content="Valentin Rogg, Entrepreneur, Startup, Anonymes Personentracking, Svelte, JavaScript, Rust">
+    <meta name="author" content="Valentin Rogg">
 </svelte:head>
 
+<Header />
 
-<section>
-	<h1>Great success!</h1>
-
-	<p><strong>Try editing this file (src/routes/index.svelte) to test live reloading. <i class="mi-heart"></i></strong></p>
-</section>
-
-<div>
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquam consequuntur dolorem eligendi est iure minima obcaecati quia similique sunt.
-	</p>
+<div class="split container">
+    <CV />
+    <Skills />
 </div>
-
-<button>Hello World</button>
