@@ -23,10 +23,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a0e3c252-c5f8-4759-b937-075b36bb52c8" name="Default Changelist" comment="Delete unused stuff">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/01_website.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/01_website.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/robots.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/template.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/template.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +87,42 @@
       <recent name="D:\XX_RoggNSchunck\01_website\src\components\sections" />
       <recent name="D:\XX_RoggNSchunck\01_website\src\components\header" />
     </key>
+  </component>
+  <component name="RunManager" selected="Node.js.setupTypeScriptRollup.js">
+    <configuration name="main.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/main.js" working-dir="$PROJECT_DIR$/src">
+      <method v="2" />
+    </configuration>
+    <configuration name="setupTypeScriptRollup.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/scripts/setupTypeScriptRollup.js" working-dir="$PROJECT_DIR$/scripts">
+      <method v="2" />
+    </configuration>
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="wsl://UBUNTU@/usr/bin/node" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="export" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="export" />
+      </scripts>
+      <node-interpreter value="wsl://UBUNTU@/usr/bin/node" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.export" />
+        <item itemvalue="npm.dev" />
+        <item itemvalue="Node.js.setupTypeScriptRollup.js" />
+        <item itemvalue="Node.js.main.js" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -319,10 +353,10 @@
       <screen x="0" y="0" width="3840" height="2130" />
     </state>
     <state x="742" y="912" key="SettingsEditor/0.0.3840.2130@0.0.3840.2130" timestamp="1600144126976" />
-    <state x="559" y="798" key="Vcs.Push.Dialog.v2" timestamp="1601003912574">
+    <state x="559" y="798" key="Vcs.Push.Dialog.v2" timestamp="1601004754586">
       <screen x="0" y="0" width="3840" height="2130" />
     </state>
-    <state x="559" y="798" key="Vcs.Push.Dialog.v2/0.0.3840.2130@0.0.3840.2130" timestamp="1601003912574" />
+    <state x="559" y="798" key="Vcs.Push.Dialog.v2/0.0.3840.2130@0.0.3840.2130" timestamp="1601004754586" />
     <state x="620" y="754" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1600068505868">
       <screen x="0" y="0" width="3840" height="2130" />
     </state>
