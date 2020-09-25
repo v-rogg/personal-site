@@ -5,7 +5,7 @@
     @import "./src/styles/theme";
 
     .experience {
-        margin-top: 1.25rem;
+        margin-top: 1.5rem;
     }
 
     .w50 {

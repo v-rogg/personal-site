@@ -103,11 +103,58 @@
 
 
 .container {
-  margin: auto;
-  max-width: 960px;
+  max-width: 940px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1070;
+  /*padding: 0 1rem;*/
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 940px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .container {
+    max-width: 940px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .container {
+    max-width: 540px;
+  }
 }
 
 .mono {
   font-family: 'JetBrains Mono', sans-serif;
   font-weight: 400;
+}
+
+html {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+}
+
+body {
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }

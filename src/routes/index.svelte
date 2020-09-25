@@ -2,6 +2,15 @@
     import Header from "../components/Header.svelte";
     import CV from "../components/CV.svelte";
     import Skills from "../components/Skills.svelte";
+
+    import {onMount} from 'svelte';
+
+    let Tilt;
+
+    onMount(async () => {
+        const module = await import('../components/Tilt.svelte');
+        Tilt = module.default;
+    });
 </script>
 
 <style lang="scss">
@@ -23,3 +32,5 @@
     <CV />
     <Skills />
 </div>
+
+<svelte:component this={Tilt} />
