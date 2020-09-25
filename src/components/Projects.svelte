@@ -6,12 +6,11 @@
 
     .experience {
         margin: 1.25rem 0;
+        width: max-content;
+        max-width: 100%;
 
         &:before {
             position: absolute;
-            //content: '|>';
-            //content: '~>';
-            //content: '>]';
             left: -2rem;
             font-family: 'JetBrains Mono', sans-serif;
             top: 50%;
