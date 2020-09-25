@@ -4,5 +4,7 @@
     VanillaTilt.init(document.querySelector('#sapper'), {
         max: 15,
         speed: 400,
+        gyroscopeMinAngleY: 0,
+        gyroscopeMaxAngleY: 0,
     });
 </script>
