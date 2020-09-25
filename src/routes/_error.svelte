@@ -1,3 +1,7 @@
+<script context="module">
+    const arrowRight = '<span class="mono">~~></span>';
+</script>
+
 <script>
 	export let status;
 	export let error;
@@ -5,7 +9,7 @@
 	const dev = process.env.NODE_ENV === 'development';
 </script>
 
-<style>
+<style lang="scss">
 	h1, p {
 		margin: 0 auto;
 	}
@@ -25,16 +29,33 @@
 			font-size: 4em;
 		}
 	}
+
+    a {
+        display: inline-block;
+        border: 1px solid black;
+        margin-top: 3rem;
+        padding: 1rem;
+        transition: all linear 100ms;
+
+        &:hover {
+            background: black;
+            color: white;
+        }
+    }
 </style>
 
 <svelte:head>
 	<title>{status}</title>
 </svelte:head>
 
-<h1>{status}</h1>
+<section class="container">
+    <h1>{status}</h1>
 
-<p>{error.message}</p>
+    <p>{error.message}</p>
 
-{#if dev && error.stack}
-	<pre>{error.stack}</pre>
-{/if}
+    {#if dev && error.stack}
+        <pre>{error.stack}</pre>
+    {/if}
+
+    <a rel=external href="/">Wieder aufs Trockene {@html arrowRight}</a>
+</section>

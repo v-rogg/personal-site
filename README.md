@@ -8,3 +8,4 @@ Includes:
 - <a href="https://www.jetbrains.com/lp/mono/">JetBrains Mono</a>
 - <a href="https://icons.mono.company/">Mono Icons</a>
 - <a href="https://www.hotjar.com/">hotjar</a>
+- <a href="https://micku7zu.github.io/vanilla-tilt.js/">vanilla-tilt</a>

@@ -18,7 +18,6 @@
 
     .experience {
         margin: 1.25rem 0;
-        position: relative;
         width: max-content;
 
         &:before {
@@ -63,16 +62,12 @@
         }
     }
 
-    .red { &:hover { color: $red; &:before { background: transparentize($red, .75); }}}
-    .darkyellow { &:hover { color: $darkyellow; &:before { background: transparentize($darkyellow, .75); }}}
-    .purple { &:hover { color: $purple; &:before { background: transparentize($purple, .75); }}}
-    .green { &:hover { color: $green; &:before { background: transparentize($green, .75); }}}
-    .blue { &:hover { color: $blue; &:before { background: transparentize($blue, .75); }}}
-    .magenta { &:hover { color: $magenta; &:before { background: transparentize($magenta, .75); }}}
-
-    section {
-        width: 50%
-    }
+    .darkyellow { &:before { content:'>='; } &:hover { color: $darkyellow; &:before { background: transparentize($darkyellow, .75); }}}
+    .blue { &:before { content:'>]'; } &:hover { color: $blue; &:before { background: transparentize($blue, .75); }}}
+    .purple { &:before { content:'|>'; } &:hover { color: $purple; &:before { background: transparentize($purple, .75); }}}
+    .green { &:before { content:'=>'; } &:hover { color: $green; &:before { background: transparentize($green, .75); }}}
+    .magenta { &:before { content:'>:'; } &:hover { color: $magenta; &:before { background: transparentize($magenta, .75); }}}
+    .anotherblue { &:before { content:'<>'; } &:hover { color: $anotherblue; &:before { background: transparentize($anotherblue, .75); }}}
 
     .time {
         font-family: $font-family-sans;
@@ -89,30 +84,35 @@
     <h3>Erfahrungen</h3>
 
     <ul>
-        <li class="experience magenta">
+        <li class="experience magenta" data-tilt data-tilt-scale="1.1" data-tilt-speed="200" data-tilt-max="15">
             <div class="time">10/2017 {@html arrowRight} vsl. 02/2021</div>
             <h4><a href="https://www.hs-augsburg.de/" target="_blank">Hochschule Augsburg</a></h4>
-            <div class="description"><a href="https://www.hs-augsburg.de/Gestaltung/Interactive-Media/IA.html" target="_blank">Interaktive Medien B.A.</a></div>
+            <p class="description"><a href="https://www.hs-augsburg.de/Gestaltung/Interactive-Media/IA.html" target="_blank">Interaktive Medien B.A.</a></p>
         </li>
-        <li class="experience green">
+        <li class="experience green" data-tilt data-tilt-scale="1.1" data-tilt-speed="200" data-tilt-max="15">
             <div class="time">2012 {@html arrowRight} HEUTE</div>
             <h4>Freiberuflich</h4>
-            <div class="description">Webdesign, Webentwicklung, Fotografie</div>
+            <p class="description">Webdesign, Webentwicklung, Fotografie</p>
         </li>
-        <li class="experience blue">
+        <li class="experience blue" data-tilt data-tilt-scale="1.1" data-tilt-speed="200" data-tilt-max="15">
             <div class="time">09/2019 {@html arrowRight} 02/2020</div>
             <h4><a href="https://planstack.de/" target="_blank">Planstack</a></h4>
-            <div class="description">Praktikant Full-Stack Webentwicklung</div>
+            <p class="description">Praktikant Full-Stack Webentwicklung</p>
         </li>
-        <li class="experience purple">
+        <li class="experience purple" data-tilt data-tilt-scale="1.1" data-tilt-speed="200" data-tilt-max="15">
             <div class="time">10/2017 {@html arrowRight} 09/2019</div>
             <h4><a href="https://starkstrom-augsburg.de/" target="_blank">Starkstrom Augsburg e.V.</a></h4>
-            <div class="description">Führende Position Marketing</div>
+            <p class="description">Führende Position Marketing</p>
         </li>
-        <li class="experience darkyellow">
+        <li class="experience darkyellow" data-tilt data-tilt-scale="1.1" data-tilt-speed="200" data-tilt-max="15">
             <div class="time">10/2018 {@html arrowRight} 07/2019</div>
             <h4><a href="https://www.nfq.de/#" target="_blank">.NFQ Digital Creatives</a></h4>
-            <div class="description">Werkstudent</div>
+            <p class="description">Werkstudent</p>
+        </li>
+        <li class="experience anotherblue" data-tilt data-tilt-scale="1.1" data-tilt-speed="200" data-tilt-max="15">
+            <div class="time">04/2011 {@html arrowRight} 05/2011</div>
+            <h4><a href="https://www.nfq.de/#" target="_blank">Bilfinger Maintenance GmbH</a></h4>
+            <p class="description">Betriebspraktikum</p>
         </li>
     </ul>
 </section>
