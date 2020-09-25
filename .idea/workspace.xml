@@ -9,17 +9,33 @@
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
       </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
     </expand>
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a0e3c252-c5f8-4759-b937-075b36bb52c8" name="Default Changelist" comment="Change Nav spacing&#10;Add Nav hover arrow">
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sections/Hero.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/Hero.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sections/Ressources.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/Ressources.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/global.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/global.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/theme.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/theme.scss" afterDir="false" />
+    <list default="true" id="a0e3c252-c5f8-4759-b937-075b36bb52c8" name="Default Changelist" comment="Clean start with sapper 0.28.0, sass-preprocess, mono-icons">
+      <change afterPath="$PROJECT_DIR$/src/global.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/theme.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Nav.svelte" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/_layout.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/_layout.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/blog/[slug].json.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/blog/[slug].svelte" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/blog/_posts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/blog/index.json.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/blog/index.svelte" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/index.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/index.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/template.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/template.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/successkid.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +71,9 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectId" id="1gu3IUf1fGRPO5idUhJ9vZG1jpk" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -209,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600947642548</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Clean start with sapper 0.28.0, sass-preprocess, mono-icons">
+      <created>1601001697300</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1601001697300</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,7 +268,8 @@
     <MESSAGE value="Add statics" />
     <MESSAGE value="Update icons" />
     <MESSAGE value="Change Nav spacing&#10;Add Nav hover arrow" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change Nav spacing&#10;Add Nav hover arrow" />
+    <MESSAGE value="Clean start with sapper 0.28.0, sass-preprocess, mono-icons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Clean start with sapper 0.28.0, sass-preprocess, mono-icons" />
   </component>
   <component name="WindowStateProjectService">
     <state x="564" y="901" width="1072" height="985" key="#HTML" timestamp="1599438296459">
@@ -293,10 +320,10 @@
       <screen x="0" y="0" width="3840" height="2130" />
     </state>
     <state x="742" y="912" key="SettingsEditor/0.0.3840.2130@0.0.3840.2130" timestamp="1600144126976" />
-    <state x="559" y="798" key="Vcs.Push.Dialog.v2" timestamp="1600070581111">
+    <state x="559" y="798" key="Vcs.Push.Dialog.v2" timestamp="1601001704408">
       <screen x="0" y="0" width="3840" height="2130" />
     </state>
-    <state x="559" y="798" key="Vcs.Push.Dialog.v2/0.0.3840.2130@0.0.3840.2130" timestamp="1600070581111" />
+    <state x="559" y="798" key="Vcs.Push.Dialog.v2/0.0.3840.2130@0.0.3840.2130" timestamp="1601001704408" />
     <state x="620" y="754" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1600068505868">
       <screen x="0" y="0" width="3840" height="2130" />
     </state>
