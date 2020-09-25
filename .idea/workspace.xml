@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a0e3c252-c5f8-4759-b937-075b36bb52c8" name="Default Changelist" comment="Delete unused stuff">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/01_website.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/01_website.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/template.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/template.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Tailwind.svelte" />
+        <option value="Tailwind" />
+        <option value="Language" />
+        <option value="Hero" />
+        <option value="Example" />
+        <option value="JavaScript File" />
+        <option value="Svelte Component" />
+        <option value="de.index.svelte" />
+        <option value="en.index.svelte" />
+        <option value="ScrollSpy" />
+        <option value="Solutions" />
+        <option value="Ressources" />
+        <option value="Footer" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="ProjectId" id="1gu3IUf1fGRPO5idUhJ9vZG1jpk" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="sortByType" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="sshConsole" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\XX_RoggNSchunck\01_website\src\components\header" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\XX_RoggNSchunck\01_website\static" />
+      <recent name="D:\XX_RoggNSchunck\01_website\src\components\sections" />
+      <recent name="D:\XX_RoggNSchunck\01_website\src\components\header" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a0e3c252-c5f8-4759-b937-075b36bb52c8" name="Default Changelist" comment="" />
+      <created>1598950572018</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1598950572018</updated>
+      <workItem from="1598950573559" duration="108000" />
+      <workItem from="1598950697970" duration="2895000" />
+      <workItem from="1598953666842" duration="6404000" />
+      <workItem from="1599225511132" duration="1513000" />
+      <workItem from="1599232329873" duration="6934000" />
+      <workItem from="1599389260100" duration="8804000" />
+      <workItem from="1599494810538" duration="1197000" />
+      <workItem from="1599503928345" duration="595000" />
+      <workItem from="1599545544480" duration="704000" />
+      <workItem from="1599650435752" duration="864000" />
+      <workItem from="1599656680086" duration="16000" />
+      <workItem from="1599731189590" duration="8842000" />
+      <workItem from="1599817237907" duration="1528000" />
+      <workItem from="1599893868640" duration="28923000" />
+      <workItem from="1599977628687" duration="5676000" />
+      <workItem from="1600002818498" duration="14768000" />
+      <workItem from="1600029485647" duration="222000" />
+      <workItem from="1600029734211" duration="4775000" />
+      <workItem from="1600061057819" duration="6073000" />
+      <workItem from="1600116300318" duration="4789000" />
+      <workItem from="1600143958588" duration="9520000" />
+      <workItem from="1600337609426" duration="12314000" />
+      <workItem from="1600418842459" duration="4066000" />
+      <workItem from="1600436981395" duration="1306000" />
+      <workItem from="1600675226358" duration="1238000" />
+      <workItem from="1600787066802" duration="9075000" />
+      <workItem from="1600937753929" duration="5843000" />
+      <workItem from="1600957142342" duration="9000" />
+      <workItem from="1600957961064" duration="162000" />
+    </task>
+    <task id="LOCAL-00001" summary="Include sapper-template">
+      <created>1598951309579</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1598951309579</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add navigation">
+      <created>1599443839384</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1599443839384</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add hero&#10;Add global.scss">
+      <created>1599896488796</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1599896488796</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Update Hero&#10;Add theme">
+      <created>1599920126153</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1599920126153</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add decoupled header&#10;Add mix-blend-mode">
+      <created>1599978662162</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1599978662162</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add funktionen">
+      <created>1600034123732</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1600034123732</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Add loesungen&#10;Add team&#10;Optimization">
+      <created>1600034850697</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1600034850697</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Add footer&#10;Add kontakt&#10;Add ressourcen">
+      <created>1600069585691</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1600069585691</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fix layout">
+      <created>1600070576602</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1600070576602</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add Ressources logic">
+      <created>1600938563215</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1600938563215</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Add statics">
+      <created>1600938720319</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1600938720319</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Update icons">
+      <created>1600940597811</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1600940597811</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Change Nav spacing&#10;Add Nav hover arrow">
+      <created>1600947642548</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1600947642548</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Clean start with sapper 0.28.0, sass-preprocess, mono-icons">
+      <created>1601001697300</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1601001697300</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Delete unused stuff">
+      <created>1601002592439</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1601002592439</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Include sapper-template" />
+    <MESSAGE value="Add navigation" />
+    <MESSAGE value="Add hero&#10;Add global.scss" />
+    <MESSAGE value="Update Hero&#10;Add theme" />
+    <MESSAGE value="Add decoupled header&#10;Add mix-blend-mode" />
+    <MESSAGE value="Add funktionen" />
+    <MESSAGE value="Add loesungen&#10;Add team&#10;Optimization" />
+    <MESSAGE value="Add footer&#10;Add kontakt&#10;Add ressourcen" />
+    <MESSAGE value="Fix layout" />
+    <MESSAGE value="Update Nav&#10;Update Hero" />
+    <MESSAGE value="Add Ressources logic" />
+    <MESSAGE value="Add statics" />
+    <MESSAGE value="Update icons" />
+    <MESSAGE value="Change Nav spacing&#10;Add Nav hover arrow" />
+    <MESSAGE value="Clean start with sapper 0.28.0, sass-preprocess, mono-icons" />
+    <MESSAGE value="Delete unused stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete unused stuff" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="564" y="901" width="1072" height="985" key="#HTML" timestamp="1599438296459">
+      <screen x="0" y="0" width="3840" height="2130" />
+    </state>
+    <state x="564" y="901" width="1072" height="985" key="#HTML/0.0.3840.2130@0.0.3840.2130" timestamp="1599438296459" />
+    <state x="559" y="706" key="#Plugins" timestamp="1600437085314">
+      <screen x="0" y="0" width="3840" height="2130" />
+    </state>
+    <state x="559" y="706" key="#Plugins/0.0.3840.2130@0.0.3840.2130" timestamp="1600437085314" />
+    <state x="714" y="632" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1600938642398">
+      <screen x="0" y="0" width="3840" height="2130" />
+    </state>
+    <state x="714" y="632" key="#com.intellij.fileTypes.FileTypeChooser/0.0.3840.2130@0.0.3840.2130" timestamp="1600938642398" />
+    <state x="601" y="835" key="#com.intellij.ide.fileTemplates.ui.ConfigureTemplatesDialog" timestamp="1599757062756">
+      <screen x="0" y="0" width="3840" height="2130" />
+    </state>
+    <state x="601" y="835" key="#com.intellij.ide.fileTemplates.ui.ConfigureTemplatesDialog/0.0.3840.2130@0.0.3840.2130" timestamp="1599757062756" />
+    <state x="747" y="820" key="FileChooserDialogImpl" timestamp="1599503389979">
+      <screen x="0" y="0" width="3840" height="2130" />
+    </state>
+    <state x="747" y="820" key="FileChooserDialogImpl/0.0.3840.2130@0.0.3840.2130" timestamp="1599503389979" />
+    <state x="0" y="0" key="FileDocumentManager.FileCacheConflict" timestamp="1599930767268">
+      <screen x="0" y="0" width="3840" height="2130" />
+    </state>
+    <state x="0" y="0" key="FileDocumentManager.FileCacheConflict/0.0.3840.2130@0.0.3840.2130" timestamp="1599930767268" />
+    <state width="1896" height="322" key="GridCell.Tab.0.bottom" timestamp="1598951080816">
+      <screen x="0" y="0" width="3840" height="2130" />
+    </state>
+    <state width="1896" height="322" key="GridCell.Tab.0.bottom/0.0.3840.2130@0.0.3840.2130" timestamp="1598951080816" />
+    <state width="1896" height="322" key="GridCell.Tab.0.center" timestamp="1598951080816">
+      <screen x="0" y="0" width="3840" height="2130" />
+    </state>
+    <state width="1896" height="322" key="GridCell.Tab.0.center/0.0.3840.2130@0.0.3840.2130" timestamp="1598951080816" />
+    <state width="1896" height="322" key="GridCell.Tab.0.left" timestamp="1598951080815">
+      <screen x="0" y="0" width="3840" height="2130" />
+    </state>
+    <state width="1896" height="322" key="GridCell.Tab.0.left/0.0.3840.2130@0.0.3840.2130" timestamp="1598951080815" />
+    <state width="1896" height="322" key="GridCell.Tab.0.right" timestamp="1598951080816">
+      <screen x="0" y="0" width="3840" height="2130" />
+    </state>
+    <state width="1896" height="322" key="GridCell.Tab.0.right/0.0.3840.2130@0.0.3840.2130" timestamp="1598951080816" />
+    <state x="780" y="789" key="RollbackChangesDialog" timestamp="1599981390173">
+      <screen x="0" y="0" width="3840" height="2130" />
+    </state>
+    <state x="780" y="789" key="RollbackChangesDialog/0.0.3840.2130@0.0.3840.2130" timestamp="1599981390173" />
+    <state x="742" y="912" key="SettingsEditor" timestamp="1600144126976">
+      <screen x="0" y="0" width="3840" height="2130" />
+    </state>
+    <state x="742" y="912" key="SettingsEditor/0.0.3840.2130@0.0.3840.2130" timestamp="1600144126976" />
+    <state x="559" y="798" key="Vcs.Push.Dialog.v2" timestamp="1601003912574">
+      <screen x="0" y="0" width="3840" height="2130" />
+    </state>
+    <state x="559" y="798" key="Vcs.Push.Dialog.v2/0.0.3840.2130@0.0.3840.2130" timestamp="1601003912574" />
+    <state x="620" y="754" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1600068505868">
+      <screen x="0" y="0" width="3840" height="2130" />
+    </state>
+    <state x="620" y="754" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.3840.2130@0.0.3840.2130" timestamp="1600068505868" />
+    <state x="765" y="966" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1599978106483">
+      <screen x="0" y="0" width="3840" height="2130" />
+    </state>
+    <state x="765" y="966" key="git4idea.remote.GitConfigureRemotesDialog/0.0.3840.2130@0.0.3840.2130" timestamp="1599978106483" />
+    <state x="623" y="427" key="run.anything.popup" timestamp="1600947788033">
+      <screen x="0" y="0" width="3840" height="2130" />
+    </state>
+    <state x="623" y="427" key="run.anything.popup/0.0.3840.2130@0.0.3840.2130" timestamp="1600947788033" />
+    <state x="623" y="503" width="672" height="678" key="search.everywhere.popup" timestamp="1600947728695">
+      <screen x="0" y="0" width="3840" height="2130" />
+    </state>
+    <state x="623" y="503" width="672" height="678" key="search.everywhere.popup/0.0.3840.2130@0.0.3840.2130" timestamp="1600947728695" />
+  </component>
+</project>

@@ -1,36 +1,25 @@
-<script>
-	import {stores} from '@sapper/app';
-	import ACA from "./projects/ACA.svelte";
-	import Dedun from "./projects/Dedun.svelte";
-	import Jobs from "../components/Jobs.svelte";
-	import Video from "../components/Video.svelte";
-
-	const {preloading, page, session} = stores();
-</script>
-
 <style lang="scss">
-	img {
-		width: 100px;
-	}
+	section {
 
-	.container {
-		margin: 0 auto 2rem;
+		p {
+			font-size: 2rem;
+		}
 	}
 </style>
 
 <svelte:head>
-	<title>Valentin Rogg</title>
-	<link rel='icon' type='image/png' href='favicon.png'>
+	<title>Sapper project template</title>
 </svelte:head>
 
-<!--Projects-->
-<!--<Jobs/>-->
-<!--<Video></Video>-->
+
 <section>
-	<div class="container">
-		<img src="https://www.freeiconspng.com/uploads/vaporwave-font-choice-japanese-signs-gradient-3d-png-3.png">
-	</div>
+	<h1>Great success!</h1>
+
+	<p><strong>Try editing this file (src/routes/index.svelte) to test live reloading. <i class="mi-heart"></i></strong></p>
 </section>
 
-<ACA/>
-<Dedun/>
+<div>
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquam consequuntur dolorem eligendi est iure minima obcaecati quia similique sunt.
+	</p>
+</div>
