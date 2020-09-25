@@ -1,159 +1,36 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap');
-@font-face {
-    font-family: 'JetMono';
-    src: local("JetBrains Mono");
-    src: url("fonts/JetBrainsMono-Regular.eot") format("embedded-opentype");
-    src: url("fonts/JetBrainsMono-Regular.woff") format("woff");
-    src: url("fonts/JetBrainsMono-Regular.woff2") format("woff2");
-    font-weight: 400;
-    font-style: normal;
-}
-
-
 body {
-    font-family: 'Source Sans Pro', sans-serif;
-    padding-bottom: 5rem !important;
+	margin: 0;
+	font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #333;
 }
 
-.mono {
-    font-family: 'JetMono', sans-serif;
+h1, h2, h3, h4, h5, h6 {
+	margin: 0 0 0.5em 0;
+	font-weight: 400;
+	line-height: 1.2;
 }
 
-h2 {
-    text-transform: uppercase;
-    margin-top: .5rem;
-    margin-bottom: 0;
-    font-weight: 400;
-    line-height: 1.5rem;
-    font-size: 1.5rem;
+h1 {
+	font-size: 2em;
 }
 
-h3 {
-    text-transform: uppercase;
-    font-weight: 400;
-    font-size: 1.2rem;
+a {
+	color: inherit;
 }
 
-h4 {
-    text-transform: uppercase;
-    font-weight: 400;
-    font-size: 1.125rem;
+code {
+	font-family: menlo, inconsolata, monospace;
+	font-size: calc(1em - 2px);
+	color: #555;
+	background-color: #f0f0f0;
+	padding: 0.2em 0.4em;
+	border-radius: 2px;
 }
 
-b {
-    font-weight: 700;
-}
-
-.container {
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 0 1rem;
-}
-
-@media (min-width: 1200px) {
-    .container {
-        max-width: 1140px;
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1199.98px) {
-    .container {
-        max-width: 960px;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 991.98px) {
-    .container {
-        max-width: 720px;
-    }
-}
-
-@media (min-width: 576px) and (max-width: 767.98px) {
-    .container {
-        max-width: 540px;
-    }
-}
-
-
-/* RESET */
-
-/* Box sizing rules */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
-/* Remove default padding */
-ul[class],
-ol[class] {
-    padding: 0;
-}
-
-/* Remove default margin */
-body,
-h1,
-h2,
-h3,
-h4,
-p,
-ul[class],
-ol[class],
-li,
-figure,
-figcaption,
-blockquote,
-dl,
-dd {
-    margin: 0;
-    padding: 0;
-}
-
-/* Set core body defaults */
-body {
-    min-height: 100vh;
-    scroll-behavior: smooth;
-    text-rendering: optimizeSpeed;
-    line-height: 1.5;
-
-    width: auto;
-}
-
-canvas {
-    display: block;
-}
-
-/* Remove list styles on ul, ol elements with a class attribute */
-ul[class],
-ol[class] {
-    list-style: none;
-}
-
-/* A elements that don't have a class get default styles */
-a:not([class]) {
-    text-decoration-skip-ink: auto;
-}
-
-/* Make images easier to work with */
-img {
-    max-width: 100%;
-    display: block;
-}
-
-/* Inherit fonts for inputs and buttons */
-input,
-button,
-textarea,
-select {
-    font: inherit;
-}
-
-/* Remove all animations and transitions for people that prefer not to see them */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
+@media (min-width: 400px) {
+	body {
+		font-size: 16px;
+	}
 }

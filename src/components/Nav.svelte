@@ -1,112 +1,60 @@
 <script>
-    import { lang } from '../stores';
-
-    export let segment;
+	export let segment;
 </script>
 
-<style lang="scss">
-    @import "../../static/styles/theme.scss";
+<style>
+	nav {
+		border-bottom: 1px solid rgba(255,62,0,0.1);
+		font-weight: 300;
+		padding: 0 1em;
+	}
 
-    ul {
-    	margin: 0 -4em 0 -4em;
-        padding: 0 3em;
-    }
+	ul {
+		margin: 0;
+		padding: 0;
+	}
 
-    .flex {
-        display: flex;
-        justify-content: start;
-    }
+	/* clearfix */
+	ul::after {
+		content: '';
+		display: block;
+		clear: both;
+	}
 
-    .nav {
-    }
+	li {
+		display: block;
+		float: left;
+	}
 
-    li {
-        padding: 1em 1em 1em;
-    }
+	[aria-current] {
+		position: relative;
+		display: inline-block;
+	}
 
-    /* clearfix */
-    ul::after {
-        content: '';
-        display: block;
-        clear: both;
-    }
+	[aria-current]::after {
+		position: absolute;
+		content: '';
+		width: calc(100% - 1em);
+		height: 2px;
+		background-color: rgb(255,62,0);
+		display: block;
+		bottom: -1px;
+	}
 
-    a {
-        font-size: 1.2rem;
-        color: black;
-        text-decoration: none;
-        padding: 0;
-        /*display: block;*/
-        position: relative;
-        display: inline-block;
-
-        &:hover {
-            &:after {
-                position: absolute;
-                content: '';
-                width: calc(100% - .5em);
-                height: 3px;
-                display: block;
-                bottom: -7px;
-                margin-left: .25em;
-                /*background-color: #bfbfbf;*/
-                /*background-color: #FF8000;*/
-            }
-        }
-
-        &:hover {
-            &:after {
-                position: absolute;
-                content: '';
-                width: calc(100% - .5em);
-                height: 3px;
-                display: block;
-                bottom: -7px;
-                margin-left: .25em;
-                /*background-color: #bfbfbf;*/
-                /*background-color: #00BFA8;*/
-            }
-        }
-    }
-
-    [aria-current] {
-        position: relative;
-        display: inline-block;
-    }
-
-    [aria-current]::after {
-        position: absolute;
-        content: '';
-        width: calc(100% - .5em);
-        height: 3px;
-        display: block;
-        bottom: -7px;
-        margin-left: .25em;
-    }
-
-    .a::after {
-        background-color: $orange;
-    }
-
-    .b::after {
-        background-color: $blue;
-    }
-
+	a {
+		text-decoration: none;
+		padding: 1em 0.5em;
+		display: block;
+	}
 </style>
 
-<nav class="container">
-    <ul class="flex nav">
-        {#if $lang === 'de'}
-            <li><a aria-current='{segment === undefined ? "page" : undefined}' class='a' href='.'>Projekte</a></li>
-        {/if}
-        {#if $lang === 'en'}
-            <li><a aria-current='{segment === undefined ? "page" : undefined}' class='a' href='.'>Projects</a></li>
-        {/if}
-        {#if $lang === 'de'}
-            <li><a aria-current='{segment === "about" ? "page" : undefined}' class='b' href='about'>Über mich</a></li>
-        {/if}
-        {#if $lang === 'en'}
-            <li><a aria-current='{segment === "about" ? "page" : undefined}' class='b' href='about'>About</a></li>
-        {/if}
-    </ul>
+<nav>
+	<ul>
+		<li><a aria-current="{segment === undefined ? 'page' : undefined}" href=".">home</a></li>
+		<li><a aria-current="{segment === 'about' ? 'page' : undefined}" href="about">about</a></li>
+
+		<!-- for the blog link, we're using rel=prefetch so that Sapper prefetches
+		     the blog data when we hover over the link or tap it on a touchscreen -->
+		<li><a rel=prefetch aria-current="{segment === 'blog' ? 'page' : undefined}" href="blog">blog</a></li>
+	</ul>
 </nav>
