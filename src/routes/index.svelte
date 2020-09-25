@@ -1,14 +1,15 @@
 <style lang="scss">
-	section {
+    //@import "./src/styles/global";
 
 		p {
 			font-size: 2rem;
+            font-family: "IBM Plex Serif", serif;
+            font-weight: 450;
 		}
-	}
 </style>
 
 <svelte:head>
-	<title>Sapper project template</title>
+	<title>Valentin Rogg</title>
 </svelte:head>
 
 
@@ -23,3 +24,5 @@
 		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquam consequuntur dolorem eligendi est iure minima obcaecati quia similique sunt.
 	</p>
 </div>
+
+<button>Hello World</button>

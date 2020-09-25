@@ -22,9 +22,28 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a0e3c252-c5f8-4759-b937-075b36bb52c8" name="Default Changelist" comment="Delete unused stuff">
-      <change afterPath="$PROJECT_DIR$/static/robots.txt" afterDir="false" />
+    <list default="true" id="a0e3c252-c5f8-4759-b937-075b36bb52c8" name="Default Changelist" comment="Update hotjar">
+      <change afterPath="$PROJECT_DIR$/src/styles/sanitize.css/assets.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/sanitize.css/forms.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/sanitize.css/reduce-motion.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/sanitize.css/sanitize.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/assets/IBMPlexSerif-Text.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/01_website.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/01_website.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/global.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/_layout.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/_layout.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/about.svelte" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/index.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/index.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/template.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/template.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/theme.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/favicon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/global.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/logo-192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/logo-512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/static/manifest.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +70,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JsFlowSettings">
@@ -73,18 +97,21 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/static" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/assets" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="sshConsole" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\XX_RoggNSchunck\01_website\src\components\header" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\01_Work\XX_Personal\t0001_rebranding\01_personal_site\static\assets" />
+      <recent name="D:\01_Work\XX_Personal\t0001_rebranding\01_personal_site\src\styles" />
+      <recent name="D:\01_Work\XX_Personal\t0001_rebranding\01_personal_site\src\styles\sanitize.css" />
+      <recent name="D:\01_Work\XX_Personal\t0001_rebranding\01_personal_site\static" />
       <recent name="D:\XX_RoggNSchunck\01_website\static" />
-      <recent name="D:\XX_RoggNSchunck\01_website\src\components\sections" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\01_Work\XX_Personal\t0001_rebranding\01_personal_site\src\styles\sanitize.css" />
       <recent name="D:\XX_RoggNSchunck\01_website\src\components\header" />
     </key>
   </component>
@@ -121,6 +148,7 @@
         <item itemvalue="npm.dev" />
         <item itemvalue="Node.js.setupTypeScriptRollup.js" />
         <item itemvalue="Node.js.main.js" />
+        <item itemvalue="npm.export" />
       </list>
     </recent_temporary>
   </component>
@@ -267,7 +295,21 @@
       <option name="project" value="LOCAL" />
       <updated>1601002592439</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Add statics">
+      <created>1601005406555</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1601005406555</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Update hotjar">
+      <created>1601005776437</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1601005776437</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -297,12 +339,13 @@
     <MESSAGE value="Fix layout" />
     <MESSAGE value="Update Nav&#10;Update Hero" />
     <MESSAGE value="Add Ressources logic" />
-    <MESSAGE value="Add statics" />
     <MESSAGE value="Update icons" />
     <MESSAGE value="Change Nav spacing&#10;Add Nav hover arrow" />
     <MESSAGE value="Clean start with sapper 0.28.0, sass-preprocess, mono-icons" />
     <MESSAGE value="Delete unused stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="Delete unused stuff" />
+    <MESSAGE value="Add statics" />
+    <MESSAGE value="Update hotjar" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update hotjar" />
   </component>
   <component name="WindowStateProjectService">
     <state x="564" y="901" width="1072" height="985" key="#HTML" timestamp="1599438296459">
@@ -353,10 +396,10 @@
       <screen x="0" y="0" width="3840" height="2130" />
     </state>
     <state x="742" y="912" key="SettingsEditor/0.0.3840.2130@0.0.3840.2130" timestamp="1600144126976" />
-    <state x="559" y="798" key="Vcs.Push.Dialog.v2" timestamp="1601004754586">
+    <state x="559" y="798" key="Vcs.Push.Dialog.v2" timestamp="1601005798527">
       <screen x="0" y="0" width="3840" height="2130" />
     </state>
-    <state x="559" y="798" key="Vcs.Push.Dialog.v2/0.0.3840.2130@0.0.3840.2130" timestamp="1601004754586" />
+    <state x="559" y="798" key="Vcs.Push.Dialog.v2/0.0.3840.2130@0.0.3840.2130" timestamp="1601005798527" />
     <state x="620" y="754" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1600068505868">
       <screen x="0" y="0" width="3840" height="2130" />
     </state>

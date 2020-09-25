@@ -1,10 +1,9 @@
 <script>
-	export let segment;
+	// export let segment;
 </script>
 
-<style lang="scss">
-    @import "./src/global";
-
+<style lang="scss" global>
+    @import "./src/styles/global";
 </style>
 
 <main>
