@@ -8,6 +8,7 @@
         margin: 1.25rem 0;
         width: max-content;
         max-width: 100%;
+        position: relative;
 
         &:before {
             position: absolute;

@@ -19,6 +19,7 @@
     .experience {
         margin: 1.25rem 0;
         width: max-content;
+        position: relative;
 
         &:before {
             position: absolute;
