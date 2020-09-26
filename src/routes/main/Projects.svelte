@@ -1,4 +1,5 @@
-<script>
+<script context="module">
+    const arrowRight = '<span class="mono">-></span>';
 </script>
 
 <style lang="scss">
@@ -19,6 +20,7 @@
         width: max-content;
         max-width: 100%;
         position: relative;
+        float: left;
 
         &:before {
             position: absolute;
@@ -38,22 +40,20 @@
         }
     }
 
-    .w50 {
-        width: 50%
-    }
-
-    @media (max-width: 991.98px) {
-        .w50 {
-            margin-bottom: 4rem;
-        }
-    }
-
-    div {
-        font-family: $font-family-sans;
-    }
-
     .description {
         font-family: $font-family-serif;
+    }
+
+    h3 {
+        float: left;
+    }
+
+    a {
+        float: right;
+
+        &:hover {
+            font-weight: 700;
+        }
     }
 
     .red { &:before { content:'~>'; } &:hover { color: $red; &:before { background: transparentize($red, .75); }}}
@@ -63,7 +63,8 @@
 </style>
 
 <section>
-    <h3>Letzte Projekte</h3>
+    <h3>Neueste Projekte</h3>
+    <a rel=external href="projekte">Mehr {@html arrowRight}</a>
 
     <div class="experience purple tilt">
         <h4>Anonymes Personentracking</h4>

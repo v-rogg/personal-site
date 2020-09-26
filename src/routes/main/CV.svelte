@@ -1,6 +1,5 @@
 <script context="module">
     const arrowRight = '<span class="mono">-></span>';
-    const arrowLeft = '<span class="mono"><|</span>';
 </script>
 
 <script>

@@ -34,6 +34,7 @@
 
     h1 {
         font-size: $font-size-h1;
+        position: relative;
 
         &:before {
             position: absolute;
@@ -60,16 +61,10 @@
     }
 
     img {
-        //height: $font-size-h1;
-        //width: $font-size-h1;
         max-height: 256px;
-        //grid-area: 1 / 2 / 1 / 2;
     }
 
     .information {
-        //position: relative;
-        //height: 100%;
-        //margin: 0 0;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
