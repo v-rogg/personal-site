@@ -1,5 +1,6 @@
 <script>
     import VanillaTilt from 'vanilla-tilt';
+    import { onDestroy } from 'svelte';
 
     // console.log(document.querySelectorAll('.tilt'));
 
@@ -33,19 +34,6 @@
         })
     }
 
-    console.log(isMobile)
 
-    // VanillaTilt.init(document.querySelectorAll('.tilt'), {
-    //     max: 15,
-    //     scale: 1.1,
-    //     speed: 200,
-    //     gyroscope: false,
-    // });
-    //
-    // VanillaTilt.init(document.querySelector('.box'), {
-    //     max: 25,
-    //     speed: 400,
-    //     gyroscopeMinAngleY: -1,
-    //     gyroscopeMaxAngleY: 1,
-    // });
+
 </script>
