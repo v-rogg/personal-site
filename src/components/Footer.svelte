@@ -9,6 +9,17 @@
         align-items: flex-end;
     }
 
+    @media (max-width: 991.98px) {
+        footer {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #social-media {
+            margin: 3rem 0 7rem !important;
+        }
+    }
+
     #signature {
         display: flex;
         flex-direction: column;
@@ -16,7 +27,7 @@
     }
 
     #social-media {
-        margin-bottom: 1rem;
+        margin: 0 0 1rem;
     }
 
     img {

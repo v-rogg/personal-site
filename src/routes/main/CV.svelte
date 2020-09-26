@@ -10,6 +10,16 @@
 <style lang="scss">
     @import "../../styles/theme";
 
+    section {
+        grid-area: 1 / 1 / 3 / 2;
+    }
+
+    @media (max-width: 991.98px) {
+        section {
+            grid-area: 2 / 1 / 3 / 2;
+        }
+    }
+
     ul {
         list-style: none;
         margin: 0;
@@ -19,6 +29,7 @@
     .experience {
         margin: 1.25rem 0;
         width: max-content;
+        max-width: 100%;
         position: relative;
 
         &:before {
@@ -85,32 +96,32 @@
     <h3>Erfahrungen</h3>
 
     <ul>
-        <li class="experience magenta tilt-2">
+        <li class="experience magenta tilt">
             <div class="time">10/2017 {@html arrowRight} vsl. 02/2021</div>
             <h4><a href="https://www.hs-augsburg.de/" target="_blank">Hochschule Augsburg</a></h4>
             <p class="description"><a href="https://www.hs-augsburg.de/Gestaltung/Interactive-Media/IA.html" target="_blank">Interaktive Medien B.A.</a></p>
         </li>
-        <li class="experience green tilt-2">
+        <li class="experience green tilt">
             <div class="time">2012 {@html arrowRight} HEUTE</div>
             <h4>Freiberuflich</h4>
             <p class="description">Webdesign, Webentwicklung, Fotografie</p>
         </li>
-        <li class="experience blue tilt-2">
+        <li class="experience blue tilt">
             <div class="time">09/2019 {@html arrowRight} 02/2020</div>
             <h4><a href="https://planstack.de/" target="_blank">Planstack</a></h4>
             <p class="description">Praktikant Full-Stack Webentwicklung</p>
         </li>
-        <li class="experience purple tilt-2">
+        <li class="experience purple tilt">
             <div class="time">10/2017 {@html arrowRight} 09/2019</div>
             <h4><a href="https://starkstrom-augsburg.de/" target="_blank">Starkstrom Augsburg e.V.</a></h4>
             <p class="description">Führende Position Marketing</p>
         </li>
-        <li class="experience darkyellow tilt-2">
+        <li class="experience darkyellow tilt">
             <div class="time">10/2018 {@html arrowRight} 07/2019</div>
             <h4><a href="https://www.nfq.de/#" target="_blank">.NFQ Digital Creatives</a></h4>
             <p class="description">Werkstudent</p>
         </li>
-        <li class="experience anotherblue tilt-2">
+        <li class="experience anotherblue tilt">
             <div class="time">04/2011 {@html arrowRight} 05/2011</div>
             <h4><a href="https://www.nfq.de/#" target="_blank">Bilfinger Maintenance GmbH</a></h4>
             <p class="description">Betriebspraktikum</p>

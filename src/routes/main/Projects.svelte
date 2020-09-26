@@ -4,6 +4,16 @@
 <style lang="scss">
     @import "../../styles/theme";
 
+    section {
+        grid-area: 1 / 2 / 2 / 3;
+    }
+
+    @media (max-width: 991.98px) {
+        section {
+            grid-area: 1 / 1 / 2 / 2;
+        }
+    }
+
     .experience {
         margin: 1.25rem 0;
         width: max-content;

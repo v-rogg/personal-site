@@ -105,7 +105,6 @@
 
 .container {
   max-width: 940px;
-  min-width: 940px;
   margin: 0 auto;
   position: relative;
   z-index: 1070;
@@ -115,21 +114,19 @@
 @media (min-width: 1200px) {
   .container {
     max-width: 940px;
-    min-width: 940px;
+    //min-width: 940px;
   }
 }
 
 @media (min-width: 992px) and (max-width: 1199.98px) {
   .container {
     max-width: 940px;
-    min-width: 940px;
   }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
   .container {
     max-width: 720px;
-    min-width: 720px;
   }
 }
 
@@ -175,7 +172,7 @@ p {
 }
 
 section {
-  margin: 3rem 0;
+  margin: 3rem 0 0;
 }
 
 a {
