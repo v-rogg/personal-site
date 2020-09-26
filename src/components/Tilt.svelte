@@ -10,7 +10,7 @@
         isMobile = true;
 
         VanillaTilt.init(document.querySelector('body'), {
-            max: 0,
+            max: 15,
         });
     } else {
         document.querySelectorAll('.tilt').forEach(e => {
