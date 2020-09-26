@@ -10,6 +10,10 @@
         VanillaTilt.init(document.querySelector('#sapper'), {
             max: 15,
             speed: 200,
+            gyroscopeMinAngleX: -15,
+            gyroscopeMaxAngleX: 15,
+            gyroscopeMinAngleY: -15,
+            gyroscopeMaxAngleY: 15,
         });
     } else {
         document.querySelectorAll('.tilt').forEach(e => {
