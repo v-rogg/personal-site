@@ -17,6 +17,24 @@
     h1 {
         font-size: $font-size-h1;
 
+        &:before {
+            position: absolute;
+            content: '~~';
+            left: calc(-1em - 1rem);
+            font-family: 'JetBrains Mono', sans-serif;
+            top: 50%;
+            line-height: 0;
+            opacity: 0;
+            transition: opacity linear 50ms;
+        }
+
+        &:hover {
+            color: $magenta;
+
+            &:before {
+                opacity: 1;
+            }
+        }
     }
 
     h2 {
@@ -76,7 +94,7 @@
 <header class="container">
     <div class="information">
         <div id="title" class="header">
-            <h1 class="glitched">Valentin Rogg</h1>
+            <h1 class="tilt"><a rel=external href="/">Valentin Rogg</a></h1>
             <h2>Entrepreneur aus Augsburg</h2>
         </div>
         <div id="contact">

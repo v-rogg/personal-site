@@ -1,15 +1,15 @@
 <script>
-    // import {onMount} from 'svelte';
-    import CV from "../components/CV.svelte";
-    import Skills from "../components/Skills.svelte";
-    import Projects from "../components/Projects.svelte";
+    import {onMount} from 'svelte';
+    import CV from "./main/CV.svelte";
+    import Skills from "./main/Skills.svelte";
+    import Projects from "./main/Projects.svelte";
 
-    // let Tilt;
-    //
-    // onMount(async () => {
-    //     const module = await import('../components/Tilt.svelte');
-    //     Tilt = module.default;
-    // });
+    let Tilt;
+
+    onMount(async () => {
+        const module = await import('../components/Tilt.svelte');
+        Tilt = module.default;
+    });
 </script>
 
 <style lang="scss">
@@ -43,4 +43,4 @@
     </div>
 </div>
 
-<!--<svelte:component this={Tilt} />-->
+<svelte:component this={Tilt} />

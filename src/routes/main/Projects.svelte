@@ -2,7 +2,7 @@
 </script>
 
 <style lang="scss">
-    @import "./src/styles/theme";
+    @import "../../styles/theme";
 
     .experience {
         margin: 1.25rem 0;
@@ -54,21 +54,21 @@
 <section>
     <h3>Letzte Projekte</h3>
 
-    <div class="experience purple" data-tilt data-tilt-scale="1.1" data-tilt-speed="200" data-tilt-max="15">
+    <div class="experience purple tilt">
         <h4>Anonymes Personentracking</h4>
         <p class="description">
             Unser Produkt beschäftigt sich mit der anonymen Positionserfassung von Personen und Auswertung deren Verhaltens.
             Das System kann vor allem im Einzelhandel, Sportstudios oder dem öffentlichen Raum zur Verwendung kommen.
         </p>
     </div>
-    <div class="experience blue" data-tilt data-tilt-scale="1.1" data-tilt-speed="200" data-tilt-max="15">
+    <div class="experience blue tilt">
         <h4>Kamerabasiertes Personentracking</h4>
         <p class="description">
             Als Prototyp für das anonyme Personentracking wurde ein bis auf die Sensoren gleiches System mit Kameras aufgebaut.
             Die Technologie wurde in Zusammenarbeit mit den Kunstsammlungen Augsburg in der Dauerausstellung des Schaezlerpalais getestet.
         </p>
     </div>
-    <div class="experience green" data-tilt data-tilt-scale="1.1" data-tilt-speed="200" data-tilt-max="15">
+    <div class="experience green tilt">
         <h4>Datenbank für ein Finanzprogramnm</h4>
         <p class="description">
             Dieses Projekt handelt von einem Datenbankmodell für eine Finanz WebApp, vergleichbar mit FinanzGuru.
