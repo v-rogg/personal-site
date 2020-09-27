@@ -1,3 +1,11 @@
+<style lang="sass">
+    @import "./src/styles/theme"
+
+    p
+        font-family: $font-family-serif
+        font-weight: $font-weight-text
+</style>
+
 <div class="container">
     <h3>
         Anonymes Personentracking

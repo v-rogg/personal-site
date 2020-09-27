@@ -15,6 +15,16 @@
 			"src": "me-512.png",
 			"sizes": "512x512",
 			"type": "image/png"
+		},
+		{
+			"src": "me-192.webp",
+			"sizes": "192x192",
+			"type": "image/webp"
+		},
+		{
+			"src": "me-512.webp",
+			"sizes": "512x512",
+			"type": "image/webp"
 		}
 	]
 }

@@ -1,8 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://valentinrogg.de/</loc>
-        <lastmod>2020-09-23T10:21:53+00:00</lastmod>
-        <priority>1.00</priority>
+        <priority>1.0</priority>
+        <lastmod>2020-09-27</lastmod>
+    </url>
+    <url>
+        <loc>https://valentinrogg.de/projekte</loc>
+        <priority>0.9</priority>
+        <lastmod>2020-09-27</lastmod>
+    </url>
+    <url>
+        <loc>https://valentinrogg.de/projekte/anonymes-personentracking</loc>
+        <priority>0.8</priority>
+        <lastmod>2020-09-27</lastmod>
+    </url>
+    <url>
+        <loc>https://valentinrogg.de/projekte/kamerabasiertes-besuchertracking-im-museum</loc>
+        <priority>0.8</priority>
+        <lastmod>2020-09-27</lastmod>
+    </url>
+    <url>
+        <loc>https://valentinrogg.de/projekte/datenbank-fuer-ein-finanzprogramm</loc>
+        <priority>0.8</priority>
+        <lastmod>2020-09-27</lastmod>
+    </url>
+    <url>
+        <loc>https://valentinrogg.de/projekte/darterkennung-mit-lidar</loc>
+        <priority>0.8</priority>
+        <lastmod>2020-09-27</lastmod>
+    </url>
+    <url>
+        <loc>https://valentinrogg.de/projekte/daniel-karrasch-website</loc>
+        <priority>0.8</priority>
+        <lastmod>2020-09-27</lastmod>
+    </url>
+    <url>
+        <loc>https://valentinrogg.de/projekte/robert-kraus-website</loc>
+        <priority>0.8</priority>
+        <lastmod>2020-09-27</lastmod>
+    </url>
+    <url>
+        <loc>https://valentinrogg.de/projekte/montgolfiere</loc>
+        <priority>0.8</priority>
+        <lastmod>2020-09-27</lastmod>
     </url>
 </urlset>
