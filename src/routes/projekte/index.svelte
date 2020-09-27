@@ -123,7 +123,7 @@
     }
 
     .inProgress {
-        color: lighten(#4f4948, 30);
+        color: lighten(#4f4948, 15);
     }
 
     //.done {
