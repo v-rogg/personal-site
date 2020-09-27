@@ -48,11 +48,13 @@
         float: left;
     }
 
-    a {
+    .more {
+        color: lighten(#4f4948, 30);
         float: right;
 
         &:hover {
             font-weight: 700;
+            color: #4f4948;
         }
     }
 
@@ -64,28 +66,28 @@
 
 <section>
     <h3>Neueste Projekte</h3>
-    <a rel=external href="projekte">Mehr {@html arrowRight}</a>
+    <a rel=external href="projekte" class="more">Mehr {@html arrowRight}</a>
 
-    <div class="experience purple tilt">
+    <a rel=external href="projekte/anonymes-personentracking" class="experience purple tilt">
         <h4>Anonymes Personentracking</h4>
         <p class="description">
             Unser Produkt beschäftigt sich mit der anonymen Positionserfassung von Personen und Auswertung deren Verhaltens.
             Das System kann vor allem im Einzelhandel, Sportstudios oder dem öffentlichen Raum zur Verwendung kommen.
         </p>
-    </div>
-    <div class="experience blue tilt">
-        <h4>Kamerabasiertes Personentracking</h4>
+    </a>
+    <a rel=external href="projekte/kamerabasiertes-besuchertracking-im-museum" class="experience blue tilt">
+        <h4>Kamerabasiertes Besuchertracking im Museum</h4>
         <p class="description">
             Als Prototyp für das anonyme Personentracking wurde ein bis auf die Sensoren gleiches System mit Kameras aufgebaut.
             Die Technologie wurde in Zusammenarbeit mit den Kunstsammlungen Augsburg in der Dauerausstellung des Schaezlerpalais getestet.
         </p>
-    </div>
-    <div class="experience green tilt">
+    </a>
+    <a rel=external href="projekte/datenbank-fuer-ein-finanzprogramm" class="experience green tilt">
         <h4>Datenbank für ein Finanzprogramnm</h4>
         <p class="description">
             Dieses Projekt handelt von einem Datenbankmodell für eine Finanz WebApp, vergleichbar mit FinanzGuru.
             Der Nutzer ist in der Lage Konten anzulegen, Transaktionen und Daueraufträge zu hinterlegen
             und Rechnungen zu verwalten. Außerdem werde alle Daten für eine intuitive Analyse aufbereitet.
         </p>
-    </div>
+    </a>
 </section>

@@ -6,7 +6,7 @@
         align-items: center;
         justify-content: space-between;
         //margin: 3rem auto;
-        margin: 0 0 2rem;
+        margin: 0 auto 2rem;
     }
 
     @media (max-width: 991.98px) {
@@ -78,6 +78,8 @@
 
     #contact {
 
+        color: lighten(#4f4948, 30);
+
         a {
             display: flex;
             align-items: center;
@@ -86,8 +88,8 @@
                 font-weight: $font-weight-bold;
 
                 svg {
-                    stroke: black;
-                    stroke-width: 1.5px;
+                    //stroke: black;
+                    //stroke-width: 1.5px;
                 }
             }
 

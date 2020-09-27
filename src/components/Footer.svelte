@@ -2,7 +2,7 @@
     @import "./src/styles/theme";
 
     footer {
-        margin: 7rem 0 0;
+        margin: 7rem auto 0;
         display: flex;
         //justify-content: space-between;
         justify-content: space-evenly;

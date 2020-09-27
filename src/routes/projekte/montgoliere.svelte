@@ -1,7 +1,3 @@
-<style lang="scss">
-    @import './src/styles/theme';
-</style>
-
 <div class="container">
     <h3>
         Datenbank für ein Finanzprogramm
