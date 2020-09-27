@@ -124,5 +124,8 @@
         </div>
     </div>
 
-    <img src="me-512.webp" alt="Valentin Rogg Profilbild">
+    <picture>
+        <source type="image/webp" srcset="me-512.webp">
+        <img src="me-512.png" alt="Valentin Rogg Profilbild">
+    </picture>
 </header>
