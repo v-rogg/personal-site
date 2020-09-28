@@ -26,16 +26,17 @@
     }
 
     .experience {
-        margin: 1.25rem 0;
+        margin: 2rem 0;
         width: max-content;
         max-width: 100%;
         position: relative;
 
+        //&:first-of-type {
+        //    margin: 1.25rem 0 2rem;
+        //}
+
         &:before {
             position: absolute;
-            //content: '|>';
-            //content: '~>';
-            content: '>]';
             left: -2rem;
             font-family: 'JetBrains Mono', sans-serif;
             top: 50%;
@@ -44,32 +45,10 @@
             transition: opacity linear 100ms;
         }
 
-        //&:after {
-        //    position: absolute;
-        //    content: '';
-        //    left: 0;
-        //    top: 0;
-        //    width: 100%;
-        //    height: 100%;
-        //    transition: all linear 100ms;
-        //}
-
         &:hover {
-            //color: $red;
-
             &:before {
-                //color: $green;
                 opacity: 1;
             }
-
-            //&:after {
-            //    //background: transparentize($red, .75);
-            //    left: -.75rem;
-            //    top: -.75rem;
-            //    width: calc(100% + 1.5rem);
-            //    height: calc(100% + 1.5rem);
-            //    z-index: -1;
-            //}
         }
     }
 
@@ -82,6 +61,7 @@
 
     .time {
         font-family: $font-family-sans;
+        color: $lightskin;
     }
 
     .description {

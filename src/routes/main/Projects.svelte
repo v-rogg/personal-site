@@ -16,11 +16,15 @@
     }
 
     .experience {
-        margin: 1.25rem 0;
+        margin: 2rem 0;
         width: max-content;
         max-width: 100%;
         position: relative;
-        float: left;
+        display: block;
+
+        //&:first-of-type {
+        //    margin: 1.25rem 0 2rem;
+        //}
 
         &:before {
             position: absolute;
@@ -44,13 +48,13 @@
         font-family: $font-family-serif;
     }
 
-    h3 {
-        float: left;
+    .title {
+        display: flex;
+        justify-content: space-between;
     }
 
     .more {
         color: $lightskin;
-        float: right;
 
         &:hover {
             font-weight: 700;
@@ -65,8 +69,10 @@
 </style>
 
 <section>
-    <h3>Neueste Projekte</h3>
-    <a rel=external href="projekte" class="more">Mehr {@html arrowRight}</a>
+    <div class="title">
+        <h3>Neueste Projekte</h3>
+        <a rel=external href="projekte" class="more">Mehr {@html arrowRight}</a>
+    </div>
 
     <a rel=external href="projekte/anonymes-personentracking" class="experience purple tilt">
         <h4>Anonymes Personentracking</h4>
@@ -77,6 +83,7 @@
     </a>
     <a rel=external href="projekte/kamerabasiertes-besuchertracking-im-museum" class="experience blue tilt">
         <h4>Kamerabasiertes Besuchertracking im Museum</h4>
+        <h5>Theia Tracking</h5>
         <p class="description">
             Als Prototyp für das anonyme Personentracking wurde ein bis auf die Sensoren gleiches System mit Kameras aufgebaut.
             Die Technologie wurde in Zusammenarbeit mit den Kunstsammlungen Augsburg in der Dauerausstellung des Schaezlerpalais getestet.
@@ -84,6 +91,7 @@
     </a>
     <a rel=external href="projekte/datenbank-fuer-ein-finanzprogramm" class="experience green tilt">
         <h4>Datenbank für ein Finanzprogramnm</h4>
+        <h5>Dedun</h5>
         <p class="description">
             Dieses Projekt handelt von einem Datenbankmodell für eine Finanz WebApp, vergleichbar mit FinanzGuru.
             Der Nutzer ist in der Lage Konten anzulegen, Transaktionen und Daueraufträge zu hinterlegen

@@ -16,7 +16,7 @@
         li {
             padding-left: 1rem;
             border-left: 1px solid black;
-            height: 5rem;
+            height: 6rem;
             position: relative;
             //transition: border-left-color linear 50ms;
 
@@ -39,7 +39,7 @@
 
         }
 
-        a {
+        .link {
             width: 100%;
             height: 100%;
             display: flex;
@@ -110,18 +110,12 @@
         width: 2rem;
     }
 
-    .inProgress {
-        color: $lightskin;
-    }
-
-    //.done {
-    //    color: $green;
-    //}
-
     .inProgress, .done {
         display: flex;
         width: 100%;
         justify-content: space-between;
+        justify-self: flex-end;
+        color: $lightskin;
     }
 
     .darkyellow { &:before { content:'>='; } &:hover { *, &:before { color: $darkyellow; } border-color: $darkyellow; }}
@@ -143,44 +137,57 @@
 
 <ul>
     <li class="tilt blue">
-        <a rel=external href="projekte/anonymes-personentracking">
+        <a rel=external href="projekte/anonymes-personentracking" class="link">
             <h4>Anonymes Personentracking</h4>
-            <div class="inProgress">{@html inProgress} {@html arrowRight}</div>
+            <div class="inProgress">{@html inProgress}</div>
         </a>
     </li>
     <li class="tilt green">
-        <a rel=external href="projekte/darterkennung-mit-lidar">
+<!--        <a rel=external href="projekte/darterkennung-mit-lidar">-->
+        <div class="link">
             <h4>Dart-Erkennung mithilfe eines LiDAR-Sensors</h4>
-            <div class="inProgress">{@html inProgress} {@html arrowRight}</div>
-        </a>
+            <div class="inProgress">{@html inProgress}</div>
+        </div>
     </li>
     <li class="tilt red">
-        <a rel=external href="projekte/daniel-karrasch-website">
+<!--        <a rel=external href="projekte/daniel-karrasch-website" class="link">-->
+        <div class="link">
             <h4>Daniel Karrasch Website</h4>
-            <div class="inProgress">{@html inProgress} {@html arrowRight}</div>
-        </a>
+            <div class="inProgress">{@html inProgress}</div>
+        </div>
     </li>
     <li class="tilt magenta">
-        <a rel=external href="projekte/kamerabasiertes-besuchertracking-im-museum">
-            <h4>Kamerabasiertes Besuchertracking im Museum</h4>
-            <div class="done">{@html done} {@html arrowRight}</div>
-        </a>
+<!--        <a rel=external href="projekte/kamerabasiertes-besuchertracking-im-museum" class="link">-->
+        <div class="link">
+            <div class="title">
+                <h4>Kamerabasiertes Besuchertracking im Museum</h4>
+                <h5>Theia Tracking</h5>
+            </div>
+            <div class="done">{@html done}</div>
+        </div>
     </li>
     <li class="tilt anotherblue">
-        <a rel=external href="projekte/datenbank-fuer-ein-finanzprogramm">
-            <h4>Datenbank für ein Finanzprogramm</h4>
+        <a rel=external href="projekte/datenbank-fuer-ein-finanzprogramm" class="link">
+            <div class="title">
+                <h4>Datenbank für ein Finanzprogramm</h4>
+                <h5>Dedun</h5>
+            </div>
             <div class="done">{@html done} {@html arrowRight}</div>
         </a>
     </li>
     <li class="tilt darkyellow">
-        <a rel=external href="projekte/robert-kraus-website">
+<!--        <a rel=external href="projekte/robert-kraus-website" class="link">-->
+        <div class="link">
             <h4>Robert Kraus Website</h4>
-            <div class="done">{@html done} {@html arrowRight}</div>
-        </a>
+            <div class="done">{@html done}</div>
+        </div>
     </li>
     <li class="tilt purple">
-        <a rel=external href="projekte/montgolfiere">
-            <h4>Montgolière</h4>
+        <a rel=external href="projekte/3d-schiffe-versenken" class="link">
+            <div class="title">
+                <h4>3D Schiffe versenken</h4>
+                <h5>Montgolfière</h5>
+            </div>
             <div class="done">{@html done} {@html arrowRight}</div>
         </a>
     </li>

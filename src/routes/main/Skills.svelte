@@ -15,10 +15,14 @@
     }
 
     .experience {
-        margin: 1.25rem 0;
+        margin: 2rem 0;
         width: max-content;
         max-width: 100%;
         position: relative;
+
+        //&:first-of-type {
+        //    margin: 1.25rem 0 2rem;
+        //}
 
         &:before {
             position: absolute;

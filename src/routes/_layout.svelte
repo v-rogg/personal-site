@@ -30,4 +30,4 @@
 
 <Footer />
 
-<!--<svelte:component this={Tilt} />-->
+<svelte:component this={Tilt} />

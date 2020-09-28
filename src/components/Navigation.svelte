@@ -7,14 +7,19 @@
     @import './src/styles/theme';
 
     .back {
-        margin-top: 5rem;
-        display: block;
-        color: $lightskin;
 
         &:hover {
             font-weight: 700;
             color: $skin;
         }
+    }
+
+    nav {
+        color: $lightskin;
+        margin-top: 5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
     }
 </style>
 
