@@ -74,21 +74,23 @@
         <a rel=external href="projekte" class="more">Mehr {@html arrowRight}</a>
     </div>
 
-    <a rel=external href="projekte/anonymes-personentracking" class="experience purple tilt">
+<!--    <div rel=external href="projekte/anonymes-personentracking" class="experience purple tilt">-->
+    <div class="experience purple tilt">
         <h4>Anonymes Personentracking</h4>
         <p class="description">
             Unser Produkt beschäftigt sich mit der anonymen Positionserfassung von Personen und Auswertung deren Verhaltens.
-            Das System kann vor allem im Einzelhandel, Sportstudios oder dem öffentlichen Raum zur Verwendung kommen.
+            Das System kann sowohl im privaten als auch im öffentlichen Raum zur Verwendung kommen.
         </p>
-    </a>
-    <a rel=external href="projekte/kamerabasiertes-besuchertracking-im-museum" class="experience blue tilt">
+    </div>
+<!--    <div rel=external href="projekte/kamerabasiertes-besuchertracking-im-museum" class="experience blue tilt">-->
+    <div class="experience blue tilt">
         <h4>Kamerabasiertes Besuchertracking im Museum</h4>
         <h5>Theia Tracking</h5>
         <p class="description">
             Als Prototyp für das anonyme Personentracking wurde ein bis auf die Sensoren gleiches System mit Kameras aufgebaut.
             Die Technologie wurde in Zusammenarbeit mit den Kunstsammlungen Augsburg in der Dauerausstellung des Schaezlerpalais getestet.
         </p>
-    </a>
+    </div>
     <a rel=external href="projekte/datenbank-fuer-ein-finanzprogramm" class="experience green tilt">
         <h4>Datenbank für ein Finanzprogramnm</h4>
         <h5>Dedun</h5>

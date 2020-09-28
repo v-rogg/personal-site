@@ -137,10 +137,11 @@
 
 <ul>
     <li class="tilt blue">
-        <a rel=external href="projekte/anonymes-personentracking" class="link">
+<!--        <a rel=external href="projekte/anonymes-personentracking" class="link">-->
+        <div class="link">
             <h4>Anonymes Personentracking</h4>
             <div class="inProgress">{@html inProgress}</div>
-        </a>
+        </div>
     </li>
     <li class="tilt green">
 <!--        <a rel=external href="projekte/darterkennung-mit-lidar">-->
