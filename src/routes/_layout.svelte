@@ -1,7 +1,14 @@
 <script>
+    import {onMount} from "svelte";
     import Footer from "../components/Footer.svelte";
     import Header from "../components/Header.svelte";
-    // export let segment;
+
+    let Tilt;
+
+    onMount(async () => {
+        const module = await import('../components/Tilt.svelte');
+        Tilt = module.default;
+    });
 </script>
 
 <style lang="scss" global>
@@ -22,3 +29,5 @@
 </main>
 
 <Footer />
+
+<!--<svelte:component this={Tilt} />-->

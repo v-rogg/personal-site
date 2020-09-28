@@ -49,12 +49,12 @@
     }
 
     .more {
-        color: lighten(#4f4948, 15);
+        color: $lightskin;
         float: right;
 
         &:hover {
             font-weight: 700;
-            color: #4f4948;
+            color: $skin;
         }
     }
 

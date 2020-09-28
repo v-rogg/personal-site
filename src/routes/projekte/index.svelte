@@ -1,23 +1,11 @@
-<script>
-    import {onMount} from "svelte";
-
-    let Tilt;
-
-    onMount(async () => {
-        const module = await import('../../components/Tilt.svelte');
-        Tilt = module.default;
-    });
-</script>
-
 <script context="module">
-    const arrowLeft = '<span class="mono"><-</span>';
     const arrowRight = '<span class="mono">-></span>';
     const inProgress = 'In Arbeit';
     const done = 'Beendet';
 </script>
 
 <style lang="scss">
-    @import './src/styles/theme';
+    @import '../../styles/theme';
 
     ul {
         list-style: none;
@@ -106,11 +94,11 @@
     .back {
         margin-top: 5rem;
         display: block;
-        color: lighten(#4f4948, 30);
+        color: $lightskin;
 
         &:hover {
             font-weight: 700;
-            color: #4f4948;
+            color: $skin;
         }
     }
 
@@ -123,7 +111,7 @@
     }
 
     .inProgress {
-        color: lighten(#4f4948, 15);
+        color: $lightskin;
     }
 
     //.done {
@@ -134,10 +122,6 @@
         display: flex;
         width: 100%;
         justify-content: space-between;
-    }
-
-    section {
-        margin-top: 5rem;
     }
 
     .darkyellow { &:before { content:'>='; } &:hover { *, &:before { color: $darkyellow; } border-color: $darkyellow; }}
@@ -154,55 +138,50 @@
     <title>Valentin Rogg - Projekte</title>
 </svelte:head>
 
-<section class="container">
-    <h3>Ein Auszug meiner bisherigen Projekte</h3>
 
-    <ul>
-        <li class="tilt blue">
-            <a rel=external href="projekte/anonymes-personentracking">
-                <h4>Anonymes Personentracking</h4>
-                <div class="inProgress">{@html inProgress} {@html arrowRight}</div>
-            </a>
-        </li>
-        <li class="tilt green">
-            <a rel=external href="projekte/darterkennung-mit-lidar">
-                <h4>Dart-Erkennung mithilfe eines LiDAR-Sensors</h4>
-                <div class="inProgress">{@html inProgress} {@html arrowRight}</div>
-            </a>
-        </li>
-        <li class="tilt red">
-            <a rel=external href="projekte/daniel-karrasch-website">
-                <h4>Daniel Karrasch Website</h4>
-                <div class="inProgress">{@html inProgress} {@html arrowRight}</div>
-            </a>
-        </li>
-        <li class="tilt magenta">
-            <a rel=external href="projekte/kamerabasiertes-besuchertracking-im-museum">
-                <h4>Kamerabasiertes Besuchertracking im Museum</h4>
-                <div class="done">{@html done} {@html arrowRight}</div>
-            </a>
-        </li>
-        <li class="tilt anotherblue">
-            <a rel=external href="projekte/datenbank-fuer-ein-finanzprogramm">
-                <h4>Datenbank für ein Finanzprogramm</h4>
-                <div class="done">{@html done} {@html arrowRight}</div>
-            </a>
-        </li>
-        <li class="tilt darkyellow">
-            <a rel=external href="projekte/robert-kraus-website">
-                <h4>Robert Kraus Website</h4>
-                <div class="done">{@html done} {@html arrowRight}</div>
-            </a>
-        </li>
-        <li class="tilt purple">
-            <a rel=external href="projekte/montgolfiere">
-                <h4>Montgolière</h4>
-                <div class="done">{@html done} {@html arrowRight}</div>
-            </a>
-        </li>
-    </ul>
+<h3>Ein Auszug meiner bisherigen Projekte</h3>
 
-    <a rel=external href="/" class="back">{@html arrowLeft} Zurück</a>
-</section>
-
-<svelte:component this={Tilt}/>
+<ul>
+    <li class="tilt blue">
+        <a rel=external href="projekte/anonymes-personentracking">
+            <h4>Anonymes Personentracking</h4>
+            <div class="inProgress">{@html inProgress} {@html arrowRight}</div>
+        </a>
+    </li>
+    <li class="tilt green">
+        <a rel=external href="projekte/darterkennung-mit-lidar">
+            <h4>Dart-Erkennung mithilfe eines LiDAR-Sensors</h4>
+            <div class="inProgress">{@html inProgress} {@html arrowRight}</div>
+        </a>
+    </li>
+    <li class="tilt red">
+        <a rel=external href="projekte/daniel-karrasch-website">
+            <h4>Daniel Karrasch Website</h4>
+            <div class="inProgress">{@html inProgress} {@html arrowRight}</div>
+        </a>
+    </li>
+    <li class="tilt magenta">
+        <a rel=external href="projekte/kamerabasiertes-besuchertracking-im-museum">
+            <h4>Kamerabasiertes Besuchertracking im Museum</h4>
+            <div class="done">{@html done} {@html arrowRight}</div>
+        </a>
+    </li>
+    <li class="tilt anotherblue">
+        <a rel=external href="projekte/datenbank-fuer-ein-finanzprogramm">
+            <h4>Datenbank für ein Finanzprogramm</h4>
+            <div class="done">{@html done} {@html arrowRight}</div>
+        </a>
+    </li>
+    <li class="tilt darkyellow">
+        <a rel=external href="projekte/robert-kraus-website">
+            <h4>Robert Kraus Website</h4>
+            <div class="done">{@html done} {@html arrowRight}</div>
+        </a>
+    </li>
+    <li class="tilt purple">
+        <a rel=external href="projekte/montgolfiere">
+            <h4>Montgolière</h4>
+            <div class="done">{@html done} {@html arrowRight}</div>
+        </a>
+    </li>
+</ul>

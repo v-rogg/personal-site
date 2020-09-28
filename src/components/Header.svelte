@@ -78,7 +78,7 @@
 
     #contact {
 
-        color: lighten(#4f4948, 15);
+        color: $lightskin;
 
         a {
             display: flex;
@@ -86,6 +86,7 @@
 
             &:hover {
                 font-weight: $font-weight-bold;
+                color: $skin;
 
                 svg {
                     //stroke: black;

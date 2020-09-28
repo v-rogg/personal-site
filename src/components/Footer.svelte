@@ -38,6 +38,14 @@
         height: 24px;
         width: 24px;
     }
+
+    a {
+        color: lighten(#4f4948, 15);
+
+        &:hover {
+            color: #4f4948;
+        }
+    }
 </style>
 
 <footer class="container">
