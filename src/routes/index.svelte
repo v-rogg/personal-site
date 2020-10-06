@@ -13,7 +13,7 @@
             width: 40%;
         }
 
-        .right {
+        .rit {
             width: 60%;
         }
     }

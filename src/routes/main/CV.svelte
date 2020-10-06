@@ -2,10 +2,6 @@
     const arrowRight = '<span class="mono">-></span>';
 </script>
 
-<script>
-    let hover = false;
-</script>
-
 <style lang="scss">
     @import "../../styles/theme";
 
@@ -52,12 +48,12 @@
         }
     }
 
-    .darkyellow { &:before { content:'>='; } &:hover { color: $darkyellow; .time{ color: $darkyellow} }}
-    .blue { &:before { content:'>]'; } &:hover { color: $blue; .time{ color: $blue} }}
-    .purple { &:before { content:'|>'; } &:hover { color: $purple; .time{ color: $purple} }}
-    .green { &:before { content:'=>'; } &:hover { color: $green; .time{ color: $green} }}
-    .magenta { &:before { content:'>:'; } &:hover { color: $magenta; .time{ color: $magenta} }}
-    .anotherblue { &:before { content:'<>'; } &:hover { color: $anotherblue; .time{ color: $anotherblue} }}
+    .darkyellow { &:before { content:'>='; } &:hover { color: $darkyellow; .time{ color: $darkyellow }}}
+    .blue { &:before { content:'>]'; } &:hover { color: $blue; .time{ color: $blue }}}
+    .purple { &:before { content:'|>'; } &:hover { color: $purple; .time{ color: $purple }}}
+    .green { &:before { content:'=>'; } &:hover { color: $green; .time{ color: $green }}}
+    .magenta { &:before { content:'>:'; } &:hover { color: $magenta; .time{ color: $magenta }}}
+    .anotherblue { &:before { content:'<>'; } &:hover { color: $anotherblue; .time{ color: $anotherblue }}}
 
     .time {
         font-family: $font-family-sans;
