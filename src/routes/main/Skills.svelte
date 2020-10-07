@@ -1,6 +1,3 @@
-<script>
-</script>
-
 <style lang="scss">
     @import "../../styles/theme";
 
@@ -20,10 +17,6 @@
         max-width: 100%;
         position: relative;
 
-        //&:first-of-type {
-        //    margin: 1.25rem 0 2rem;
-        //}
-
         &:before {
             position: absolute;
             left: -2rem;
@@ -35,7 +28,6 @@
         }
 
         &:hover {
-
             &:before {
                 opacity: 1;
             }
@@ -50,19 +42,19 @@
         font-family: $font-family-serif;
     }
 
-    .red { &:before { content:'~>'; } &:hover { color: $red; &:before { background: transparentize($red, .75); }}}
-    .green { &:before { content:'=>'; } &:hover { color: $green; &:before { background: transparentize($green, .75); }}}
-    .blue { &:before { content:'>]'; } &:hover { color: $blue; &:before { background: transparentize($blue, .75); }}}
+    .a { &:before { content:'~>'; } &:hover { color: $lightskin; }}
+    .b { &:before { content:'=>'; } &:hover { color: $lightskin; }}
+    .c { &:before { content:'>]'; } &:hover { color: $lightskin; }}
 </style>
 
 <section>
     <h3>Fähigkeiten</h3>
 
-    <div class="experience red tilt">
+    <div class="experience">
         <h4>Sprachen</h4>
-        <p class="description">Deutsch Muttersprache, Englisch C1, Französisch B1, Spanisch A1</p>
+        <p class="description">Deutsch Muttersprache, Englisch C1, Französisch B1</p>
     </div>
-    <div class="experience green tilt">
+    <div class="experience">
         <h4>Technisches Wissen</h4>
         <p class="description">
             Full-Stack Web Development (Frontend: Vue, Svelte, Angular ... / Backend: Nest, Express, Flask ...), UX/UI Design,
@@ -70,7 +62,7 @@
             Sound Design, Micro-Controller
         </p>
     </div>
-    <div class="experience blue tilt">
+    <div class="experience">
         <h4>Soziale Kompetenzen</h4>
         <p class="description">Teamführung, Projektmanagement, Vertrieb</p>
     </div>

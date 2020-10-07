@@ -17,8 +17,8 @@
 
 <svelte:head>
   <title>Valentin Rogg</title>
-  <meta name="description" content="Valentin Rogg ist Entrepreneur aus Augsburg, Deutschland und Mitgründer von Rogg'n'Schunck" />
-  <meta name="keywords" content="Valentin Rogg, Entrepreneur, Startup, Anonymes Personentracking, Rogg'n'Schunck, Rogg & Schunck" />
+  <meta name="description" content="Valentin Rogg ist Entrepreneur aus Augsburg, Deutschland und Teammitglied von Rogg'n'Schunck" />
+  <meta name="keywords" content="Valentin Rogg, Entrepreneur, Startup, Anonymes Personentracking, Obacht!, Rogg'n'Schunck, Rogg & Schunck" />
   <meta name="author" content="Valentin Rogg" />
 </svelte:head>
 

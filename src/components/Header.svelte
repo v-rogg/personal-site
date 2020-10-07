@@ -48,7 +48,7 @@
         }
 
         &:hover {
-            color: $magenta;
+            color: $skin;
 
             &:before {
                 opacity: 1;

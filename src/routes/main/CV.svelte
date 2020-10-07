@@ -27,10 +27,6 @@
         max-width: 100%;
         position: relative;
 
-        //&:first-of-type {
-        //    margin: 1.25rem 0 2rem;
-        //}
-
         &:before {
             position: absolute;
             left: -2rem;
@@ -48,12 +44,13 @@
         }
     }
 
-    .darkyellow { &:before { content:'>='; } &:hover { color: $darkyellow; .time{ color: $darkyellow }}}
-    .blue { &:before { content:'>]'; } &:hover { color: $blue; .time{ color: $blue }}}
-    .purple { &:before { content:'|>'; } &:hover { color: $purple; .time{ color: $purple }}}
-    .green { &:before { content:'=>'; } &:hover { color: $green; .time{ color: $green }}}
-    .magenta { &:before { content:'>:'; } &:hover { color: $magenta; .time{ color: $magenta }}}
-    .anotherblue { &:before { content:'<>'; } &:hover { color: $anotherblue; .time{ color: $anotherblue }}}
+    .a { &:before { content:'~>'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
+    .b { &:before { content:'=>'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
+    .c { &:before { content:'>]'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
+    .d { &:before { content:'>='; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
+    .e { &:before { content:'|>'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
+    .f { &:before { content:'>:'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
+    .g { &:before { content:'<>'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
 
     .time {
         font-family: $font-family-sans;
@@ -66,34 +63,34 @@
     <h3>Erfahrungen</h3>
 
     <ul>
-        <li class="experience magenta tilt">
+        <li class="experience c">
             <div class="time">10/2017 {@html arrowRight} vsl. 02/2021</div>
-            <h4><a href="https://www.hs-augsburg.de/" target="_blank">Hochschule Augsburg</a></h4>
-            <p class="description"><a href="https://www.hs-augsburg.de/Gestaltung/Interactive-Media/IA.html" target="_blank">Interaktive Medien B.A.</a></p>
+            <h4><a href="https://www.hs-augsburg.de/" target="_blank">Hochschule Augsburg </a></h4>
+            <p class="description"><a href="https://www.hs-augsburg.de/Gestaltung/Interactive-Media.html" target="_blank">Interaktive Medien B.A.</a></p>
         </li>
-        <li class="experience green tilt">
-            <div class="time">2012 {@html arrowRight} HEUTE</div>
-            <h4>Freiberuflich</h4>
+        <li class="experience b">
+            <div class="time">2013 {@html arrowRight} HEUTE</div>
+            <h4><a href="projekte" rel="external">Freiberuflich</a></h4>
             <p class="description">Webdesign, Webentwicklung, Fotografie</p>
         </li>
-        <li class="experience blue tilt">
+        <li class="experience d">
             <div class="time">09/2019 {@html arrowRight} 02/2020</div>
             <h4><a href="https://planstack.de/" target="_blank">Planstack</a></h4>
             <p class="description">Praktikant Full-Stack Webentwicklung</p>
         </li>
-        <li class="experience purple tilt">
+        <li class="experience f">
             <div class="time">10/2017 {@html arrowRight} 09/2019</div>
             <h4><a href="https://starkstrom-augsburg.de/" target="_blank">Starkstrom Augsburg e.V.</a></h4>
             <p class="description">Führende Position Marketing</p>
         </li>
-        <li class="experience darkyellow tilt">
+        <li class="experience e">
             <div class="time">10/2018 {@html arrowRight} 07/2019</div>
-            <h4><a href="https://www.nfq.de/#" target="_blank">.NFQ Digital Creatives</a></h4>
+            <h4><a href="https://www.nfq.de/" target="_blank">.NFQ Digital Creatives</a></h4>
             <p class="description">Werkstudent</p>
         </li>
-        <li class="experience anotherblue tilt">
+        <li class="experience a">
             <div class="time">04/2011 {@html arrowRight} 05/2011</div>
-            <h4><a href="https://www.nfq.de/#" target="_blank">Bilfinger Maintenance GmbH</a></h4>
+            <h4><a href="https://www.mvv.de/de/ueber-uns/unternehmensgruppe/mvv-enamic/mvv-industriepark-gersthofen/industriepark-gersthofen/bilfinger-maintenance-gmbh/" target="_blank">Bilfinger Maintenance GmbH</a></h4>
             <p class="description">Betriebspraktikum</p>
         </li>
     </ul>

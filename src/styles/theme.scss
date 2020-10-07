@@ -26,15 +26,16 @@ $green: #90a800;
 $red: #ff0000;
 $yellow: #C7C700;
 $magenta: #BF0080;
-//$blue: #008080;
+//$blue: #$skin
 $anothergreen: #00FF80;
 $anotherblue: #00708F;
 $purple: #CC00CC;
 $darkyellow: #707000;
 $green: #C7C700;
 $darkgrey: #0F1418;
-$skin: #4f4948;
-$lightskin: lighten($skin, 15);
+$lightskin: #4f4948;
+//$lightskin: lighten($skin, 15);
+$skin: #cba890;
 
 $font-size-h1: 2.5rem;
 $font-size-h2: 1.5rem;

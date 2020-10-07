@@ -40,10 +40,10 @@
     }
 
     a {
-        color: lighten(#4f4948, 15);
+        color: lighten($lightskin, 15);
 
         &:hover {
-            color: #4f4948;
+            color: $skin;
         }
     }
 </style>
@@ -51,7 +51,7 @@
 <footer class="container">
     <div id="signature">
         <img src="assets/signature.svg" alt="Unterschrift Valentin Rogg">
-        Stand 28.09.20
+        Stand 07.10.20
     </div>
     <div id="social-media">
         <a href="https://www.linkedin.com/in/vrogg/" aria-label="LinkedIn">

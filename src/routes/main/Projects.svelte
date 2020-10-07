@@ -22,8 +22,18 @@
         position: relative;
         display: block;
 
-        //&:first-of-type {
-        //    margin: 1.25rem 0 2rem;
+        //padding: .75rem 1rem;
+        //box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        //box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        //transition: transform ease 200ms, box-shadow ease 200ms;
+        //border-radius: 4px;
+        //
+        //&:hover {
+        //    transform:
+        //            scale(1.1)
+        //            perspective(80em)
+        //            rotateX(10deg);
+        //    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         //}
 
         &:before {
@@ -62,10 +72,31 @@
         }
     }
 
-    .red { &:before { content:'~>'; } &:hover { color: $red; &:before { background: transparentize($red, .75); }}}
-    .blue { &:before { content:'>]'; } &:hover { color: $blue; &:before { background: transparentize($blue, .75); }}}
-    .purple { &:before { content:'|>'; } &:hover { color: $purple; &:before { background: transparentize($purple, .75); }}}
-    .green { &:before { content:'=>'; } &:hover { color: $green; &:before { background: transparentize($green, .75); }}}
+    a {
+        h5 {
+            color: $lightskin;
+        }
+
+        &:hover {
+            h5 {
+                color: $skin;
+            }
+        }
+    }
+
+    //.red { &:before { content:'~>'; } &:hover { color: $red; &:before { background: transparentize($red, .75); }}}
+    //.blue { &:before { content:'>]'; } &:hover { color: $blue; &:before { background: transparentize($blue, .75); }}}
+    //.purple { &:before { content:'|>'; } &:hover { color: $purple; &:before { background: transparentize($purple, .75); }}}
+    //.green { &:before { content:'=>'; } &:hover { color: $green; &:before { background: transparentize($green, .75); }}}
+
+    .a { &:before { content:'~>'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
+    .b { &:before { content:'=>'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
+    .c { &:before { content:'>]'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
+    .d { &:before { content:'>='; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
+    .e { &:before { content:'|>'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
+    .f { &:before { content:'>:'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
+    .g { &:before { content:'<>'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
+
 </style>
 
 <section>
@@ -75,7 +106,7 @@
     </div>
 
 <!--    <div rel=external href="projekte/anonymes-personentracking" class="experience purple tilt">-->
-    <a href="https://roggnschunck.de" class="experience purple tilt">
+    <a href="https://roggnschunck.de" target="_blank" class="experience a">
         <h4>Anonymes Personentracking</h4>
         <p class="description">
             Unser Produkt beschäftigt sich mit der anonymen Positionserfassung von Personen und Auswertung deren Verhaltens.
@@ -83,7 +114,7 @@
         </p>
     </a>
 <!--    <div rel=external href="projekte/kamerabasiertes-besuchertracking-im-museum" class="experience blue tilt">-->
-    <a href="https://theia-tracking.de" class="experience blue tilt">
+    <a href="https://theia-tracking.de" target="_blank" class="experience b">
         <h4>Kamerabasiertes Besuchertracking im Museum</h4>
         <h5>Theia Tracking</h5>
         <p class="description">
@@ -91,7 +122,7 @@
             Die Technologie wurde in Zusammenarbeit mit den Kunstsammlungen Augsburg in der Dauerausstellung des Schaezlerpalais getestet.
         </p>
     </a>
-    <a rel=external href="projekte/datenbank-fuer-ein-finanzprogramm" class="experience green tilt">
+    <a rel=external href="projekte/datenbank-fuer-ein-finanzprogramm" class="experience d">
         <h4>Datenbank für ein Finanzprogramnm</h4>
         <h5>Dedun</h5>
         <p class="description">
