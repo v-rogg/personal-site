@@ -50,7 +50,7 @@
 
 <footer class="container">
     <div id="signature">
-        <img src="signature.svg" alt="Unterschrift Valentin Rogg">
+        <img src="assets/signature.svg" alt="Unterschrift Valentin Rogg">
         Stand 28.09.20
     </div>
     <div id="social-media">
