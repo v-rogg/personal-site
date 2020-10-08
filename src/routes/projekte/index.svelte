@@ -159,7 +159,10 @@
     <li class="tilt a">
         <div class="border">
             <a rel=external href="projekte/anonymes-personentracking" class="link">
-                <h4>Anonymes Personentracking</h4>
+                <div class="title">
+                    <h4>Anonymes Personentracking</h4>
+                    <h5>Obacht!</h5>
+                </div>
                 <div class="inProgress">{@html inProgress} <span class="mono">{@html arrowRight}</span></div>
             </a>
         </div>
@@ -182,16 +185,15 @@
             </div>
         </div>
     </li>
-    <li class="">
-<!--        <a rel=external href="projekte/kamerabasiertes-besuchertracking-im-museum" class="link">-->
+    <li class="tilt d">
         <div class="border">
-            <div class="link">
+            <a rel=external href="projekte/kamerabasiertes-besuchertracking-im-museum" class="link">
                 <div class="title">
                     <h4>Kamerabasiertes Besuchertracking im Museum</h4>
                     <h5>Theia Tracking</h5>
                 </div>
-                <div class="done">{@html done}</div>
-            </div>
+                <div class="done">{@html done} <span class="mono">{@html arrowRight}</span></div>
+            </a>
         </div>
     </li>
     <li class="tilt e">
