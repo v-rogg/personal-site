@@ -1,5 +1,5 @@
 <script context="module">
-    const arrowRight = '<span class="mono">-></span>';
+    const arrowRight = '->';
 </script>
 
 <style lang="scss">
@@ -55,6 +55,7 @@
     }
 
     .description {
+        margin-top: 1rem;
         font-family: $font-family-serif;
     }
 
@@ -69,6 +70,10 @@
         &:hover {
             font-weight: 700;
             color: $skin;
+
+            * {
+                color: $skin;
+            }
         }
     }
 
@@ -84,51 +89,128 @@
         }
     }
 
+    .border {
+        padding: .75rem 1rem;
+        height: 100%;
+        width: 100%;
+    }
+
+    .link {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        //text-align: left;
+        transition: box-shadow ease 250ms;
+        flex-direction: column;
+        flex-grow: 1;
+        //margin-right: 2rem;
+        padding-left: 1rem;
+        border-left: 1px solid black;
+    }
+
     //.red { &:before { content:'~>'; } &:hover { color: $red; &:before { background: transparentize($red, .75); }}}
     //.blue { &:before { content:'>]'; } &:hover { color: $blue; &:before { background: transparentize($blue, .75); }}}
     //.purple { &:before { content:'|>'; } &:hover { color: $purple; &:before { background: transparentize($purple, .75); }}}
     //.green { &:before { content:'=>'; } &:hover { color: $green; &:before { background: transparentize($green, .75); }}}
 
-    .a { &:before { content:'~>'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
-    .b { &:before { content:'=>'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
-    .c { &:before { content:'>]'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
-    .d { &:before { content:'>='; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
-    .e { &:before { content:'|>'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
-    .f { &:before { content:'>:'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
-    .g { &:before { content:'<>'; } &:hover { color: $skin; .time{ color: $skin } &:before { color: $lightskin; }}}
+    .a { &:before { content:'~>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    .b { &:before { content:'=>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    .c { &:before { content:'>]'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    .d { &:before { content:'>='; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    .e { &:before { content:'|>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    .f { &:before { content:'>:'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    .g { &:before { content:'<>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+
+    .tilt {
+
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        transition: transform ease 200ms, box-shadow ease 200ms;
+        //padding: 1rem;
+        border-radius: 2px;
+
+        &:hover {
+            transform: scale(1.1) perspective(80em) rotateX(10deg);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    }
+
+    .link {
+        display: grid;
+        grid-template-columns: auto auto;
+
+        h4, h5 {
+            grid-column: 1 / 3;
+        }
+
+        .description {
+            grid-column: 1 / 2;
+        }
+
+        .mono {
+            grid-column: 2 / 3;
+            align-self: end;
+        }
+    }
+
+    .mono {
+        color: $lightskin;
+    }
 
 </style>
 
 <section>
     <div class="title">
         <h3>Neueste Projekte</h3>
-        <a rel=external href="projekte" class="more">Mehr {@html arrowRight}</a>
+        <a rel=external href="projekte" class="more">Mehr <span class="mono">{@html arrowRight}</span></a>
     </div>
 
 <!--    <div rel=external href="projekte/anonymes-personentracking" class="experience purple tilt">-->
-    <a href="https://roggnschunck.de" target="_blank" class="experience a">
-        <h4>Anonymes Personentracking</h4>
-        <p class="description">
-            Unser Produkt beschäftigt sich mit der anonymen Positionserfassung von Personen und Auswertung deren Verhaltens.
-            Das System kann sowohl im privaten als auch im öffentlichen Raum zur Verwendung kommen.
-        </p>
+    <a href="https://roggnschunck.de" target="_blank" class="experience a tilt">
+        <div class="border">
+            <div class="link">
+                <h4>Anonymes Personentracking</h4>
+                <p class="description">
+                    Unser Produkt beschäftigt sich mit der anonymen Positionserfassung von Personen und Auswertung deren Verhaltens.
+                    Das System kann sowohl im privaten als auch im öffentlichen Raum zur Verwendung kommen.
+                </p>
+                <span class="mono">
+                    {@html arrowRight}
+                </span>
+            </div>
+        </div>
     </a>
 <!--    <div rel=external href="projekte/kamerabasiertes-besuchertracking-im-museum" class="experience blue tilt">-->
-    <a href="https://theia-tracking.de" target="_blank" class="experience b">
-        <h4>Kamerabasiertes Besuchertracking im Museum</h4>
-        <h5>Theia Tracking</h5>
-        <p class="description">
-            Als Prototyp für das anonyme Personentracking wurde ein bis auf die Sensoren gleiches System mit Kameras aufgebaut.
-            Die Technologie wurde in Zusammenarbeit mit den Kunstsammlungen Augsburg in der Dauerausstellung des Schaezlerpalais getestet.
-        </p>
+    <a href="https://theia-tracking.de" target="_blank" class="experience b tilt">
+        <div class="border">
+            <div class="link">
+                <h4>Kamerabasiertes Besuchertracking im Museum</h4>
+                <h5>Theia Tracking</h5>
+                <p class="description">
+                    Als Prototyp für das anonyme Personentracking wurde ein bis auf die Sensoren gleiches System mit Kameras aufgebaut.
+                    Die Technologie wurde in Zusammenarbeit mit den Kunstsammlungen Augsburg in der Dauerausstellung des Schaezlerpalais getestet.
+                </p>
+                <span class="mono">
+                    {@html arrowRight}
+                </span>
+            </div>
+        </div>
     </a>
-    <a rel=external href="projekte/datenbank-fuer-ein-finanzprogramm" class="experience d">
-        <h4>Datenbank für ein Finanzprogramnm</h4>
-        <h5>Dedun</h5>
-        <p class="description">
-            Dieses Projekt handelt von einem Datenbankmodell für eine Finanz WebApp, vergleichbar mit FinanzGuru.
-            Der Nutzer ist in der Lage Konten anzulegen, Transaktionen und Daueraufträge zu hinterlegen
-            und Rechnungen zu verwalten. Außerdem werde alle Daten für eine intuitive Analyse aufbereitet.
-        </p>
+    <a rel=external href="projekte/datenbank-fuer-ein-finanzprogramm" class="experience d tilt">
+        <div class="border">
+            <div class="link">
+                <h4>Datenbank für ein Finanzprogramm</h4>
+                <h5>Dedun</h5>
+                <p class="description">
+                    Dieses Projekt handelt von einem Datenbankmodell für eine Finanz WebApp, vergleichbar mit FinanzGuru.
+                    Der Nutzer ist in der Lage Konten anzulegen, Transaktionen und Daueraufträge zu hinterlegen
+                    und Rechnungen zu verwalten. Außerdem werde alle Daten für eine intuitive Analyse aufbereitet.
+                </p>
+                <span class="mono">
+                    {@html arrowRight}
+                </span>
+            </div>
+        </div>
     </a>
 </section>

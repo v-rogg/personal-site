@@ -209,10 +209,10 @@
     <li class="">
 <!--        <a rel=external href="projekte/robert-kraus-website" class="link">-->
         <div class="border">
-        <div class="link">
-            <h4>Robert Kraus Website</h4>
-            <div class="done">{@html done}</div>
-        </div>
+            <div class="link">
+                <h4>Robert Kraus Website</h4>
+                <div class="done">{@html done}</div>
+            </div>
         </div>
     </li>
     <li class="tilt g">
