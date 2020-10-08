@@ -126,13 +126,13 @@
     //.anothergreen { &:before { content:'<>'; } &:hover { *, &:before { color: $anothergreen; } border-color: $anothergreen; }}
     //.red { &:before { content:'~>'; } &:hover { *, &:before { color: $red; } border-color: $red; }}
 
-    .a { &:before { content:'~>'; } &:hover { *, &:before { color: $lightskin; } .done { .mono { color: $skin } } * { border-color: $skin !important; }}}
-    .b { &:before { content:'=>'; } &:hover { *, &:before { color: $lightskin; } .done { .mono { color: $skin } } * { border-color: $skin !important; }}}
-    .c { &:before { content:'>]'; } &:hover { *, &:before { color: $lightskin; } .done { .mono { color: $skin } } * { border-color: $skin !important; }}}
-    .d { &:before { content:'>='; } &:hover { *, &:before { color: $lightskin; } .done { .mono { color: $skin } } * { border-color: $skin !important; }}}
-    .e { &:before { content:'|>'; } &:hover { *, &:before { color: $lightskin; } .done { .mono { color: $skin } } * { border-color: $skin !important; }}}
-    .f { &:before { content:'>:'; } &:hover { *, &:before { color: $lightskin; } .done { .mono { color: $skin } } * { border-color: $skin !important; }}}
-    .g { &:before { content:'<>'; } &:hover { *, &:before { color: $lightskin; } .done { .mono { color: $skin } } * { border-color: $skin !important; }}}
+    .a { &:before { content:'~>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    .b { &:before { content:'=>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    .c { &:before { content:'>]'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    .d { &:before { content:'>='; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    .e { &:before { content:'|>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    .f { &:before { content:'>:'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    .g { &:before { content:'<>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
 
     .tilt {
 
@@ -156,13 +156,12 @@
 <h3>Ein Auszug meiner bisherigen Projekte</h3>
 
 <ul>
-    <li class="">
-<!--        <a rel=external href="projekte/anonymes-personentracking" class="link">-->
+    <li class="tilt a">
         <div class="border">
-            <div class="link">
+            <a rel=external href="projekte/anonymes-personentracking" class="link">
                 <h4>Anonymes Personentracking</h4>
-                <div class="inProgress">{@html inProgress}</div>
-            </div>
+                <div class="inProgress">{@html inProgress} <span class="mono">{@html arrowRight}</span></div>
+            </a>
         </div>
     </li>
     <li class="">

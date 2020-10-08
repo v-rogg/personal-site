@@ -166,8 +166,7 @@
         <a rel=external href="projekte" class="more">Mehr <span class="mono">{@html arrowRight}</span></a>
     </div>
 
-<!--    <div rel=external href="projekte/anonymes-personentracking" class="experience purple tilt">-->
-    <a href="https://roggnschunck.de" target="_blank" class="experience a tilt">
+    <a rel="external" href="projekte/anonymes-personentracking" class="experience a tilt">
         <div class="border">
             <div class="link">
                 <h4>Anonymes Personentracking</h4>
@@ -182,7 +181,7 @@
         </div>
     </a>
 <!--    <div rel=external href="projekte/kamerabasiertes-besuchertracking-im-museum" class="experience blue tilt">-->
-    <a href="https://theia-tracking.de" target="_blank" class="experience b tilt">
+    <a rel="external" href="projekte/kamerabasiertes-besuchertracking-im-museum" class="experience b tilt">
         <div class="border">
             <div class="link">
                 <h4>Kamerabasiertes Besuchertracking im Museum</h4>
@@ -197,7 +196,7 @@
             </div>
         </div>
     </a>
-    <a rel=external href="projekte/datenbank-fuer-ein-finanzprogramm" class="experience d tilt">
+    <a rel="external" href="projekte/datenbank-fuer-ein-finanzprogramm" class="experience d tilt">
         <div class="border">
             <div class="link">
                 <h4>Datenbank für ein Finanzprogramm</h4>
