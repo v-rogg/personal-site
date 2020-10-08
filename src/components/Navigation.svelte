@@ -8,6 +8,7 @@
     @import './src/styles/theme';
 
     .back {
+        width: max-content;
 
         &:hover {
             font-weight: 700;
@@ -28,24 +29,29 @@
         grid-template-columns: repeat(3, 1fr);
         width: 100%;
         position: relative;
-        background: transparentize($lightskin, .9);
         margin-bottom: 1rem;
+        gap: 4px;
 
         .top, .mid, .bottom {
-            opacity: 0;
-            height: 4px;
+            height: 3px;
+            width: 100%;
+            background: transparentize($lightskin, .9);
+
+        }
+
+        .top:hover {
             background: $skin;
         }
     }
 
     .show {
-        opacity: 1 !important;
+        background: $skin !important;
     }
 </style>
 
 <nav class="container">
     <div class="bar">
-        <div class="top" ></div>
+        <a rel="external" href="/" class="top"></a>
         <div class="mid" class:show={stage === undefined}></div>
         <div class="bottom" class:show={stage !== undefined }></div>
     </div>
