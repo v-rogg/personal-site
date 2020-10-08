@@ -25,8 +25,9 @@
         font-size: $font-size-small
 </style>
 
+<Navigation ref={segment === undefined ? '/' : '/projekte'} stage={segment} />
+
 <section class="container">
     <slot></slot>
 </section>
 
-<Navigation ref={segment === undefined ? '/' : '/projekte'} />
