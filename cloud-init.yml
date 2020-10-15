@@ -1,0 +1,3 @@
+static_sites: [
+  output_dir: '__sapper__/export'
+]
