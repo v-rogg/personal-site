@@ -15,7 +15,7 @@
     p
         margin: 1.25rem 0
 
-    picture
+    .asset
         margin: 3rem 5rem 0
         display: block
 

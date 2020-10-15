@@ -17,7 +17,7 @@
 
     .experience {
         margin: 2rem 0;
-        width: max-content;
+        width: 100%;
         max-width: 100%;
         position: relative;
         display: block;
@@ -171,10 +171,10 @@
             <div class="link">
                 <h4>Anonymes Personentracking</h4>
                 <h5>Obacht!</h5>
-                <p class="description">
-                    Unser Produkt beschäftigt sich mit der anonymen Positionserfassung von Personen und Auswertung deren Verhaltens.
-                    Das System kann sowohl im privaten als auch im öffentlichen Raum zur Verwendung kommen.
-                </p>
+<!--                <p class="description">-->
+<!--                    Unser Produkt beschäftigt sich mit der anonymen Positionserfassung von Personen und Auswertung deren Verhaltens.-->
+<!--                    Das System kann sowohl im privaten als auch im öffentlichen Raum zur Verwendung kommen.-->
+<!--                </p>-->
                 <span class="mono">
                     {@html arrowRight}
                 </span>
@@ -187,10 +187,10 @@
             <div class="link">
                 <h4>Kamerabasiertes Besuchertracking im Museum</h4>
                 <h5>Theia Tracking</h5>
-                <p class="description">
-                    Als Prototyp für das anonyme Personentracking wurde ein bis auf die Sensoren gleiches System mit Kameras aufgebaut.
-                    Die Technologie wurde in Zusammenarbeit mit den Kunstsammlungen Augsburg in der Dauerausstellung des Schaezlerpalais getestet.
-                </p>
+<!--                <p class="description">-->
+<!--                    Als Prototyp für das anonyme Personentracking wurde ein bis auf die Sensoren gleiches System mit Kameras aufgebaut.-->
+<!--                    Die Technologie wurde in Zusammenarbeit mit den Kunstsammlungen Augsburg in der Dauerausstellung des Schaezlerpalais getestet.-->
+<!--                </p>-->
                 <span class="mono">
                     {@html arrowRight}
                 </span>
@@ -202,11 +202,11 @@
             <div class="link">
                 <h4>Datenbank für ein Finanzprogramm</h4>
                 <h5>Dedun</h5>
-                <p class="description">
-                    Dieses Projekt handelt von einem Datenbankmodell für eine Finanz WebApp, vergleichbar mit FinanzGuru.
-                    Der Nutzer ist in der Lage Konten anzulegen, Transaktionen und Daueraufträge zu hinterlegen
-                    und Rechnungen zu verwalten. Außerdem werde alle Daten für eine intuitive Analyse aufbereitet.
-                </p>
+<!--                <p class="description">-->
+<!--                    Dieses Projekt handelt von einem Datenbankmodell für eine Finanz WebApp, vergleichbar mit FinanzGuru.-->
+<!--                    Der Nutzer ist in der Lage Konten anzulegen, Transaktionen und Daueraufträge zu hinterlegen-->
+<!--                    und Rechnungen zu verwalten. Außerdem werde alle Daten für eine intuitive Analyse aufbereitet.-->
+<!--                </p>-->
                 <span class="mono">
                     {@html arrowRight}
                 </span>

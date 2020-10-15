@@ -18,7 +18,7 @@
     und Rechnungen zu verwalten. Außerdem werde alle Daten für eine intuitive Analyse aufbereitet.
 </p>
 
-<picture>
+<picture class="asset">
     <source type="image/webp" srcset="assets/projects/datenbank-fuer-ein-finanzprogramm/er-diagram-v015d.webp">
     <img src="assets/projects/datenbank-fuer-ein-finanzprogramm/er-diagram-v015d.png" alt="Dedun Entity-Relationship Diagramm">
 </picture>
@@ -32,7 +32,7 @@
     sowohl für die Vergangenheit, als auch für eine mögliche Zukunft darstellt.
 </p>
 
-<picture>
+<picture class="asset">
     <source type="image/webp" srcset="assets/projects/datenbank-fuer-ein-finanzprogramm/dashboard-mockup-v004.webp">
     <img src="assets/projects/datenbank-fuer-ein-finanzprogramm/dashboard-mockup-v004.png" alt="Dedun Dashboard v004">
 </picture>

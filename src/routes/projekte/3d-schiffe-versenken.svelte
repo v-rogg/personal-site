@@ -44,7 +44,7 @@
     Bei dem Projekt Montgolfière handelt es sich um ein Konzept und Prototypen für ein webbasiertes Spiel.
 </p>
 
-<picture class="mockup">
+<picture class="mockup asset">
     <source type="image/webp" srcset="assets/projects/3d-schiffe-versenken/montgolfiere_moc.webp">
     <img src="assets/projects/3d-schiffe-versenken/montgolfiere_moc.png" alt="Montgolfière Mockup">
 </picture>
@@ -63,19 +63,19 @@
 
 <div class="side-by-side">
 
-    <picture>
+    <picture class="asset">
         <source type="image/webp" srcset="assets/projects/3d-schiffe-versenken/c2.webp">
         <img src="assets/projects/3d-schiffe-versenken/c2.png" alt="Landschaftskonzept">
     </picture>
-    <picture>
+    <picture class="asset">
         <source type="image/webp" srcset="assets/projects/3d-schiffe-versenken/land1.webp">
         <img src="assets/projects/3d-schiffe-versenken/land1.png" alt="Landschaftskonzept">
     </picture>
-    <picture>
+    <picture class="asset">
         <source type="image/webp" srcset="assets/projects/3d-schiffe-versenken/land2.webp">
         <img src="assets/projects/3d-schiffe-versenken/land2.png" alt="Landschaftskonzept">
     </picture>
-    <picture>
+    <picture class="asset">
         <source type="image/webp" srcset="assets/projects/3d-schiffe-versenken/land3.webp">
         <img src="assets/projects/3d-schiffe-versenken/land3.png" alt="Landschaftskonzept">
     </picture>

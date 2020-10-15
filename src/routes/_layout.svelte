@@ -1,14 +1,15 @@
 <script>
-  // import { onMount } from 'svelte';
-  import Footer from '../components/Footer.svelte';
-  import Header from '../components/Header.svelte';
+    // import { onMount } from 'svelte';
+    import Footer from '../components/Footer.svelte';
+    import Header from '../components/Header.svelte';
+    import Loading from "../components/Loading.svelte";
 
-  // let Tilt;
-  //
-  // onMount(async () => {
-  //   const module = await import('../components/Tilt.svelte');
-  //   Tilt = module.default;
-  // });
+    // let Tilt;
+    //
+    // onMount(async () => {
+    //   const module = await import('../components/Tilt.svelte');
+    //   Tilt = module.default;
+    // });
 </script>
 
 <style lang="scss" global>
@@ -21,6 +22,8 @@
   <meta name="keywords" content="Valentin Rogg, Entrepreneur, Startup, Anonymes Personentracking, Obacht!, Rogg'n'Schunck, Rogg & Schunck" />
   <meta name="author" content="Valentin Rogg" />
 </svelte:head>
+
+<!--<Loading />-->
 
 <Header />
 

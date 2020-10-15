@@ -39,7 +39,7 @@
 
         }
 
-        .top:hover {
+        .top:hover, .mid:hover {
             background: $skin;
         }
     }
@@ -52,7 +52,7 @@
 <nav class="container">
     <div class="bar">
         <a rel="external" href="/" class="top"></a>
-        <div class="mid" class:show={stage === undefined}></div>
+        <a rel="external" href="/projekte" class="mid" class:show={stage === undefined}></a>
         <div class="bottom" class:show={stage !== undefined }></div>
     </div>
     <a rel=external href={ref} class="back">{@html arrowLeft} Zurück</a>
