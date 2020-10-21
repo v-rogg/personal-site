@@ -1,5 +1,5 @@
-<script context="module">
-    const arrowRight = '<span class="mono">-></span>';
+<script context="module" lang="ts">
+    const arrowRight: string = '<span class="mono">-></span>';
 </script>
 
 <style lang="scss">

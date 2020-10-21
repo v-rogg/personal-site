@@ -4,7 +4,7 @@
     import Projects from "./main/Projects.svelte";
 </script>
 
-<style lang="scss">
+<style lang="scss" global>
     .split {
         display: grid;
         grid-template-columns: 40% 60%;
