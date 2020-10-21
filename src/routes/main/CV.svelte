@@ -71,7 +71,7 @@
         <li class="experience b">
             <div class="time">2013 {@html arrowRight} HEUTE</div>
             <h4><a href="projekte" rel="external">Freiberuflich</a></h4>
-            <p class="description">Webdesign, Webentwicklung, Fotografie</p>
+            <p class="description">Webentwicklung, Webdesign,<br />Fotografie, Gesang</p>
         </li>
         <li class="experience d">
             <div class="time">09/2019 {@html arrowRight} 02/2020</div>
