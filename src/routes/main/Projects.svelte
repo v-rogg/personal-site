@@ -52,6 +52,16 @@
                 opacity: 1;
             }
         }
+
+        h5 {
+            color: $lightskin;
+        }
+
+        &:hover {
+            h5 {
+                color: $skin;
+            }
+        }
     }
 
     //.description {
@@ -72,18 +82,6 @@
             color: $skin;
 
             * {
-                color: $skin;
-            }
-        }
-    }
-
-    a {
-        h5 {
-            color: $lightskin;
-        }
-
-        &:hover {
-            h5 {
                 color: $skin;
             }
         }
