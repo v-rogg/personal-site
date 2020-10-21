@@ -51,7 +51,7 @@
 <footer class="container">
     <div id="signature">
         <img src="assets/signature.svg" alt="Unterschrift Valentin Rogg">
-        Stand 07.10.20
+        Stand 21.10.20
     </div>
     <div id="social-media">
         <a href="https://www.linkedin.com/in/vrogg/" aria-label="LinkedIn">
