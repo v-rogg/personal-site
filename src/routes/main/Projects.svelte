@@ -1,5 +1,5 @@
-<script context="module">
-    const arrowRight = '->';
+<script context="module" lang="ts">
+    const arrowRight: string = '->';
 </script>
 
 <style lang="scss">
