@@ -9,13 +9,13 @@
         display: grid;
         grid-template-columns: 40% 60%;
 
-        .left {
-            width: 40%;
-        }
+        //.left {
+        //    width: 40%;
+        //}
 
-        .rit {
-            width: 60%;
-        }
+        //.rit {
+        //    width: 60%;
+        //}
     }
 
     @media (max-width: 991.98px) {

@@ -54,10 +54,10 @@
         }
     }
 
-    .description {
-        margin-top: 1rem;
-        font-family: $font-family-serif;
-    }
+    //.description {
+    //    margin-top: 1rem;
+    //    font-family: $font-family-serif;
+    //}
 
     .title {
         display: flex;
@@ -117,11 +117,11 @@
 
     .a { &:before { content:'~>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
     .b { &:before { content:'=>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    .c { &:before { content:'>]'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    //.c { &:before { content:'>]'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
     .d { &:before { content:'>='; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    .e { &:before { content:'|>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    .f { &:before { content:'>:'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    .g { &:before { content:'<>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    //.e { &:before { content:'|>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    //.f { &:before { content:'>:'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    //.g { &:before { content:'<>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
 
     .tilt {
 
@@ -144,9 +144,9 @@
             grid-column: 1 / 3;
         }
 
-        .description {
-            grid-column: 1 / 2;
-        }
+        //.description {
+        //    grid-column: 1 / 2;
+        //}
 
         .mono {
             grid-column: 2 / 3;
@@ -163,10 +163,10 @@
 <section>
     <div class="title">
         <h3>Neueste Projekte</h3>
-        <a rel=external href="projekte" class="more">Mehr <span class="mono">{@html arrowRight}</span></a>
+        <a rel="external preload" href="projekte" class="more">Mehr <span class="mono">{@html arrowRight}</span></a>
     </div>
 
-    <a rel="external" href="projekte/anonymes-personentracking" class="experience a tilt">
+    <a rel="external preload" href="projekte/anonymes-personentracking" class="experience a tilt">
         <div class="border">
             <div class="link">
                 <h4>Anonymes Personentracking</h4>
@@ -182,7 +182,7 @@
         </div>
     </a>
 <!--    <div rel=external href="projekte/kamerabasiertes-besuchertracking-im-museum" class="experience blue tilt">-->
-    <a rel="external" href="projekte/kamerabasiertes-besuchertracking-im-museum" class="experience b tilt">
+    <a rel="external preload" href="projekte/kamerabasiertes-besuchertracking-im-museum" class="experience b tilt">
         <div class="border">
             <div class="link">
                 <h4>Kamerabasiertes Besuchertracking im Museum</h4>
@@ -197,11 +197,11 @@
             </div>
         </div>
     </a>
-    <a rel="external" href="projekte/datenbank-fuer-ein-finanzprogramm" class="experience d tilt">
+    <div rel="external preload" class="experience d">
         <div class="border">
             <div class="link">
-                <h4>Datenbank für ein Finanzprogramm</h4>
-                <h5>Dedun</h5>
+                <h4>Dart-Punkteerkennung mithilfe eines LiDAR-Sensors</h4>
+                <h5>Robin Hood</h5>
 <!--                <p class="description">-->
 <!--                    Dieses Projekt handelt von einem Datenbankmodell für eine Finanz WebApp, vergleichbar mit FinanzGuru.-->
 <!--                    Der Nutzer ist in der Lage Konten anzulegen, Transaktionen und Daueraufträge zu hinterlegen-->
@@ -212,5 +212,5 @@
                 </span>
             </div>
         </div>
-    </a>
+    </div>
 </section>

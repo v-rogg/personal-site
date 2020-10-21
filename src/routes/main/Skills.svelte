@@ -42,9 +42,9 @@
         font-family: $font-family-serif;
     }
 
-    .a { &:before { content:'~>'; } &:hover { color: $lightskin; }}
-    .b { &:before { content:'=>'; } &:hover { color: $lightskin; }}
-    .c { &:before { content:'>]'; } &:hover { color: $lightskin; }}
+    //.a { &:before { content:'~>'; } &:hover { color: $lightskin; }}
+    //.b { &:before { content:'=>'; } &:hover { color: $lightskin; }}
+    //.c { &:before { content:'>]'; } &:hover { color: $lightskin; }}
 </style>
 
 <section>

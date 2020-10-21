@@ -90,24 +90,24 @@
         }
     }
 
-    .back {
-        margin-top: 5rem;
-        display: block;
-        color: $lightskin;
-
-        &:hover {
-            font-weight: 700;
-            color: $skin;
-        }
-    }
+    //.back {
+    //    margin-top: 5rem;
+    //    display: block;
+    //    color: $lightskin;
+    //
+    //    &:hover {
+    //        font-weight: 700;
+    //        color: $skin;
+    //    }
+    //}
 
     h3 {
         margin: 0 0 1.25rem;
     }
 
-    .check {
-        width: 2rem;
-    }
+    //.check {
+    //    width: 2rem;
+    //}
 
     .inProgress, .done {
         display: flex;
@@ -127,11 +127,11 @@
     //.red { &:before { content:'~>'; } &:hover { *, &:before { color: $red; } border-color: $red; }}
 
     .a { &:before { content:'~>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    .b { &:before { content:'=>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    .c { &:before { content:'>]'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    //.b { &:before { content:'=>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    //.c { &:before { content:'>]'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
     .d { &:before { content:'>='; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
     .e { &:before { content:'|>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    .f { &:before { content:'>:'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    //.f { &:before { content:'>:'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
     .g { &:before { content:'<>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
 
     .tilt {
@@ -158,7 +158,7 @@
 <ul>
     <li class="tilt a">
         <div class="border">
-            <a rel=external href="projekte/anonymes-personentracking" class="link">
+            <a rel="external preload" href="projekte/anonymes-personentracking" class="link">
                 <div class="title">
                     <h4>Anonymes Personentracking</h4>
                     <h5>Obacht!</h5>
@@ -171,7 +171,10 @@
 <!--        <a rel=external href="projekte/darterkennung-mit-lidar">-->
         <div class="border">
             <div class="link">
-                <h4>Dart-Erkennung mithilfe eines LiDAR-Sensors</h4>
+                <div class="title">
+                    <h4>Dart-Punkteerkennung mithilfe eines LiDAR-Sensors</h4>
+                    <h5>Robin Hood</h5>
+                </div>
                 <div class="inProgress">{@html inProgress}</div>
             </div>
         </div>
@@ -187,7 +190,7 @@
     </li>
     <li class="tilt d">
         <div class="border">
-            <a rel=external href="projekte/kamerabasiertes-besuchertracking-im-museum" class="link">
+            <a rel="external preload" href="projekte/kamerabasiertes-besuchertracking-im-museum" class="link">
                 <div class="title">
                     <h4>Kamerabasiertes Besuchertracking im Museum</h4>
                     <h5>Theia Tracking</h5>
@@ -198,7 +201,7 @@
     </li>
     <li class="tilt e">
         <div class="border">
-            <a rel=external href="projekte/datenbank-fuer-ein-finanzprogramm" class="link">
+            <a rel="external preload" href="projekte/datenbank-fuer-ein-finanzprogramm" class="link">
                 <div class="title">
                     <h4>Datenbank für ein Finanzprogramm</h4>
                     <h5>Dedun</h5>
@@ -218,7 +221,7 @@
     </li>
     <li class="tilt g">
         <div class="border">
-            <a rel=external href="projekte/3d-schiffe-versenken" class="link">
+            <a rel="external preload" href="projekte/3d-schiffe-versenken" class="link">
                 <div class="title">
                     <h4>3D Schiffe versenken</h4>
                     <h5>Montgolfière</h5>

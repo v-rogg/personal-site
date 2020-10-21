@@ -101,9 +101,9 @@
             }
         }
 
-        div {
-            margin-top: 1rem;
-        }
+        //div {
+        //    margin-top: 1rem;
+        //}
     }
 
     //#social-media {

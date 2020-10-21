@@ -44,13 +44,13 @@
         }
     }
 
-    .a { &:before { content:'~>'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
-    .b { &:before { content:'=>'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
-    .c { &:before { content:'>]'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
+    //.a { &:before { content:'~>'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
+    //.b { &:before { content:'=>'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
+    //.c { &:before { content:'>]'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
     .d { &:before { content:'>='; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
     .e { &:before { content:'|>'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
     .f { &:before { content:'>:'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
-    .g { &:before { content:'<>'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
+    //.g { &:before { content:'<>'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
 
     .time {
         font-family: $font-family-sans;
