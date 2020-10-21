@@ -2,15 +2,15 @@
     const arrowRight: string = '<span class="mono">-></span>';
 </script>
 
-<style lang="scss">
+<style lang="scss" global>
     @import "../../styles/theme";
 
-    section {
+    #cv {
         grid-area: 1 / 1 / 3 / 2;
     }
 
     @media (max-width: 991.98px) {
-        section {
+        #cv {
             grid-area: 2 / 1 / 3 / 2;
         }
     }
@@ -44,9 +44,9 @@
         }
     }
 
-    //.a { &:before { content:'~>'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
-    //.b { &:before { content:'=>'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
-    //.c { &:before { content:'>]'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
+    .a { &:before { content:'~>'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
+    .b { &:before { content:'=>'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
+    .c { &:before { content:'>]'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
     .d { &:before { content:'>='; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
     .e { &:before { content:'|>'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
     .f { &:before { content:'>:'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
@@ -59,13 +59,13 @@
 
 </style>
 
-<section>
+<section id="cv">
     <h3>Erfahrungen</h3>
 
     <ul>
         <li class="experience c">
             <div class="time">10/2017 {@html arrowRight} vsl. 02/2021</div>
-            <h4><a href="https://www.hs-augsburg.de/" target="_blank">Hochschule Augsburg </a></h4>
+            <h4><a href="https://www.hs-augsburg.de/" target="_blank">Hochschule Augsburg</a></h4>
             <p class="description"><a href="https://www.hs-augsburg.de/Gestaltung/Interactive-Media.html" target="_blank">Interaktive Medien B.A.</a></p>
         </li>
         <li class="experience b">

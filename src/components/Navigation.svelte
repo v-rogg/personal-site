@@ -51,9 +51,9 @@
 
 <nav class="container">
     <div class="bar">
-        <a rel="external preload" href="/" class="top"></a>
+        <a rel="external" href="/" class="top"></a>
         <a rel="external preload" href="/projekte" class="mid" class:show={stage === undefined}></a>
         <div class="bottom" class:show={stage !== undefined }></div>
     </div>
-    <a rel="external preload" href={ref} class="back">{@html arrowLeft} Zurück</a>
+    <a rel="external" href={ref} class="back">{@html arrowLeft} Zurück</a>
 </nav>
