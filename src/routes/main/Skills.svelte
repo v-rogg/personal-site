@@ -42,9 +42,9 @@
         font-family: $font-family-serif;
     }
 
-    //.a { &:before { content:'~>'; } &:hover { color: $lightskin; }}
-    //.b { &:before { content:'=>'; } &:hover { color: $lightskin; }}
-    //.c { &:before { content:'>]'; } &:hover { color: $lightskin; }}
+    //.a { &:before { content:'~>'; } &:hover { color: $darkskin; }}
+    //.b { &:before { content:'=>'; } &:hover { color: $darkskin; }}
+    //.c { &:before { content:'>]'; } &:hover { color: $darkskin; }}
 </style>
 
 <section>
@@ -64,6 +64,6 @@
     </div>
     <div class="experience">
         <h4>Soziale Kompetenzen</h4>
-        <p class="description">Teamführung, Projektmanagement, Vertrieb</p>
+        <p class="description">Teamführung, Projektmanagement, Vertrieb, Auffassungsgabe</p>
     </div>
 </section>

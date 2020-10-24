@@ -5,8 +5,6 @@
         margin: 3rem 0 0
 
     .mockup
-        margin: -2rem 0 0
-        z-index: -1
         position: relative
 
     .side-by-side
@@ -14,19 +12,24 @@
         grid-template-columns: repeat(4, 1fr)
         margin: 0 0 2rem
         overflow: hidden
+        gap: 1rem
 
-        picture
-            margin-top: -3rem
+    .final, .game
+        display: grid
+        grid-template-columns: 1fr 1fr
+        margin: 0 0 2rem
+        overflow: hidden
+        gap: 1rem
+
+    //picture
+        //    margin-top: -3rem
 
     @media (max-width: 991.98px)
         .side-by-side
             grid-template-columns: 1fr 1fr
 
-            picture
-                margin-top: 0
-
     @media (max-width: 576px)
-        .side-by-side
+        .side-by-side, .final, .game
             grid-template-columns: 1fr
 
 </style>
@@ -45,8 +48,9 @@
 </p>
 
 <picture class="mockup asset">
+    <source type="image/avif" srcset="assets/projects/3d-schiffe-versenken/montgolfiere_moc.avif">
     <source type="image/webp" srcset="assets/projects/3d-schiffe-versenken/montgolfiere_moc.webp">
-    <img src="assets/projects/3d-schiffe-versenken/montgolfiere_moc.png" alt="Montgolfière Mockup">
+    <img src="assets/projects/3d-schiffe-versenken/montgolfiere_moc.jpg" alt="Montgolfière Mockup">
 </picture>
 <div class="caption">
     Montgolfière Mockup
@@ -64,22 +68,58 @@
 <div class="side-by-side">
 
     <picture class="asset">
+        <source type="image/avif" srcset="assets/projects/3d-schiffe-versenken/c2.avif">
         <source type="image/webp" srcset="assets/projects/3d-schiffe-versenken/c2.webp">
-        <img src="assets/projects/3d-schiffe-versenken/c2.png" alt="Landschaftskonzept">
+        <img src="assets/projects/3d-schiffe-versenken/c2.jpg" alt="Landschaftskonzept">
     </picture>
     <picture class="asset">
+        <source type="image/avif" srcset="assets/projects/3d-schiffe-versenken/land1.avif">
         <source type="image/webp" srcset="assets/projects/3d-schiffe-versenken/land1.webp">
-        <img src="assets/projects/3d-schiffe-versenken/land1.png" alt="Landschaftskonzept">
+        <img src="assets/projects/3d-schiffe-versenken/land1.jpg" alt="Landschaftskonzept">
     </picture>
     <picture class="asset">
+        <source type="image/avif" srcset="assets/projects/3d-schiffe-versenken/land2.avif">
         <source type="image/webp" srcset="assets/projects/3d-schiffe-versenken/land2.webp">
-        <img src="assets/projects/3d-schiffe-versenken/land2.png" alt="Landschaftskonzept">
+        <img src="assets/projects/3d-schiffe-versenken/land2.jpg" alt="Landschaftskonzept">
     </picture>
     <picture class="asset">
+        <source type="image/avif" srcset="assets/projects/3d-schiffe-versenken/land3.avif">
         <source type="image/webp" srcset="assets/projects/3d-schiffe-versenken/land3.webp">
-        <img src="assets/projects/3d-schiffe-versenken/land3.png" alt="Landschaftskonzept">
+        <img src="assets/projects/3d-schiffe-versenken/land3.jpg" alt="Landschaftskonzept">
     </picture>
 </div>
 <div class="caption">
     Landschaftskonzepte
+</div>
+
+<div class="final">
+    <picture class="asset">
+<!--        <source type="image/avif" srcset="assets/projects/3d-schiffe-versenken/landf-left.avif">-->
+<!--        <source type="image/webp" srcset="assets/projects/3d-schiffe-versenken/landf-left.webp">-->
+        <img src="assets/projects/3d-schiffe-versenken/landf-left.jpg" alt="Landschaftskonzept">
+    </picture>
+    <picture class="asset">
+<!--        <source type="image/avif" srcset="assets/projects/3d-schiffe-versenken/landf-right.avif">-->
+<!--        <source type="image/webp" srcset="assets/projects/3d-schiffe-versenken/landf-right.webp">-->
+        <img src="assets/projects/3d-schiffe-versenken/landf-right.jpg" alt="Landschaftskonzept">
+    </picture>
+</div>
+<div class="caption">
+    Finale Landschaftsgestaltung nach dem Vorbild Versailles
+</div>
+
+<div class="game">
+    <picture class="asset">
+        <!--        <source type="image/avif" srcset="assets/projects/3d-schiffe-versenken/landf-left.avif">-->
+        <!--        <source type="image/webp" srcset="assets/projects/3d-schiffe-versenken/landf-left.webp">-->
+        <img src="assets/projects/3d-schiffe-versenken/game-left.jpg" alt="Landschaftskonzept">
+    </picture>
+    <picture class="asset">
+        <!--        <source type="image/avif" srcset="assets/projects/3d-schiffe-versenken/landf-right.avif">-->
+        <!--        <source type="image/webp" srcset="assets/projects/3d-schiffe-versenken/landf-right.webp">-->
+        <img src="assets/projects/3d-schiffe-versenken/game-right.jpg" alt="Landschaftskonzept">
+    </picture>
+</div>
+<div class="caption">
+    Finaler Spielprototyp
 </div>

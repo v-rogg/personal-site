@@ -1,10 +1,27 @@
 <style lang="sass">
     @import "./src/styles/theme"
+
+    a
+        margin-top: 2.5rem
+        display: inline-block
+        color: $darkskin
+        padding: 1rem
+        border: 1px solid $darkskin
+
+        &:hover
+            font-weight: 700
+            color: $skin
+            border-color: $skin
+
 </style>
 
 <h3>
-    Robert Kraus Website
+    Alleinunterhalter Website
 </h3>
+<h4>
+    Robert Kraus
+</h4>
 <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium, atque autem cum deserunt et eum explicabo, illo incidunt inventore nesciunt velit? Aperiam delectus facilis neque perspiciatis porro qui recusandae veniam voluptate? A accusamus at consectetur distinctio dolor dolores eos excepturi facere officiis perferendis quas ratione vel, veniam voluptatibus voluptatum.
+    Als Dankeschön für die jahrelange Unterstützung bei Musikprojekte habe ich die private Website von Robert Kraus neu gestaltet und aufgesetzt.
 </p>
+<a href="https://robertkraus.de" target="_blank">Mehr erfahren <span class="mono">-></span></a>

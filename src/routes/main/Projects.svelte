@@ -54,12 +54,12 @@
         }
 
         h5 {
-            color: $lightskin;
+            color: $darkskin;
         }
 
         &:hover {
             h5 {
-                color: $skin;
+                //color: $skin;
             }
         }
     }
@@ -75,7 +75,7 @@
     }
 
     .more {
-        color: $lightskin;
+        color: $darkskin;
 
         &:hover {
             font-weight: 700;
@@ -104,8 +104,8 @@
         flex-direction: column;
         flex-grow: 1;
         //margin-right: 2rem;
-        padding-left: 1rem;
-        border-left: 1px solid black;
+        //padding-left: 1rem;
+        //border-left: 1px solid black;
     }
 
     //.red { &:before { content:'~>'; } &:hover { color: $red; &:before { background: transparentize($red, .75); }}}
@@ -113,13 +113,15 @@
     //.purple { &:before { content:'|>'; } &:hover { color: $purple; &:before { background: transparentize($purple, .75); }}}
     //.green { &:before { content:'=>'; } &:hover { color: $green; &:before { background: transparentize($green, .75); }}}
 
-    .a { &:before { content:'~>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    .b { &:before { content:'=>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    //.c { &:before { content:'>]'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    .d { &:before { content:'>='; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    //.e { &:before { content:'|>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    //.f { &:before { content:'>:'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    //.g { &:before { content:'<>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    //.a { &:before { content:'~>'; } &:hover { *, &:before { color: $darkskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    .a { &:before { content:'~>'; } .bg { &:after { background: linear-gradient(#C7C700 0%, transparent 66%);}} &:hover { *, &:before { color: black; } h5 { color: #C7C700 } .mono { color: #C7C700 } * { border-color: black !important; } .bg {opacity: .25; transform: scale(1.3) translateY(0)} }}
+    .b { &:before { content:'|>'; } .bg { &:after { background: linear-gradient(#9BDB1E 0%, transparent 66%);}} &:hover { *, &:before { color: black; } h5 { color: #9BDB1E } .mono { color: #9BDB1E } * { border-color: black !important; } .bg {opacity: .25; transform: scale(1.3) translateY(0)} }}
+    .c { &:before { content:'=>'; } .bg { &:after { background: linear-gradient(#f56457 0%, transparent 66%);}}  &:hover { *, &:before { color: black; } h5 { color: #f56457 } .mono { color: #f56457 } * { border-color: black !important; }  .bg {opacity: .25; transform: scale(1.3) translateY(0)} }}
+    //.c { &:before { content:'>]'; } &:hover { *, &:before { color: $darkskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    //.d { &:before { content:'>='; } &:hover { *, &:before { color: $darkskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    //.e { &:before { content:'|>'; } &:hover { *, &:before { color: $darkskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    //.f { &:before { content:'>:'; } &:hover { *, &:before { color: $darkskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    //.g { &:before { content:'<>'; } &:hover { *, &:before { color: $darkskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
 
     .tilt {
 
@@ -127,10 +129,41 @@
         transition: transform ease 200ms, box-shadow ease 200ms;
         //padding: 1rem;
         border-radius: 2px;
+        overflow: hidden;
 
         &:hover {
-            transform: scale(1.1) perspective(80em) rotateX(10deg);
+            //transform: scale(1.1) perspective(80em) rotateX(10deg);
+            transform: scale(1.1);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    }
+
+    .bg {
+        position: absolute;
+        top: 0;
+        z-index: -1;
+        //margin-top: -4rem;
+        height: auto;
+        width: auto;
+        display: flex;
+        justify-content: center;
+        //margin-top: calc(100% - 50% - 4rem);
+        transform: scale(1.2);
+        opacity: 0;
+        transition: opacity 200ms ease, transform 200ms ease, filter 200ms ease;
+        //filter: blur(.1rem);
+
+        &:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(white, transparent);
+            opacity: .5;
+        }
+
+        > img {
+
         }
     }
 
@@ -153,14 +186,18 @@
     }
 
     .mono {
-        color: $lightskin;
+        color: $darkskin;
+    }
+
+    .mono, h5 {
+        transition: color .2s ease;
     }
 
 </style>
 
 <section>
     <div class="title">
-        <h3>Neueste Projekte</h3>
+        <h3>Aktuelle Projekte</h3>
         <a rel="external preload" href="projekte" class="more">Mehr <span class="mono">{@html arrowRight}</span></a>
     </div>
 
@@ -178,24 +215,12 @@
                 </span>
             </div>
         </div>
-    </a>
-<!--    <div rel=external href="projekte/kamerabasiertes-besuchertracking-im-museum" class="experience blue tilt">-->
-    <a rel="external preload" href="projekte/kamerabasiertes-besuchertracking-im-museum" class="experience b tilt">
-        <div class="border">
-            <div class="link">
-                <h4>Kamerabasiertes Besuchertracking im Museum</h4>
-                <h5>Theia Tracking</h5>
-<!--                <p class="description">-->
-<!--                    Als Prototyp für das anonyme Personentracking wurde ein bis auf die Sensoren gleiches System mit Kameras aufgebaut.-->
-<!--                    Die Technologie wurde in Zusammenarbeit mit den Kunstsammlungen Augsburg in der Dauerausstellung des Schaezlerpalais getestet.-->
-<!--                </p>-->
-                <span class="mono">
-                    {@html arrowRight}
-                </span>
-            </div>
+        <div class="bg">
+            <img src="assets/projects/anonymes-personentracking/preview-big.jpg" alt="Robin Hood Vorschaubild">
         </div>
     </a>
-    <div rel="external preload" class="experience d">
+<!--    <div rel=external href="projekte/kamerabasiertes-besuchertracking-im-museum" class="experience blue tilt">-->
+    <a rel="external preload" href="projekte/darterkennung-mit-lidar" class="experience b tilt">
         <div class="border">
             <div class="link">
                 <h4>Dart-Punkteerkennung mithilfe eines LiDAR-Sensors</h4>
@@ -210,5 +235,26 @@
                 </span>
             </div>
         </div>
-    </div>
+        <div class="bg">
+            <img src="assets/projects/darterkennung-mit-lidar/preview-big.jpg" alt="Robin Hood Vorschaubild">
+        </div>
+    </a>
+    <a rel="external preload" href="projekte/kamerabasiertes-besuchertracking-im-museum" class="experience c tilt">
+        <div class="border">
+            <div class="link">
+                <h4>Kamerabasiertes Besuchertracking im Museum</h4>
+                <h5>Theia Tracking</h5>
+                <!--                <p class="description">-->
+                <!--                    Als Prototyp für das anonyme Personentracking wurde ein bis auf die Sensoren gleiches System mit Kameras aufgebaut.-->
+                <!--                    Die Technologie wurde in Zusammenarbeit mit den Kunstsammlungen Augsburg in der Dauerausstellung des Schaezlerpalais getestet.-->
+                <!--                </p>-->
+                <span class="mono">
+                    {@html arrowRight}
+                </span>
+            </div>
+        </div>
+        <div class="bg">
+            <img src="assets/projects/kamerabasiertes-besuchertracking-im-museum/preview-big.jpg" alt="Theia Tracking Vorschaubild">
+        </div>
+    </a>
 </section>

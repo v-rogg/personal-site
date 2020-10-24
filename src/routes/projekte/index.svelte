@@ -1,7 +1,7 @@
-<script context="module">
-    const arrowRight = '->';
-    const inProgress = 'In Arbeit';
-    const done = 'Beendet';
+<script context="module" lang="ts">
+    const arrowRight: string = '->';
+    const inProgress: string = 'In Arbeit';
+    const done: string = 'Beendet';
 </script>
 
 <style lang="scss">
@@ -38,23 +38,24 @@
 
         }
 
-        .link {
+        .content {
             width: 100%;
             height: 100%;
             display: flex;
             justify-content: space-between;
             align-items: start;
             //text-align: left;
-            transition: box-shadow ease 250ms;
             flex-direction: column;
             flex-grow: 1;
             //margin-right: 2rem;
-            padding-left: 1rem;
-            border-left: 1px solid black;
+            //padding-left: 1rem;
+            //border-left: 1px solid black;
+            position: relative;
         }
     }
 
     .border {
+        display: block;
         padding: .75rem 1rem;
         height: 100%;
         width: 100%;
@@ -93,7 +94,7 @@
     //.back {
     //    margin-top: 5rem;
     //    display: block;
-    //    color: $lightskin;
+    //    color: $darkskin;
     //
     //    &:hover {
     //        font-weight: 700;
@@ -112,9 +113,10 @@
     .inProgress, .done {
         display: flex;
         width: 100%;
-        justify-content: space-between;
         justify-self: flex-end;
-        color: $lightskin;
+        justify-content: space-between;
+        flex-direction: row-reverse;
+        color: black;
     }
 
     //.darkyellow { &:before { content:'>='; } &:hover { *, &:before { color: $darkyellow; } border-color: $darkyellow; }}
@@ -126,25 +128,66 @@
     //.anothergreen { &:before { content:'<>'; } &:hover { *, &:before { color: $anothergreen; } border-color: $anothergreen; }}
     //.red { &:before { content:'~>'; } &:hover { *, &:before { color: $red; } border-color: $red; }}
 
-    .a { &:before { content:'~>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    //.b { &:before { content:'=>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    //.c { &:before { content:'>]'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    .d { &:before { content:'>='; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    .e { &:before { content:'|>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    //.f { &:before { content:'>:'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
-    .g { &:before { content:'<>'; } &:hover { *, &:before { color: $lightskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    //.a { &:before { content:'~>'; } &:hover { *, &:before { color: $darkskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    .a { &:before { content:'~>'; } .bg { &:after { background: linear-gradient(#C7C700 0%, transparent 66%);}} &:hover { border-color: #C7C700 !important; *, &:before { color: black; } h5 { color: #C7C700 } .mono { color: #C7C700 } * { border-color: black !important; } .bg {opacity: .25; transform: scale(1.3) translateY(0)}}}
+    .b { &:before { content:'=>'; } .bg { &:after { background: linear-gradient(#9BDB1E 0%, transparent 66%);}} &:hover { border-color: #9BDB1E !important; *, &:before { color: black; } h5 { color: #9BDB1E } .mono { color: #9BDB1E } * { border-color: black !important; } .bg {opacity: .25; transform: scale(1.3) translateY(0)}}}
+    .c { &:before { content:'>]'; } .bg { &:after { background: linear-gradient(#c0a97d 0%, transparent 66%);}} &:hover { border-color: #c0a97d !important; *, &:before { color: black; } h5 { color: #c0a97d } .mono { color: #c0a97d } * { border-color: black !important; } .bg {opacity: .25; transform: scale(1.3) translateY(0)}}}
+    //.b { &:before { content:'=>'; } &:hover { *, &:before { color: $darkskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    //.c { &:before { content:'>]'; } &:hover { *, &:before { color: $darkskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    .d { &:before { content:'>='; } .bg { &:after { background: linear-gradient(#f56457 0%, transparent 66%);}} &:hover { border-color: #f56457 !important; *, &:before { color: black; } h5 { color: #f56457 } .mono { color: #f56457 } * { border-color: black !important; } .bg {opacity: .25; transform: scale(1.3) translateY(0)}}}
+    .e { &:before { content:'|>'; } .bg { &:after { background: linear-gradient(#0f3044 0%, transparent 66%);}} &:hover { border-color: #0f3044 !important; *, &:before { color: black; } h5 { color: #0f3044 } .mono { color: #0f3044 } * { border-color: black !important; } .bg {opacity: .25; transform: scale(1.3) translateY(0)}}}
+    .f { &:before { content:'>:'; } .bg { &:after { background: linear-gradient(#ffd200 0%, transparent 66%);}} &:hover { border-color: #ffd200 !important; *, &:before { color: black; } h5 { color: #ffd200 } .mono { color: #ffd200 } * { border-color: black !important; } .bg {opacity: .25; transform: scale(1.3) translateY(0)}}}
+    //.g { &:before { content:'<>'; } &:hover { *, &:before { color: $darkskin; } .mono { color: $skin } * { border-color: $skin !important; }}}
+    .g { &:before { content:'<>'; } .bg { &:after { background: linear-gradient(#c8d36b 0%, transparent 66%);}} &:hover { border-color: #c8d36b !important; *, &:before { color: black; } h5 { color: #c8d36b } .mono { color: #c8d36b } * { border-color: black !important; } .bg {opacity: .25; transform: scale(1.3) translateY(0)}}}
 
     .tilt {
 
+        position: relative;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
         transition: transform ease 200ms, box-shadow ease 200ms;
         //padding: 1rem;
         border-radius: 2px;
+        overflow: hidden;
 
         &:hover {
-            transform: scale(1.1) perspective(80em) rotateX(10deg);
+            //transform: scale(1.1) perspective(80em) rotateX(10deg);
+            transform: scale(1.1);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            //border: 1px solid;
         }
+    }
+
+    .bg {
+        position: absolute;
+        top: 0;
+        z-index: -1;
+        //margin-top: -4rem;
+        height: 8rem;
+        width: auto;
+        display: flex;
+        justify-content: center;
+        //margin-top: calc(100% - 50% - 4rem);
+        transform: scale(1.2);
+        opacity: 0;
+        transition: opacity .2s ease, transform .2s ease, filter .2s ease;
+        //filter: blur(.1rem);
+
+        &:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(white, transparent);
+            opacity: .5;
+        }
+
+        > img {
+
+        }
+    }
+
+    .mono, h5 {
+        transition: color .2s ease;
     }
 </style>
 
@@ -157,77 +200,101 @@
 
 <ul>
     <li class="tilt a">
-        <div class="border">
-            <a rel="external preload" href="projekte/anonymes-personentracking" class="link">
+        <a rel="external preload" href="projekte/anonymes-personentracking" class="border">
+            <div class="content">
                 <div class="title">
                     <h4>Anonymes Personentracking</h4>
                     <h5>Obacht!</h5>
                 </div>
-                <div class="inProgress">{@html inProgress} <span class="mono">{@html arrowRight}</span></div>
-            </a>
+                <div class="inProgress"><span class="mono">{@html arrowRight}</span> {@html inProgress}</div>
+            </div>
+        </a>
+        <div class="bg">
+            <img src="assets/projects/anonymes-personentracking/preview-small.jpg" alt="Obacht! Vorschaubild">
         </div>
     </li>
-    <li class="">
-<!--        <a rel=external href="projekte/darterkennung-mit-lidar">-->
-        <div class="border">
-            <div class="link">
+    <li class="tilt b">
+        <a rel="external preload" href="projekte/darterkennung-mit-lidar" class="border">
+            <div class="content">
                 <div class="title">
                     <h4>Dart-Punkteerkennung mithilfe eines LiDAR-Sensors</h4>
                     <h5>Robin Hood</h5>
                 </div>
-                <div class="inProgress">{@html inProgress}</div>
+                <div class="inProgress"><span class="mono">{@html arrowRight}</span> {@html inProgress}</div>
             </div>
+        </a>
+        <div class="bg">
+            <img src="assets/projects/darterkennung-mit-lidar/preview-small.jpg" alt="Robin Hood Vorschaubild">
         </div>
     </li>
-    <li class="">
-<!--        <a rel=external href="projekte/daniel-karrasch-website" class="link">-->
-        <div class="border">
-            <div class="link">
-                <h4>Daniel Karrasch Website</h4>
-                <div class="inProgress">{@html inProgress}</div>
+    <li class="tilt c">
+        <a rel="external preload" href="projekte/daniel-karrasch-website" class="border">
+            <div class="content">
+                <div class="title">
+                    <h4>Gesangsstudio Augsburg Website</h4>
+                    <h5>Daniel Karrasch</h5>
+                </div>
+                <div class="inProgress"><span class="mono">{@html arrowRight}</span> {@html inProgress}</div>
             </div>
+        </a>
+        <div class="bg">
+            <img src="assets/projects/daniel-karrasch/preview-small.jpg" alt="Daniel Karrasch Vorschaubild">
         </div>
     </li>
     <li class="tilt d">
-        <div class="border">
-            <a rel="external preload" href="projekte/kamerabasiertes-besuchertracking-im-museum" class="link">
+        <a rel="external preload" href="projekte/kamerabasiertes-besuchertracking-im-museum" class="border">
+            <div class="content">
                 <div class="title">
                     <h4>Kamerabasiertes Besuchertracking im Museum</h4>
                     <h5>Theia Tracking</h5>
                 </div>
-                <div class="done">{@html done} <span class="mono">{@html arrowRight}</span></div>
-            </a>
+                <div class="done"><span class="mono">{@html arrowRight}</span></div>
+            </div>
+        </a>
+        <div class="bg">
+            <img src="assets/projects/kamerabasiertes-besuchertracking-im-museum/preview-small.jpg" alt="Theia Tracking Vorschaubild">
         </div>
     </li>
     <li class="tilt e">
-        <div class="border">
-            <a rel="external preload" href="projekte/datenbank-fuer-ein-finanzprogramm" class="link">
+        <a rel="external preload" href="projekte/datenbank-fuer-ein-finanzprogramm" class="border">
+            <div class="content">
                 <div class="title">
                     <h4>Datenbank für ein Finanzprogramm</h4>
                     <h5>Dedun</h5>
                 </div>
-                <div class="done">{@html done} <span class="mono">{@html arrowRight}</span></div>
-            </a>
+                <div class="done"><span class="mono">{@html arrowRight}</span></div>
+            </div>
+        </a>
+        <div class="bg">
+            <img src="assets/projects/datenbank-fuer-ein-finanzprogramm/preview-small.jpg" alt="Dedun Vorschaubild">
         </div>
     </li>
-    <li class="">
-<!--        <a rel=external href="projekte/robert-kraus-website" class="link">-->
-        <div class="border">
-            <div class="link">
-                <h4>Robert Kraus Website</h4>
-                <div class="done">{@html done}</div>
+    <li class="tilt f">
+        <a rel="external preload" href="projekte/robert-kraus-website" class="border">
+            <div class="content">
+                <div class="title">
+                    <h4>Alleinunterhalter Website</h4>
+                    <h5>Robert Kraus</h5>
+                </div>
+                <div class="done"><span class="mono">{@html arrowRight}</span></div>
             </div>
+        </a>
+        <div class="bg">
+            <img src="assets/projects/robert-kraus/preview.jpg" alt="Robert Kraus Vorschaubild">
         </div>
     </li>
     <li class="tilt g">
-        <div class="border">
-            <a rel="external preload" href="projekte/3d-schiffe-versenken" class="link">
+        <a rel="external preload" href="projekte/3d-schiffe-versenken" class="border">
+            <div class="content">
                 <div class="title">
                     <h4>3D Schiffe versenken</h4>
                     <h5>Montgolfière</h5>
                 </div>
-                <div class="done">{@html done} <span class="mono">{@html arrowRight}</span></div>
-            </a>
+                <div class="done"><span class="mono">{@html arrowRight}</span></div>
+            </div>
+        </a>
+        <div class="bg">
+            <img src="assets/projects/3d-schiffe-versenken/preview.jpg" alt="Montgolfière Vorschaubild">
         </div>
     </li>
 </ul>

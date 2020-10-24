@@ -4,9 +4,9 @@
     a
         margin-top: 2.5rem
         display: inline-block
-        color: $lightskin
+        color: $darkskin
         padding: 1rem
-        border: 1px solid $lightskin
+        border: 1px solid $darkskin
 
         &:hover
             font-weight: 700

@@ -1,5 +1,5 @@
-<script>
-    const arrowLeft = '<span class="mono"><-</span>';
+<script lang="ts">
+    const arrowLeft: string = '<span class="mono"><-</span>';
     export let ref;
     export let stage;
 </script>
@@ -17,8 +17,8 @@
     }
 
     nav {
-        color: $lightskin;
-        margin-top: 5rem;
+        color: $darkskin;
+        margin-top: 5rem !important;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -33,27 +33,47 @@
         gap: 4px;
 
         .top, .mid, .bottom {
-            height: 3px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            //height: 13px;
             width: 100%;
-            background: transparentize($lightskin, .9);
+            position: relative;
+
+            .color {
+                height: 3px;
+                width: 100%;
+                display: block;
+                position: relative;
+                background: transparentize($darkskin, .9);
+            }
 
         }
 
         .top:hover, .mid:hover {
-            background: $skin;
+            .color {
+                background: $skin;
+            }
         }
     }
 
     .show {
-        background: $skin !important;
+        .color {
+            background: $skin !important;
+        }
     }
 </style>
 
 <nav class="container">
     <div class="bar">
-        <a rel="external" href="/" class="top"></a>
-        <a rel="external preload" href="/projekte" class="mid" class:show={stage === undefined}></a>
-        <div class="bottom" class:show={stage !== undefined }></div>
+        <a rel="external" href="/" class="top">
+            <div class="color"></div>
+        </a>
+        <a rel="external preload" href="/projekte" class="mid" class:show={stage === undefined}>
+            <div class="color"></div>
+        </a>
+        <div class="bottom" class:show={stage !== undefined}>
+            <div class="color"></div>
+        </div>
     </div>
     <a rel="external" href={ref} class="back">{@html arrowLeft} Zurück</a>
 </nav>

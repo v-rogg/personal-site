@@ -23,6 +23,12 @@
         margin: 0 5rem 3rem 0
         text-align: right
         font-size: $font-size-small
+
+    @media (max-width: 991.98px)
+        .caption
+            text-align: center
+            margin: 0 0 3rem
+
 </style>
 
 <Navigation ref={segment === undefined ? '/' : '/projekte'} stage={segment} />

@@ -1,10 +1,27 @@
 <style lang="sass">
     @import "./src/styles/theme"
+
+    a
+        margin-top: 2.5rem
+        display: inline-block
+        color: $darkskin
+        padding: 1rem
+        border: 1px solid $darkskin
+
+        &:hover
+            font-weight: 700
+            color: $skin
+            border-color: $skin
+
 </style>
 
 <h3>
-    Daniel Karrasch Website
+    Gesangsstudio Augsburg Website
 </h3>
+<h4>
+    Daniel Karrasch
+</h4>
 <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium, atque autem cum deserunt et eum explicabo, illo incidunt inventore nesciunt velit? Aperiam delectus facilis neque perspiciatis porro qui recusandae veniam voluptate? A accusamus at consectetur distinctio dolor dolores eos excepturi facere officiis perferendis quas ratione vel, veniam voluptatibus voluptatum.
+    Hier kommt bald mehr :)
 </p>
+<!--<a href="https://danielkarrasch.de" target="_blank">Mehr erfahren <span class="mono">-></span></a>-->

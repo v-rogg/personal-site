@@ -27,15 +27,15 @@
         max-width: 100%;
         position: relative;
 
-        &:before {
-            position: absolute;
-            left: -2rem;
-            font-family: 'JetBrains Mono', sans-serif;
-            top: 50%;
-            line-height: 0;
-            opacity: 0;
-            transition: opacity linear 100ms;
-        }
+        //&:before {
+        //    position: absolute;
+        //    left: -2rem;
+        //    font-family: 'JetBrains Mono', sans-serif;
+        //    top: 50%;
+        //    line-height: 0;
+        //    opacity: 0;
+        //    transition: opacity linear 100ms;
+        //}
 
         &:hover {
             &:before {
@@ -44,17 +44,23 @@
         }
     }
 
-    .a { &:before { content:'~>'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
-    .b { &:before { content:'=>'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
-    .c { &:before { content:'>]'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
-    .d { &:before { content:'>='; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
-    .e { &:before { content:'|>'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
-    .f { &:before { content:'>:'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
-    //.g { &:before { content:'<>'; } &:hover { a { color: $skin; } &:before { color: $lightskin; }}}
+    .a { &:hover { a { color: $skin; } &:before { color: $darkskin; }}}
+    .b { &:hover { a { color: $skin; } &:before { color: $darkskin; }}}
+    .c { &:hover { a { color: $skin; } &:before { color: $darkskin; }}}
+    .d { &:hover { a { color: $skin; } &:before { color: $darkskin; }}}
+    .e { &:hover { a { color: $skin; } &:before { color: $darkskin; }}}
+    .f { &:hover { a { color: $skin; } &:before { color: $darkskin; }}}
+    //.a { &:before { content:'~>'; } &:hover { a { color: $skin; } &:before { color: $darkskin; }}}
+    //.b { &:before { content:'=>'; } &:hover { a { color: $skin; } &:before { color: $darkskin; }}}
+    //.c { &:before { content:'>]'; } &:hover { a { color: $skin; } &:before { color: $darkskin; }}}
+    //.d { &:before { content:'>='; } &:hover { a { color: $skin; } &:before { color: $darkskin; }}}
+    //.e { &:before { content:'|>'; } &:hover { a { color: $skin; } &:before { color: $darkskin; }}}
+    //.f { &:before { content:'>:'; } &:hover { a { color: $skin; } &:before { color: $darkskin; }}}
+    //.g { &:before { content:'<>'; } &:hover { a { color: $skin; } &:before { color: $darkskin; }}}
 
     .time {
         font-family: $font-family-sans;
-        color: $lightskin;
+        color: $darkskin;
     }
 
 </style>
