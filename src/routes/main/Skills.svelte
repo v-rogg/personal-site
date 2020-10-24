@@ -64,6 +64,6 @@
     </div>
     <div class="experience">
         <h4>Soziale Kompetenzen</h4>
-        <p class="description">Teamführung, Projektmanagement, Vertrieb, Auffassungsgabe</p>
+        <p class="description">Teamführung, Projektmanagement, Vertrieb</p>
     </div>
 </section>
