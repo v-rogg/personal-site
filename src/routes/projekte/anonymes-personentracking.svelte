@@ -29,4 +29,4 @@
     Darüber hinaus funktionieren die Sensoren unbeeinflusst von äußerem Einwirkungen, wie Lichtverhältnissen und Witterungsbedingungen.
     Eine Web-Applikation bieten einen Gesamtüberblick über das System, und visualisiert die gesammelten Daten je nach Anwendungszweck speziell.
 </p>
-<a href="https://roggnschunck.de" target="_blank">Mehr erfahren <span class="mono">-></span></a>
+<a href="https://obacht.tech" target="_blank">Mehr erfahren <span class="mono">-></span></a>
