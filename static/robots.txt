@@ -1,3 +1,0 @@
-user-agent: *
-disallow: /assets/
-sitemap: https://valentinrogg.de/sitemap.xml
