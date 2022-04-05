@@ -1,21 +1,29 @@
 <script lang="ts">
   import Header from '$lib/header/Header.svelte';
   import '../app.css';
+  import Footer from '../lib/footer/Footer.svelte';
 </script>
 
-<Header />
+<div class="dark">
+  <Header />
 
-<main>
-  <slot />
-</main>
+  <main>
+    <slot />
+  </main>
 
-<footer>
-  <p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
-</footer>
+  <Footer />
+</div>
 
 <style>
   :global(a) {
     text-decoration: none;
     color: var(--black);
+  }
+
+  div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 </style>

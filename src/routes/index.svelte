@@ -10,11 +10,20 @@
 </svelte:head>
 
 <section>
-  <h2>
-  </h2>
-
+  <picture class="sprinter">
+    <img src="sprinter.png" alt="Big picture displaying a sprinter vanlife camper" class="container">
+  </picture>
 </section>
 
 <style>
+  .sprinter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
+  .sprinter img {
+    display: block;
+    width: 25%;
+  }
 </style>
