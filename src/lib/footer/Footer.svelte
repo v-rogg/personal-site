@@ -1,6 +1,10 @@
+<script lang="ts">
+  import { t } from "../i18n";
+</script>
+
 <footer class="container">
   <div class="legal">
-    <div>Legal</div>
+    <a sveltekit:prefetch href="/legal">{$t("common.legal")}</a>
     <div class="copy"><i class="fa-regular fa-copyright" /><span><span>4</span>/<span>5</span>/<span>21</span></span></div>
   </div>
 
