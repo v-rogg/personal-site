@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { enhance } from '$lib/form';
-  import { scale } from 'svelte/transition';
-  import { flip } from 'svelte/animate';
+  import { enhance } from "$lib/form";
+  import { scale } from "svelte/transition";
+  import { flip } from "svelte/animate";
 
   type Todo = {
     uid: string;
@@ -41,12 +41,12 @@
         method="post"
         use:enhance={{
           pending: ({ data }) => {
-            todo.done = !!data.get('done');
+            todo.done = !!data.get("done");
           }
         }}
       >
         <input type="hidden" name="uid" value={todo.uid} />
-        <input type="hidden" name="done" value={todo.done ? '' : 'true'} />
+        <input type="hidden" name="done" value={todo.done ? "" : "true"} />
         <button class="toggle" aria-label="Mark todo as {todo.done ? 'not done' : 'done'}" />
       </form>
 

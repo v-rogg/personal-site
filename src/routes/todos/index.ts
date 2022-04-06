@@ -1,9 +1,9 @@
-import { api } from './_api';
-import type { RequestHandler } from '@sveltejs/kit';
+import { api } from "./_api";
+import type { RequestHandler } from "@sveltejs/kit";
 
 export const get: RequestHandler = async ({ locals }) => {
   // locals.userid comes from src/hooks.js
-  const response = await api('get', `todos/${locals.userid}`);
+  const response = await api("get", `todos/${locals.userid}`);
 
   if (response.status === 404) {
     // user hasn't created a todo list.
@@ -31,8 +31,8 @@ export const get: RequestHandler = async ({ locals }) => {
 export const post: RequestHandler = async ({ request, locals }) => {
   const form = await request.formData();
 
-  await api('post', `todos/${locals.userid}`, {
-    text: form.get('text')
+  await api("post", `todos/${locals.userid}`, {
+    text: form.get("text")
   });
 
   return {};
@@ -43,16 +43,16 @@ export const post: RequestHandler = async ({ request, locals }) => {
 const redirect = {
   status: 303,
   headers: {
-    location: '/todos'
+    location: "/todos"
   }
 };
 
 export const patch: RequestHandler = async ({ request, locals }) => {
   const form = await request.formData();
 
-  await api('patch', `todos/${locals.userid}/${form.get('uid')}`, {
-    text: form.has('text') ? form.get('text') : undefined,
-    done: form.has('done') ? !!form.get('done') : undefined
+  await api("patch", `todos/${locals.userid}/${form.get("uid")}`, {
+    text: form.has("text") ? form.get("text") : undefined,
+    done: form.has("done") ? !!form.get("done") : undefined
   });
 
   return redirect;
@@ -61,7 +61,7 @@ export const patch: RequestHandler = async ({ request, locals }) => {
 export const del: RequestHandler = async ({ request, locals }) => {
   const form = await request.formData();
 
-  await api('delete', `todos/${locals.userid}/${form.get('uid')}`);
+  await api("delete", `todos/${locals.userid}/${form.get("uid")}`);
 
   return redirect;
 };
