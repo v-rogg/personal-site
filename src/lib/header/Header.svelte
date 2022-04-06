@@ -1,16 +1,13 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { darkmode } from "../../stores";
-
-  let lang = 0;
-  const languages = ["EN", "DE"];
+  import { goto } from "$app/navigation";
+  import { dark_mode } from "../../stores";
+  import { t, locale, locales } from "../i18n";
 
   function toggle_lang() {
-    if (lang + 1 < languages.length) {
-      lang++;
-    } else {
-      lang = 0;
-    }
+    let i = $locales.findIndex((e) => e === $locale) + 1;
+    if (i >= $locales.length) i = 0;
+    goto(`/${$locales[i]}${$page.stuff.route}`);
   }
 </script>
 
@@ -25,13 +22,13 @@
         <a sveltekit:prefetch href="/">Home</a>
       </li>
       <li class:active={$page.url.pathname === "/blog"}>
-        <a sveltekit:prefetch href="/" aria-disabled="true" class="strikethrough">Blog</a>
-        <span class="coming_soon">Coming soon</span>
+        <a sveltekit:prefetch href="/" aria-disabled="true" class="strikethrough disabled">{$t("common.blog")}</a>
+        <span class="coming_soon">{$t("common.coming_soon")}</span>
         <!--        <span class="new"><i class="fa-solid fa-circle-small"></i></span>-->
       </li>
       <li class:active={$page.url.pathname === "/projects"}>
-        <a sveltekit:prefetch href="/" aria-disabled="true" class="strikethrough">Projects</a>
-        <span class="coming_soon">Coming soon</span>
+        <a sveltekit:prefetch href="/" aria-disabled="true" class="strikethrough disabled">{$t("common.projects")}</a>
+        <span class="coming_soon">{$t("common.coming_soon")}</span>
       </li>
     </ul>
   </nav>
@@ -39,7 +36,7 @@
   <div class="options">
     <button
       on:click={() => {
-        $darkmode = !$darkmode;
+        $dark_mode = !$dark_mode;
       }}
       class="dark_switch"><i class="fak fa-moon" /></button
     >
@@ -47,7 +44,7 @@
       on:click={() => {
         toggle_lang();
       }}
-      class="language_switch">{languages[lang]}</button
+      class="language_switch">{$t(`lang.${$locale}`)}</button
     >
   </div>
 </header>
@@ -91,6 +88,7 @@
     transform: translateX(-50%);
     width: 100px;
     text-align: center;
+    color: var(--c-orange);
   }
 
   /*.new {*/
@@ -135,7 +133,7 @@
   }
 
   .strikethrough {
-    text-decoration: line-through var(--c-black);
+    text-decoration: line-through var(--c-orange);
   }
 
   h1 {

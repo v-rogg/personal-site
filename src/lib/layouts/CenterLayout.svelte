@@ -1,7 +1,3 @@
-<svelte:head>
-  <title>Wassererbe Augsburg</title>
-</svelte:head>
-
 <main class="container">
   <div class="app">
     <img class="ratio" src="sprinter.png" alt="resize" aria-hidden="true" />

@@ -20,6 +20,7 @@
   --c-green: #93c700;
   --c-blue: #18a0fb;
   --c-red: #ff0000;
+  --c-orange: #f06913;
 
   --r-black: #0f1418;
   --r-grey-90: #282c31;
@@ -56,6 +57,15 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--c-black);
+}
+
+a.disabled {
+  cursor: text;
 }
 
 .container {
