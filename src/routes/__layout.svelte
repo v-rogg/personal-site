@@ -8,9 +8,9 @@
 
 <div class="background" class:light={!$darkmode} class:dark={$darkmode}>
   <CenterLayout>
-    <Header slot="top_mid" />
+    <Header slot="top" />
     <slot slot="center" />
-    <Footer slot="bottom_mid" />
+    <Footer slot="bottom" />
   </CenterLayout>
 </div>
 
