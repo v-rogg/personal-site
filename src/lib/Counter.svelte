@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { spring } from 'svelte/motion';
+  import { spring } from "svelte/motion";
 
   let count = 0;
 
