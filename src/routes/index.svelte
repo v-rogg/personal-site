@@ -11,23 +11,22 @@
 
 <section>
   <picture class="sprinter">
-    <img src="sprinter.png" alt="Big picture displaying a sprinter vanlife camper" class="container" />
+    <img src="sprinter.png" alt="Sprinter vanlife camper" class="container" />
   </picture>
 </section>
 
 <style>
+  section {
+    width: 100%;
+    height: 100%;
+  }
+
   .sprinter {
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-  @media (max-width: 1300px), (max-height: 650px) {
-    .sprinter {
-      max-height: 300px;
-    }
   }
 
   .sprinter img {
