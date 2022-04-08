@@ -16,6 +16,15 @@
     U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/caveat/v14/WnznHAc5bAfYB2QRah7pcpNvOx-pjfJ9eIWpZz5Kmgq3sw.woff) format('woff');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   --c-green: #93c700;
   --c-blue: #18a0fb;
@@ -29,6 +38,7 @@
   --r-grey-30: #dfe1e4;
   --r-grey-10: #f4f5f7;
   --r-white: #ffffff;
+  --r-off-white: #faf7f5;
 }
 
 .light {
@@ -39,6 +49,7 @@
   --c-grey-30: var(--r-grey-30);
   --c-grey-10: var(--r-grey-10);
   --c-white: var(--r-white);
+  --c-off-white: var(--r-off-white);
 }
 
 .dark {
@@ -49,6 +60,7 @@
   --c-grey-30: var(--r-grey-70);
   --c-grey-10: var(--r-grey-90);
   --c-white: var(--r-black);
+  --c-off-white: var(--r-black);
 }
 
 html,

@@ -9,7 +9,13 @@
   </div>
 
   <div class="links">
-    <a href="https://www.linkedin.com/in/vrogg/"><i class="fa-brands fa-linkedin" /></a>
+    <span class="overflow_hand">
+      <span class="looking_for_cv">{@html $t("common.looking_for_cv")}</span>
+      <span class="hand_arrow">
+        <img src="arrow-down.svg">
+      </span>
+      <a href="https://www.linkedin.com/in/vrogg/"><i class="fa-brands fa-linkedin" /></a>
+    </span>
     <a href="https://github.com/v-rogg"><i class="fa-brands fa-github" /></a>
   </div>
 </footer>
@@ -32,6 +38,30 @@
     display: flex;
     gap: 16px;
     align-items: center;
+  }
+
+  .overflow_hand {
+    position: relative;
+  }
+
+  .looking_for_cv {
+    font-family: "Caveat", sans-serif;
+    position: absolute;
+    width: max-content;
+    bottom: 100%;
+    right: 0;
+    transform: translate(24px, -24px) rotateZ(-4deg);
+    transform-origin: right;
+    text-align: center;
+    line-height: 1;
+    font-size: 18px;
+  }
+
+  .hand_arrow {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    transform: translate(0, 4px);
   }
 
   .copy {
