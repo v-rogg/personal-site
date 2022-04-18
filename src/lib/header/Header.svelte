@@ -137,7 +137,8 @@
   }
 
   h1 {
-    font-family: "Obacht Display", sans-serif;
+    font-family: "Display", sans-serif;
     font-size: 18px;
+    font-weight: 700;
   }
 </style>
