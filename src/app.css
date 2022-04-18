@@ -2,7 +2,8 @@
   font-family: "Pulp Display";
   src: local("Pulp Display Bold"),
     local("Pulp-Display-Bold"),
-    url("fonts/Pulp-Display-Bold.otf") format("opentype");
+    url("https://valentinrogg.de/PD-Bold.woff2") format("woff2"),
+    url("https://valentinrogg.de/PD-Bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
 }
