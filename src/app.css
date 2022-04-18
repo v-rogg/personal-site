@@ -1,7 +1,8 @@
 @font-face {
   font-family: "Pulp Display";
-  src: local("Pulp Display Bold"), local("Pulp-Display-Bold"), url("fonts/PulpDisplay-Bold.woff2") format("woff2"),
-    url("fonts/PulpDisplay-Bold.woff") format("woff"), url("fonts/PulpDisplay-Bold.ttf") format("truetype");
+  src: local("Pulp Display Bold"),
+    local("Pulp-Display-Bold"),
+    url("fonts/Pulp-Display-Bold.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
 }
