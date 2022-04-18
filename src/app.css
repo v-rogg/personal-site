@@ -1,7 +1,8 @@
 @font-face {
   font-family: "Display";
   src:
-    url(fonts/abc.woff2) format('woff2');
+    url(https://rogg-site.s3.eu-central-1.amazonaws.com/PD-Bold.woff2) format('woff2'),
+    url(https://rogg-site.s3.eu-central-1.amazonaws.com/PD-Bold.woff) format('woff');
   font-weight: 700;
   font-style: normal;
 }
