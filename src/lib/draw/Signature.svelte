@@ -5,6 +5,8 @@
   let canvas: HTMLCanvasElement;
   let signaturePad: SignaturePad;
 
+  let empty = true;
+
   function resizeCanvas() {
     const d = signaturePad.toData();
 
@@ -17,11 +19,12 @@
     signaturePad.fromData(d);
   }
 
-  // function clearCanvas() {
-  //   console.log(signaturePad.toData());
-  //   console.log(signaturePad.toDataURL("image/svg+xml"));
-  //   signaturePad.clear();
-  // }
+  function clearCanvas() {
+    console.log(signaturePad.toData());
+    console.log(signaturePad.toDataURL("image/svg+xml"));
+    signaturePad.clear();
+    empty = signaturePad.isEmpty();
+  }
 
   onMount(() => {
     canvas = <HTMLCanvasElement>document.getElementById("signature");
@@ -31,7 +34,10 @@
       minDistance: 2,
       throttle: 8
     });
-    signaturePad.on();
+
+    signaturePad.addEventListener("endStroke", () => {
+      empty = signaturePad.isEmpty();
+    })
 
     window.onresize = resizeCanvas
     resizeCanvas();
@@ -39,9 +45,11 @@
 </script>
 
 <canvas id="signature"></canvas>
-<!--<button on:click={() => {clearCanvas()}} class="overlay">-->
-<!--  <i class="fa-solid fa-trash"></i>-->
-<!--</button>-->
+<div class="container">
+  <button on:click={() => {clearCanvas()}} class="overlay" style="opacity: {empty ? 0 : 1}">
+    <i class="fa-solid fa-trash"></i>
+  </button>
+</div>
 
 <style>
   #signature {
@@ -53,15 +61,37 @@
     left: 0;
   }
 
-  /*button {*/
-  /*  background: var(--c-white);*/
-  /*  border: none;*/
-  /*  width: 2rem;*/
-  /*  height: 2rem;*/
-  /*  border-radius: 2px;*/
-  /*}*/
+  div {
+    width: 100%;
+  }
 
-  /*button:hover {*/
-  /*  cursor: pointer;*/
-  /*}*/
+  button {
+    background: var(--c-white);
+    border: none;
+    font-size: 1rem;
+    position: relative !important;
+    z-index: 250;
+    left: calc(100% - 3rem);
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 100%;
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+  }
+
+  @media (max-width: 575.98px) {
+    button {
+      left: calc(100% - 8rem);
+      position: absolute !important;
+      width: 4rem;
+      height: 4rem;
+      font-size: 1.25rem;
+      bottom: 6rem;
+    }
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
 </style>
