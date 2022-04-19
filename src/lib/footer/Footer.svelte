@@ -5,18 +5,18 @@
 <footer class="container">
   <div class="legal">
     <a sveltekit:prefetch href="/legal">{$t("common.legal")}</a>
-    <div class="copy"><i class="fa-regular fa-copyright" /><span><span>4</span>/<span>5</span>/<span>21</span></span></div>
+    <div class="copy"><i class="fa-regular fa-copyright"></i><span><span>4</span>/<span>5</span>/<span>21</span></span></div>
   </div>
 
   <div class="links">
     <span class="overflow_hand">
       <span class="looking_for_cv">{@html $t("common.looking_for_cv")}</span>
       <span class="hand_arrow">
-        <img src="arrow-down.svg">
+        <img src="arrow-down.svg" alt="Hand-drawn arrow pointing towards linkedin link">
       </span>
-      <a href="https://www.linkedin.com/in/vrogg/"><i class="fa-brands fa-linkedin" /></a>
+      <a href="https://www.linkedin.com/in/vrogg/"><i class="fa-brands fa-linkedin"></i></a>
     </span>
-    <a href="https://github.com/v-rogg"><i class="fa-brands fa-github" /></a>
+    <a href="https://github.com/v-rogg"><i class="fa-brands fa-github"></i></a>
   </div>
 </footer>
 
