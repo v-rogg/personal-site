@@ -12,35 +12,34 @@
 
 <script lang="ts">
   import Header from "$lib/header/Header.svelte";
-  import "../app.css";
   import Footer from "$lib/footer/Footer.svelte";
   import { dark_mode } from "../stores.ts";
-  import CenterLayout from "$lib/layouts/CenterLayout.svelte";
+  import "../app.css";
 </script>
 
 <div class="background" class:light={!$dark_mode} class:dark={$dark_mode}>
-  <CenterLayout>
-    <Header slot="top" />
-    <slot slot="center" />
-    <Footer slot="bottom" />
-  </CenterLayout>
+  <div class="container">
+    <Header/>
+    <slot/>
+    <Footer/>
+  </div>
 </div>
 
 <style>
   .background {
     background: var(--c-white);
     color: var(--c-black) !important;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
   }
 
   div {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    /*height: 100%;*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: center;*/
   }
 </style>

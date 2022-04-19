@@ -70,9 +70,9 @@
 html,
 body {
   font-family: "IBM Plex Sans", sans-serif;
-  height: 100%;
   margin: 0;
   padding: 0;
+  color: var(--c-black);
 }
 
 a {
@@ -84,10 +84,20 @@ a.disabled {
   cursor: text;
 }
 
+button {
+  color: var(--c-black);
+}
+
 .container {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
+}
+
+@media (max-width: 575.98px) {
+  .container {
+    max-width: 320px;
+  }
 }
 
 @media (min-width: 576px) {

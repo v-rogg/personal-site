@@ -18,9 +18,9 @@
 
   <nav>
     <ul>
-      <li class:active={$page.url.pathname === "/"}>
-        <a sveltekit:prefetch href="/">Home</a>
-      </li>
+<!--      <li class:active={$page.url.pathname === "/"}>-->
+<!--        <a sveltekit:prefetch href="/">Home</a>-->
+<!--      </li>-->
       <li class:active={$page.url.pathname === "/blog"}>
         <a sveltekit:prefetch href="/" aria-disabled="true" class="strikethrough disabled">{$t("common.blog")}</a>
         <span class="coming_soon">{$t("common.coming_soon")}</span>
@@ -38,7 +38,7 @@
       on:click={() => {
         $dark_mode = !$dark_mode;
       }}
-      class="dark_switch"><i class="fak fa-moon" /></button
+      class="dark_switch"><i class="fak fa-moon"></i></button
     >
     <button
       on:click={() => {
@@ -56,6 +56,27 @@
     justify-content: space-between;
     align-items: center;
     font-size: 16px;
+    margin: 60px 0;
+    width: 100%;
+  }
+
+  @media (max-width: 575.98px) {
+    header {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr auto;
+    }
+
+    nav {
+      grid-area: 2/1/3/4;
+    }
+
+    nav ul {
+      flex-direction: column;
+      align-items: center;
+      font-size: 2.5rem;
+      margin-top: 60px !important;
+      margin-bottom: 1em !important;
+    }
   }
 
   .options {
@@ -70,23 +91,22 @@
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 2rem;
+    gap: 1.5em;
   }
 
   nav ul li {
     list-style: none;
     display: flex;
-    flex-direction: column;
     position: relative;
   }
 
   .coming_soon {
-    font-size: 10px;
+    font-size: 0.625em;
     position: absolute;
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px;
+    width: max-content;
     text-align: center;
     color: var(--c-orange);
   }
@@ -140,5 +160,6 @@
     font-family: "Display", sans-serif;
     font-size: 18px;
     font-weight: 700;
+    white-space: nowrap;
   }
 </style>
