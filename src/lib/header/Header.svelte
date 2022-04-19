@@ -13,7 +13,7 @@
 
 <header class="container">
   <h1 class="">
-    <a href="/"> Valentin Rogg </a>
+    <a href="/{$locale}"> Valentin Rogg </a>
   </h1>
 
   <nav>
@@ -56,7 +56,7 @@
     justify-content: space-between;
     align-items: center;
     font-size: 16px;
-    margin: 60px 0;
+    padding: 10px 0 60px;
     width: 100%;
   }
 
@@ -76,6 +76,7 @@
       font-size: 2.5rem;
       margin-top: 60px !important;
       margin-bottom: 1em !important;
+      gap: 2em !important;
     }
   }
 
@@ -91,7 +92,7 @@
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 1.5em;
+    gap: 4em;
   }
 
   nav ul li {
@@ -144,7 +145,7 @@
     height: 24px;
     border-radius: 4px;
     border: none;
-    background: var(--c-grey-10);
+    background: var(--c-white);
   }
 
   .language_switch:hover {
@@ -161,5 +162,7 @@
     font-size: 18px;
     font-weight: 700;
     white-space: nowrap;
+    padding: 0;
+    margin: 0;
   }
 </style>

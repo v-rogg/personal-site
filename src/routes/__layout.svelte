@@ -18,7 +18,7 @@
 </script>
 
 <div class="background" class:light={!$dark_mode} class:dark={$dark_mode}>
-  <div class="container">
+  <div class="container flex">
     <Header/>
     <slot/>
     <Footer/>
@@ -27,19 +27,21 @@
 
 <style>
   .background {
-    background: var(--c-white);
+    background: var(--c-off-white);
     color: var(--c-black) !important;
     /*width: 100%;*/
-    /*height: 100%;*/
+    height: 100%;
+    margin: 2rem;
+    padding: 2rem;
+    border-radius: 4px;
     /*display: flex;*/
     /*justify-content: center;*/
     /*align-items: center;*/
   }
 
-  div {
-    /*height: 100%;*/
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*justify-content: center;*/
+  .flex {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 </style>

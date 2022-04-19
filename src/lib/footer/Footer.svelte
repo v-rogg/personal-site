@@ -28,7 +28,34 @@
     justify-content: space-between;
     align-items: flex-end;
     font-size: 16px;
-    margin: 120px 0 60px;
+    padding: 120px 0 2rem;
+  }
+
+  @media (max-width: 575.98px) {
+    footer {
+      flex-direction: column-reverse;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .links {
+      font-size: 1.5rem !important;
+    }
+
+    .looking_for_cv {
+      transform: translate(80px, -24px) rotateZ(-4deg) !important;
+    }
+
+    .hand_arrow {
+      transform: translate(0, 7px) !important;
+    }
+
+    .legal {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-direction: column;
+    }
   }
 
   .links {
@@ -57,7 +84,7 @@
     transform-origin: right;
     text-align: center;
     line-height: 1;
-    font-size: 18px;
+    font-size: 1em;
   }
 
   .hand_arrow {

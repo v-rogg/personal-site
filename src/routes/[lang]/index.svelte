@@ -18,10 +18,15 @@
 <style>
   section {
     width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    flex-grow: 1;
   }
 
   .sprinter {
-    height: calc(100vh - 60px - 60px - 120px - 60px - 80px);
+    /*height: calc(100vh - 60px - 60px - 120px - 60px - 200px);*/
+    height: 100%;
+    /*max-height: 100%;*/
     width: 100%;
     display: flex;
     justify-content: center;
@@ -37,7 +42,8 @@
 
   @media (max-width: 575.98px) {
     .sprinter {
-      display: none !important;
+      height: 100%;
+      /*display: none !important;*/
     }
   }
 </style>

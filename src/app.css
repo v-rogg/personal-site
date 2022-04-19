@@ -73,6 +73,9 @@ body {
   margin: 0;
   padding: 0;
   color: var(--c-black);
+  background: var(--c-off-white);
+  width: 100vw;
+  height: calc(100vh - 8rem);
 }
 
 a {
