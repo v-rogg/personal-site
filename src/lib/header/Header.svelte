@@ -12,11 +12,11 @@
 </script>
 
 <header class="container">
-  <h1 class="">
+  <h1 class="overlay">
     <a href="/{$locale}"> Valentin Rogg </a>
   </h1>
 
-  <nav>
+  <nav class="overlay">
     <ul>
 <!--      <li class:active={$page.url.pathname === "/"}>-->
 <!--        <a sveltekit:prefetch href="/">Home</a>-->
@@ -33,7 +33,7 @@
     </ul>
   </nav>
 
-  <div class="options">
+  <div class="options overlay">
     <button
       on:click={() => {
         $dark_mode = !$dark_mode;

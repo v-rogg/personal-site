@@ -3,12 +3,12 @@
 </script>
 
 <footer class="container">
-  <div class="legal">
+  <div class="legal overlay">
     <a sveltekit:prefetch href="/legal">{$t("common.legal")}</a>
     <div class="copy"><i class="fa-regular fa-copyright"></i><span><span>4</span>/<span>5</span>/<span>21</span></span></div>
   </div>
 
-  <div class="links">
+  <div class="links overlay">
     <span class="overflow_hand">
       <span class="looking_for_cv">{@html $t("common.looking_for_cv")}</span>
       <span class="hand_arrow">
