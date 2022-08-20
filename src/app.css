@@ -1,130 +1,107 @@
-@font-face {
-  font-family: "Display";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src:
-    url(https://rogg-site.s3.eu-central-1.amazonaws.com/PD-Bold.woff2) format('woff2'),
-    url(https://rogg-site.s3.eu-central-1.amazonaws.com/PD-Bold.woff) format('woff');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-  font-family: "IBM Plex Sans";
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/ibmplexsans/v13/zYX9KVElMYYaJe8bpLHnCwDKjXr8AIFsdP3pBms.woff2) format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-  font-family: 'Caveat';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/caveat/v14/WnznHAc5bAfYB2QRah7pcpNvOx-pjfJ9eIWpZz5Kmgq3sw.woff) format('woff');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+@import '@fontsource/fira-mono';
 
 :root {
-  --c-green: #93c700;
-  --c-blue: #18a0fb;
-  --c-red: #ff0000;
-  --c-orange: #f06913;
-
-  --r-black: #0f1418;
-  --r-grey-90: #282c31;
-  --r-grey-70: #4e5256;
-  --r-grey-50: #727577;
-  --r-grey-30: #dfe1e4;
-  --r-grey-10: #f4f5f7;
-  --r-white: #ffffff;
-  --r-off-white: #faf7f5;
+	font-family: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	--font-mono: 'Fira Mono', monospace;
+	--pure-white: #ffffff;
+	--primary-color: #b9c6d2;
+	--secondary-color: #d0dde9;
+	--tertiary-color: #edf0f8;
+	--accent-color: #ff3e00;
+	--heading-color: rgba(0, 0, 0, 0.7);
+	--text-color: #444444;
+	--background-without-opacity: rgba(255, 255, 255, 0.7);
+	--column-width: 42rem;
+	--column-margin-top: 4rem;
 }
 
-.light {
-  --c-black: var(--r-black);
-  --c-grey-90: var(--r-grey-90);
-  --c-grey-70: var(--r-grey-70);
-  --c-grey-50: var(--r-grey-50);
-  --c-grey-30: var(--r-grey-30);
-  --c-grey-10: var(--r-grey-10);
-  --c-white: var(--r-white);
-  --c-off-white: var(--r-off-white);
-}
-
-.dark {
-  --c-black: var(--r-white);
-  --c-grey-90: var(--r-grey-10);
-  --c-grey-70: var(--r-grey-30);
-  --c-grey-50: var(--r-grey-50);
-  --c-grey-30: var(--r-grey-70);
-  --c-grey-10: var(--r-grey-90);
-  --c-white: var(--r-black);
-  --c-off-white: var(--r-black);
-}
-
-html,
 body {
-  font-family: "IBM Plex Sans", sans-serif;
-  margin: 0;
-  padding: 0;
-  color: var(--c-black);
-  background: var(--c-white);
-  width: 100vw;
-  height: calc(100vh - 8rem);
+	min-height: 100vh;
+	margin: 0;
+	background-color: var(--primary-color);
+	background: linear-gradient(
+		180deg,
+		var(--primary-color) 0%,
+		var(--secondary-color) 10.45%,
+		var(--tertiary-color) 41.35%
+	);
+}
+
+body::before {
+	content: '';
+	width: 80vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 10vw;
+	z-index: -1;
+	background: radial-gradient(
+		50% 50% at 50% 50%,
+		var(--pure-white) 0%,
+		rgba(255, 255, 255, 0) 100%
+	);
+	opacity: 0.05;
+}
+
+#svelte {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+h1,
+h2,
+p {
+	font-weight: 400;
+	color: var(--heading-color);
+}
+
+p {
+	line-height: 1.5;
 }
 
 a {
-  text-decoration: none;
-  color: var(--c-black);
+	color: var(--accent-color);
+	text-decoration: none;
 }
 
-a.disabled {
-  cursor: text;
+a:hover {
+	text-decoration: underline;
 }
 
+h1 {
+	font-size: 2rem;
+	text-align: center;
+}
+
+h2 {
+	font-size: 1rem;
+}
+
+pre {
+	font-size: 16px;
+	font-family: var(--font-mono);
+	background-color: rgba(255, 255, 255, 0.45);
+	border-radius: 3px;
+	box-shadow: 2px 2px 6px rgb(255 255 255 / 25%);
+	padding: 0.5em;
+	overflow-x: auto;
+	color: var(--text-color);
+}
+
+input,
 button {
-  color: var(--c-black);
+	font-size: inherit;
+	font-family: inherit;
 }
 
-.container {
-  width: 100%;
-  margin-right: auto;
-  margin-left: auto;
+button:focus:not(:focus-visible) {
+	outline: none;
 }
 
-@media (max-width: 575.98px) {
-  .container {
-    max-width: 320px;
-  }
-}
-
-@media (min-width: 576px) {
-  .container {
-    max-width: 540px;
-  }
-}
-@media (min-width: 768px) {
-  .container {
-    max-width: 720px;
-  }
-}
-@media (min-width: 992px) {
-  .container {
-    max-width: 960px;
-  }
-}
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1140px;
-  }
-}
-@media (min-width: 1400px) {
-  .container {
-    max-width: 1320px;
-  }
+@media (min-width: 720px) {
+	h1 {
+		font-size: 2.4rem;
+	}
 }

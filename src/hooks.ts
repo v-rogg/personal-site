@@ -1,37 +1,23 @@
-import { defaultLocale, locales } from "./lib/i18n";
+import type { Handle } from '@sveltejs/kit';
+import * as cookie from 'cookie';
 
-const routeRegex = new RegExp(/^\/[^.]*([?#].*)?$/);
+export const handle: Handle = async ({ event, resolve }) => {
+	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
+	event.locals.userid = cookies['userid'] || crypto.randomUUID();
 
-export const handle = async ({ event, resolve }) => {
-  const { url, request } = event;
-  const { pathname } = url;
+	const response = await resolve(event);
 
-  // If this request is a route request
-  if (!event.url.pathname.includes('api') && routeRegex.test(pathname)) {
-    // Get defined locales
-    const supportedLocales = locales.get();
+	if (!cookies['userid']) {
+		// if this is the first time the user has visited this app,
+		// set a cookie so that we recognise them when they return
+		response.headers.set(
+			'set-cookie',
+			cookie.serialize('userid', event.locals.userid, {
+				path: '/',
+				httpOnly: true
+			})
+		);
+	}
 
-    // Try to get locale from `pathname`.
-    let locale = supportedLocales.find((l) => `${l}`.toLowerCase() === `${pathname.match(/[^/]+?(?=\/|$)/)}`.toLowerCase());
-
-    // If route locale is not supported
-    if (!locale) {
-      // Get user preferred locale
-      locale = `${`${request.headers.get('accept-language')}`.match(/[a-zA-Z]+?(?=[-_,;])/)}`.toLowerCase();
-
-      // Set default locale if user preferred locale does not match
-      if (!supportedLocales.includes(locale)) locale = defaultLocale;
-
-      // 301 redirect
-      return new Response(undefined, { headers: { location: `/${locale}${pathname}` }, status: 301 });
-    }
-
-    // Add html `lang` attribute
-    const response = await resolve(event);
-    const body = await response.text();
-
-    return new Response(`${body}`.replace(/<html.*>/, `<html lang="${locale}">`), response);
-  }
-
-  return resolve(event);
+	return response;
 };
