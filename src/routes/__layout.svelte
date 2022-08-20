@@ -5,14 +5,18 @@
     const { pathname } = url;
     const lang = `${pathname.match(/[^/]+?(?=\/|$)/) || ""}`;
     const route = pathname.replace(new RegExp(`^/${lang}`), "");
-    await loadTranslations(lang, route);
+
+    if (lang !== 'api') {
+      await loadTranslations(lang, route);
+    }
+
     return { stuff: { route, lang } };
   };
 </script>
 
 <script lang="ts">
-  import Header from "$lib/header/Header.svelte";
-  import Footer from "$lib/footer/Footer.svelte";
+  import Header from "../lib/header/Header.svelte";
+  import Footer from "../lib/footer/Footer.svelte";
   import { dark_mode } from "../stores.ts";
 </script>
 

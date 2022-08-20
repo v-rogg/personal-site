@@ -11,15 +11,15 @@ import Signature from "$lib/draw/Signature.svelte";
 </svelte:head>
 
 <section>
-  <picture class="sprinter">
-    <img src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/02a117d6-3c80-4950-7cf8-e6713f71b300/25"
-         srcset="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/02a117d6-3c80-4950-7cf8-e6713f71b300/25 342w,
-                 https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/02a117d6-3c80-4950-7cf8-e6713f71b300/50 683w,
-                 https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/02a117d6-3c80-4950-7cf8-e6713f71b300/75 1025w,
-                 https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/02a117d6-3c80-4950-7cf8-e6713f71b300/100 1366w"
-         sizes="100vw"
-         alt="Sprinter vanlife camper"/>
-  </picture>
+<!--  <picture class="sprinter">-->
+<!--    <img src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/02a117d6-3c80-4950-7cf8-e6713f71b300/25"-->
+<!--         srcset="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/02a117d6-3c80-4950-7cf8-e6713f71b300/25 342w,-->
+<!--                 https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/02a117d6-3c80-4950-7cf8-e6713f71b300/50 683w,-->
+<!--                 https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/02a117d6-3c80-4950-7cf8-e6713f71b300/75 1025w,-->
+<!--                 https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/02a117d6-3c80-4950-7cf8-e6713f71b300/100 1366w"-->
+<!--         sizes="100vw"-->
+<!--         alt="Sprinter vanlife camper"/>-->
+<!--  </picture>-->
   <Signature/>
 </section>
 

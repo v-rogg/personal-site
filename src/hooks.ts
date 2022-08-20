@@ -7,7 +7,7 @@ export const handle = async ({ event, resolve }) => {
   const { pathname } = url;
 
   // If this request is a route request
-  if (routeRegex.test(pathname)) {
+  if (!event.url.pathname.includes('api') && routeRegex.test(pathname)) {
     // Get defined locales
     const supportedLocales = locales.get();
 
