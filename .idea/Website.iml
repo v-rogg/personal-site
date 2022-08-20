@@ -9,7 +9,9 @@
       <excludeFolder url="file://$MODULE_DIR$/archive/.svelte-kit" />
       <excludeFolder url="file://$MODULE_DIR$/archive" />
       <excludeFolder url="file://$MODULE_DIR$/.svelte-kit" />
+      <excludeFolder url="file://$MODULE_DIR$/.svelte-kit/types" />
     </content>
+    <content url="file://$MODULE_DIR$/.svelte-kit/types" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
