@@ -60,39 +60,13 @@
       image: img
     })
 
-    console.log(json);
-    fetch(`${$page.url.origin}/api/storeSignature`, {
+    await fetch(`${$page.url.origin}/api/storeSignature`, {
       method: "POST",
       body: json,
     })
-    // await upload(json)
 
     can = null;
     clearCanvas();
-  }
-
-  async function upload(data) {
-
-      const blob = new Blob([JSON.stringify(data.image, null, 2)], {type: 'image/png'})
-
-      const form = new FormData();
-      form.set('file', blob, 'signature.png');
-
-      // fetch(`https://api.cloudflare.com/client/v4/accounts/${import.meta.env.VITE_CLOUDFLARE_IMAGES_ACCOUNT}/images/v1`, {
-      fetch(`https://requestbin.io/tten56tt`, {
-        method: 'POST',
-        headers: {
-          'Origin': '*',
-          'Access-Control-Allow-Origin': '*',
-          'Authorization': `Bearer ${import.meta.env.VITE_CLOUDFLARE_IMAGES_TOKEN}`
-        },
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        body: form
-      })
-        .then(res => res.text())
-        .then(text => console.log(text))
-
   }
 
   onMount(() => {
