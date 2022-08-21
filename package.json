@@ -35,6 +35,10 @@
   "dependencies": {
     "@fontsource/fira-mono": "^4.5.0",
     "cookie": "^0.4.1",
-    "sveltekit-i18n": "^2.2.2"
+    "form-data": "^4.0.0",
+    "formdata-node": "^4.4.0",
+    "signature_pad": "^4.0.7",
+    "sveltekit-i18n": "^2.2.2",
+    "trim-canvas": "^0.1.2"
   }
 }

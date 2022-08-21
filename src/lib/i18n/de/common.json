@@ -3,7 +3,5 @@
   "projects": "Projekte",
   "legal": "Impressum & Datenschutz",
   "looking_for_cv": "Auf der Suche </br> nach meinem Lebenslauf?",
-  "coming_soon": "Bald verfügbar",
-  "title": "Willkommen bei SvelteKit",
-  "text": "Besuchen Sie <a href=\"{{link}}\">kit.svelte.dev</a>, um die Dokumentation zu lesen"
+  "coming_soon": "Bald verfügbar"
 }
