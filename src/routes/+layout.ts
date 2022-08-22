@@ -1,5 +1,5 @@
 import type { LayoutLoad } from "./$types";
-import { loadTranslations } from "$lib/i18n";
+import { loadTranslations } from "$lib/_i18n";
 
 export const load: LayoutLoad = async ({ url }) => {
   const loadUrl = new URL(url);

@@ -2,17 +2,33 @@
   import Header from "$lib/header/Header.svelte";
   import Footer from "$lib/footer/Footer.svelte";
   import { dark_mode } from "$lib/../stores.ts";
+  import '../app.css';
 </script>
 
-<div class="background" class:light={!$dark_mode} class:dark={$dark_mode}>
-  <div class="container flex">
-    <Header />
-    <slot />
-    <Footer />
-  </div>
+<!--<div class="background" class:light={!$dark_mode} class:dark={$dark_mode}>-->
+<!--  <div class="container flex">-->
+<!--&lt;!&ndash;    <Footer />&ndash;&gt;-->
+<!--  </div>-->
+<!--</div>-->
+<div class="app" class:light={!$dark_mode} class:dark={$dark_mode}>
+  <Header />
+  <slot />
+  <Footer />
 </div>
 
+<!--<div id="centerline" />-->
+
 <style>
+  #centerline {
+    width: 2px;
+    height: 100vh;
+    background: red;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top: 0;
+  }
+
   .background {
     background: var(--c-off-white);
     color: var(--c-black) !important;

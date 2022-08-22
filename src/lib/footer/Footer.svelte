@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { t } from "../i18n";
+  import { t } from "../_i18n";
 </script>
 
 <footer class="container">
   <div class="legal overlay">
     <a sveltekit:prefetch href="/legal">{$t("common.legal")}</a>
-    <div class="copy"><i class="fa-regular fa-copyright" /><span><span>4</span>/<span>5</span>/<span>21</span></span></div>
+    <div class="copy"><i class="fa-regular fa-copyright" /><span><span>23</span>/<span>8</span>/<span>22</span></span></div>
   </div>
 
   <div class="links overlay">
@@ -31,7 +31,12 @@
     justify-content: space-between;
     align-items: flex-end;
     font-size: 16px;
-    padding: 120px 0 2rem;
+    /*padding: 120px 0 2rem;*/
+    /*width: ;*/
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 2rem;
   }
 
   @media (max-width: 575.98px) {
@@ -55,7 +60,7 @@
 
     .legal {
       display: flex;
-      gap: 16px;
+      gap: 4px;
       align-items: center;
       flex-direction: column;
     }
@@ -69,8 +74,11 @@
 
   .legal {
     display: flex;
-    gap: 16px;
-    align-items: center;
+    flex-direction: column;
+    /*align-items: flex-start;*/
+    gap: 4px;
+    /*align-items: center;*/
+    font-size: 14px;
   }
 
   .overflow_hand {
@@ -99,7 +107,7 @@
 
   .copy {
     display: flex;
-    gap: 13px;
+    gap: 8px;
     align-items: center;
   }
 

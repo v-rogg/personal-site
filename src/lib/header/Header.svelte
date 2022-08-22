@@ -2,7 +2,7 @@
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
   import { dark_mode } from "../../stores";
-  import { t, locale, locales } from "../i18n";
+  import { t, locale, locales } from "../_i18n";
 
   function toggle_lang() {
     let i = $locales.findIndex((e) => e === $locale) + 1;
@@ -56,8 +56,15 @@
     justify-content: space-between;
     align-items: center;
     font-size: 16px;
-    padding: 10px 0 60px;
-    width: 100%;
+    /*padding: 10px 2rem 60px;*/
+    width: 100vw;
+    position: fixed;
+    /*padding: 2rem;*/
+    /*margin: 2rem;*/
+    left: 50%;
+    transform: translate(-50%);
+    top: 4rem;
+    z-index: 900;
   }
 
   @media (max-width: 575.98px) {

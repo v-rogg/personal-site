@@ -1,4 +1,4 @@
-import { defaultLocale, locales } from "$lib/i18n";
+import { defaultLocale, locales } from "$lib/_i18n";
 import type { Handle } from "@sveltejs/kit";
 
 const routeRegex = new RegExp(/^\/[^.]*([?#].*)?$/);
