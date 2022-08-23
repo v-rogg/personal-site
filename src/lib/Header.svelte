@@ -1,8 +1,8 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
-  import { dark_mode } from "../../stores";
-  import { t, locale, locales } from "../_i18n";
+  import { dark_mode } from "$lib/../stores";
+  import { t, locale, locales } from "$lib/_i18n";
 
   function toggle_lang() {
     let i = $locales.findIndex((e) => e === $locale) + 1;

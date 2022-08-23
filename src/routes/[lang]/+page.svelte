@@ -1,8 +1,8 @@
 <script lang="ts">
   // import Signature from "$lib/signature/Signature.svelte";
   // import Footer from "$lib/footer/Footer.svelte";
-  import EyeCatcher from "$lib/eyecatcher/EyeCatcher.svelte";
-  import ShortBio from "../../lib/ShortBio.svelte";
+  import EyeCatcher from "$lib/EyeCatcher.svelte";
+  import ShortBio from "$lib/ShortBio.svelte";
   import { setContext } from "svelte";
 
   export let data: {lang: string, route: string, signatureRefs: [], currentSignature};

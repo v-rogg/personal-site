@@ -1,5 +1,5 @@
 <script>
-  import Signature from "$lib/signature/Signature.svelte";
+  import Signature from "$lib/Signature.svelte";
 </script>
 
 <section class="eyecatcher">
