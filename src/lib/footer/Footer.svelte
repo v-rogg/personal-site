@@ -1,27 +1,36 @@
 <script lang="ts">
-  import { t } from "../_i18n";
+  import { t, locale } from "$lib/_i18n";
 </script>
 
 <footer class="container">
   <div class="legal overlay">
-    <a sveltekit:prefetch href="/legal">{$t("common.legal")}</a>
-    <div class="copy"><i class="fa-regular fa-copyright" /><span><span>23</span>/<span>8</span>/<span>22</span></span></div>
+    <a sveltekit:prefetch href="/{$locale}/legal">{$t("common.legal")}</a>
+    <div class="copy">
+      <i class="fa-regular fa-copyright"></i>
+      {$t("common.last_edited")}
+    </div>
   </div>
 
   <div class="links overlay">
     <span class="overflow_hand">
       <span class="looking_for_cv">{@html $t("common.looking_for_cv")}</span>
       <span class="hand_arrow">
-        <svg width="9" height="17" viewBox="0 0 9 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          width="9"
+          height="17"
+          viewBox="0 0 9 17"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
             d="M1.59524 0.236142C2.42858 0.747671 3.30952 1.28245 3.92857 2.00324C6.28572 4.7469 7 8.00209 6.5 11.513C6.33333 12.7221 5.92857 13.8847 5.59524 15.1635C6.7381 14.6055 7.85714 14.2799 9 15.117C7.5 15.303 6.26191 16.0238 5.04762 16.7446C4.90477 16.8143 4.78572 16.8841 4.64286 16.9306C4.04762 17.1166 3.66667 16.9306 3.5 16.3493C3.42858 16.1401 3.42857 15.9075 3.40476 15.6983C3.30952 13.9312 3.07143 12.2106 2.42858 10.5365C2.38096 10.397 2.45238 10.1645 2.47619 9.74594C3.7619 11.234 3.7619 12.9314 4.2619 14.559C5.61905 11.8153 5.92857 9.0949 5.09524 6.28149C4.30952 3.53783 3.07143 1.1662 0 0.236142C0.761905 -0.0428741 1 -0.112628 1.59524 0.236142Z"
             fill="var(--c-black)"
           />
         </svg>
       </span>
-      <a href="https://www.linkedin.com/in/vrogg/"><i class="fa-brands fa-linkedin" /></a>
+      <a href="https://www.linkedin.com/in/vrogg/"><i class="fa-brands fa-linkedin"></i></a>
     </span>
-    <a href="https://www.instagram.com/valentin_rogg/"><i class="fa-brands fa-instagram" /></a>
+    <a href="https://www.instagram.com/valentin_rogg/"><i class="fa-brands fa-instagram"></i></a>
   </div>
 </footer>
 

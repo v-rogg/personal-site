@@ -7,9 +7,11 @@ export const load: LayoutLoad = async ({ url }) => {
 
   const lang = `${pathname.match(/[^/]+?(?=\/|$)/) || ""}`;
 
-  const route = pathname.replace(new RegExp(`^/${lang}`), "");
+  if (!pathname.includes("api") && !pathname.includes(".css")) {
+    const route = pathname.replace(new RegExp(`^/${lang}`), "");
+    await loadTranslations(lang, route);
+    return { route, lang };
+  }
 
-  await loadTranslations(lang, route);
-
-  return { route, lang };
+  return {};
 };

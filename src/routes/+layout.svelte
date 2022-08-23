@@ -2,7 +2,7 @@
   import Header from "$lib/header/Header.svelte";
   import Footer from "$lib/footer/Footer.svelte";
   import { dark_mode } from "$lib/../stores.ts";
-  import '../app.css';
+  import "../app.css";
 </script>
 
 <!--<div class="background" class:light={!$dark_mode} class:dark={$dark_mode}>-->
@@ -17,7 +17,6 @@
 </div>
 
 <!--<div id="centerline" />-->
-
 <style>
   #centerline {
     width: 2px;
@@ -42,5 +41,11 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+  }
+
+  .app {
+    background: var(--c-bg);
+    height: 100%;
+    min-height: 100vh;
   }
 </style>

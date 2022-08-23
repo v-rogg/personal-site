@@ -4,12 +4,12 @@
 
 <section class="eyecatcher">
   <Signature />
-  <img src="me-light.png">
+  <img src="me-light.png" alt="Handsome Portrait Valentin Rogg" />
 </section>
 
 <style>
   .eyecatcher {
-    background: var(--c-off-white);
+    background: var(--c-secondary);
     color: var(--c-black) !important;
     /*height: calc(100vh - 8rem);*/
     flex-grow: 1;

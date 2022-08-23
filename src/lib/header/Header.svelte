@@ -22,12 +22,16 @@
       <!--        <a sveltekit:prefetch href="/">Home</a>-->
       <!--      </li>-->
       <li class:active={$page.url.pathname === "/blog"}>
-        <a sveltekit:prefetch href="/" aria-disabled="true" class="strikethrough disabled">{$t("common.blog")}</a>
+        <a sveltekit:prefetch href="/{$locale}" aria-disabled="true" class="strikethrough disabled"
+          >{$t("common.blog")}</a
+        >
         <span class="coming_soon">{$t("common.coming_soon")}</span>
         <!--        <span class="new"><i class="fa-solid fa-circle-small"></i></span>-->
       </li>
       <li class:active={$page.url.pathname === "/projects"}>
-        <a sveltekit:prefetch href="/" aria-disabled="true" class="strikethrough disabled">{$t("common.projects")}</a>
+        <a sveltekit:prefetch href="/{$locale}" aria-disabled="true" class="strikethrough disabled"
+          >{$t("common.projects")}</a
+        >
         <span class="coming_soon">{$t("common.coming_soon")}</span>
       </li>
     </ul>
@@ -116,7 +120,7 @@
     transform: translateX(-50%);
     width: max-content;
     text-align: center;
-    color: var(--c-orange);
+    color: var(--c-primary);
   }
 
   /*.new {*/
@@ -156,8 +160,13 @@
   }
 
   .language_switch:hover {
-    background: var(--c-grey-30);
+    background: var(--c-grey-10);
     cursor: pointer;
+  }
+
+  .language_switch:active {
+    background: var(--c-grey-30);
+    cursor: default;
   }
 
   .strikethrough {

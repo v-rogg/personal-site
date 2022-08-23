@@ -3,6 +3,12 @@
   // import Footer from "$lib/footer/Footer.svelte";
   import EyeCatcher from "$lib/eyecatcher/EyeCatcher.svelte";
   import ShortBio from "../../lib/ShortBio.svelte";
+  import { setContext } from "svelte";
+
+  export let data: {lang: string, route: string, signatureRefs: [], currentSignature};
+
+  setContext("signatureRefs", data.signatureRefs)
+  setContext("currentSignature", data.currentSignature)
 </script>
 
 <svelte:head>
@@ -17,12 +23,14 @@
 <!--<section class="eye-catcher">-->
 <!--  <Signature />-->
 <!--  <Footer />-->
-<!--</section>-->
 
+<!--</section>-->
 <style>
   .first {
-    height: calc(100vh - 3rem);
+    height: 90vh;
     max-height: calc(100vh - 3rem);
+    /*height: 100%;*/
+    /*position: relative;*/
     display: flex;
     flex-direction: column;
   }

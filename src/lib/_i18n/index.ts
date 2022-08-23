@@ -14,10 +14,22 @@ const config = {
       loader: async () => (await import("./en/common.json")).default
     },
     {
+      locale: "en",
+      key: "bio",
+      route: [""],
+      loader: async () => (await import("./en/bio.json")).default
+    },
+    {
       locale: "de",
       key: "common",
       route: [""],
       loader: async () => (await import("./de/common.json")).default
+    },
+    {
+      locale: "de",
+      key: "bio",
+      route: [""],
+      loader: async () => (await import("./de/bio.json")).default
     }
   ]
 };
