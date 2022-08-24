@@ -27,12 +27,10 @@ export const GET: RequestHandler = async ({ url }) => {
   const res = await client
     .query(query)
     .then((res) => {
-      // console.log(res);
       return res;
     })
     .catch((err) => {
       console.error("Error: [%s] %s: %s", err.name, err.message, err.errors()[0].description);
-      return new Response("error");
     });
 
   return new Response(JSON.stringify(res), {
@@ -55,18 +53,25 @@ export const POST: RequestHandler = async ({ request }) => {
     port: 443
   });
 
-  client
+  const res = await client
     .query([
-      q.Create(q.Collection("signatures"), {
-        data: json
-      })
+      q.Create(
+        q.Ref(q.Collection("signatures"), q.Add(q.Count(q.Documents(q.Collection("signatures"))), 1)),
+        {
+        data: { ...json },
+        }
+      )
     ])
-    .then((ret) => {
-      // console.log(ret);
+    .then((res) => {
+      return res
     })
     .catch((err) =>
       console.error("Error: [%s] %s: %s", err.name, err.message, err.errors()[0].description)
     );
 
-  return new Response();
+  return new Response(JSON.stringify(res), {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
 };

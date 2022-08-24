@@ -1,4 +1,6 @@
 import type { PageServerLoad } from "./$types";
+import { get } from "svelte/store";
+import { refIndexStore } from "$lib/../stores";
 
 function shuffle(array: []) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -20,15 +22,18 @@ export const load: PageServerLoad = async ({ url }) => {
   const shuffledSigRefs = refs.data
   shuffle(shuffledSigRefs)
 
-  const signature = await fetch(`${url.origin}/api/signature?ref=${shuffledSigRefs[0]["@ref"].id}`, {
-    method: "GET",
-  })
-    .then(res => res.json())
-    .then(json => {
-      console.log(json);
-      return json;
-    })
+  let signature;
 
+  if (shuffledSigRefs.length) {
+    signature = await fetch(`${url.origin}/api/signature?ref=${shuffledSigRefs[get(refIndexStore)]["@ref"].id}`, {
+      method: "GET",
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json);
+        return json;
+      })
+  }
 
   if (shuffledSigRefs && signature) {
     return { signatureRefs: shuffledSigRefs, currentSignature: signature }

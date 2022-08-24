@@ -42,6 +42,7 @@
     "signature_pad": "^4.0.7",
     "stream": "^0.0.2",
     "sveltekit-i18n": "^2.2.2",
-    "trim-canvas": "^0.1.2"
+    "trim-canvas": "^0.1.2",
+    "xss": "^1.0.14"
   }
 }

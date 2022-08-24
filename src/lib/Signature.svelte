@@ -1,61 +1,26 @@
 <script lang="ts">
-  import { getContext, onMount } from "svelte";
+  import { onMount } from "svelte";
   import { page } from "$app/stores";
   import SignaturePad from "signature_pad";
-
-  const signatureRefs = getContext("signatureRefs");
-  let currentSignature = getContext("currentSignature");
+  import { currentSignatureStore, dark_mode, refIndexStore, signatureRefsStore } from "../stores";
+  import { t } from "$lib/_i18n";
+  import * as xss from "xss";
+  import type { signatureData } from "$lib/types";
 
   let canvas: HTMLCanvasElement;
+
   let pad: HTMLDivElement;
   let signaturePad: SignaturePad;
 
-  let oldWidth, oldHeight;
-  let centeredData;
+  let currentSignature: signatureData;
 
   let empty = true;
 
-  function resizeCanvas() {
-    // const d = signaturePad.toData();
+  let drawModeActive = false;
 
-    const ratio = Math.max(window.devicePixelRatio || 1, 1);
-
-    const pad = document.getElementById("pad");
-    canvas.width = pad.offsetWidth * ratio;
-    canvas.height = pad.offsetHeight * ratio;
-
-    canvas.getContext("2d").scale(ratio, ratio);
+  function clearCanvas() {
     signaturePad.clear();
-
-    oldWidth = pad.offsetWidth;
-
-    const decenteredData = decenterSignature(centeredData);
-    signaturePad.fromData(decenteredData);
-    centeredData = centerSignature(signaturePad.toData());
-  }
-
-  function cloneCanvas(oldCanvas): HTMLCanvasElement {
-    //create a new canvas
-    let newCanvas = document.createElement("canvas");
-    let context = newCanvas.getContext("2d");
-
-    //set dimensions
-    newCanvas.width = oldCanvas.width;
-    newCanvas.height = oldCanvas.height;
-
-    //apply the old canvas to the new one
-    context.drawImage(oldCanvas, 0, 0);
-
-    //return the new canvas
-    return newCanvas;
-  }
-
-  async function logCanvas() {
-    const data = signaturePad.toData();
-    // console.log("old", data);
-
-    console.log("centered", centerSignature(data));
-    console.log("decentered", decenterSignature(centerSignature(data)));
+    empty = signaturePad.isEmpty();
   }
 
   function centerSignature(data) {
@@ -78,7 +43,7 @@
     return centeredData;
   }
 
-  function decenterSignature(data) {
+  function uncenterSignature(data) {
     const middleH = pad.offsetWidth / 2;
     const bottomV = pad.offsetHeight;
 
@@ -98,71 +63,76 @@
     return centeredData;
   }
 
-  function clearCanvas() {
-    signaturePad.clear();
-    empty = signaturePad.isEmpty();
-  }
-
-  async function saveCanvas() {
-    // const img = signaturePad.toDataURL("image/svg+xml");
-
-    // trimCanvas(canvas);
-    // let can = cloneCanvas(canvas);
-    // trimCanvas(can);
-    // can.toDataURL("image/png");
-    // const img = can.toDataURL("image/png");
-
-    // console.log(signaturePad.toData());
-
-    // const json = JSON.stringify({
-    //   uuid: crypto.randomUUID(),
-    //   image: img
-    // })
-
-    // console.log(json);
-
-    // await fetch(`${$page.url.origin}/api/storeSignature`, {
-    //   method: "POST",
-    //   body: json,
-    // })
-
-    const json = JSON.stringify({
-      name: crypto.randomUUID(),
-      signature: signaturePad.toData()
-    });
-
-    console.log(json);
-
-    await fetch(`${$page.url.origin}/api/signature`, {
-      method: "POST",
-      body: json
-    }).then(res => console.log(res));
-
-    clearCanvas();
-  }
-
-  async function loadCanvas() {
-    await fetch(`${$page.url.origin}/api/signature`, {
+  async function loadDelta(delta) {
+    drawModeActive = false;
+    await fetch(`${$page.url.origin}/api/signature?ref=${$signatureRefsStore[$refIndexStore + delta]["@ref"].id}`, {
       method: "GET",
     })
       .then(res => res.json())
       .then(json => {
-        // console.log(json);
-        clearCanvas();
-        json.sort((a, b) => {return 0.5 - Math.random()})
-        signaturePad.fromData(json[0].data.signature)
+        $refIndexStore += delta;
+        $currentSignatureStore = json;
+        return json;
       })
   }
 
-  function next() {
+  function resizeCanvas() {
+    canvas.width = pad.offsetWidth;
+    canvas.height = pad.offsetHeight;
 
+    clearCanvas();
+
+    const currentSignature = uncenterSignature((<signatureData>$currentSignatureStore).data.signature);
+    signaturePad.fromData(currentSignature);
   }
 
-  function prev() {
+  async function saveCanvas() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    let name = xss(prompt($t("signature.prompt"), ""));
 
+    const json = JSON.stringify({
+      name,
+      signature: centerSignature(signaturePad.toData())
+    });
+
+    const newSignature = await fetch(`${$page.url.origin}/api/signature`, {
+      method: "POST",
+      body: json
+    }).then(res => res.json())
+      .then(json => {
+        return json[0]
+      });
+
+    let signatureRefs = $signatureRefsStore
+    signatureRefs.push(newSignature.ref)
+    $signatureRefsStore = signatureRefs;
+    $currentSignatureStore = newSignature;
+    $refIndexStore = signatureRefs.length - 1;
+
+    drawModeActive = false;
+    signaturePad.off();
+    // clearCanvas();
+  }
+
+  function newCanvas() {
+    drawModeActive = true;
+
+    $currentSignatureStore = {
+      ref: null,
+      ts: null,
+      data: {
+        name: null,
+        signature: []
+      }
+    }
+
+    signaturePad.on();
   }
 
   onMount(() => {
+
+    // Init
     canvas = <HTMLCanvasElement>document.getElementById("signature");
     signaturePad = new SignaturePad(canvas, {
       penColor: "#0f1418",
@@ -170,87 +140,64 @@
       minDistance: 2,
       throttle: 8
     });
-    signaturePad.addEventListener("endStroke", () => {
-      centeredData = centerSignature(signaturePad.toData());
-    });
-
+    signaturePad.off();
     pad = <HTMLDivElement>document.getElementById("pad");
-    oldWidth = pad.offsetWidth;
-    oldHeight = pad.offsetHeight;
-    centeredData = centerSignature(signaturePad.toData());
 
     signaturePad.addEventListener("endStroke", () => {
+      currentSignature = $currentSignatureStore;
+      currentSignature.data.signature = centerSignature(signaturePad.toData());
+      $currentSignatureStore = currentSignature;
       empty = signaturePad.isEmpty();
     });
-
 
     window.onresize = resizeCanvas;
     resizeCanvas();
 
-    console.log("refs", signatureRefs);
-    console.log("sig", currentSignature);
-    signaturePad.fromData(currentSignature.data.signature);
-
-    console.log(signaturePad.toData());
+    currentSignatureStore.subscribe((data: signatureData) => {
+      if (Object.keys(data).length > 0) {
+        signaturePad.fromData(uncenterSignature(data.data.signature))
+        // signaturePad.fromData(uncenterSignature(currentSignature.data.signature));
+        // centeredData = currentSignature;
+      }
+    });
   });
 </script>
 
 <div id="pad">
-  <canvas id="signature" />
+  <canvas id="signature" class:dark={$dark_mode}></canvas>
   <div class="container overlay">
-      <button id="next" on:click={() => next()}>
-        <i class="fa-solid fa-angle-right"></i>
+    {#if !drawModeActive}
+      {#if $signatureRefsStore.length - $refIndexStore - 1 > 0}
+        <button id="next" on:click={() => loadDelta(1)}>
+          <i class="fa-solid fa-angle-right"></i>
+        </button>
+      {/if}
+      {#if $refIndexStore > 0}
+        <button id="prev" on:click={() => loadDelta(-1)}>
+          <i class="fa-solid fa-angle-left"></i>
+        </button>
+      {/if}
+    {/if}
+
+    {#if drawModeActive}
+      <button id="save" on:click={() => saveCanvas()}>
+        <i class="fa-solid fa-floppy-disk"></i>
       </button>
-      <button id="prev" on:click={() => prev()}>
-        <i class="fa-solid fa-angle-left"></i>
+      <button id="clear" on:click={() => clearCanvas()}>
+        <i class="fa-duotone fa-trash"></i>
       </button>
-      <button
-        id="log"
-        on:click={() => {
-          logCanvas();
-        }}
-        style="opacity: {empty ? 1 : 1}"
-      >
-        <i class="fa-solid fa-code-simple" />
+    {:else}
+      <button id="new" on:click={() => newCanvas()}>
+        <i class="fa-solid fa-pen"></i>
       </button>
-      <button
-        id="clear"
-        on:click={() => {
-          clearCanvas();
-        }}
-        style="opacity: {empty ? 1 : 1}"
-      >
-        <i class="fa-solid fa-trash" />
-      </button>
-      <button
-        id="save"
-        on:click={() => {
-          saveCanvas();
-        }}
-        style="opacity: {empty ? 1 : 1}"
-      >
-        <i class="fa-solid fa-floppy-disk" />
-      </button>
-      <button
-        id="load"
-        on:click={() => {
-          loadCanvas();
-        }}
-        style="opacity: {empty ? 1 : 1}"
-      >
-        <i class="fa-solid fa-download" />
-      </button>
+    {/if}
   </div>
 </div>
 
 <style>
   #signature {
-    /*width: 100%;*/
-    /*height: 100%;*/
     z-index: 100;
     position: absolute;
-    /*top: 2rem;*/
-    /*left: 2rem;*/
     padding: 0;
     margin: 0;
   }
@@ -258,13 +205,7 @@
   #pad {
     width: 100%;
     height: 100%;
-    /*box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);*/
   }
-
-  /*div {*/
-  /*  width: 100%;*/
-  /*  position: fixed;*/
-  /*}*/
 
   .overlay {
     position: relative;
@@ -276,16 +217,20 @@
     border: none;
     font-size: 1rem;
     z-index: 250;
-    /*right: 0;*/
     width: 3rem;
     height: 3rem;
     border-radius: 100%;
-    /*opacity: 0;*/
     transition: opacity 500ms ease-in-out;
     position: absolute;
   }
 
+  .dark {
+    filter: brightness(100) brightness(0.8) opacity(0.9);
+  }
+
   #next, #prev {
+    width: 42px;
+    height: 42px;
     top: 50%;
     transform: translateY(-50%);
   }
@@ -298,9 +243,35 @@
     left: 0;
   }
 
-  .overlay-container {
-    position: relative;
-    height: 100%;
+  #new, #save {
+    right: 0;
+    bottom: 2.5rem;
+    width: 64px;
+    height: 64px;
+    font-size: 20px;
+  }
+
+  #clear {
+    right: 42px;
+    bottom: calc(1.5rem + 2px);
+    background: var(--c-secondary);
+    width: 38px;
+    height: 38px;
+    font-size: 14px;
+  }
+
+  :global(#clear .fa-secondary) {
+    opacity: 1 !important;
+  }
+
+  :global(#clear .fa-primary) {
+    transform: translateY(-5%);
+    transition: transform 200ms;
+    transform-origin: right;
+  }
+
+  :global(#clear:hover .fa-primary) {
+    transform: translateY(-10%) rotate(12deg);
   }
 
   /*.overlay {*/
@@ -308,34 +279,6 @@
   /*  right: 0;*/
   /*  bottom: 2rem;*/
   /*}*/
-
-  /*.overlay > button {*/
-  /*  background: var(--c-white);*/
-  /*  border: none;*/
-  /*  font-size: 1rem;*/
-  /*  position: relative !important;*/
-  /*  z-index: 250;*/
-  /*  !*left: calc(100% - 3rem);*!*/
-  /*  right: 0;*/
-  /*  !*box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);*!*/
-  /*  width: 3rem;*/
-  /*  height: 3rem;*/
-  /*  border-radius: 100%;*/
-  /*  opacity: 0;*/
-  /*  transition: opacity 500ms ease-in-out;*/
-  /*  !*box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);*!*/
-  /*}*/
-
-  @media (max-width: 575.98px) {
-    /*.overlay > button {*/
-    /*  left: calc(100% - 8rem);*/
-    /*  position: absolute !important;*/
-    /*  width: 4rem;*/
-    /*  height: 4rem;*/
-    /*  font-size: 1.25rem;*/
-    /*  bottom: 6rem;*/
-    /*}*/
-  }
 
   button:hover {
     cursor: pointer;

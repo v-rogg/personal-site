@@ -20,6 +20,12 @@ const config = {
       loader: async () => (await import("./en/bio.json")).default
     },
     {
+      locale: "en",
+      key: "signature",
+      route: [""],
+      loader: async () => (await import("./en/signature.json")).default
+    },
+    {
       locale: "de",
       key: "common",
       route: [""],
@@ -30,7 +36,13 @@ const config = {
       key: "bio",
       route: [""],
       loader: async () => (await import("./de/bio.json")).default
-    }
+    },
+    {
+      locale: "de",
+      key: "signature",
+      route: [""],
+      loader: async () => (await import("./de/signature.json")).default
+    },
   ]
 };
 

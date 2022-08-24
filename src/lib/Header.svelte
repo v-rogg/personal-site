@@ -38,12 +38,14 @@
   </nav>
 
   <div class="options overlay">
-    <button
-      on:click={() => {
-        $dark_mode = !$dark_mode;
-      }}
-      class="dark_switch"><i class="fak fa-moon" /></button
-    >
+    <button on:click={() => {$dark_mode = !$dark_mode;}} class="dark_switch">
+      <span style="display: {$dark_mode ? 'none' : 'initial'}">
+        <i class="fa-solid fa-moon"></i>
+      </span>
+      <span style="display: {!$dark_mode ? 'none' : 'initial'}">
+        <i class="fa-solid fa-sun"></i>
+      </span>
+    </button>
     <button
       on:click={() => {
         toggle_lang();

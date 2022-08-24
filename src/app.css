@@ -123,7 +123,7 @@
   --c-active: var(--c-blue);
 
   --c-primary: #608CFF;
-  --c-secondary: #101B36;
+  --c-secondary: #141b3d;
   --c-bg: #080C21;
 }
 
@@ -132,8 +132,6 @@ body {
   font-family: "IBM Plex Sans", sans-serif;
   margin: 0;
   padding: 0;
-  color: var(--c-black);
-  background: var(--c-bg);
   width: 100vw;
   /*height: calc(100vh - 8rem);*/
   min-height: 100vh;

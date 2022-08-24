@@ -6,7 +6,7 @@
   <h1>Valentin Rogg</h1>
 
   {@html $t("bio.description").replace("project_placeholder", `<a href='/${$locale}' class="bold">Parley</a>`)}
-  <button id="contact">{$t("bio.contact")}<i class="icon fa-solid fa-comment-smile"></i></button>
+  <a id="contact" href="https://www.linkedin.com/in/vrogg/" rel="noreferrer nofollow">{$t("bio.contact")}<i class="icon fa-solid fa-comment-smile"></i></a>
 </section>
 
 <style>
@@ -22,17 +22,14 @@
   }
 
   #contact {
-    /*font-weight: 600;*/
-    /*height: 24px;*/
-    margin-top: 1rem;
+    display: block;
+    width: max-content;
+    margin: 2.5rem auto;
     font-size: 16px;
     border-radius: 4px;
     padding: .5rem 1rem;
     border: none;
-    background: var(--c-off-white);
-    /*color: var(--c-off-white);*/
-    /*box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);*/
-    transition: 25ms;
+    background: var(--c-secondary);
   }
 
   #contact .icon {
@@ -43,7 +40,6 @@
   #contact:hover {
     cursor: pointer;
     background: var(--c-grey-10);
-    /*box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.08);*/
   }
 
   #contact:active {
