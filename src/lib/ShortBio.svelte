@@ -6,7 +6,7 @@
   <h1>Valentin Rogg</h1>
 
   {@html $t("bio.description").replace("project_placeholder", `<a href='/${$locale}' class="bold">Parley</a>`)}
-  <a id="contact" href="https://www.linkedin.com/in/vrogg/" rel="noreferrer nofollow" target="_blank">{$t("bio.contact")}<i class="icon fa-solid fa-comment-smile"></i></a>
+  <a id="contact" href="https://www.linkedin.com/in/vrogg/" rel="noreferrer nofollow" target="_blank">{$t("bio.contact")}<i class="icon fa-solid fa-bullhorn"></i></a>
 </section>
 
 <style>
