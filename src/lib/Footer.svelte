@@ -4,7 +4,7 @@
 
 <footer class="container">
   <div class="legal overlay">
-    <a sveltekit:prefetch href="/{$locale}/legal">{$t("common.legal")}</a>
+    <a href="/{$locale}/legal">{$t("common.legal")}</a>
     <div class="copy">
       <i class="fa-regular fa-copyright"></i>
       {$t("common.last_edited")}
@@ -28,9 +28,9 @@
           />
         </svg>
       </span>
-      <a href="https://www.linkedin.com/in/vrogg/" rel="noreferrer nofollow"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://www.linkedin.com/in/vrogg/" rel="noreferrer nofollow" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
     </span>
-    <a href="https://www.instagram.com/valentin_rogg/" rel="noreferrer nofollow"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://www.instagram.com/valentin_rogg/" rel="noreferrer nofollow" target="_blank"><i class="fa-brands fa-instagram"></i></a>
   </div>
 </footer>
 

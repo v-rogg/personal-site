@@ -18,18 +18,15 @@
 
   <nav class="overlay">
     <ul>
-      <!--      <li class:active={$page.url.pathname === "/"}>-->
-      <!--        <a sveltekit:prefetch href="/">Home</a>-->
-      <!--      </li>-->
+
       <li class:active={$page.url.pathname === "/blog"}>
-        <a sveltekit:prefetch href="/{$locale}" aria-disabled="true" class="strikethrough disabled"
+        <a href="/{$locale}" aria-disabled="true" class="strikethrough disabled"
           >{$t("common.blog")}</a
         >
         <span class="coming_soon">{$t("common.coming_soon")}</span>
-        <!--        <span class="new"><i class="fa-solid fa-circle-small"></i></span>-->
       </li>
       <li class:active={$page.url.pathname === "/projects"}>
-        <a sveltekit:prefetch href="/{$locale}" aria-disabled="true" class="strikethrough disabled"
+        <a href="/{$locale}" aria-disabled="true" class="strikethrough disabled"
           >{$t("common.projects")}</a
         >
         <span class="coming_soon">{$t("common.coming_soon")}</span>

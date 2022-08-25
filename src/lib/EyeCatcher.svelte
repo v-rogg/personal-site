@@ -5,8 +5,8 @@
 </script>
 
 <section class="eyecatcher">
-  <Signature />
-  <SignatureNumber />
+<!--  <Signature />-->
+<!--  <SignatureNumber />-->
   <img src="{$dark_mode ? 'me-dark.png' : 'me-light.png'}" alt="Handsome Portrait Valentin Rogg" />
 </section>
 

@@ -2,8 +2,12 @@
   import Header from "$lib/Header.svelte";
   import Footer from "$lib/Footer.svelte";
   import { dark_mode } from "$lib/../stores";
-  import "../app.css";
+  import { t } from "$lib/_i18n";
 </script>
+
+<svelte:head>
+  <meta name="description" content="{$t('common.meta')}" />
+</svelte:head>
 
 <div class="app" class:light={!$dark_mode} class:dark={$dark_mode}>
   <Header />

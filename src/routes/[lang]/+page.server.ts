@@ -10,34 +10,35 @@ function shuffle(array: []) {
 }
 
 export const load: PageServerLoad = async ({ url }) => {
-  const refs = await fetch(`${url.origin}/api/signature`, {
-    method: "GET",
-  })
-    .then(res => res.json())
-    .then(json => {
-      // console.log(json);
-      return json;
-    })
-
-  const shuffledSigRefs = refs.data
-  shuffle(shuffledSigRefs)
-
-  let signature;
-
-  if (shuffledSigRefs.length) {
-    signature = await fetch(`${url.origin}/api/signature?ref=${shuffledSigRefs[get(refIndexStore)]["@ref"].id}`, {
-      method: "GET",
-    })
-      .then(res => res.json())
-      .then(json => {
-        console.log(json);
-        return json;
-      })
-  }
-
-  if (shuffledSigRefs && signature) {
-    return { signatureRefs: shuffledSigRefs, currentSignature: signature }
-  } else {
-    return { signatureRefs: [], currentSignature: {}}
-  }
+  // const refs = await fetch(`${url.origin}/api/signature`, {
+  //   method: "GET",
+  // })
+  //   .then(res => res.json())
+  //   .then(json => {
+  //     // console.log(json);
+  //     return json;
+  //   })
+  //
+  // const shuffledSigRefs = refs.data
+  // shuffle(shuffledSigRefs)
+  //
+  // let signature;
+  //
+  // if (shuffledSigRefs.length) {
+  //   signature = await fetch(`${url.origin}/api/signature?ref=${shuffledSigRefs[get(refIndexStore)]["@ref"].id}`, {
+  //     method: "GET",
+  //   })
+  //     .then(res => res.json())
+  //     .then(json => {
+  //       console.log(json);
+  //       return json;
+  //     })
+  // }
+  //
+  // if (shuffledSigRefs && signature) {
+  //   return { signatureRefs: shuffledSigRefs, currentSignature: signature }
+  // } else {
+  //   return { signatureRefs: [], currentSignature: {}}
+  // }
+  return { signatureRefs: [], currentSignature: {}}
 }
