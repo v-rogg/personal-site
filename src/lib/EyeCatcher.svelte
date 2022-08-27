@@ -5,9 +5,13 @@
 </script>
 
 <section class="eyecatcher">
-<!--  <Signature />-->
-<!--  <SignatureNumber />-->
-  <img src="{$dark_mode ? 'me-dark.png' : 'me-light.png'}" alt="Handsome Portrait Valentin Rogg" />
+  <Signature />
+  <SignatureNumber />
+  {#if $dark_mode}
+    <img src="me-dark.png" alt="Handsome Portrait Valentin Rogg" />
+  {:else}
+    <img src="me-light.png" alt="Handsome Portrait Valentin Rogg" />
+  {/if}
 </section>
 
 <style>

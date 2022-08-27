@@ -4,7 +4,7 @@
   import SignaturePad from "signature_pad";
   import { currentSignatureStore, dark_mode, refIndexStore, signatureRefsStore } from "../stores";
   import { t } from "$lib/_i18n";
-  import * as xss from "xss";
+  import xss from "xss";
   import type { signatureData } from "$lib/types";
 
   let canvas: HTMLCanvasElement;

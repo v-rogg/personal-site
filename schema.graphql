@@ -1,0 +1,25 @@
+type SignatureDataPoints @embedded {
+    time: Long!
+    x: Int!
+    y: Int!
+    pressure: Float!
+}
+
+type SignatureData @embedded {
+    dotSize: Int!
+    minWidth: Float!
+    maxWidth: Float!
+    penColor: String!
+    points: [SignatureDataPoints]!
+}
+
+type Signature @collection(name: "signatures") {
+    name: String!
+    signature: [SignatureData]!
+    approved: Boolean!
+}
+
+type Query {
+    allSignatures: [Signature!]
+    allApprovedSignatures(approved: Boolean = true): [Signature!]
+}
