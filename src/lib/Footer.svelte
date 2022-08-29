@@ -4,7 +4,7 @@
 
 <footer class="container">
   <div class="legal overlay">
-    <a href="/{$locale}/legal">{$t("common.legal")}</a>
+    <a href="/{$locale}{$t('slugs.legal')}">{$t("common.legal")}</a>
     <div class="copy">
       <i class="fa-regular fa-copyright"></i>
       {$t("common.last_edited")}

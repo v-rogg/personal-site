@@ -225,7 +225,7 @@
   }
 
   .dark {
-    filter: brightness(100) brightness(0.8) opacity(0.9);
+    filter: brightness(100) brightness(0.87);
   }
 
   #next, #prev {

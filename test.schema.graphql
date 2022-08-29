@@ -1,9 +1,0 @@
-type Workout {
-    pushups: Int
-    squats: Int
-    created: Date!
-}
-
-type Query {
-    allWorkouts: [Workout!]
-}

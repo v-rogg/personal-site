@@ -5,7 +5,6 @@
   // let currentSignature;
   // currentSignatureStore.subscribe(d => currentSignature = d);
   // const signatureRefs = getContext("signatureRefs");
-
 </script>
 
 <div class="container">

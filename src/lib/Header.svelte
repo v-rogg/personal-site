@@ -7,6 +7,7 @@
   function toggle_lang() {
     let i = $locales.findIndex((e) => e === $locale) + 1;
     if (i >= $locales.length) i = 0;
+    console.log($page.data.route);
     goto(`/${$locales[i]}${$page.data.route}`);
   }
 </script>
@@ -168,8 +169,14 @@
     cursor: default;
   }
 
-  .strikethrough {
-    text-decoration: line-through var(--c-orange);
+  .strikethrough:after {
+    content: "";
+    position: absolute;
+    width: calc(100% + 16px);
+    height: 2px;
+    left: -8px;
+    bottom: 40%;
+    background: var(--c-primary);
   }
 
   h1 {

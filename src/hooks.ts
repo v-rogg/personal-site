@@ -2,35 +2,10 @@ import { defaultLocale, locales } from "$lib/_i18n";
 import type { Handle } from "@sveltejs/kit";
 
 const routeRegex = new RegExp(/^\/[^.]*([?#].*)?$/);
-import pg from "pg";
-import { faunaDBStore, postgresDB } from "./stores";
-import faunadb from "faunadb";
-
 
 export const handle: Handle = async ({ event, resolve }) => {
   const { url, request } = event;
   const { pathname } = url;
-
-  const { Pool } = pg;
-
-  const pool = new Pool({
-    connectionString: `${import.meta.env.VITE_COCKROACH_DB_STRING}`,
-    application_name: "$ placeholder_postgres"
-  })
-
-  const cock = await pool.connect();
-
-  postgresDB.set(cock);
-
-  const { Client } = faunadb;
-  const client = new Client({
-    secret: `${import.meta.env.VITE_FAUNA_SECRET}`,
-    domain: "db.eu.fauna.com",
-    scheme: "https",
-    port: 443
-  });
-
-  faunaDBStore.set(client);
 
   // If this request is a route request
   if (

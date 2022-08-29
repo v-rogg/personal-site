@@ -1,5 +1,7 @@
 import i18n from "sveltekit-i18n";
 import lang from "./lang.json";
+import { en_loaders } from "./en/loaders";
+import { de_loaders } from "./de/loaders";
 
 const config = {
   translations: {
@@ -7,42 +9,8 @@ const config = {
     de: { lang }
   },
   loaders: [
-    {
-      locale: "en",
-      key: "common",
-      route: [""],
-      loader: async () => (await import("./en/common.json")).default
-    },
-    {
-      locale: "en",
-      key: "bio",
-      route: [""],
-      loader: async () => (await import("./en/bio.json")).default
-    },
-    {
-      locale: "en",
-      key: "signature",
-      route: [""],
-      loader: async () => (await import("./en/signature.json")).default
-    },
-    {
-      locale: "de",
-      key: "common",
-      route: [""],
-      loader: async () => (await import("./de/common.json")).default
-    },
-    {
-      locale: "de",
-      key: "bio",
-      route: [""],
-      loader: async () => (await import("./de/bio.json")).default
-    },
-    {
-      locale: "de",
-      key: "signature",
-      route: [""],
-      loader: async () => (await import("./de/signature.json")).default
-    },
+    ...en_loaders,
+    ...de_loaders
   ]
 };
 
