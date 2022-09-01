@@ -1,14 +1,19 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
-  import { dark_mode } from "$lib/../stores";
-  import { t, locale, locales } from "$lib/_i18n";
+  import { dark_mode, slugStore } from "$lib/../stores";
+  import { l, t, locale, locales } from "$lib/_i18n";
 
   function toggle_lang() {
     let i = $locales.findIndex((e) => e === $locale) + 1;
     if (i >= $locales.length) i = 0;
-    console.log($page.data.route);
-    goto(`/${$locales[i]}${$page.data.route}`);
+    goto(`/${$locales[i]}${$l($locales[i], $slugStore)}`);
+  }
+
+  function toggle_dark_mode() {
+    $dark_mode = !$dark_mode;
+    document.cookie = `darkModeEnabled=${$dark_mode};expires=Thu, 18 Dec 2300 12:00:00 UTC; path=/; SameSite=Strict`
+    // localStorage.setItem("darkModeEnabled", $dark_mode)
   }
 </script>
 
@@ -17,12 +22,14 @@
     <a href="/{$locale}"> Valentin Rogg </a>
   </h1>
 
+
   <nav class="overlay">
     <ul>
 
-      <li class:active={$page.url.pathname === "/blog"}>
+
+      <li class:active={$page.url.pathname === "/posts"}>
         <a href="/{$locale}" aria-disabled="true" class="strikethrough disabled"
-          >{$t("common.blog")}</a
+          >{$t("common.posts")}</a
         >
         <span class="coming_soon">{$t("common.coming_soon")}</span>
       </li>
@@ -36,7 +43,7 @@
   </nav>
 
   <div class="options overlay">
-    <button on:click={() => {$dark_mode = !$dark_mode;}} class="dark_switch">
+    <button on:click={() => toggle_dark_mode()} class="dark_switch">
       <span style="display: {$dark_mode ? 'none' : 'initial'}">
         <i class="fa-solid fa-moon"></i>
       </span>

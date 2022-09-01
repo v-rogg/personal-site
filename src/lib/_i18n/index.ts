@@ -16,7 +16,7 @@ const config = {
 
 export const defaultLocale = "en";
 
-export const { t, locale, locales, loading, loadTranslations, translations } = new i18n(config);
+export const { l, t, locale, locales, loading, loadTranslations, translations } = new i18n(config);
 
 loading.subscribe(async ($loading) => {
   if ($loading) {

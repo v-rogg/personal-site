@@ -213,7 +213,7 @@
   }
 
   .overlay button {
-    background: var(--c-white);
+    background: var(--c-bg);
     border: none;
     font-size: 1rem;
     z-index: 250;

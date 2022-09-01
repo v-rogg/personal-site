@@ -3,6 +3,16 @@
   import Footer from "$lib/Footer.svelte";
   import { dark_mode } from "$lib/../stores";
   import { t } from "$lib/_i18n";
+  import { currentSignatureStore, signatureRefsStore } from "$lib/../stores";
+
+  // export let data: {lang: string, route: string, slug: string, signatureRefs: [], currentSignature};
+
+  export let data: {signatureRefs: [], currentSignature};
+
+  if (data) {
+    currentSignatureStore.set(data.currentSignature)
+    signatureRefsStore.set(data.signatureRefs)
+  }
 </script>
 
 <svelte:head>

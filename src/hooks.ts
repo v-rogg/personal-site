@@ -1,18 +1,25 @@
 import { defaultLocale, locales } from "$lib/_i18n";
 import type { Handle } from "@sveltejs/kit";
+import { dark_mode } from "./stores";
+import * as cookie from "cookie";
 
 const routeRegex = new RegExp(/^\/[^.]*([?#].*)?$/);
 
 export const handle: Handle = async ({ event, resolve }) => {
   const { url, request } = event;
   const { pathname } = url;
-
+  
   // If this request is a route request
   if (
     !event.url.pathname.includes("api") &&
     !event.url.pathname.includes(".css") &&
     routeRegex.test(pathname)
   ) {
+
+    // Set dark mode
+    const cookies = request.headers.get('cookie') || "";
+    dark_mode.set(cookie.parse(cookies)["darkModeEnabled"] === "true")
+
     // Get defined locales
     const supportedLocales = locales.get();
 

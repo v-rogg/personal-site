@@ -3,7 +3,7 @@
   import ShortBio from "$lib/ShortBio.svelte";
   import { currentSignatureStore, signatureRefsStore } from "$lib/../stores";
 
-  export let data: {lang: string, route: string, signatureRefs: [], currentSignature};
+  export let data: {lang: string, route: string, slug: string, signatureRefs: [], currentSignature};
 
   if (data) {
     currentSignatureStore.set(data.currentSignature)

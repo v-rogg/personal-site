@@ -1,5 +1,6 @@
 import type { LayoutLoad } from "./$types";
-import { loadTranslations } from "$lib/_i18n";
+import { loadTranslations, translations, locales } from "$lib/_i18n";
+import { slugStore } from "$lib/../stores";
 
 export const load: LayoutLoad = async ({ url }) => {
   const loadUrl = new URL(url);
@@ -9,7 +10,28 @@ export const load: LayoutLoad = async ({ url }) => {
 
   if (!pathname.includes("api") && !pathname.includes(".css")) {
     const route = pathname.replace(new RegExp(`^/${lang}`), "");
+
+    console.log(pathname);
+
+    for (const locale of locales.get()) {
+      await loadTranslations(locale, "/");
+    }
+
     await loadTranslations(lang, pathname);
+
+    let slug = "slugs.default";
+
+    if (route != '') {
+      const trans = translations.get()[lang];
+      for (const [key, value] of Object.entries(trans)) {
+        if (value.includes(route)) {
+          slug = key;
+        }
+      }
+    }
+
+    slugStore.set(slug);
+
     return { route, lang };
   }
 
