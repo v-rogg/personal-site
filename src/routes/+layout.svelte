@@ -31,5 +31,8 @@
     background: var(--c-bg);
     height: 100%;
     min-height: 100vh;
+    position: absolute;
+    top: 0;
+    width: 100%;
   }
 </style>

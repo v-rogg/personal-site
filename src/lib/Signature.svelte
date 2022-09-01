@@ -65,7 +65,7 @@
 
   async function loadDelta(delta) {
     drawModeActive = false;
-    await fetch(`${$page.url.origin}/api/signature?ref=${$signatureRefsStore[$refIndexStore + delta]["@ref"].id}`, {
+    await fetch(`${$page.url.origin}/_api/signature?ref=${$signatureRefsStore[$refIndexStore + delta]["@ref"].id}`, {
       method: "GET",
     })
       .then(res => res.json())
@@ -96,7 +96,7 @@
       signature: centerSignature(signaturePad.toData())
     });
 
-    const newSignature = await fetch(`${$page.url.origin}/api/signature`, {
+    const newSignature = await fetch(`${$page.url.origin}/_api/signature`, {
       method: "POST",
       body: json
     }).then(res => res.json())
@@ -154,11 +154,16 @@
     resizeCanvas();
 
     currentSignatureStore.subscribe((data: signatureData) => {
-      if (Object.keys(data).length > 0) {
-        signaturePad.fromData(uncenterSignature(data.data.signature))
-        // signaturePad.fromData(uncenterSignature(currentSignature.data.signature));
-        // centeredData = currentSignature;
+
+      if (data != undefined) {
+        console.log(data);
+        if (Object.keys(data).length > 0) {
+          signaturePad.fromData(uncenterSignature(data.data.signature))
+          // signaturePad.fromData(uncenterSignature(currentSignature.data.signature));
+          // centeredData = currentSignature;
+        }
       }
+
     });
   });
 </script>
@@ -166,7 +171,7 @@
 <div id="pad">
   <canvas id="signature" class:dark={$dark_mode}></canvas>
   <div class="container overlay">
-    {#if !drawModeActive}
+    {#if !drawModeActive && $signatureRefsStore}
       {#if $signatureRefsStore.length - $refIndexStore - 1 > 0}
         <button id="next" on:click={() => loadDelta(1)}>
           <i class="fa-solid fa-angle-right"></i>

@@ -13,12 +13,25 @@ export const load: PageLoad = async ({ url }) => {
 
   const g = get(signatureRefsStore);
 
-  if (g != undefined) {
-    if (get(signatureRefsStore).length === 0) {
+  if (g != undefined && g.length === 0) {
+    console.log("Load signatures...");
 
-      console.log("Load signatures...");
+    const refs = await fetch(`${url.origin}/_api/signature`, {
+      method: "GET",
+    })
+      .then(res => res.json())
+      .then(json => {
+        // console.log(json);
+        return json;
+      })
 
-      const refs = await fetch(`${url.origin}/api/signature`, {
+    const shuffledSigRefs = refs.data
+    shuffle(shuffledSigRefs)
+
+    let signature;
+
+    if (shuffledSigRefs.length) {
+      signature = await fetch(`${url.origin}/_api/signature?ref=${shuffledSigRefs[get(refIndexStore)]["@ref"].id}`, {
         method: "GET",
       })
         .then(res => res.json())
@@ -26,28 +39,12 @@ export const load: PageLoad = async ({ url }) => {
           // console.log(json);
           return json;
         })
-
-      const shuffledSigRefs = refs.data
-      shuffle(shuffledSigRefs)
-
-      let signature;
-
-      if (shuffledSigRefs.length) {
-        signature = await fetch(`${url.origin}/api/signature?ref=${shuffledSigRefs[get(refIndexStore)]["@ref"].id}`, {
-          method: "GET",
-        })
-          .then(res => res.json())
-          .then(json => {
-            // console.log(json);
-            return json;
-          })
-      }
-
-      // currentSignatureStore.set(signature);
-      // signatureRefsStore.set(shuffledSigRefs);
-
-      if (shuffledSigRefs && signature) return { signatureRefs: shuffledSigRefs, currentSignature: signature }
     }
+
+    // currentSignatureStore.set(signature);
+    // signatureRefsStore.set(shuffledSigRefs);
+
+    if (shuffledSigRefs && signature) return { signatureRefs: shuffledSigRefs, currentSignature: signature }
   }
 
   return { signatureRefs: get(signatureRefsStore), currentSignature: get(currentSignatureStore)}

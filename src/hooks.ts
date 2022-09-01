@@ -8,7 +8,7 @@ const routeRegex = new RegExp(/^\/[^.]*([?#].*)?$/);
 export const handle: Handle = async ({ event, resolve }) => {
   const { url, request } = event;
   const { pathname } = url;
-  
+
   // If this request is a route request
   if (
     !event.url.pathname.includes("api") &&
