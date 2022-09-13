@@ -11,8 +11,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   // If this request is a route request
   if (
-    !event.url.pathname.includes("api") &&
-    !event.url.pathname.includes(".css") &&
+    !pathname.includes("api") &&
+    !pathname.includes("admin") &&
+    !pathname.includes(".css") &&
     routeRegex.test(pathname)
   ) {
 

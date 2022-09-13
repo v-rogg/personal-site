@@ -12,6 +12,7 @@
 <style>
   section {
     text-align: center;
+    padding-bottom: 3rem;
   }
 
   h1 {

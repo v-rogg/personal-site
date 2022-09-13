@@ -14,7 +14,7 @@ export const GET: RequestHandler = async ({ url }) => {
   //   q.Lambda("X", q.Get(q.Var("X")))
   // )
 
-  let query = q.Paginate(q.Documents(q.Collection("signatures")), {size: 100_000})
+  let query = q.Paginate(q.Match(q.Index("approved_signatures"), "new"), {size: 100_000})
 
   const ref = url.searchParams.get("ref");
 
@@ -45,8 +45,7 @@ export const POST: RequestHandler = async ({ request }) => {
         q.Ref(q.Collection("signatures"), q.Add(q.Count(q.Documents(q.Collection("signatures"))), 1)) ,
         {
         data: {
-            "approved": false,
-            "seen": false,
+            "status": "new",
             ...json
           },
         }

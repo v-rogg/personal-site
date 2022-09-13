@@ -27,18 +27,18 @@
     <ul>
 
 
-      <li class:active={$page.url.pathname === "/posts"}>
-        <a href="/{$locale}" aria-disabled="true" class="strikethrough disabled"
-          >{$t("common.posts")}</a
-        >
-        <span class="coming_soon">{$t("common.coming_soon")}</span>
-      </li>
-      <li class:active={$page.url.pathname === "/projects"}>
-        <a href="/{$locale}" aria-disabled="true" class="strikethrough disabled"
-          >{$t("common.projects")}</a
-        >
-        <span class="coming_soon">{$t("common.coming_soon")}</span>
-      </li>
+<!--      <li class:active={$page.url.pathname === "/posts"}>-->
+<!--        <a href="/{$locale}" aria-disabled="true" class="strikethrough disabled"-->
+<!--          >{$t("common.posts")}</a-->
+<!--        >-->
+<!--        <span class="coming_soon">{$t("common.coming_soon")}</span>-->
+<!--      </li>-->
+<!--      <li class:active={$page.url.pathname === "/projects"}>-->
+<!--        <a href="/{$locale}" aria-disabled="true" class="strikethrough disabled"-->
+<!--          >{$t("common.projects")}</a-->
+<!--        >-->
+<!--        <span class="coming_soon">{$t("common.coming_soon")}</span>-->
+<!--      </li>-->
     </ul>
   </nav>
 

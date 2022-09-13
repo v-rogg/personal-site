@@ -6,15 +6,19 @@ export const load: LayoutLoad = async ({ url }) => {
   const loadUrl = new URL(url);
   const { pathname } = loadUrl;
 
-  const lang = `${pathname.match(/[^/]+?(?=\/|$)/) || ""}`;
+  let lang = `${pathname.match(/[^/]+?(?=\/|$)/) || ""}`;
 
   if (!pathname.includes("api") && !pathname.includes(".css")) {
     const route = pathname.replace(new RegExp(`^/${lang}`), "");
 
-    console.log(pathname);
+    // console.log(pathname);
 
     for (const locale of locales.get()) {
       await loadTranslations(locale, "/");
+    }
+
+    if (lang == "admin") {
+      lang = "en"
     }
 
     await loadTranslations(lang, pathname);

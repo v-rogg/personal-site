@@ -48,6 +48,16 @@
     bottom: 2rem;
   }
 
+  @media (max-width: 991.98px) or (max-height: 822.98px) {
+    footer {
+      position: relative;
+      left: unset;
+      transform: none;
+      bottom: unset;
+      padding-bottom: 3rem;
+    }
+  }
+
   @media (max-width: 575.98px) {
     footer {
       flex-direction: column-reverse;

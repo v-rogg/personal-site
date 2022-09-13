@@ -22,8 +22,8 @@
 
 <style>
   .first {
-    height: 90vh;
-    max-height: calc(100vh - 3rem);
+    /*height: 90vh;*/
+    /*max-height: calc(100vh - 3rem);*/
     display: flex;
     flex-direction: column;
   }
