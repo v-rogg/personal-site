@@ -3,7 +3,7 @@
   import Footer from "$lib/Footer.svelte";
   import { dark_mode } from "$lib/../stores";
   import { t } from "$lib/_i18n";
-  import { currentSignatureStore, signatureRefsStore } from "$lib/../stores";
+  import { admin, currentSignatureStore, signatureRefsStore } from "$lib/../stores";
 
   // export let data: {lang: string, route: string, slug: string, signatureRefs: [], currentSignature};
 
@@ -23,6 +23,7 @@
   <Header />
   <slot />
   <Footer />
+  {$admin}
 </div>
 
 <style>

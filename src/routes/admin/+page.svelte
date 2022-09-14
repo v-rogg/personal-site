@@ -3,7 +3,7 @@
 </script>
 
 <section>
-  <EyeCatcher admin=true/>
+  <EyeCatcher />
 </section>
 
 <style>

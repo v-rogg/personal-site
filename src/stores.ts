@@ -23,3 +23,4 @@ export const faunaDBStore = writable(new faunadb.Client(), set => {
   });
   set(client)
 });
+export const admin = writable(false);

@@ -1,6 +1,6 @@
 import { defaultLocale, locales } from "$lib/_i18n";
 import type { Handle } from "@sveltejs/kit";
-import { dark_mode } from "./stores";
+import { admin, dark_mode } from "./stores";
 import * as cookie from "cookie";
 
 const routeRegex = new RegExp(/^\/[^.]*([?#].*)?$/);
@@ -51,6 +51,10 @@ export const handle: Handle = async ({ event, resolve }) => {
       transformPageChunk: ({ html }) => html.replace(/<html.*>/, `<html lang="${locale}">`)
     });
   }
+
+  console.log(pathname);
+
+  if (!pathname.includes("admin") || !pathname.includes("api")) admin.set(false);
 
   return resolve(event);
 };
