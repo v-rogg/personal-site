@@ -13,7 +13,7 @@
   }
 
   telemetry.subscribe(t => {
-    if (t !== undefined) { t.signal({time: Date.now(), appVersion: "1.0.3"}) }
+    if (t !== undefined) { t.signal({time: Date.now(), appVersion: "1.0.0"}) }
   })
 </script>
 

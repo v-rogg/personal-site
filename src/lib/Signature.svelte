@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { page } from "$app/stores";
   import SignaturePad from "signature_pad";
-  import { currentSignatureStore, dark_mode, refIndexStore, signatureRefsStore, admin } from "../stores";
+  import { currentSignatureStore, dark_mode, refIndexStore, signatureRefsStore, admin, identifier, telemetry } from "../stores";
   import { t } from "$lib/_i18n";
   import xss from "xss";
   import type { signatureData } from "$lib/types";
@@ -95,6 +95,7 @@
 
     const json = JSON.stringify({
       name,
+      identifier: $identifier,
       signature: centerSignature(signaturePad.toData())
     });
 
@@ -105,6 +106,15 @@
       .then(json => {
         return json[0]
       });
+
+    $telemetry.signal(
+      {
+        type: "signatureCreated",
+        signature: newSignature.ref["@ref"].id,
+        time: Date.now(),
+        appVersion: "1.0.0"
+      }
+    )
 
     let signatureRefs = $signatureRefsStore
     signatureRefs.push(newSignature.ref)
@@ -158,7 +168,7 @@
     currentSignatureStore.subscribe((data: signatureData) => {
 
       if (data != undefined) {
-        console.log(data);
+        // console.log(data);
         if (Object.keys(data).length > 0) {
           signaturePad.fromData(uncenterSignature(data.data.signature))
           // signaturePad.fromData(uncenterSignature(currentSignature.data.signature));
