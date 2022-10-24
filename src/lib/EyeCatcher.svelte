@@ -8,11 +8,11 @@
 <section class="eyecatcher">
   <Signature />
   <SignatureNumber />
-  {#if $dark_mode}
-    <img src="me-dark.png" alt="Handsome Portrait Valentin Rogg" />
-  {:else}
-    <img src="me-light.png" alt="Handsome Portrait Valentin Rogg" />
-  {/if}
+  <!--{#if $dark_mode}-->
+    <img src="me-dark.png" alt="Handsome Portrait Valentin Rogg" style="display: {$dark_mode ? 'block' : 'none' }"/>
+  <!--{:else}-->
+    <img src="me-light.png" alt="Handsome Portrait Valentin Rogg" style="display: {$dark_mode ? 'none' : 'block' }"/>
+  <!--{/if}-->
   {#if $admin}
     <SignatureAdmin/>
   {/if}
