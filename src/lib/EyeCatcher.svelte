@@ -8,11 +8,16 @@
 <section class="eyecatcher">
   <Signature />
   <SignatureNumber />
-  <!--{#if $dark_mode}-->
-    <img src="me-dark.png" alt="Handsome Portrait Valentin Rogg" style="display: {$dark_mode ? 'block' : 'none' }"/>
-  <!--{:else}-->
-    <img src="me-light.png" alt="Handsome Portrait Valentin Rogg" style="display: {$dark_mode ? 'none' : 'block' }"/>
-  <!--{/if}-->
+  <picture>
+    <source srcset="me-dark.avif">
+    <source srcset="me-dark.png">
+    <img src="me-dark.webp" alt="Handsome Portrait Valentin Rogg" style="display: {$dark_mode ? 'block' : 'none' }"/>
+  </picture>
+  <picture>
+    <source srcset="me-light.avif">
+    <source srcset="me-light.png">
+    <img src="me-light.webp" alt="Handsome Portrait Valentin Rogg" style="display: {$dark_mode ? 'none' : 'block' }"/>
+  </picture>
   {#if $admin}
     <SignatureAdmin/>
   {/if}
@@ -33,7 +38,7 @@
 
   .eyecatcher:after {
     animation: grain 8s steps(10) infinite;
-    background-image: url("/noise.png");
+    background-image: url("/noise.avif");
     content: "";
     height: 300%;
     left: -50%;
