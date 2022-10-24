@@ -1,10 +1,33 @@
 <script lang="ts">
-  function approve() {
+  import { page } from "$app/stores";
+  import { currentSignatureStore } from "$lib/../stores";
 
+  async function approve() {
+    await fetch(`${$page.url.origin}/_api/signature`, {
+      method: "PUT",
+      body: JSON.stringify({
+        ref: $currentSignatureStore.ref["@ref"].id,
+        status: 'approved'
+      })
+    })
+      .then(res => res.json())
+      .then(json => {
+        return json;
+      })
   }
 
-  function decline() {
-
+  async function decline() {
+    await fetch(`${$page.url.origin}/_api/signature`, {
+      method: "PUT",
+      body: JSON.stringify({
+        ref: $currentSignatureStore.ref["@ref"].id,
+        status: 'declined'
+      })
+    })
+      .then(res => res.json())
+      .then(json => {
+        return json;
+      })
   }
 </script>
 
@@ -40,7 +63,8 @@
     position: relative;
     /*position: absolute;*/
     color: var(--c-white);
-    opacity: .3;
+    background: none;
+    opacity: .8;
   }
 
   button:hover {
@@ -49,10 +73,12 @@
   }
 
   #approve {
-    background: var(--c-green)
+    background: var(--c-green);
+    /*color: var(--c-green)*/
   }
 
   #decline {
-    background: var(--c-red)
+    background: var(--c-red);
+    /*color: var(--c-red)*/
   }
 </style>

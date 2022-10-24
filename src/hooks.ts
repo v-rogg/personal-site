@@ -52,7 +52,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     });
   }
 
-  console.log(pathname);
+  // console.log(pathname);
 
   if (!pathname.includes("admin") || !pathname.includes("api")) admin.set(false);
 

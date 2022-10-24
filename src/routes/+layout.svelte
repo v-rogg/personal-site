@@ -1,11 +1,9 @@
 <script lang="ts">
   import Header from "$lib/Header.svelte";
   import Footer from "$lib/Footer.svelte";
-  import { dark_mode } from "$lib/../stores";
+  import { dark_mode, telemetry } from "$lib/../stores";
   import { t } from "$lib/_i18n";
-  import { admin, currentSignatureStore, signatureRefsStore } from "$lib/../stores";
-
-  // export let data: {lang: string, route: string, slug: string, signatureRefs: [], currentSignature};
+  import { currentSignatureStore, signatureRefsStore } from "$lib/../stores";
 
   export let data: {signatureRefs: [], currentSignature};
 
@@ -13,6 +11,10 @@
     currentSignatureStore.set(data.currentSignature)
     signatureRefsStore.set(data.signatureRefs)
   }
+
+  telemetry.subscribe(t => {
+    if (t !== undefined) { t.signal({time: Date.now(), appVersion: "1.0.3"}) }
+  })
 </script>
 
 <svelte:head>
@@ -23,7 +25,8 @@
   <Header />
   <slot />
   <Footer />
-  {$admin}
+  <!--{$admin}-->
+  <!--{$identifier}-->
 </div>
 
 <style>

@@ -17,6 +17,7 @@
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
     "@types/cookie": "^0.5.1",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
     "eslint": "^8.16.0",
@@ -33,11 +34,13 @@
   },
   "type": "module",
   "dependencies": {
+    "@telemetrydeck/sdk": "^1.0.5",
     "cookie": "^0.4.1",
     "faunadb": "^4.6.0",
     "signature_pad": "^4.0.7",
     "stream": "^0.0.2",
     "sveltekit-i18n": "^2.2.2",
+    "uuid": "^9.0.0",
     "xss": "^1.0.14"
   }
 }

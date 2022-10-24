@@ -1,10 +1,8 @@
 <script lang="ts">
   import Signature from "$lib/Signature.svelte";
   import SignatureNumber from "$lib/SignatureNumber.svelte";
-  import { dark_mode } from "$lib/../stores";
+  import { dark_mode, admin } from "$lib/../stores";
   import SignatureAdmin from "$lib/SignatureAdmin.svelte";
-
-  export let admin = false;
 </script>
 
 <section class="eyecatcher">
@@ -15,7 +13,7 @@
   {:else}
     <img src="me-light.png" alt="Handsome Portrait Valentin Rogg" />
   {/if}
-  {#if admin}
+  {#if $admin}
     <SignatureAdmin/>
   {/if}
 </section>

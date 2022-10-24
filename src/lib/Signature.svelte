@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { page } from "$app/stores";
   import SignaturePad from "signature_pad";
-  import { currentSignatureStore, dark_mode, refIndexStore, signatureRefsStore } from "../stores";
+  import { currentSignatureStore, dark_mode, refIndexStore, signatureRefsStore, admin } from "../stores";
   import { t } from "$lib/_i18n";
   import xss from "xss";
   import type { signatureData } from "$lib/types";
@@ -82,8 +82,10 @@
 
     clearCanvas();
 
-    const currentSignature = uncenterSignature((<signatureData>$currentSignatureStore).data.signature);
-    signaturePad.fromData(currentSignature);
+    if ($currentSignatureStore.data) {
+      const currentSignature = uncenterSignature((<signatureData>$currentSignatureStore).data.signature);
+      signaturePad.fromData(currentSignature);
+    }
   }
 
   async function saveCanvas() {
@@ -191,7 +193,7 @@
       <button id="clear" on:click={() => clearCanvas()}>
         <i class="fa-duotone fa-trash"></i>
       </button>
-    {:else}
+    {:else if !$admin}
       <button id="new" on:click={() => newCanvas()}>
         <i class="fa-solid fa-pen"></i>
       </button>

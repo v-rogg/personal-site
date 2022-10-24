@@ -1,8 +1,9 @@
-import { writable } from "svelte/store";
+import { derived, get, writable } from "svelte/store";
 import type { signatureData } from "$lib/types";
 import faunadb from "faunadb";
 import { onMount } from "svelte";
 import * as cookie from "cookie";
+import { v4 as uuid_v4, NIL as uuid_NIL } from "uuid";
 
 export const dark_mode = writable(false, set => {
   onMount(() => {
@@ -24,3 +25,26 @@ export const faunaDBStore = writable(new faunadb.Client(), set => {
   set(client)
 });
 export const admin = writable(false);
+export const identifier = writable(uuid_NIL, set => {
+  onMount(() => {
+    let id = cookie.parse(document.cookie)["id"];
+    if (id === undefined) {
+      id = uuid_v4();
+      document.cookie = `id=${id}`;
+    }
+    set(id);
+  })
+});
+
+// @ts-ignore
+export const telemetry = derived(identifier,async ($identifier, set) => {
+  console.log($identifier);
+  if ($identifier != uuid_NIL) {
+    // @ts-ignore
+    const pkg = await import("@telemetrydeck/sdk")
+    const td = new pkg.TelemetryDeck;
+    td.app(import.meta.env.VITE_TELEMETRYDECK_APP_ID);
+    td.user(get(identifier) ?? "anonymous");
+    set(td);
+  }
+})

@@ -14,7 +14,10 @@ export const GET: RequestHandler = async ({ url }) => {
   //   q.Lambda("X", q.Get(q.Var("X")))
   // )
 
-  let query = q.Paginate(q.Match(q.Index("approved_signatures"), "new"), {size: 100_000})
+  const admin = url.searchParams.get("admin");
+  const term = admin ? "new" : "approved";
+
+  let query = q.Paginate(q.Match(q.Index("approved_signatures"), term), {size: 100_000})
 
   const ref = url.searchParams.get("ref");
 
@@ -27,6 +30,8 @@ export const GET: RequestHandler = async ({ url }) => {
     .catch((err) => {
       console.error("Error: [%s] %s: %s", err.name, err.message, err.errors()[0].description);
     });
+
+  console.log(res);
 
   return new Response(JSON.stringify(res), {
     headers: {
@@ -61,3 +66,29 @@ export const POST: RequestHandler = async ({ request }) => {
     }
   });
 };
+
+export const PUT: RequestHandler = async ({ request }) => {
+  const json = await request.json();
+
+  const res = await client
+    .query([
+      q.Update(
+        q.Ref(q.Collection("signatures"), json.ref),
+{
+          data: {
+          status: json.status
+          }
+        }
+      )
+    ])
+    .catch((err) =>
+      console.error("Error: [%s] %s: %s", err.name, err.message, err.errors()[0].description)
+    );
+  console.log(json);
+
+  return new Response(JSON.stringify(res), {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+}
