@@ -6,6 +6,8 @@
   export let data: {lang: string, route: string, slug: string, signatureRefs: [], currentSignature};
 
   if (data) {
+    console.log(data);
+
     currentSignatureStore.set(data.currentSignature)
     signatureRefsStore.set(data.signatureRefs)
   }
