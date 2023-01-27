@@ -4,7 +4,6 @@ import { admin, darkMode } from "$lib/stores";
 import * as cookie from "cookie";
 import { ADMIN_PASSWORD } from "$env/static/private";
 
-
 export const handle: Handle = async ({ event, resolve }) => {
 	const { url, request } = event;
 	const { pathname } = url;
@@ -15,13 +14,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 	)}`.toLowerCase();
 
 	// If this request is a route request
-	if (
-		Object.keys(config.translations).includes(lang) || lang === undefined
-	) {
-
+	if (Object.keys(config.translations).includes(lang) || lang === undefined) {
 		// Set dark mode
-		const cookies = request.headers.get('cookie') || "";
-		darkMode.set(cookie.parse(cookies)["darkModeEnabled"] === "true")
+		const cookies = request.headers.get("cookie") || "";
+		darkMode.set(cookie.parse(cookies)["darkModeEnabled"] === "true");
 
 		// Get defined locales
 		const supportedLocales = locales.get();
@@ -33,11 +29,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 		// If route locale is not supported
 		if (!locale) {
-			locale = preferredLocale
+			locale = preferredLocale;
 
 			// Set default locale if user preferred locale does not match
 			if (!supportedLocales.includes(locale)) locale = defaultLocale;
-
 
 			// 301 redirect
 			return new Response(undefined, {
@@ -56,7 +51,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		const password = url.searchParams.get("pa");
 
 		if (password !== ADMIN_PASSWORD) {
-			return Response.redirect(`${event.url.origin}/${preferredLocale}`, 307)
+			return Response.redirect(`${event.url.origin}/${preferredLocale}`, 307);
 		}
 	}
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { t, locale } from "$lib/_i18n";
-	import { browser } from "$app/env";
+	import { browser } from "$app/environment";
 
 	let scrollY = 0;
 	let innerHeight = 0;

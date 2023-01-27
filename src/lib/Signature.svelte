@@ -82,7 +82,7 @@
 
     clearCanvas();
 
-    if ($currentSignatureStore.data) {
+    if ($currentSignatureStore?.data) {
       const currentSignature = uncenterSignature((<signatureData>$currentSignatureStore).data.signature);
       signaturePad.fromData(currentSignature);
     }
@@ -143,9 +143,6 @@
   }
 
   onMount(() => {
-
-    // Init
-    canvas = <HTMLCanvasElement>document.getElementById("signature");
     signaturePad = new SignaturePad(canvas, {
       penColor: "#0f1418",
       velocityFilterWeight: 0.3,
@@ -177,11 +174,11 @@
       }
 
     });
-  });
+  })
 </script>
 
 <div id="pad">
-  <canvas id="signature" class:dark={$darkMode}></canvas>
+  <canvas id="signature" bind:this={canvas} class:dark={$darkMode}></canvas>
   <div class="container overlay">
     {#if !drawModeActive && $signatureRefsStore}
       {#if $signatureRefsStore.length - $refIndexStore - 1 > 0}
@@ -203,6 +200,9 @@
       <button id="clear" on:click={() => clearCanvas()}>
         <i class="fa-duotone fa-trash"></i>
       </button>
+<!--      <button id="exit" on:click={() => clearCanvas()}>-->
+<!--        <i class="fa-solid fa-xmark-large"></i>-->
+<!--      </button>-->
     {:else if !$admin}
       <button id="new" on:click={() => newCanvas()}>
         <i class="fa-solid fa-pen"></i>
@@ -277,6 +277,15 @@
     height: 38px;
     font-size: 14px;
   }
+
+  /*#exit {*/
+  /*  right: -2rem;*/
+  /*  bottom: calc(1.5rem + 2px);*/
+  /*  background: none;*/
+  /*  width: 38px;*/
+  /*  height: 38px;*/
+  /*  font-size: 14px;*/
+  /*}*/
 
   :global(#clear .fa-secondary) {
     opacity: 1 !important;

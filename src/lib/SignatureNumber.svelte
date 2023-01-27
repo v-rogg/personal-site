@@ -1,13 +1,14 @@
 <script lang="ts">
   import { currentSignatureStore } from "./stores";
   import { locale } from "$lib/_i18n";
+  import { browser } from "$app/environment";
 </script>
 
 <div class="container">
   <div class="signature-number">
-    {#if $currentSignatureStore}
+    {#if $currentSignatureStore && browser}
       {#if Object.keys($currentSignatureStore).length > 0}
-        <div>{$currentSignatureStore.data.name ? $currentSignatureStore.data.name : ""}</div>
+        <div>{$currentSignatureStore?.data.name ? $currentSignatureStore?.data.name : ""}</div>
         <div id="date" class="small">{$currentSignatureStore.ts ? (new Date($currentSignatureStore.ts / 1000)).toLocaleDateString($locale) : ""}</div>
       {/if}
     {/if}

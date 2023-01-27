@@ -3,12 +3,14 @@
   import SignatureNumber from "$lib/SignatureNumber.svelte";
   import { darkMode, admin } from "./stores";
   import SignatureAdmin from "$lib/SignatureAdmin.svelte";
-  import { browser } from "$app/env";
+  import { browser } from "$app/environment";
 </script>
 
 <section class="eyecatcher">
-  <Signature />
-  <SignatureNumber />
+  {#if browser}
+    <Signature />
+    <SignatureNumber />
+  {/if}
   <picture>
     <source srcset="me-dark.avif">
     <source srcset="me-dark.png">
@@ -41,7 +43,7 @@
 
   .eyecatcher:after {
     animation: grain 8s steps(10) infinite;
-    background-image: url("/noise.avif");
+    background-image: url("/noise.webp");
     content: "";
     height: 300%;
     left: -50%;
