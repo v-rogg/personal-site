@@ -8,23 +8,20 @@ const { query } = faunadb;
 const q = query;
 
 export const GET: RequestHandler = async ({ url }) => {
-
 	const admin = url.searchParams.get("admin");
 	const term = admin ? "new" : "approved";
 
-	let query = q.Paginate(q.Match(q.Index("approved_signatures"), term), {size: 100_000})
+	let query = q.Paginate(q.Match(q.Index("approved_signatures"), term), { size: 100_000 });
 
 	const ref = url.searchParams.get("ref");
 
 	if (ref) {
-		query = q.Get(q.Ref(q.Collection("signatures"), ref))
+		query = q.Get(q.Ref(q.Collection("signatures"), ref));
 	}
 
-	const res = await client
-		.query(query)
-		.catch((err) => {
-			console.error("Error: [%s] %s: %s", err.name, err.message, err.errors()[0].description);
-		});
+	const res = await client.query(query).catch((err) => {
+		console.error("Error: [%s] %s: %s", err.name, err.message, err.errors()[0].description);
+	});
 
 	// console.log(res);
 
@@ -33,7 +30,6 @@ export const GET: RequestHandler = async ({ url }) => {
 			"Content-Type": "application/json"
 		}
 	});
-
 };
 
 export const POST: RequestHandler = async ({ request }) => {
@@ -42,13 +38,16 @@ export const POST: RequestHandler = async ({ request }) => {
 	const res = await client
 		.query([
 			q.Create(
-				q.Ref(q.Collection("signatures"), q.Add(q.Count(q.Documents(q.Collection("signatures"))), 1)) ,
+				q.Ref(
+					q.Collection("signatures"),
+					q.Add(q.Count(q.Documents(q.Collection("signatures"))), 1)
+				),
 				{
 					data: {
-						"status": "new",
-						"ts_created": Date.now(),
+						status: "new",
+						ts_created: Date.now(),
 						...json
-					},
+					}
 				}
 			)
 		])
@@ -68,14 +67,12 @@ export const PUT: RequestHandler = async ({ request }) => {
 
 	const res = await client
 		.query([
-			q.Update(
-				q.Ref(q.Collection("signatures"), json.ref),
-				{
-					data: {
-						status: json.status
-					}
+			q.Update(q.Ref(q.Collection("signatures"), json.ref), {
+				data: {
+					status: json.status,
+					ts_moderated: Date.now()
 				}
-			)
+			})
 		])
 		.catch((err) =>
 			console.error("Error: [%s] %s: %s", err.name, err.message, err.errors()[0].description)
@@ -87,4 +84,4 @@ export const PUT: RequestHandler = async ({ request }) => {
 			"Content-Type": "application/json"
 		}
 	});
-}
+};
