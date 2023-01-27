@@ -1,6 +1,6 @@
-import type { PageLoad } from "./$types";
+import type { PageLoad } from "../../../../.svelte-kit/types/src/routes";
 import { get } from "svelte/store";
-import { currentSignatureStore, refIndexStore, signatureRefsStore } from "$lib/../stores";
+import { currentSignatureStore, refIndexStore, signatureRefsStore } from "$lib/stores";
 
 function shuffle(array: []) {
   for (let i = array.length - 1; i > 0; i--) {

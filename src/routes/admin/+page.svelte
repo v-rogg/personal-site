@@ -1,6 +1,8 @@
 <script lang="ts">
+  import { currentSignatureStore, signatureRefsStore } from "$lib/stores";
+  import { t } from "$lib/_i18n";
   import EyeCatcher from "$lib/EyeCatcher.svelte";
-  import { currentSignatureStore, signatureRefsStore } from "$lib/../stores";
+  import Header from "$lib/Header.svelte";
 
   export let data: {lang: string, route: string, slug: string, signatureRefs: [], currentSignature};
 
@@ -10,14 +12,9 @@
   }
 </script>
 
-<section>
-  <EyeCatcher />
-</section>
+<svelte:head>
+  <title>{$t("common.title")} · {"Admin"}</title>
+</svelte:head>
 
-<style>
-  section {
-    display: flex;
-    flex-direction: column;
-  }
-</style>
-
+<Header noLang/>
+<EyeCatcher/>

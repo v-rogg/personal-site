@@ -93,6 +93,9 @@
   --r-grey-10: #f4f5f7;
   --r-white: #ffffff;
   --r-off-white: #faf7f5;
+
+  --fs-10: 1rem;
+  --fs-08: .875rem;
 }
 
 .light {
@@ -132,10 +135,7 @@ body {
   font-family: "IBM Plex Sans", sans-serif;
   margin: 0;
   padding: 0;
-  /*width: 100vw;*/
-  /*height: calc(100vh - 8rem);*/
   min-height: 100vh;
-  /*overflow: hidden;*/
 }
 
 a {

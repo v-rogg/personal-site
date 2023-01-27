@@ -1,60 +1,64 @@
-import { defaultLocale, locales } from "$lib/_i18n";
+import { config, defaultLocale, locales } from "$lib/_i18n";
 import type { Handle } from "@sveltejs/kit";
-import { admin, dark_mode } from "./stores";
+import { admin, darkMode } from "$lib/stores";
 import * as cookie from "cookie";
+import { ADMIN_PASSWORD } from "$env/static/private";
 
-const routeRegex = new RegExp(/^\/[^.]*([?#].*)?$/);
 
 export const handle: Handle = async ({ event, resolve }) => {
-  const { url, request } = event;
-  const { pathname } = url;
+	const { url, request } = event;
+	const { pathname } = url;
 
-  // If this request is a route request
-  if (
-    !pathname.includes("api") &&
-    !pathname.includes("admin") &&
-    !pathname.includes(".css") &&
-    routeRegex.test(pathname)
-  ) {
+	const lang: string = (pathname.match(/[^/]+?(?=\/|$)/) || [])[0];
+	const preferredLocale = `${`${request.headers.get("accept-language")}`.match(
+		/[a-zA-Z]+?(?=[-_,;])/
+	)}`.toLowerCase();
 
-    // Set dark mode
-    const cookies = request.headers.get('cookie') || "";
-    dark_mode.set(cookie.parse(cookies)["darkModeEnabled"] === "true")
+	// If this request is a route request
+	if (
+		Object.keys(config.translations).includes(lang) || lang === undefined
+	) {
 
-    // Get defined locales
-    const supportedLocales = locales.get();
+		// Set dark mode
+		const cookies = request.headers.get('cookie') || "";
+		darkMode.set(cookie.parse(cookies)["darkModeEnabled"] === "true")
 
-    // Try to get locale from `pathname`.
-    let locale = supportedLocales.find(
-      (l) => `${l}`.toLowerCase() === `${pathname.match(/[^/]+?(?=\/|$)/)}`.toLowerCase()
-    );
+		// Get defined locales
+		const supportedLocales = locales.get();
 
-    // If route locale is not supported
-    if (!locale) {
-      // Get user preferred locale
-      locale = `${`${request.headers.get("accept-language")}`.match(
-        /[a-zA-Z]+?(?=[-_,;])/
-      )}`.toLowerCase();
+		// Try to get locale from `pathname`.
+		let locale = supportedLocales.find(
+			(l) => `${l}`.toLowerCase() === `${pathname.match(/[^/]+?(?=\/|$)/)}`.toLowerCase()
+		);
 
-      // Set default locale if user preferred locale does not match
-      if (!supportedLocales.includes(locale)) locale = defaultLocale;
+		// If route locale is not supported
+		if (!locale) {
+			locale = preferredLocale
 
-      // 301 redirect
-      return new Response(undefined, {
-        headers: { location: `/${locale}${pathname}` },
-        status: 301
-      });
-    }
+			// Set default locale if user preferred locale does not match
+			if (!supportedLocales.includes(locale)) locale = defaultLocale;
 
-    // Add html `lang` attribute
-    return resolve(event, {
-      transformPageChunk: ({ html }) => html.replace(/<html.*>/, `<html lang="${locale}">`)
-    });
-  }
 
-  // console.log(pathname);
+			// 301 redirect
+			return new Response(undefined, {
+				headers: { location: `/${locale}${pathname}` },
+				status: 301
+			});
+		}
 
-  if (!pathname.includes("admin") || !pathname.includes("api")) admin.set(false);
+		// Add html `lang` attribute
+		return resolve(event, {
+			transformPageChunk: ({ html }) => html.replace(/<html.*>/, `<html lang="${locale}">`)
+		});
+	}
 
-  return resolve(event);
+	if (pathname.includes("admin")) {
+		const password = url.searchParams.get("pa");
+
+		if (password !== ADMIN_PASSWORD) {
+			return Response.redirect(`${event.url.origin}/${preferredLocale}`, 307)
+		}
+	}
+
+	return resolve(event);
 };

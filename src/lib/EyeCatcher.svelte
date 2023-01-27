@@ -1,8 +1,9 @@
 <script lang="ts">
   import Signature from "$lib/Signature.svelte";
   import SignatureNumber from "$lib/SignatureNumber.svelte";
-  import { dark_mode, admin } from "$lib/../stores";
+  import { darkMode, admin } from "./stores";
   import SignatureAdmin from "$lib/SignatureAdmin.svelte";
+  import { browser } from "$app/env";
 </script>
 
 <section class="eyecatcher">
@@ -11,15 +12,17 @@
   <picture>
     <source srcset="me-dark.avif">
     <source srcset="me-dark.png">
-    <img src="me-dark.webp" alt="Handsome Portrait Valentin Rogg" style="display: {$dark_mode ? 'block' : 'none' }"/>
+    <img src="me-dark.webp" alt="Handsome Portrait Valentin Rogg" style="display: {$darkMode ? 'block' : 'none' }"/>
   </picture>
   <picture>
     <source srcset="me-light.avif">
     <source srcset="me-light.png">
-    <img src="me-light.webp" alt="Handsome Portrait Valentin Rogg" style="display: {$dark_mode ? 'none' : 'block' }"/>
+    <img src="me-light.webp" alt="Handsome Portrait Valentin Rogg" style="display: {$darkMode ? 'none' : 'block' }"/>
   </picture>
-  {#if $admin}
-    <SignatureAdmin/>
+  {#if browser}
+    {#if $admin}
+      <SignatureAdmin/>
+    {/if}
   {/if}
 </section>
 

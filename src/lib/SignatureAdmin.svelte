@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { currentSignatureStore } from "$lib/../stores";
+  import { currentSignatureStore } from "./stores";
 
   async function approve() {
     await fetch(`${$page.url.origin}/_api/signature`, {

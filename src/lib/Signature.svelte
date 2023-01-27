@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { page } from "$app/stores";
   import SignaturePad from "signature_pad";
-  import { currentSignatureStore, dark_mode, refIndexStore, signatureRefsStore, admin, identifier, telemetry } from "../stores";
+  import { currentSignatureStore, darkMode, refIndexStore, signatureRefsStore, admin, identifier, telemetry } from "./stores";
   import { t } from "$lib/_i18n";
   import xss from "xss";
   import type { signatureData } from "$lib/types";
@@ -181,7 +181,7 @@
 </script>
 
 <div id="pad">
-  <canvas id="signature" class:dark={$dark_mode}></canvas>
+  <canvas id="signature" class:dark={$darkMode}></canvas>
   <div class="container overlay">
     {#if !drawModeActive && $signatureRefsStore}
       {#if $signatureRefsStore.length - $refIndexStore - 1 > 0}

@@ -2,6 +2,10 @@
   import { t } from "$lib/_i18n";
 </script>
 
+<svelte:head>
+  <title>{$t("common.title")} · {$t("legal.title")}</title>
+</svelte:head>
+
 <section class="container top-padding">
 <!--  <div>-->
 <!--    <h2>-->

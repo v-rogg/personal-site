@@ -3,7 +3,7 @@ import lang from "./lang.json";
 import { en_loaders } from "./en/loaders";
 import { de_loaders } from "./de/loaders";
 
-const config = {
+export const config = {
   translations: {
     en: { lang },
     de: { lang }

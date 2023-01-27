@@ -1,18 +1,20 @@
 <script lang="ts">
-  import { page } from "$app/stores";
   import { goto } from "$app/navigation";
-  import { dark_mode, slugStore } from "$lib/../stores";
+  import { darkMode, slugStore } from "./stores";
   import { l, t, locale, locales } from "$lib/_i18n";
+  import { get } from "svelte/store";
+
+  export let noLang = false;
 
   function toggle_lang() {
     let i = $locales.findIndex((e) => e === $locale) + 1;
     if (i >= $locales.length) i = 0;
-    goto(`/${$locales[i]}${$l($locales[i], $slugStore)}`);
+    goto(`/${$locales[i]}${get(l)($locales[i], $slugStore)}`);
   }
 
   function toggle_dark_mode() {
-    $dark_mode = !$dark_mode;
-    document.cookie = `darkModeEnabled=${$dark_mode};expires=Thu, 18 Dec 2300 12:00:00 UTC; path=/; SameSite=Strict`
+    $darkMode = !$darkMode;
+    document.cookie = `darkModeEnabled=${$darkMode};expires=Thu, 18 Dec 2300 12:00:00 UTC; path=/; SameSite=Strict`
     // localStorage.setItem("darkModeEnabled", $dark_mode)
   }
 </script>
@@ -44,19 +46,21 @@
 
   <div class="options overlay">
     <button on:click={() => toggle_dark_mode()} class="dark_switch">
-      <span style="display: {$dark_mode ? 'none' : 'initial'}">
+      <span style="display: {$darkMode ? 'none' : 'initial'}">
         <i class="fa-solid fa-moon"></i>
       </span>
-      <span style="display: {!$dark_mode ? 'none' : 'initial'}">
+      <span style="display: {!$darkMode ? 'none' : 'initial'}">
         <i class="fa-solid fa-sun"></i>
       </span>
     </button>
-    <button
-      on:click={() => {
-        toggle_lang();
-      }}
-      class="language_switch">{$t(`lang.${$locale}`)}</button
-    >
+    {#if !noLang}
+      <button
+        on:click={() => {
+          toggle_lang();
+        }}
+        class="language_switch">{$t(`lang.${$locale}`)}</button
+      >
+    {/if}
   </div>
 </header>
 
