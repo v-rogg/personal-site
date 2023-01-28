@@ -1,8 +1,9 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { darkMode, slugStore } from "./stores";
+  import { slugStore } from "./stores";
   import { l, t, locale, locales } from "$lib/_i18n";
   import { get } from "svelte/store";
+  import DarkModeToggle from "$lib/DarkModeToggle.svelte";
 
   export let noLang = false;
 
@@ -10,12 +11,6 @@
     let i = $locales.findIndex((e) => e === $locale) + 1;
     if (i >= $locales.length) i = 0;
     goto(`/${$locales[i]}${get(l)($locales[i], $slugStore)}`);
-  }
-
-  function toggle_dark_mode() {
-    $darkMode = !$darkMode;
-    document.cookie = `darkModeEnabled=${$darkMode};expires=Thu, 18 Dec 2300 12:00:00 UTC; path=/; SameSite=Strict`
-    // localStorage.setItem("darkModeEnabled", $dark_mode)
   }
 </script>
 
@@ -45,14 +40,7 @@
   </nav>
 
   <div class="options overlay">
-    <button on:click={() => toggle_dark_mode()} class="dark_switch">
-      <span style="display: {$darkMode ? 'none' : 'initial'}">
-        <i class="fa-solid fa-moon"></i>
-      </span>
-      <span style="display: {!$darkMode ? 'none' : 'initial'}">
-        <i class="fa-solid fa-sun"></i>
-      </span>
-    </button>
+    <DarkModeToggle/>
     {#if !noLang}
       <button
         on:click={() => {
@@ -147,19 +135,6 @@
     display: flex;
     align-items: center;
     gap: 16px;
-  }
-
-  .dark_switch {
-    border: none;
-    background: none;
-    margin: 0;
-    padding: 0;
-    font-size: 16px;
-    color: var(--c-black);
-  }
-
-  .dark_switch:hover {
-    cursor: pointer;
   }
 
   .language_switch {

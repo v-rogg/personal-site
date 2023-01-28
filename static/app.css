@@ -108,6 +108,7 @@
   --c-white: var(--r-white);
   --c-off-white: var(--r-off-white);
   --c-active: var(--c-orange);
+  --c-focus: var(--c-orange);
 
   --c-primary: #E66F25;
   --c-secondary: #FAF7F5;
@@ -124,6 +125,7 @@
   --c-white: var(--r-black);
   --c-off-white: var(--r-black);
   --c-active: var(--c-blue);
+  --c-focus: var(--c-blue);
 
   --c-primary: #608CFF;
   --c-secondary: #141b3d;
@@ -141,6 +143,10 @@ body {
 a {
   text-decoration: none;
   color: var(--c-black);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--c-focus);
 }
 
 a.disabled {
