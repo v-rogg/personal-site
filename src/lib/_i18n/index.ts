@@ -5,10 +5,10 @@ import { de_loaders } from "./de/loaders";
 
 export const config = {
 	translations: {
-		en: { lang },
-		de: { lang }
+		de: { lang },
+		en: { lang }
 	},
-	loaders: [...en_loaders, ...de_loaders]
+	loaders: [...de_loaders, ...en_loaders]
 };
 
 export const defaultLocale = "en";

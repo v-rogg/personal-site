@@ -145,6 +145,10 @@ a {
   color: var(--c-black);
 }
 
+* {
+  box-sizing: border-box;
+}
+
 *:focus-visible {
   outline: 2px solid var(--c-focus);
 }

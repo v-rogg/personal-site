@@ -8,7 +8,6 @@
 
 	if (browser) {
 		documentHeight = document.documentElement.scrollHeight;
-		console.log(scrollY, documentHeight);
 	}
 </script>
 
