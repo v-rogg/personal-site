@@ -6,21 +6,19 @@
 
 	function toggle_lang(lang) {
 		let i = $locales.findIndex((e) => e === lang);
-		goto(`/${$locales[i]}${get(l)($locales[i], $slugStore)}`);
+		goto(`/${$locales[i]}${get(l)($locales[i], $slugStore)}`, { noScroll: true });
 	}
 </script>
 
 <div class="languages">
 	{#each $locales as providedLocale}
 		<button
-			on:click={() => {
-					toggle_lang(providedLocale);
-				}}
+			on:click="{() => {
+				toggle_lang(providedLocale);
+			}}"
 			class="language_switch"
-			class:active={providedLocale === $locale}
-			disabled={providedLocale === $locale}
-		><span>{$t(`lang.${providedLocale}`)}</span></button
-		>
+			class:active="{providedLocale === $locale}"
+			disabled="{providedLocale === $locale}"><span>{$t(`lang.${providedLocale}`)}</span></button>
 	{/each}
 </div>
 
@@ -40,6 +38,7 @@
 		justify-content: center;
 		align-items: center;
 		position: relative;
+		transition: 200ms ease-in-out;
 
 		&:before {
 			position: absolute;
@@ -72,13 +71,13 @@
 	}
 
 	.language_switch > span {
-		transform: translateY(-1px);
+		//transform: translateY(-1px);
 	}
 
 	.active {
-
+		font-weight: 700;
 		&:before {
-			background: var(--c-white);
+			background: var(--c-bg);
 			animation: in-right 250ms ease-in-out;
 		}
 	}

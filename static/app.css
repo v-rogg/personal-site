@@ -1,83 +1,83 @@
-@font-face {
-  font-family: "Display";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(https://rogg-site.s3.eu-central-1.amazonaws.com/PD-Bold.woff2) format("woff2"),
-    url(https://rogg-site.s3.eu-central-1.amazonaws.com/PD-Bold.woff) format("woff");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F,
-    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+/*@font-face {*/
+/*  font-family: "Display";*/
+/*  font-style: normal;*/
+/*  font-weight: 700;*/
+/*  font-display: swap;*/
+/*  src: url(https://rogg-site.s3.eu-central-1.amazonaws.com/PD-Bold.woff2) format("woff2"),*/
+/*    url(https://rogg-site.s3.eu-central-1.amazonaws.com/PD-Bold.woff) format("woff");*/
+/*  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F,*/
+/*    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;*/
+/*}*/
 
-@font-face {
-  font-family: "Display";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url(https://rogg-site.s3.eu-central-1.amazonaws.com/PD-Medium.woff2) format("woff2"),
-    url(https://rogg-site.s3.eu-central-1.amazonaws.com/PD-Medium.woff) format("woff");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F,
-    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+/*@font-face {*/
+/*  font-family: "Display";*/
+/*  font-style: normal;*/
+/*  font-weight: 500;*/
+/*  font-display: swap;*/
+/*  src: url(https://rogg-site.s3.eu-central-1.amazonaws.com/PD-Medium.woff2) format("woff2"),*/
+/*    url(https://rogg-site.s3.eu-central-1.amazonaws.com/PD-Medium.woff) format("woff");*/
+/*  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F,*/
+/*    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;*/
+/*}*/
 
-@font-face {
-  font-family: "Display";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://rogg-site.s3.eu-central-1.amazonaws.com/PD-Regular.woff2) format("woff2"),
-    url(https://rogg-site.s3.eu-central-1.amazonaws.com/PD-Regular.woff) format("woff");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F,
-    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+/*@font-face {*/
+/*  font-family: "Display";*/
+/*  font-style: normal;*/
+/*  font-weight: 400;*/
+/*  font-display: swap;*/
+/*  src: url(https://rogg-site.s3.eu-central-1.amazonaws.com/PD-Regular.woff2) format("woff2"),*/
+/*    url(https://rogg-site.s3.eu-central-1.amazonaws.com/PD-Regular.woff) format("woff");*/
+/*  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F,*/
+/*    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;*/
+/*}*/
 
-@font-face {
-  font-family: "IBM Plex Sans";
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/ibmplexsans/v14/zYX9KVElMYYaJe8bpLHnCwDKjXr8AIFsdP3pBms.woff2)
-    format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+/*@font-face {*/
+/*  font-family: "IBM Plex Sans";*/
+/*  font-style: normal;*/
+/*  font-weight: 300;*/
+/*  font-display: swap;*/
+/*  src: url(https://fonts.gstatic.com/s/ibmplexsans/v14/zYX9KVElMYYaJe8bpLHnCwDKjXr8AIFsdP3pBms.woff2)*/
+/*    format("woff2");*/
+/*  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;*/
+/*}*/
 
-@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/ibmplexsans/v14/zYXgKVElMYYaJe8bpLHnCwDKhdHeFaxOedc.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+/*@font-face {*/
+/*  font-family: 'IBM Plex Sans';*/
+/*  font-style: normal;*/
+/*  font-weight: 400;*/
+/*  font-display: swap;*/
+/*  src: url(https://fonts.gstatic.com/s/ibmplexsans/v14/zYXgKVElMYYaJe8bpLHnCwDKhdHeFaxOedc.woff2) format('woff2');*/
+/*  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;*/
+/*}*/
 
-@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/ibmplexsans/v14/zYX9KVElMYYaJe8bpLHnCwDKjSL9AIFsdP3pBms.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+/*@font-face {*/
+/*  font-family: 'IBM Plex Sans';*/
+/*  font-style: normal;*/
+/*  font-weight: 500;*/
+/*  font-display: swap;*/
+/*  src: url(https://fonts.gstatic.com/s/ibmplexsans/v14/zYX9KVElMYYaJe8bpLHnCwDKjSL9AIFsdP3pBms.woff2) format('woff2');*/
+/*  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;*/
+/*}*/
 
-@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/ibmplexsans/v14/zYX9KVElMYYaJe8bpLHnCwDKjQ76AIFsdP3pBms.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+/*@font-face {*/
+/*  font-family: 'IBM Plex Sans';*/
+/*  font-style: normal;*/
+/*  font-weight: 600;*/
+/*  font-display: swap;*/
+/*  src: url(https://fonts.gstatic.com/s/ibmplexsans/v14/zYX9KVElMYYaJe8bpLHnCwDKjQ76AIFsdP3pBms.woff2) format('woff2');*/
+/*  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;*/
+/*}*/
 
-@font-face {
-  font-family: "Caveat";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/caveat/v14/WnznHAc5bAfYB2QRah7pcpNvOx-pjfJ9eIWpZz5Kmgq3sw.woff)
-    format("woff");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F,
-    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+/*@font-face {*/
+/*  font-family: "Caveat";*/
+/*  font-style: normal;*/
+/*  font-weight: 400;*/
+/*  font-display: swap;*/
+/*  src: url(https://fonts.gstatic.com/s/caveat/v14/WnznHAc5bAfYB2QRah7pcpNvOx-pjfJ9eIWpZz5Kmgq3sw.woff)*/
+/*    format("woff");*/
+/*  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F,*/
+/*    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;*/
+/*}*/
 
 :root {
   --c-green: #93c700;
@@ -134,7 +134,7 @@
 
 html,
 body {
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: "Two Inter", sans-serif;
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -182,38 +182,14 @@ button {
 
 .container {
   width: 100%;
+  max-width: 1300px;
   margin-right: auto;
   margin-left: auto;
+  padding: 0 4rem;
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 440px) {
   .container {
-    max-width: 260px;
-  }
-}
-
-@media (min-width: 576px) {
-  .container {
-    max-width: 500px;
-  }
-}
-@media (min-width: 768px) {
-  .container {
-    max-width: 680px;
-  }
-}
-@media (min-width: 992px) {
-  .container {
-    max-width: 900px;
-  }
-}
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1100px;
-  }
-}
-@media (min-width: 1400px) {
-  .container {
-    max-width: 1300px;
+    padding: 0 2rem;
   }
 }
