@@ -279,7 +279,8 @@
 
 <div id="pad" bind:this="{pad}">
 	<canvas id="signature" bind:this="{canvas}" class:dark="{$darkMode}"></canvas>
-	<div class="container" bind:this="{swipePad}">
+	<div class="swipe" bind:this="{swipePad}"></div>
+	<div class="container">
 		<div class="overlay">
 			{#if !drawModeActive && $signatureRefsStore}
 				{#if $signatureRefsStore.length - $refIndexStore - 1 > 0}
@@ -327,6 +328,13 @@
 		position: absolute;
 	}
 
+	.swipe {
+		height: 100%;
+		width: 100%;
+		position: absolute;
+		z-index: 750;
+	}
+
 	.container {
 		position: absolute;
 		height: 100%;
@@ -335,6 +343,7 @@
 		left: 50%;
 		transform: translateX(-50%);
 		z-index: 800;
+		pointer-events: none;
 	}
 
 	@media (max-width: 540px) {
@@ -351,6 +360,7 @@
 		/*margin: auto;*/
 		/*padding: 0 2rem;*/
 		padding: 0 2rem;
+		pointer-events: none;
 	}
 
 	.overlay button {
@@ -367,6 +377,13 @@
 
 	.dark {
 		filter: brightness(100) brightness(0.87);
+	}
+
+	#next,
+	#prev,
+	#clear,
+	#new {
+		pointer-events: all;
 	}
 
 	#next,

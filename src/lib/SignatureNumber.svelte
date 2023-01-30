@@ -27,6 +27,7 @@
 		left: 50%;
 		transform: translateX(-50%);
 		z-index: 799;
+		pointer-events: none;
 	}
 
 	@media (max-width: 540px) {
@@ -39,6 +40,7 @@
 		position: absolute;
 		bottom: 2rem;
 		z-index: 800;
+		pointer-events: all;
 	}
 
 	.small {
