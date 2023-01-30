@@ -29,7 +29,7 @@
 		z-index: 799;
 	}
 
-	@media (max-width: 440px) {
+	@media (max-width: 540px) {
 		.container {
 			width: calc(100% + 2rem);
 		}

@@ -2,7 +2,7 @@
   "name": "personal-site",
   "version": "0.1.0",
   "scripts": {
-    "dev": "vite dev --port=8080",
+    "dev": "vite dev --port=8080 --host",
     "build": "vite build",
     "package": "svelte-kit package",
     "preview": "vite preview",

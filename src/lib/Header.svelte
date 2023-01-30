@@ -55,7 +55,7 @@
 		z-index: 900;
 	}
 
-	@media (max-width: 440px) {
+	@media (max-width: 540px) {
 		h1 {
 			display: none;
 		}

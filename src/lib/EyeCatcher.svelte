@@ -57,7 +57,7 @@
 		overflow: hidden;
 	}
 
-	@media (max-width: 440px) {
+	@media (max-width: 540px) {
 		.eyecatcher {
 			margin: 1rem 1rem 1rem;
 		}
