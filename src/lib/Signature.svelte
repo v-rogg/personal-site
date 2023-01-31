@@ -285,12 +285,12 @@
 		<div class="overlay">
 			{#if !drawModeActive && $signatureRefsStore}
 				{#if $signatureRefsStore.length - $refIndexStore - 1 > 0}
-					<button id="next" on:click="{() => loadDelta(1)}" {$t('signature.next')}>
+					<button id="next" on:click="{() => loadDelta(1)}" aria-label="{$t('signature.next')}">
 						<i class="fa-solid fa-angle-right"></i>
 					</button>
 				{/if}
 				{#if $refIndexStore > 0}
-					<button id="prev" on:click="{() => loadDelta(-1)}" {$t('signature.prev')}>
+					<button id="prev" on:click="{() => loadDelta(-1)}" aria-label="{$t('signature.prev')}">
 						<i class="fa-solid fa-angle-left"></i>
 					</button>
 				{/if}
