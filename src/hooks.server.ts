@@ -1,8 +1,9 @@
 import { config, defaultLocale, locales } from "$lib/_i18n";
-import type { Handle } from "@sveltejs/kit";
-import { admin, darkMode } from "$lib/stores";
+import type { Handle, HandleServerError } from "@sveltejs/kit";
+import { darkMode } from "$lib/stores";
 import * as cookie from "cookie";
 import { ADMIN_PASSWORD } from "$env/static/private";
+import { redirect } from "@sveltejs/kit";
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const { url, request } = event;
@@ -56,4 +57,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 
 	return resolve(event);
+};
+
+export const handleError: HandleServerError = async ({ error }) => {
+	if (error?.toString().includes("Not found")) {
+		throw redirect(307, "/");
+	}
 };
