@@ -86,9 +86,9 @@
   --c-orange: #f06913;
 
   --r-black: #0f1418;
-  --r-grey-90: #282c31;
-  --r-grey-70: #4e5256;
-  --r-grey-50: #727577;
+  --r-grey-90: #21282d;
+  --r-grey-70: #435056;
+  --r-grey-50: #696e7a;
   --r-grey-30: #dfe1e4;
   --r-grey-10: #f4f5f7;
   --r-white: #ffffff;
@@ -181,7 +181,7 @@ button {
 }
 
 .top-padding {
-  margin-top: 160px;
+  padding-top: 160px;
 }
 
 .container {

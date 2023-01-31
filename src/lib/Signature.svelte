@@ -164,6 +164,7 @@
 			throttle: 8
 		});
 		signaturePad.off();
+		pad = <HTMLDivElement>document.getElementById("pad");
 
 		signaturePad.addEventListener("endStroke", () => {
 			currentSignature = $currentSignatureStore;
@@ -277,7 +278,7 @@
 	let swipePad;
 </script>
 
-<div id="pad" bind:this="{pad}">
+<div id="pad">
 	<canvas id="signature" bind:this="{canvas}" class:dark="{$darkMode}"></canvas>
 	<div class="swipe" bind:this="{swipePad}"></div>
 	<div class="container">
