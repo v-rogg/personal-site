@@ -314,7 +314,7 @@
 	</div>
 </div>
 
-<style>
+<style lang="scss">
 	#signature {
 		z-index: 100;
 		position: absolute;
@@ -384,6 +384,16 @@
 	#clear,
 	#new {
 		pointer-events: all;
+
+		&:hover {
+			background: var(--c-grey-10);
+			cursor: pointer;
+		}
+
+		&:active {
+			background: var(--c-grey-30);
+			cursor: default;
+		}
 	}
 
 	#next,
@@ -448,8 +458,4 @@
 	/*  right: 0;*/
 	/*  bottom: 2rem;*/
 	/*}*/
-
-	button:hover {
-		cursor: pointer;
-	}
 </style>

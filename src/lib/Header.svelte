@@ -150,7 +150,7 @@
 	}
 
 	h1 {
-		font-family: "Candid", sans-serif;
+		font-family: var(--ff-display);
 		font-size: 18px;
 		font-weight: 700;
 		white-space: nowrap;

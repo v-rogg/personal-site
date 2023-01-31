@@ -25,7 +25,7 @@
 	}
 
 	h1 {
-		font-family: "Candid", sans-serif;
+		font-family: var(--ff-display);
 		font-size: 32px;
 		font-weight: 600;
 		margin: 0 0 2rem;

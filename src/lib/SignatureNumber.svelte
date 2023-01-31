@@ -8,7 +8,10 @@
 	<div class="signature-number">
 		{#if $currentSignatureStore && browser}
 			{#if Object.keys($currentSignatureStore).length > 0}
-				<div>{$currentSignatureStore?.data.name ? $currentSignatureStore?.data.name : ""}</div>
+				<div class="name">
+					<i class="fa-solid fa-tag"></i>
+					{$currentSignatureStore?.data.name ? $currentSignatureStore?.data.name : ""}
+				</div>
 				<div id="date" class="small">
 					{$currentSignatureStore.ts
 						? new Date($currentSignatureStore.ts / 1000).toLocaleDateString($locale)
@@ -45,5 +48,13 @@
 
 	.small {
 		font-size: 12px;
+	}
+
+	.name {
+		font-weight: 700;
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		margin-bottom: 2px;
 	}
 </style>

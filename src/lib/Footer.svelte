@@ -83,7 +83,7 @@
 	}
 
 	.looking_for_cv {
-		font-family: "Caveat", sans-serif;
+		font-family: var(--ff-handwriting);
 		position: absolute;
 		width: max-content;
 		bottom: 100%;

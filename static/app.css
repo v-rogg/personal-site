@@ -96,6 +96,10 @@
 
   --fs-10: 1rem;
   --fs-08: .875rem;
+
+  --ff-sans: "Two Inter", sans-serif;
+  --ff-handwriting: "Two Caveat", sans-serif;
+  --ff-display: "Two Candid", sans-serif;
 }
 
 .light {
@@ -134,7 +138,7 @@
 
 html,
 body {
-  font-family: "Two Inter", sans-serif;
+  font-family: var(--ff-sans);
   margin: 0;
   padding: 0;
   min-height: 100vh;
