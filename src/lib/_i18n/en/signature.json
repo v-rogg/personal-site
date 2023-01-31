@@ -1,3 +1,8 @@
 {
-  "prompt": "What's your name?"
+  "prompt": "What's your name?",
+  "next": "Next signature",
+  "pref": "Prev signature",
+  "new": "New signature",
+  "clear": "Clear signature",
+  "save": "Save signature"
 }

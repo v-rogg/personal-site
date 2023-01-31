@@ -31,13 +31,23 @@
 						fill="var(--c-black)"></path>
 				</svg>
 			</span>
-			<a href="https://www.linkedin.com/in/vrogg/" rel="noreferrer nofollow" target="_blank"
-				><i class="fa-brands fa-linkedin"></i></a>
+			<a
+				href="https://www.linkedin.com/in/vrogg/"
+				rel="noreferrer nofollow"
+				target="_blank"
+				aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
 		</span>
-		<a href="https://www.instagram.com/valentin_rogg/" rel="noreferrer nofollow" target="_blank"
-			><i class="fa-brands fa-instagram"></i></a>
-		<a href="mailto:mail@valentinrogg.de" rel="noreferrer nofollow" target="_blank" class="mail"
-			><i class="fa-regular fa-paper-plane"></i></a>
+		<a
+			href="https://www.instagram.com/valentin_rogg/"
+			rel="noreferrer nofollow"
+			target="_blank"
+			aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+		<a
+			href="mailto:mail@valentinrogg.de"
+			rel="noreferrer nofollow"
+			target="_blank"
+			class="mail"
+			aria-label="Mail"><i class="fa-regular fa-paper-plane"></i></a>
 	</div>
 </footer>
 

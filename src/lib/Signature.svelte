@@ -285,29 +285,29 @@
 		<div class="overlay">
 			{#if !drawModeActive && $signatureRefsStore}
 				{#if $signatureRefsStore.length - $refIndexStore - 1 > 0}
-					<button id="next" on:click="{() => loadDelta(1)}">
+					<button id="next" on:click="{() => loadDelta(1)}" {$t('signature.next')}>
 						<i class="fa-solid fa-angle-right"></i>
 					</button>
 				{/if}
 				{#if $refIndexStore > 0}
-					<button id="prev" on:click="{() => loadDelta(-1)}">
+					<button id="prev" on:click="{() => loadDelta(-1)}" {$t('signature.prev')}>
 						<i class="fa-solid fa-angle-left"></i>
 					</button>
 				{/if}
 			{/if}
 
 			{#if drawModeActive}
-				<button id="save" on:click="{() => saveCanvas()}">
+				<button id="save" on:click="{() => saveCanvas()}" aria-label="{$t('signature.save')}">
 					<i class="fa-solid fa-floppy-disk"></i>
 				</button>
-				<button id="clear" on:click="{() => clearCanvas()}">
+				<button id="clear" on:click="{() => clearCanvas()}" aria-label="{$t('signature.clear')}">
 					<i class="fa-duotone fa-trash"></i>
 				</button>
 				<!--      <button id="exit" on:click={() => clearCanvas()}>-->
 				<!--        <i class="fa-solid fa-xmark-large"></i>-->
 				<!--      </button>-->
 			{:else if !$admin}
-				<button id="new" on:click="{() => newCanvas()}">
+				<button id="new" on:click="{() => newCanvas()}" aria-label="{$t('signature.new')}">
 					<i class="fa-solid fa-pen"></i>
 				</button>
 			{/if}

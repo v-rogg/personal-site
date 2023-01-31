@@ -1,3 +1,8 @@
 {
-  "prompt": "Wie lautet dein Name?"
+  "prompt": "Wie lautet dein Name?",
+  "next": "Nächste Zeichnung",
+  "pref": "Vorherige Zeichnung",
+  "new": "Neue Zeichnung",
+  "clear": "Zeichnung löschen",
+  "save": "Zeichnung speichern"
 }

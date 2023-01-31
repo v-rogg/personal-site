@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { darkMode } from "$lib/stores";
-
+	import { t } from "$lib/_i18n/index.js";
 
 	function toggle_dark_mode() {
 		$darkMode = !$darkMode;
@@ -9,7 +9,10 @@
 	}
 </script>
 
-<button class="dark_switch" on:click={() => toggle_dark_mode()}>
+<button
+	class="dark_switch"
+	on:click="{() => toggle_dark_mode()}"
+	aria-label="{$t('common.dark_mode')}">
 	<span class:hidden="{!$darkMode}">
 		<i class="fa-solid fa-moon"></i>
 	</span>
