@@ -2,12 +2,19 @@ import type { PageLoad } from "./$types";
 // import { admin, currentSignatureStore, refIndexStore, signatureRefsStore } from "$lib/stores";
 import { admin } from "$lib/stores";
 // import { get } from "svelte/store";
-import { gql } from "graphql-request";
-import { publicFGQLClient } from "$lib/fauna-gql/public.fgql";
+import { gql, GraphQLClient } from "graphql-request";
 import type { newSignaturesResponse } from "$lib/fauna-gql/schema";
+import { PUBLIC_FAUNA_GQL_ENDPOINT, PUBLIC_FAUNA_SECRET } from "$env/static/public";
 
-export const load: PageLoad = async () => {
+export const load: PageLoad = async ({ fetch }) => {
 	admin.set(true);
+
+	const publicFGQLClient = new GraphQLClient(PUBLIC_FAUNA_GQL_ENDPOINT, {
+		fetch,
+		headers: {
+			Authorization: `Bearer ${PUBLIC_FAUNA_SECRET}`
+		}
+	});
 
 	const newSignatures: newSignaturesResponse = await publicFGQLClient
 		.request(
