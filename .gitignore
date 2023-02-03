@@ -10,3 +10,4 @@ node_modules
 /archive
 .idea
 /.idea/codeStyles/Project.xml
+.graphqlconfig
