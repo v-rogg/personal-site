@@ -1,4 +1,4 @@
-import type { PageLoad } from "../../../../../.svelte-kit/types/src/routes";
+import type { PageLoad } from "./$types";
 import { get } from "svelte/store";
 import { currentSignatureStore, refIndexStore, signatureRefsStore } from "$lib/stores";
 
