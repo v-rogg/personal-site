@@ -1,0 +1,172 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+directive @embedded on OBJECT
+
+directive @collection(name: String!) on OBJECT
+
+directive @index(name: String!) on FIELD_DEFINITION
+
+directive @resolver(name: String, paginated: Boolean! = false) on FIELD_DEFINITION
+
+directive @relation(name: String) on FIELD_DEFINITION
+
+directive @unique(index: String) on FIELD_DEFINITION
+
+type Mutation {
+    "Create a new document in the collection of 'Signature'"
+    createSignature(
+        "'Signature' input values"
+        data: SignatureInput!
+    ): Signature!
+    "Delete an existing document in the collection of 'Signature'"
+    deleteSignature(
+        "The 'Signature' document's ID"
+        id: ID!
+    ): Signature
+    "Partially updates an existing document in the collection of 'Signature'. It only modifies the values that are specified in the arguments. During execution, it verifies that required fields are not set to 'null'."
+    partialUpdateSignature(
+        "'Signature' input values"
+        data: PartialUpdateSignatureInput!,
+        "The 'Signature' document's ID"
+        id: ID!
+    ): Signature
+    "Update an existing document in the collection of 'Signature'"
+    updateSignature(
+        "'Signature' input values"
+        data: SignatureInput!,
+        "The 'Signature' document's ID"
+        id: ID!
+    ): Signature
+}
+
+type Query {
+    allApprovedSignatures(
+        "The pagination cursor."
+        _cursor: String,
+        "The number of items to return per page."
+        _size: Int,
+        status: String = "approved"
+    ): SignaturePage!
+    allNewSignatures(
+        "The pagination cursor."
+        _cursor: String,
+        "The number of items to return per page."
+        _size: Int,
+        status: String = "new"
+    ): SignaturePage!
+    allSignatures(
+        "The pagination cursor."
+        _cursor: String,
+        "The number of items to return per page."
+        _size: Int
+    ): SignaturePage!
+    "Find a document from the collection of 'Signature' by its id."
+    findSignatureByID(
+        "The 'Signature' document's ID"
+        id: ID!
+    ): Signature
+}
+
+type Signature {
+    "The document's ID."
+    _id: ID!
+    "The document's timestamp."
+    _ts: Long!
+    name: String!
+    signature: [SignatureData]!
+    status: String!
+    ts_created: Time!
+    ts_moderated: Time!
+    user_identifier: String!
+}
+
+type SignatureData {
+    dotSize: Int!
+    maxWidth: Float!
+    minWidth: Float!
+    penColor: String!
+    points: [SignatureDataPoints]!
+}
+
+type SignatureDataPoints {
+    pressure: Float!
+    time: Long!
+    x: Int!
+    y: Int!
+}
+
+"The pagination object for elements of type 'Signature'."
+type SignaturePage {
+    "A cursor for elements coming after the current page."
+    after: String
+    "A cursor for elements coming before the current page."
+    before: String
+    "The elements of type 'Signature' in this page."
+    data: [Signature]!
+}
+
+scalar Date
+
+"The `Long` scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1."
+scalar Long
+
+scalar Time
+
+"'SignatureData' input values"
+input PartialUpdateSignatureDataInput {
+    dotSize: Int
+    maxWidth: Float
+    minWidth: Float
+    penColor: String
+    points: [PartialUpdateSignatureDataPointsInput]
+}
+
+"'SignatureDataPoints' input values"
+input PartialUpdateSignatureDataPointsInput {
+    pressure: Float
+    time: Long
+    x: Int
+    y: Int
+}
+
+"'Signature' input values"
+input PartialUpdateSignatureInput {
+    name: String
+    signature: [PartialUpdateSignatureDataInput]
+    status: String
+    ts_created: Time
+    ts_moderated: Time
+    user_identifier: String
+}
+
+"'SignatureData' input values"
+input SignatureDataInput {
+    dotSize: Int!
+    maxWidth: Float!
+    minWidth: Float!
+    penColor: String!
+    points: [SignatureDataPointsInput]!
+}
+
+"'SignatureDataPoints' input values"
+input SignatureDataPointsInput {
+    pressure: Float!
+    time: Long!
+    x: Int!
+    y: Int!
+}
+
+"'Signature' input values"
+input SignatureInput {
+    name: String!
+    signature: [SignatureDataInput]!
+    status: String!
+    ts_created: Time!
+    ts_moderated: Time!
+    user_identifier: String!
+}

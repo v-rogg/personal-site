@@ -1,22 +1,3 @@
-directive @embedded on OBJECT
-
-directive @collection(name: String!) on OBJECT
-
-directive @index(name: String!) on FIELD_DEFINITION
-
-directive @resolver(
-    name: String
-    paginated: Boolean! = false
-) on FIELD_DEFINITION
-
-directive @relation(name: String) on FIELD_DEFINITION
-
-directive @unique(index: String) on FIELD_DEFINITION
-
-scalar Date
-scalar Time
-scalar Long
-
 type SignatureDataPoints @embedded {
     time: Long!
     x: Int!
@@ -35,10 +16,14 @@ type SignatureData @embedded {
 type Signature @collection(name: "signatures") {
     name: String!
     signature: [SignatureData]!
-    approved: Boolean!
+    status: String!
+    user_identifier: String!
+    ts_created: Long!
+    ts_moderated: Long!
 }
 
 type Query {
     allSignatures: [Signature!]
-    allApprovedSignatures(approved: Boolean = true): [Signature!]
+    allApprovedSignatures(status: String = "approved"): [Signature]
+    allNewSignatures(status: String = "new"): [Signature]! @resolver(name: "sort_new_signatures_by_ts_created", paginated: true)
 }

@@ -10,7 +10,7 @@
 		admin,
 		identifier,
 		telemetry
-	} from "./stores";
+	} from "../stores";
 	import { t } from "$lib/_i18n";
 	import xss from "xss";
 	import type { signatureData } from "$lib/types";

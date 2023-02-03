@@ -1,5 +1,5 @@
 <script>
-	import { t, locale } from "$lib/_i18n";
+	import { t, locale } from "$lib/_i18n/index.js";
 </script>
 
 <section class="container">

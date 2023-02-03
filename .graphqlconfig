@@ -1,0 +1,17 @@
+{
+  "name": "Personal Website GraphQL Schema",
+  "schemaPath": "./schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Fauna GraphQL Endpoint": {
+        "url": "https://graphql.eu.fauna.com/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL",
+          "authorization": "Bearer fnAEvAgGLVAAzIYzetthP77IgdmA3WO6TQ6u1gDc"
+        },
+        "introspect": false
+      }
+    }
+  },
+  "excludes": ["fauna.graphql"]
+}

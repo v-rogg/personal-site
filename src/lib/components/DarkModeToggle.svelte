@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { darkMode } from "$lib/stores";
-	import { t } from "$lib/_i18n/index.js";
+	import { t } from "$lib/_i18n";
 
 	function toggle_dark_mode() {
 		$darkMode = !$darkMode;

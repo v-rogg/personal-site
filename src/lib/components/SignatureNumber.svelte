@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { currentSignatureStore } from "./stores";
+	import { currentSignatureStore } from "../stores";
 	import { locale } from "$lib/_i18n";
 	import { browser } from "$app/environment";
 </script>

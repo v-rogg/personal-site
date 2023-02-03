@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
-	import { slugStore } from "./stores";
+	import { slugStore } from "../stores";
 	import { l, t, locale, locales } from "$lib/_i18n";
 	import { get } from "svelte/store";
 

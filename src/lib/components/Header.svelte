@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { locale } from "$lib/_i18n";
-	import DarkModeToggle from "$lib/DarkModeToggle.svelte";
-	import LanguageSelect from "$lib/LanguageSelect.svelte";
+	import DarkModeToggle from "$lib/components/DarkModeToggle.svelte";
+	import LanguageSelect from "$lib/components/LanguageSelect.svelte";
 
 	export let noLang = false;
 </script>

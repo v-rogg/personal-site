@@ -1,0 +1,52 @@
+#mutation {
+#    createSignature(data: {
+#        name: "Anton"
+#        status: "new"
+#        signature: []
+#        ts_created: "2023-01-01T11:02:12.001Z"
+#        user_identifier: "123123"
+#    }) {
+#        name
+#        _id
+#    }
+#}
+
+#query FindNewSignatures {
+#    allNewSignatures {
+#        data {
+#            name
+#            _id
+#            user_identifier
+#        }
+#    }
+#}
+
+query FindAllSignatures {
+    allSignatures {
+        data {
+            ts_created
+        }
+    }
+}
+
+#query FindAllNewSignatures {
+#    allNewSignatures {
+#        data {
+#            _id
+#            name
+#            status
+#            signature {
+#                dotSize
+#                maxWidth
+#                minWidth
+#                penColor
+#                points {
+#                    pressure
+#                    time
+#                    x
+#                    y
+#                }
+#            }
+#        }
+#    }
+#}

@@ -1,4 +1,4 @@
-import type { LayoutLoad } from "./../$types";
+import type { LayoutLoad } from "../../../.svelte-kit/types/src/routes/$types";
 import { loadTranslations, translations, locales } from "$lib/_i18n";
 import { admin, slugStore } from "$lib/stores";
 import { config } from "$lib/_i18n";

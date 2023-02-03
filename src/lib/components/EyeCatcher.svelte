@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Signature from "$lib/Signature.svelte";
-	import SignatureNumber from "$lib/SignatureNumber.svelte";
-	import { darkMode, admin } from "./stores";
-	import SignatureAdmin from "$lib/SignatureAdmin.svelte";
+	import Signature from "$lib/components/Signature.svelte";
+	import SignatureNumber from "$lib/components/SignatureNumber.svelte";
+	import { darkMode, admin } from "../stores";
+	import SignatureAdmin from "$lib/components/SignatureAdmin.svelte";
 	import { browser } from "$app/environment";
 </script>
 
