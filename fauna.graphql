@@ -9,6 +9,7 @@ type SignatureData @embedded {
     dotSize: Float!
     minWidth: Float!
     maxWidth: Float!
+    velocityFilterWeight: Float!
     penColor: String!
     points: [SignatureDataPoints]!
 }

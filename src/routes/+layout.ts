@@ -21,7 +21,6 @@ export const load: LayoutLoad = async ({ url }) => {
 		}
 	}
 
-	console.log(slug);
 	slugStore.set(slug);
 
 	return { route, lang: "en" };

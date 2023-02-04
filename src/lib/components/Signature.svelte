@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { page } from "$app/stores";
 	import SignaturePad from "signature_pad";
 	import {
 		currentSignatureStore,
@@ -15,17 +14,22 @@
 	import type { Signature, SignatureData } from "$lib/fauna-gql/schema";
 	import { gql } from "graphql-request";
 	import { client } from "$lib/fauna-gql/public.client";
+	import { tweened } from "svelte/motion";
+	import { enhance } from "$app/forms";
+	import { fade } from "svelte/transition";
 
 	let canvas: HTMLCanvasElement;
-
 	let pad: HTMLDivElement;
 	let signaturePad: SignaturePad;
-
 	let currentSignature: Signature;
-
 	let empty = true;
-
 	let drawModeActive = false;
+	let progressBarTween = tweened(0, { duration: 400 });
+	progressBarTween.subscribe((n) => {
+		if (n >= 100) {
+			progressBarTween.update(() => 0, { duration: 0 });
+		}
+	});
 
 	function clearCanvas() {
 		signaturePad.clear();
@@ -73,44 +77,50 @@
 	}
 
 	async function loadDelta(delta) {
+		const deltaIndex = $refIndexStore + delta;
+
+		if (deltaIndex < 0 || deltaIndex >= $signatureRefsStore.length) return;
+
 		drawModeActive = false;
 
-		const deltaSignature = await client
-			.request(
-				gql`
-					query ($id: ID!) {
-						findSignatureByID(id: $id) {
-							_id
-							_ts
-							user_identifier
-							name
-							status
-							ts_created
-							ts_moderated
-							signature {
-								penColor
-								minWidth
-								maxWidth
-								dotSize
-								points {
-									x
-									y
-									time
-									pressure
+		const promises = await Promise.all([
+			progressBarTween.update(() => 80, { duration: 200 }),
+			client
+				.request(
+					gql`
+						query ($id: ID!) {
+							findSignatureByID(id: $id) {
+								_id
+								_ts
+								name
+								status
+								ts_created
+								signature {
+									penColor
+									minWidth
+									maxWidth
+									dotSize
+									points {
+										x
+										y
+										time
+										pressure
+									}
 								}
 							}
 						}
-					}
-				`,
-				{ id: $signatureRefsStore[$refIndexStore + delta]._id }
-			)
-			.then((res) => res.findSignatureByID)
-			.catch((err) => {
-				console.log(err);
-			});
+					`,
+					{ id: $signatureRefsStore[deltaIndex]._id }
+				)
+				.then((res) => res.findSignatureByID)
+				.catch((err) => {
+					console.log(err);
+				})
+		]);
 
-		$refIndexStore += delta;
-		$currentSignatureStore = deltaSignature;
+		$refIndexStore = deltaIndex;
+		$currentSignatureStore = promises[1];
+		await progressBarTween.update(() => 100, { duration: 100 });
 	}
 
 	function resizeCanvas() {
@@ -123,44 +133,6 @@
 			const currentSignature = uncenterSignature($currentSignatureStore.signature);
 			signaturePad.fromData(currentSignature);
 		}
-	}
-
-	async function saveCanvas() {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
-		let name = xss(prompt($t("signature.prompt"), ""));
-
-		const json = JSON.stringify({
-			name,
-			identifier: $identifier,
-			signature: centerSignature(signaturePad.toData())
-		});
-
-		const newSignature = await fetch(`${$page.url.origin}/_api/signature`, {
-			method: "POST",
-			body: json
-		})
-			.then((res) => res.json())
-			.then((json) => {
-				return json[0];
-			});
-
-		// $telemetry.signal({
-		// 	type: "signatureCreated",
-		// 	signature: newSignature.ref["@ref"].id,
-		// 	time: Date.now(),
-		// 	appVersion: "1.0.0"
-		// });
-
-		let signatureRefs = $signatureRefsStore;
-		signatureRefs.push(newSignature.ref);
-		$signatureRefsStore = signatureRefs;
-		$currentSignatureStore = newSignature;
-		$refIndexStore = signatureRefs.length - 1;
-
-		drawModeActive = false;
-		signaturePad.off();
-		// clearCanvas();
 	}
 
 	function newCanvas() {
@@ -302,21 +274,65 @@
 		<div class="overlay">
 			{#if !drawModeActive && $signatureRefsStore}
 				{#if $signatureRefsStore.length - $refIndexStore - 1 > 0}
-					<button id="next" on:click="{() => loadDelta(1)}" aria-label="{$t('signature.next')}">
+					<button
+						id="next"
+						on:click="{() => loadDelta(1)}"
+						aria-label="{$t('signature.next')}"
+						transition:fade="{{ duration: 150 }}">
 						<i class="fa-solid fa-angle-right"></i>
 					</button>
 				{/if}
 				{#if $refIndexStore > 0}
-					<button id="prev" on:click="{() => loadDelta(-1)}" aria-label="{$t('signature.prev')}">
+					<button
+						id="prev"
+						on:click="{() => loadDelta(-1)}"
+						aria-label="{$t('signature.prev')}"
+						transition:fade="{{ duration: 250 }}">
 						<i class="fa-solid fa-angle-left"></i>
 					</button>
 				{/if}
 			{/if}
 
 			{#if drawModeActive}
-				<button id="save" on:click="{() => saveCanvas()}" aria-label="{$t('signature.save')}">
-					<i class="fa-solid fa-floppy-disk"></i>
-				</button>
+				<form
+					method="post"
+					action="?/create"
+					use:enhance="{({ data, cancel }) => {
+						const signature = centerSignature(signaturePad.toData());
+						if (signature.length === 0) {
+							cancel();
+						} else {
+							const name = xss(prompt($t('signature.prompt'), ''));
+							if (!name) cancel();
+
+							const json = JSON.stringify({
+								name: name,
+								user_identifier: $identifier,
+								signature
+							});
+
+							data.set('data', json);
+						}
+
+						return async ({ result }) => {
+							if (result.status === 200) {
+								$currentSignatureStore.status = result.data.status;
+								let signatureRefs = $signatureRefsStore;
+								signatureRefs.push(result.data._id);
+								$signatureRefsStore = signatureRefs;
+								$currentSignatureStore = result.data;
+								$refIndexStore = signatureRefs.length - 1;
+
+								drawModeActive = false;
+								signaturePad.off();
+							}
+						};
+					}}"
+					style="pointer-events: all">
+					<button id="save" aria-label="{$t('signature.save')}">
+						<i class="fa-solid fa-floppy-disk"></i>
+					</button>
+				</form>
 				<button id="clear" on:click="{() => clearCanvas()}" aria-label="{$t('signature.clear')}">
 					<i class="fa-duotone fa-trash"></i>
 				</button>
@@ -330,9 +346,26 @@
 			{/if}
 		</div>
 	</div>
+
+	{#if $progressBarTween > 0}
+		<div
+			class="progress-bar"
+			role="progressbar"
+			aria-valuenow="{$progressBarTween}"
+			style="width: {$progressBarTween}%">
+		</div>
+	{/if}
 </div>
 
 <style lang="scss">
+	.progress-bar {
+		position: absolute;
+		bottom: 0;
+		height: 2px;
+		background: var(--c-primary);
+		z-index: 1;
+	}
+
 	#signature {
 		z-index: 100;
 		position: absolute;
@@ -399,18 +432,24 @@
 
 	#next,
 	#prev,
-	#clear,
-	#new {
+	#new,
+	#save {
 		pointer-events: all;
 
 		&:hover {
-			background: var(--c-grey-10);
+			background: var(--c-bg-hover);
 			cursor: pointer;
 		}
 
 		&:active {
-			background: var(--c-grey-30);
-			cursor: default;
+			background: var(--c-bg-active);
+		}
+	}
+
+	#clear {
+		pointer-events: all;
+		&:hover {
+			cursor: pointer;
 		}
 	}
 
@@ -433,7 +472,7 @@
 	#new,
 	#save {
 		right: 0;
-		bottom: 2.5rem;
+		bottom: 2rem;
 		width: 64px;
 		height: 64px;
 		font-size: 20px;

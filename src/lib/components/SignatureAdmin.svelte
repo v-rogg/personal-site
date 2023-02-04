@@ -6,31 +6,33 @@
 </script>
 
 <div class="container">
-	<form
-		class="admin-panel"
-		method="post"
-		use:enhance="{({ data }) => {
-			data.set('id', $currentSignatureStore?._id);
+	{#if $currentSignatureStore}
+		<form
+			class="admin-panel"
+			method="post"
+			use:enhance="{({ data }) => {
+				data.set('id', $currentSignatureStore?._id);
 
-			return async ({ result }) => {
-				if (result.status === 200) $currentSignatureStore.status = result.data.status;
-			};
-		}}">
-		<button
-			id="approve"
-			formaction="?/approve&{password}"
-			class:notstatus="{$currentSignatureStore?.status !== 'approved' &&
-				$currentSignatureStore?.status !== 'new'}">
-			<i class="fa-regular fa-check"></i>
-		</button>
-		<button
-			id="decline"
-			formaction="?/decline&{password}"
-			class:notstatus="{$currentSignatureStore?.status !== 'declined' &&
-				$currentSignatureStore?.status !== 'new'}">
-			<i class="fa-regular fa-xmark"></i>
-		</button>
-	</form>
+				return async ({ result }) => {
+					if (result.status === 200) $currentSignatureStore.status = result.data.status;
+				};
+			}}">
+			<button
+				id="approve"
+				formaction="?/approve&{password}"
+				class:notstatus="{$currentSignatureStore?.status !== 'approved' &&
+					$currentSignatureStore?.status !== 'new'}">
+				<i class="fa-regular fa-check"></i>
+			</button>
+			<button
+				id="decline"
+				formaction="?/decline&{password}"
+				class:notstatus="{$currentSignatureStore?.status !== 'declined' &&
+					$currentSignatureStore?.status !== 'new'}">
+				<i class="fa-regular fa-xmark"></i>
+			</button>
+		</form>
+	{/if}
 </div>
 
 <style>

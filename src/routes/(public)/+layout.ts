@@ -26,9 +26,8 @@ export const load: LayoutLoad = async ({ url }) => {
 
 		let slug = "slugs.default";
 
-		console.log("route", route);
 		if (route != "") {
-			let trans = translations.get()[lang];
+			const trans = translations.get()[lang];
 			for (const [key, value] of Object.entries(trans)) {
 				if (value === route && key.includes("slugs")) {
 					slug = key;
@@ -36,7 +35,6 @@ export const load: LayoutLoad = async ({ url }) => {
 			}
 		}
 
-		console.log(slug);
 		slugStore.set(slug);
 
 		return { route, lang };

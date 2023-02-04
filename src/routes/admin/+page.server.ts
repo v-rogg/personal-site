@@ -26,7 +26,8 @@ async function updateStatus(
 			{
 				id: _id,
 				data: <Signature>{
-					status
+					status,
+					ts_moderated: Date.now() * 1000
 				}
 			}
 		)
@@ -95,11 +96,9 @@ export const load: PageServerLoad = async ({ fetch }) => {
 						findSignatureByID(id: $id) {
 							_id
 							_ts
-							user_identifier
 							name
 							status
 							ts_created
-							ts_moderated
 							signature {
 								penColor
 								minWidth

@@ -12,8 +12,6 @@
 	};
 
 	if (data) {
-		console.log(data);
-
 		currentSignatureStore.set(data.currentSignature);
 		signatureRefsStore.set(data.signatureRefs);
 	}

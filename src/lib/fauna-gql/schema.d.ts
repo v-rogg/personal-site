@@ -24,6 +24,7 @@ export type SignatureData = {
 	dotSize?: number;
 	maxWidth?: number;
 	minWidth?: number;
+	velocityFilterWeight?: number;
 	points?: {
 		time?: number;
 		x?: number;
