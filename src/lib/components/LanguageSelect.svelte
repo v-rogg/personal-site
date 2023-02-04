@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
-	import { slugStore } from "./stores";
+	import { slugStore } from "../stores";
 	import { l, t, locale, locales } from "$lib/_i18n";
 	import { get } from "svelte/store";
 
@@ -25,11 +25,13 @@
 <style lang="scss">
 	.languages {
 		display: flex;
+		backdrop-filter: blur(8px);
+		border-radius: 4px;
 	}
 
 	.language_switch {
-		width: 50px;
-		height: 24px;
+		width: 3rem;
+		height: 1.5rem;
 		border: none;
 		border-radius: 4px;
 		background: none;
@@ -38,7 +40,7 @@
 		justify-content: center;
 		align-items: center;
 		position: relative;
-		transition: 200ms ease-in-out;
+		transition: 100ms ease-in-out;
 
 		&:before {
 			position: absolute;
@@ -87,12 +89,12 @@
 	}
 
 	.language_switch:hover:not(.active) {
-		background: var(--c-grey-10);
+		//background: var(--c-bg-hover);
 		cursor: pointer;
 	}
 
 	.language_switch:active:not(.active) {
-		background: var(--c-grey-30);
-		cursor: default;
+		//background: var(--c-bg-active);
+		//cursor: default;
 	}
 </style>

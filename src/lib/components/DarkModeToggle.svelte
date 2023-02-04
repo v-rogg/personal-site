@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { darkMode } from "$lib/stores";
-	import { t } from "$lib/_i18n/index.js";
+	import { t } from "$lib/_i18n";
 
 	function toggle_dark_mode() {
 		$darkMode = !$darkMode;
@@ -24,8 +24,8 @@
 <style>
 	.dark_switch {
 		position: relative;
-		width: 1.25rem;
-		height: 1.25rem;
+		width: 1.5rem;
+		height: 1.5rem;
 		border: none;
 		background: none;
 		margin: 0;
@@ -33,6 +33,7 @@
 		font-size: 16px;
 		color: var(--c-black);
 		border-radius: 50%;
+		backdrop-filter: blur(8px);
 	}
 
 	.dark_switch:hover {

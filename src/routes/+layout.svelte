@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { darkMode, telemetry } from "$lib/stores";
+	import { darkMode } from "$lib/stores";
 	import { t } from "$lib/_i18n";
 	import { currentSignatureStore, signatureRefsStore } from "$lib/stores";
 
@@ -10,11 +10,11 @@
 		signatureRefsStore.set(data.signatureRefs);
 	}
 
-	telemetry.subscribe((t) => {
-		if (t !== undefined) {
-			t.signal({ time: Date.now(), appVersion: "1.0.0" });
-		}
-	});
+	// telemetry.subscribe((t) => {
+	// 	if (t !== undefined) {
+	// 		t.signal({ time: Date.now(), appVersion: "1.0.0" });
+	// 	}
+	// });
 </script>
 
 <svelte:head>

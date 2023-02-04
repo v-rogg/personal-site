@@ -1,0 +1,195 @@
+directive @embedded on OBJECT
+
+directive @collection(name: String!) on OBJECT
+
+directive @index(name: String!) on FIELD_DEFINITION
+
+directive @resolver(
+  name: String
+  paginated: Boolean! = false
+) on FIELD_DEFINITION
+
+directive @relation(name: String) on FIELD_DEFINITION
+
+directive @unique(index: String) on FIELD_DEFINITION
+
+scalar Date
+
+type Mutation {
+  # Create a new document in the collection of 'Signature'
+  createSignature(
+    # 'Signature' input values
+    data: SignatureInput!
+  ): Signature!
+
+  # Update an existing document in the collection of 'Signature'
+  updateSignature(
+    # The 'Signature' document's ID
+    id: ID!
+
+    # 'Signature' input values
+    data: SignatureInput!
+  ): Signature
+
+  # Delete an existing document in the collection of 'Signature'
+  deleteSignature(
+    # The 'Signature' document's ID
+    id: ID!
+  ): Signature
+
+  # Partially updates an existing document in the collection of 'Signature'. It only modifies the values that are specified in the arguments. During execution, it verifies that required fields are not set to 'null'.
+  partialUpdateSignature(
+    # The 'Signature' document's ID
+    id: ID!
+
+    # 'Signature' input values
+    data: PartialUpdateSignatureInput!
+  ): Signature
+}
+
+# 'SignatureData' input values
+input PartialUpdateSignatureDataInput {
+  dotSize: Float
+  minWidth: Float
+  maxWidth: Float
+  velocityFilterWeight: Float
+  penColor: String
+  points: [PartialUpdateSignatureDataPointsInput]
+}
+
+# 'SignatureDataPoints' input values
+input PartialUpdateSignatureDataPointsInput {
+  x: Float
+  y: Float
+  pressure: Float
+  time: Long
+}
+
+# 'Signature' input values
+input PartialUpdateSignatureInput {
+  name: String
+  status: String
+  user_identifier: String
+  ts_created: Long
+  ts_moderated: Long
+  signature: [PartialUpdateSignatureDataInput]
+}
+
+# 'SignatureData' input values
+input SignatureDataInput {
+  dotSize: Float!
+  minWidth: Float!
+  maxWidth: Float!
+  velocityFilterWeight: Float!
+  penColor: String!
+  points: [SignatureDataPointsInput]!
+}
+
+# 'SignatureDataPoints' input values
+input SignatureDataPointsInput {
+  x: Float!
+  y: Float!
+  pressure: Float!
+  time: Long!
+}
+
+# 'Signature' input values
+input SignatureInput {
+  name: String!
+  status: String!
+  user_identifier: String!
+  ts_created: Long!
+  ts_moderated: Long
+  signature: [SignatureDataInput]!
+}
+
+scalar Time
+
+type Query {
+  # Find a document from the collection of 'Signature' by its id.
+  findSignatureByID(
+    # The 'Signature' document's ID
+    id: ID!
+  ): Signature
+  allSignatures(
+    # The number of items to return per page.
+    _size: Int
+
+    # The pagination cursor.
+    _cursor: String
+  ): SignaturePage!
+  allApprovedSignatures(
+    # The number of items to return per page.
+    _size: Int
+
+    # The pagination cursor.
+    _cursor: String
+    status: String = "approved"
+  ): SignaturePage!
+  allNewSignatures(
+    # The number of items to return per page.
+    _size: Int
+
+    # The pagination cursor.
+    _cursor: String
+    status: String = "new"
+  ): QueryAllNewSignaturesPage!
+}
+
+# The pagination object for elements of type 'Signature'.
+type QueryAllNewSignaturesPage {
+  # The elements of type 'Signature' in this page.
+  data: [Signature]!
+
+  # A cursor for elements coming after the current page.
+  after: String
+
+  # A cursor for elements coming before the current page.
+  before: String
+}
+
+type Signature {
+  ts_moderated: Long
+  name: String!
+
+  # The document's ID.
+  _id: ID!
+  signature: [SignatureData]!
+  status: String!
+  ts_created: Long!
+  user_identifier: String!
+
+  # The document's timestamp.
+  _ts: Long!
+}
+
+type SignatureData {
+  velocityFilterWeight: Float!
+  penColor: String!
+  points: [SignatureDataPoints]!
+  minWidth: Float!
+  dotSize: Float!
+  maxWidth: Float!
+}
+
+type SignatureDataPoints {
+  x: Float!
+  y: Float!
+  pressure: Float!
+  time: Long!
+}
+
+# The pagination object for elements of type 'Signature'.
+type SignaturePage {
+  # The elements of type 'Signature' in this page.
+  data: [Signature]!
+
+  # A cursor for elements coming after the current page.
+  after: String
+
+  # A cursor for elements coming before the current page.
+  before: String
+}
+
+# The `Long` scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1.
+scalar Long

@@ -47,7 +47,7 @@
 			rel="noreferrer nofollow"
 			target="_blank"
 			class="mail"
-			aria-label="Mail"><i class="fa-regular fa-paper-plane"></i></a>
+			aria-label="Mail"><i class="fa-solid fa-paper-plane"></i></a>
 	</div>
 </footer>
 

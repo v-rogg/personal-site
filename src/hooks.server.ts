@@ -52,6 +52,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		const password = url.searchParams.get("pa");
 
 		if (password !== ADMIN_PASSWORD) {
+			console.log("wrong password");
 			return Response.redirect(`${event.url.origin}/${preferredLocale}`, 307);
 		}
 	}
@@ -60,6 +61,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 };
 
 export const handleError: HandleServerError = async ({ error }) => {
+	console.log(error);
+	console.log("error redirect");
 	if (error?.toString().includes("Not found")) {
 		throw redirect(307, "/");
 	}

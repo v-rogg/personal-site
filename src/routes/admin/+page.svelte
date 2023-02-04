@@ -1,20 +1,35 @@
 <script lang="ts">
-  import { currentSignatureStore, signatureRefsStore } from "$lib/stores";
-  import { t } from "$lib/_i18n";
-  import EyeCatcher from "$lib/EyeCatcher.svelte";
-  import Header from "$lib/Header.svelte";
+	import { currentSignatureStore, signatureRefsStore } from "$lib/stores";
+	import { t } from "$lib/_i18n";
+	import EyeCatcher from "$lib/components/EyeCatcher.svelte";
+	import Header from "$lib/components/Header.svelte";
 
-  export let data: {lang: string, route: string, slug: string, signatureRefs: [], currentSignature};
+	export let data: {
+		lang: string;
+		route: string;
+		slug: string;
+		signatureRefs: [];
+		currentSignature;
+	};
 
-  if (data) {
-    currentSignatureStore.set(data.currentSignature)
-    signatureRefsStore.set(data.signatureRefs)
-  }
+	if (data) {
+		currentSignatureStore.set(data.currentSignature);
+		signatureRefsStore.set(data.signatureRefs);
+	}
 </script>
 
 <svelte:head>
-  <title>{$t("common.title")} · {"Admin"}</title>
+	<title>{$t("common.title")} · {"Admin"}</title>
 </svelte:head>
 
-<Header noLang/>
-<EyeCatcher/>
+<Header noLang />
+
+<section class="first">
+	<EyeCatcher />
+</section>
+
+<style>
+	.first {
+		display: flex;
+	}
+</style>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { currentSignatureStore, signatureRefsStore } from "$lib/stores";
-	import ShortBio from "$lib/ShortBio.svelte";
-	import EyeCatcher from "$lib/EyeCatcher.svelte";
+	import ShortBio from "$lib/components/ShortBio.svelte";
+	import EyeCatcher from "$lib/components/EyeCatcher.svelte";
 
 	export let data: {
 		lang: string;
@@ -12,8 +12,6 @@
 	};
 
 	if (data) {
-		console.log(data);
-
 		currentSignatureStore.set(data.currentSignature);
 		signatureRefsStore.set(data.signatureRefs);
 	}
