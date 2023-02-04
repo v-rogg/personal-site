@@ -1,10 +1,8 @@
 import type { PageServerLoad } from "./$types";
-import { gql, GraphQLClient } from "graphql-request";
+import { gql } from "graphql-request";
 import type { Signature, SignaturesResponse } from "$lib/fauna-gql/schema";
-import { PUBLIC_FAUNA_GQL_ENDPOINT } from "$env/static/public";
-import { FAUNA_SECRET } from "$env/static/private";
 import { fail } from "@sveltejs/kit";
-import { client } from "$lib/fauna-gql/private.client";
+import { getPrivateClient } from "$lib/fauna-gql/private.client";
 
 function shuffle(array: Signature[]): Signature[] {
 	for (let i = array.length - 1; i > 0; i--) {
@@ -15,6 +13,8 @@ function shuffle(array: Signature[]): Signature[] {
 }
 
 export const load: PageServerLoad = async ({ fetch }) => {
+	const client = getPrivateClient(fetch);
+
 	const approvedSignatures: SignaturesResponse = await client
 		.request(
 			gql`

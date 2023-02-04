@@ -1,18 +1,16 @@
 import type { PageServerLoad } from "./$types";
-import { gql, GraphQLClient } from "graphql-request";
+import { gql } from "graphql-request";
 import type { ID, SignaturesResponse, Signature } from "$lib/fauna-gql/schema";
-import { PUBLIC_FAUNA_GQL_ENDPOINT } from "$env/static/public";
-import { FAUNA_SECRET } from "$env/static/private";
 import type { Actions } from "@sveltejs/kit";
 import { fail } from "@sveltejs/kit";
+import { getPrivateClient } from "$lib/fauna-gql/private.client";
 
-async function updateStatus(_id: ID, status: "approved" | "declined") {
-	const client = new GraphQLClient(PUBLIC_FAUNA_GQL_ENDPOINT, {
-		fetch,
-		headers: {
-			Authorization: `Bearer ${FAUNA_SECRET}`
-		}
-	});
+async function updateStatus(
+	_id: ID,
+	status: "approved" | "declined",
+	fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>
+) {
+	const client = getPrivateClient(fetch);
 
 	const update: Signature = await client
 		.request(
@@ -41,25 +39,25 @@ async function updateStatus(_id: ID, status: "approved" | "declined") {
 }
 
 export const actions: Actions = {
-	approve: async ({ request }) => {
+	approve: async ({ request, fetch }) => {
 		const form = await request.formData();
 		const _id = form.get("id")?.toString();
 
 		if (!_id) return fail(400, { _id, missing: true });
 
-		const status = await updateStatus(<ID>_id, "approved");
+		const status = await updateStatus(<ID>_id, "approved", fetch);
 
 		return {
 			status
 		};
 	},
-	decline: async ({ request }) => {
+	decline: async ({ request, fetch }) => {
 		const form = await request.formData();
 		const _id = form.get("id")?.toString();
 
 		if (!_id) return fail(400, { _id, missing: true });
 
-		const status = await updateStatus(<ID>_id, "declined");
+		const status = await updateStatus(<ID>_id, "declined", fetch);
 
 		return {
 			status
@@ -68,12 +66,7 @@ export const actions: Actions = {
 };
 
 export const load: PageServerLoad = async ({ fetch }) => {
-	const client = new GraphQLClient(PUBLIC_FAUNA_GQL_ENDPOINT, {
-		fetch,
-		headers: {
-			Authorization: `Bearer ${FAUNA_SECRET}`
-		}
-	});
+	const client = getPrivateClient(fetch);
 
 	const newSignatures: SignaturesResponse = await client
 		.request(
