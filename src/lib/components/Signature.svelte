@@ -111,19 +111,6 @@
 
 		$refIndexStore += delta;
 		$currentSignatureStore = deltaSignature;
-
-		// await fetch(
-		// 	`${$page.url.origin}/_api/signature?ref=${$signatureRefsStore[$refIndexStore + delta]._id}`,
-		// 	{
-		// 		method: "GET"
-		// 	}
-		// )
-		// 	.then((res) => res.json())
-		// 	.then((json) => {
-		// 		$refIndexStore += delta;
-		// 		$currentSignatureStore = json;
-		// 		return json;
-		// 	});
 	}
 
 	function resizeCanvas() {
