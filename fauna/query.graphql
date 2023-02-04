@@ -21,13 +21,13 @@
 #    }
 #}
 
-query FindAllSignatures {
-    allSignatures {
-        data {
-            ts_created
-        }
-    }
-}
+#query FindAllSignatures {
+#    allSignatures {
+#        data {
+#            ts_created
+#        }
+#    }
+#}
 
 #query FindAllNewSignatures {
 #    allNewSignatures {
@@ -50,3 +50,33 @@ query FindAllSignatures {
 #        }
 #    }
 #}
+#
+#mutation ($d: SignatureInput!) {
+#    createSignature(data: $d) {
+#        _id
+#        name
+#    }
+#}
+
+#mutation ($date: Long!) {
+#	partialUpdateSignature(
+#		id: "355643454368252119",
+#		data: {
+#			ts_created: $date,
+#			ts_moderated: $date
+#		}
+#	) {
+#		_ts
+#		name
+#		ts_created
+#		ts_moderated
+#	}
+#}
+
+query {
+	allApprovedSignatures {
+		data {
+			_id
+		}
+	}
+}

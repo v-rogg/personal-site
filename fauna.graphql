@@ -1,12 +1,12 @@
 type SignatureDataPoints @embedded {
-    time: Long!
-    x: Int!
-    y: Int!
+    x: Float!
+    y: Float!
     pressure: Float!
+    time: Long!
 }
 
 type SignatureData @embedded {
-    dotSize: Int!
+    dotSize: Float!
     minWidth: Float!
     maxWidth: Float!
     penColor: String!
@@ -15,11 +15,11 @@ type SignatureData @embedded {
 
 type Signature @collection(name: "signatures") {
     name: String!
-    signature: [SignatureData]!
     status: String!
     user_identifier: String!
     ts_created: Long!
-    ts_moderated: Long!
+    ts_moderated: Long
+    signature: [SignatureData]!
 }
 
 type Query {

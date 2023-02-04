@@ -10,11 +10,11 @@
 			{#if Object.keys($currentSignatureStore).length > 0}
 				<div class="name">
 					<i class="fa-solid fa-tag"></i>
-					{$currentSignatureStore?.data.name ? $currentSignatureStore?.data.name : ""}
+					{$currentSignatureStore?.name ? $currentSignatureStore?.name : ""}
 				</div>
 				<div id="date" class="small">
-					{$currentSignatureStore.ts
-						? new Date($currentSignatureStore.ts / 1000).toLocaleDateString($locale)
+					{$currentSignatureStore.ts_created
+						? new Date($currentSignatureStore.ts_created / 1000).toLocaleDateString($locale)
 						: ""}
 				</div>
 			{/if}

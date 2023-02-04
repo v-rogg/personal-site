@@ -23,4 +23,13 @@
 </svelte:head>
 
 <Header noLang />
-<EyeCatcher />
+
+<section class="first">
+	<EyeCatcher />
+</section>
+
+<style>
+	.first {
+		display: flex;
+	}
+</style>

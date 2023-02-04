@@ -81,8 +81,12 @@
 
 :root {
   --c-green: #93c700;
+  --c-green-hover: #aeed00;
+  --c-green-active: #82ad00;
   --c-blue: #18a0fb;
-  --c-red: #ff0000;
+  --c-red: #cc0000;
+  --c-red-hover: #ff0000;
+  --c-red-active: #b30000;
   --c-orange: #f06913;
 
   --r-black: #0f1418;

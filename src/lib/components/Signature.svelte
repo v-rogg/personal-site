@@ -8,19 +8,20 @@
 		refIndexStore,
 		signatureRefsStore,
 		admin,
-		identifier,
-		telemetry
+		identifier
 	} from "../stores";
 	import { t } from "$lib/_i18n";
 	import xss from "xss";
-	import type { signatureData } from "$lib/types";
+	import type { Signature, SignatureData } from "$lib/fauna-gql/schema";
+	import { gql } from "graphql-request";
+	import { client } from "$lib/fauna-gql/public.client";
 
 	let canvas: HTMLCanvasElement;
 
 	let pad: HTMLDivElement;
 	let signaturePad: SignaturePad;
 
-	let currentSignature: signatureData;
+	let currentSignature: Signature;
 
 	let empty = true;
 
@@ -31,7 +32,7 @@
 		empty = signaturePad.isEmpty();
 	}
 
-	function centerSignature(data) {
+	function centerSignature(data): SignatureData[] {
 		const middleH = pad.offsetWidth / 2;
 		const bottomV = pad.offsetHeight;
 
@@ -73,20 +74,56 @@
 
 	async function loadDelta(delta) {
 		drawModeActive = false;
-		await fetch(
-			`${$page.url.origin}/_api/signature?ref=${
-				$signatureRefsStore[$refIndexStore + delta]["@ref"].id
-			}`,
-			{
-				method: "GET"
-			}
-		)
-			.then((res) => res.json())
-			.then((json) => {
-				$refIndexStore += delta;
-				$currentSignatureStore = json;
-				return json;
+
+		const deltaSignature = await client
+			.request(
+				gql`
+					query ($id: ID!) {
+						findSignatureByID(id: $id) {
+							_id
+							_ts
+							user_identifier
+							name
+							status
+							ts_created
+							ts_moderated
+							signature {
+								penColor
+								minWidth
+								maxWidth
+								dotSize
+								points {
+									x
+									y
+									time
+									pressure
+								}
+							}
+						}
+					}
+				`,
+				{ id: $signatureRefsStore[$refIndexStore + delta]._id }
+			)
+			.then((res) => res.findSignatureByID)
+			.catch((err) => {
+				console.log(err);
 			});
+
+		$refIndexStore += delta;
+		$currentSignatureStore = deltaSignature;
+
+		// await fetch(
+		// 	`${$page.url.origin}/_api/signature?ref=${$signatureRefsStore[$refIndexStore + delta]._id}`,
+		// 	{
+		// 		method: "GET"
+		// 	}
+		// )
+		// 	.then((res) => res.json())
+		// 	.then((json) => {
+		// 		$refIndexStore += delta;
+		// 		$currentSignatureStore = json;
+		// 		return json;
+		// 	});
 	}
 
 	function resizeCanvas() {
@@ -95,10 +132,8 @@
 
 		clearCanvas();
 
-		if ($currentSignatureStore?.data) {
-			const currentSignature = uncenterSignature(
-				(<signatureData>$currentSignatureStore).data.signature
-			);
+		if ($currentSignatureStore) {
+			const currentSignature = uncenterSignature($currentSignatureStore.signature);
 			signaturePad.fromData(currentSignature);
 		}
 	}
@@ -123,12 +158,12 @@
 				return json[0];
 			});
 
-		$telemetry.signal({
-			type: "signatureCreated",
-			signature: newSignature.ref["@ref"].id,
-			time: Date.now(),
-			appVersion: "1.0.0"
-		});
+		// $telemetry.signal({
+		// 	type: "signatureCreated",
+		// 	signature: newSignature.ref["@ref"].id,
+		// 	time: Date.now(),
+		// 	appVersion: "1.0.0"
+		// });
 
 		let signatureRefs = $signatureRefsStore;
 		signatureRefs.push(newSignature.ref);
@@ -144,13 +179,9 @@
 	function newCanvas() {
 		drawModeActive = true;
 
-		$currentSignatureStore = {
-			ref: null,
-			ts: null,
-			data: {
-				name: null,
-				signature: []
-			}
+		$currentSignatureStore = <Signature>{
+			name: null,
+			signature: []
 		};
 
 		signaturePad.on();
@@ -168,7 +199,7 @@
 
 		signaturePad.addEventListener("endStroke", () => {
 			currentSignature = $currentSignatureStore;
-			currentSignature.data.signature = centerSignature(signaturePad.toData());
+			currentSignature.signature = centerSignature(signaturePad.toData());
 			$currentSignatureStore = currentSignature;
 			empty = signaturePad.isEmpty();
 		});
@@ -176,111 +207,110 @@
 		window.onresize = resizeCanvas;
 		resizeCanvas();
 
-		currentSignatureStore.subscribe((data: signatureData) => {
+		currentSignatureStore.subscribe((data: Signature) => {
 			if (data != undefined) {
 				// console.log(data);
 				if (Object.keys(data).length > 0) {
-					signaturePad.fromData(uncenterSignature(data.data.signature));
+					signaturePad.fromData(uncenterSignature(data.signature));
 					// signaturePad.fromData(uncenterSignature(currentSignature.data.signature));
 					// centeredData = currentSignature;
 				}
 			}
 		});
 
-		/* Rafael Nockmann, 2017-09-10 */
-		/* Dieses Skript erkennt horizontale Touchgesten. */
-
-		/* START Optionen */
-
-		// Mindestdauer der Wischgeste in ms.
-		var durationMin = 100;
-
-		// Zurückgelegte Mindestdistanz auf der X-Koordinate.
-		var distanceTraveledMin = 100;
-
-		// Abweichung vom Kurs.
-		// Beispiel: Wenn eine Wischbewegung von links nach rechts erkannt werden soll, der Wert, den die Wischgeste nach oben oder unten verrutschen darf -> Toleranz
-		var courceTolerance = 150;
-
-		// Element, das auf Wischgeste geprüft werden soll.
-
-		var startX = null;
-		var startY = null;
-		var starttime = null;
-
-		swipePad.ontouchstart = function (e) {
-			startX = e.changedTouches[0].pageX;
-			startY = e.changedTouches[0].pageY;
-			starttime = new Date().getTime();
-		};
-
-		swipePad.ontouchend = function (e) {
-			var endX = e.changedTouches[0].pageX;
-			var endY = e.changedTouches[0].pageY;
-			var endtime = new Date().getTime();
-
-			verifyHorizontalSwipe(endX, endY, endtime);
-		};
-
-		function verifyHorizontalSwipe(endX, endY, endtime) {
-			// Dauer der Touchgeste in ms:
-			var duration = endtime - starttime;
-			// Distanz der Touchgeste in Pixel:
-			var distanceTraveled = endX - startX;
-			// Abweichung der Touchgeste nach oben oder unten in Pixel:
-			var deviation = Math.abs(endY - startY);
-
-			if (
-				duration >= durationMin &&
-				Math.abs(distanceTraveled) >= distanceTraveledMin &&
-				deviation <= courceTolerance
-			) {
-				if (Math.sign(distanceTraveled) == 1) {
-					if ($refIndexStore > 0) loadDelta(-1);
-				} else if (Math.sign(distanceTraveled) == -1) {
-					if ($signatureRefsStore.length - $refIndexStore - 1 > 0) loadDelta(1);
-				}
-			} else {
-				// alert(
-				// 	"Keine Wischgeste erkannt\n" +
-				// 		"Dauer: " +
-				// 		duration +
-				// 		"\nZurückgelegte Strecke: " +
-				// 		Math.abs(distanceTraveled) +
-				// 		"\nKursabweichung: " +
-				// 		deviation
-				// );
-			}
-		}
-
-		/* Touchgeste soll nicht als Zoom oder Scrollen erkannt werden, wenn der User im entsprechenden Element auf der Seite eine Touchgeste ausführt. */
-		swipePad.ontouchmove = function (e) {
-			e.preventDefault();
-		};
-
-		/* Maussimulation */
-
-		swipePad.onmousedown = function (e) {
-			startX = e.pageX;
-			startY = e.pageY;
-			starttime = new Date().getTime();
-		};
-
-		swipePad.onmouseup = function (e) {
-			var endX = e.pageX;
-			var endY = e.pageY;
-			var endtime = new Date().getTime();
-
-			verifyHorizontalSwipe(endX, endY, endtime);
-		};
+		// <!--/* Rafael Nockmann, 2017-09-10 */-->
+		// <!--/* Dieses Skript erkennt horizontale Touchgesten. */-->
+		//
+		// <!--/* START Optionen */-->
+		//
+		// <!--// Mindestdauer der Wischgeste in ms.-->
+		// <!--var durationMin = 100;-->
+		//
+		// <!--// Zurückgelegte Mindestdistanz auf der X-Koordinate.-->
+		// <!--var distanceTraveledMin = 100;-->
+		//
+		// <!--// Abweichung vom Kurs.-->
+		// <!--// Beispiel: Wenn eine Wischbewegung von links nach rechts erkannt werden soll, der Wert, den die Wischgeste nach oben oder unten verrutschen darf -> Toleranz-->
+		// <!--var courceTolerance = 150;-->
+		//
+		// <!--// Element, das auf Wischgeste geprüft werden soll.-->
+		//
+		// <!--var startX = null;-->
+		// <!--var startY = null;-->
+		// <!--var starttime = null;-->
+		//
+		// <!--swipePad.ontouchstart = function (e) {-->
+		// <!--	startX = e.changedTouches[0].pageX;-->
+		// <!--	startY = e.changedTouches[0].pageY;-->
+		// <!--	starttime = new Date().getTime();-->
+		// <!--};-->
+		//
+		// <!--swipePad.ontouchend = function (e) {-->
+		// <!--	var endX = e.changedTouches[0].pageX;-->
+		// <!--	var endY = e.changedTouches[0].pageY;-->
+		// <!--	var endtime = new Date().getTime();-->
+		//
+		// <!--	verifyHorizontalSwipe(endX, endY, endtime);-->
+		// <!--};-->
+		//
+		// <!--function verifyHorizontalSwipe(endX, endY, endtime) {-->
+		// <!--	// Dauer der Touchgeste in ms:-->
+		// <!--	var duration = endtime - starttime;-->
+		// <!--	// Distanz der Touchgeste in Pixel:-->
+		// <!--	var distanceTraveled = endX - startX;-->
+		// <!--	// Abweichung der Touchgeste nach oben oder unten in Pixel:-->
+		// <!--	var deviation = Math.abs(endY - startY);-->
+		//
+		// <!--	if (-->
+		// <!--		duration >= durationMin &&-->
+		// <!--		Math.abs(distanceTraveled) >= distanceTraveledMin &&-->
+		// <!--		deviation <= courceTolerance-->
+		// <!--	) {-->
+		// <!--		if (Math.sign(distanceTraveled) == 1) {-->
+		// <!--			if ($refIndexStore > 0) loadDelta(-1);-->
+		// <!--		} else if (Math.sign(distanceTraveled) == -1) {-->
+		// <!--			if ($signatureRefsStore.length - $refIndexStore - 1 > 0) loadDelta(1);-->
+		// <!--		}-->
+		// <!--	} else {-->
+		// <!--		// alert(-->
+		// <!--		// 	"Keine Wischgeste erkannt\n" +-->
+		// <!--		// 		"Dauer: " +-->
+		// <!--		// 		duration +-->
+		// <!--		// 		"\nZurückgelegte Strecke: " +-->
+		// <!--		// 		Math.abs(distanceTraveled) +-->
+		// <!--		// 		"\nKursabweichung: " +-->
+		// <!--		// 		deviation-->
+		// <!--		// );-->
+		// <!--	}-->
+		// <!--}-->
+		//
+		// <!--/* Touchgeste soll nicht als Zoom oder Scrollen erkannt werden, wenn der User im entsprechenden Element auf der Seite eine Touchgeste ausführt. */-->
+		// <!--swipePad.ontouchmove = function (e) {-->
+		// <!--	e.preventDefault();-->
+		// <!--};-->
+		//
+		// <!--/* Maussimulation */-->
+		//
+		// <!--swipePad.onmousedown = function (e) {-->
+		// <!--	startX = e.pageX;-->
+		// <!--	startY = e.pageY;-->
+		// <!--	starttime = new Date().getTime();-->
+		// <!--};-->
+		// swipePad.onmouseup = function (e) {
+		// 	var endX = e.pageX;
+		// 	var endY = e.pageY;
+		// 	var endtime = new Date().getTime();
+		//
+		// 	verifyHorizontalSwipe(endX, endY, endtime);
+		// };
 	});
 
-	let swipePad;
+	// let swipePad;
 </script>
 
 <div id="pad">
 	<canvas id="signature" bind:this="{canvas}" class:dark="{$darkMode}"></canvas>
-	<div class="swipe" bind:this="{swipePad}"></div>
+	<!--	<div class="swipe" bind:this="{swipePad}"></div>-->
 	<div class="container">
 		<div class="overlay">
 			{#if !drawModeActive && $signatureRefsStore}
