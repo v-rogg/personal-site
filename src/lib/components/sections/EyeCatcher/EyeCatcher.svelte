@@ -59,7 +59,7 @@
 		margin: 2rem;
 		border-radius: 4px;
 		position: relative;
-		height: 630px;
+		height: 650px;
 		overflow: hidden;
 	}
 
