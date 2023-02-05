@@ -167,13 +167,15 @@
 		resizeCanvas();
 
 		currentSignatureStore.subscribe((data: Signature) => {
-			if (data != undefined) {
+			if (data !== <Signature>undefined) {
 				// console.log(data);
 				if (Object.keys(data).length > 0) {
 					signaturePad.fromData(uncenterSignature(data.signature));
 					// signaturePad.fromData(uncenterSignature(currentSignature.data.signature));
 					// centeredData = currentSignature;
 				}
+			} else {
+				signaturePad.clear();
 			}
 		});
 
@@ -389,7 +391,6 @@
 	.container {
 		position: absolute;
 		height: 100%;
-		/*padding: 0;*/
 		width: calc(100% + 4rem);
 		left: 50%;
 		transform: translateX(-50%);
@@ -407,10 +408,6 @@
 		position: relative;
 		height: 100%;
 		width: 100%;
-		/*padding: 0;*/
-		/*margin: auto;*/
-		/*padding: 0 2rem;*/
-		padding: 0 2rem;
 		pointer-events: none;
 	}
 
