@@ -52,7 +52,6 @@ input PartialUpdateSignatureDataInput {
   dotSize: Float
   minWidth: Float
   maxWidth: Float
-  velocityFilterWeight: Float
   penColor: String
   points: [PartialUpdateSignatureDataPointsInput]
 }
@@ -80,7 +79,6 @@ input SignatureDataInput {
   dotSize: Float!
   minWidth: Float!
   maxWidth: Float!
-  velocityFilterWeight: Float!
   penColor: String!
   points: [SignatureDataPointsInput]!
 }
@@ -164,7 +162,6 @@ type Signature {
 }
 
 type SignatureData {
-  velocityFilterWeight: Float!
   penColor: String!
   points: [SignatureDataPoints]!
   minWidth: Float!

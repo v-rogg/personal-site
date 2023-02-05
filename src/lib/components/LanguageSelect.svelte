@@ -40,7 +40,6 @@
 		justify-content: center;
 		align-items: center;
 		position: relative;
-		transition: 100ms ease-in-out;
 
 		&:before {
 			position: absolute;
@@ -95,6 +94,6 @@
 
 	.language_switch:active:not(.active) {
 		//background: var(--c-bg-active);
-		//cursor: default;
+		cursor: default;
 	}
 </style>
