@@ -8,7 +8,7 @@
 		signatureRefsStore,
 		admin,
 		identifier
-	} from "../stores";
+	} from "$lib/stores";
 	import { t } from "$lib/_i18n";
 	import xss from "xss";
 	import type { Signature, SignatureData } from "$lib/fauna-gql/schema";

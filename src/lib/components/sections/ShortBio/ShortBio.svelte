@@ -2,7 +2,7 @@
 	import { t, locale } from "$lib/_i18n";
 </script>
 
-<section class="container">
+<section>
 	<h1>Valentin Rogg</h1>
 
 	<p>
@@ -21,7 +21,6 @@
 <style>
 	section {
 		text-align: center;
-		padding-bottom: 9rem;
 	}
 
 	h1 {

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { currentSignatureStore, signatureRefsStore } from "$lib/stores";
 	import { t } from "$lib/_i18n";
-	import EyeCatcher from "$lib/components/EyeCatcher.svelte";
+	import EyeCatcher from "$lib/components/sections/EyeCatcher/EyeCatcher.svelte";
 	import Header from "$lib/components/Header.svelte";
 
 	export let data: {

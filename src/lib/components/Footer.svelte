@@ -51,7 +51,7 @@
 	</div>
 </footer>
 
-<style>
+<style lang="scss">
 	footer {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
@@ -86,6 +86,10 @@
 		flex-direction: column;
 		gap: 4px;
 		font-size: var(--fs-08);
+
+		> * {
+			width: max-content;
+		}
 	}
 
 	.overflow_hand {
