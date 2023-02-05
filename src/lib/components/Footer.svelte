@@ -1,5 +1,15 @@
 <script lang="ts">
 	import { t, locale } from "$lib/_i18n";
+
+	import { PUBLIC_CF_IMAGES_ENDPOINT } from "$env/static/public";
+
+	let svg;
+	fetch(`${PUBLIC_CF_IMAGES_ENDPOINT}/b016873f-964a-4748-c20c-a3f0a931b200/public`).then(
+		async (res) => {
+			svg = await res.text();
+			console.log(svg);
+		}
+	);
 </script>
 
 <footer class="container">
@@ -7,7 +17,13 @@
 		<a href="/{$locale}{$t('slugs.legal')}">{$t("common.legal")}</a>
 		<div class="copy">
 			<i class="fa-regular fa-copyright"></i>
-			{$t("common.name")}
+			<div class="signature">
+				{@html svg}
+			</div>
+
+			<!--			<svg class="signature" aria-label="{$t('common.name')}">-->
+			<!--				<use href="{PUBLIC_CF_IMAGES_ENDPOINT}/b016873f-964a-4748-c20c-a3f0a931b200/public"></use-->
+			<!--				></svg>-->
 		</div>
 		<div class="last_edited">
 			{$t("common.last_edited")}
@@ -120,6 +136,18 @@
 		display: flex;
 		gap: 8px;
 		align-items: center;
+	}
+
+	.signature {
+		border: none;
+		color: var(--c-black);
+		height: 1rem;
+
+		:global(> svg) {
+			height: 1rem;
+			transform-origin: left center;
+			transform: scale(1.5);
+		}
 	}
 
 	@media (max-width: 1265px) {
