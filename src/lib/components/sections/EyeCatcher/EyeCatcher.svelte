@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Signature from "$lib/components/Signature.svelte";
-	import SignatureNumber from "$lib/components/SignatureNumber.svelte";
-	import { darkMode, admin } from "../stores";
-	import SignatureAdmin from "$lib/components/SignatureAdmin.svelte";
+	import Signature from "$lib/components/sections/EyeCatcher/Signature.svelte";
+	import SignatureNumber from "$lib/components/sections/EyeCatcher/SignatureNumber.svelte";
+	import { darkMode, admin } from "$lib/stores";
+	import SignatureAdmin from "$lib/components/sections/EyeCatcher/SignatureAdmin.svelte";
 	import { browser } from "$app/environment";
 	import { PUBLIC_CF_IMAGES_ENDPOINT } from "$env/static/public";
 
@@ -59,7 +59,7 @@
 		margin: 2rem;
 		border-radius: 4px;
 		position: relative;
-		height: 630px;
+		height: 650px;
 		overflow: hidden;
 	}
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { currentSignatureStore, signatureRefsStore } from "$lib/stores";
-	import ShortBio from "$lib/components/ShortBio.svelte";
-	import EyeCatcher from "$lib/components/EyeCatcher.svelte";
+	import ShortBio from "$lib/components/sections/ShortBio/ShortBio.svelte";
+	import EyeCatcher from "$lib/components/sections/EyeCatcher/EyeCatcher.svelte";
 
 	export let data: {
 		lang: string;
@@ -25,7 +25,7 @@
 	<EyeCatcher />
 </section>
 
-<section class="second">
+<section class="second container">
 	<ShortBio />
 </section>
 
@@ -35,8 +35,7 @@
 		flex-direction: column;
 	}
 
-	/*.second {*/
-	/*  margin-top: 10rem;*/
-	/*  margin-bottom: 4rem;*/
-	/*}*/
+	.second {
+		padding-bottom: 9rem;
+	}
 </style>
