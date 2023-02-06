@@ -2,6 +2,8 @@ import type { LayoutLoad } from "./$types";
 import { loadTranslations, translations } from "$lib/_i18n";
 import { slugStore } from "$lib/stores";
 
+export const prerender = true;
+
 export const load: LayoutLoad = async ({ url }) => {
 	const loadUrl = new URL(url);
 	const { pathname } = loadUrl;

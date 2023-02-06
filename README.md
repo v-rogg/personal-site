@@ -1,13 +1,16 @@
 # Personal Website
 
-## Developing
+Required services:
+- [Fauna](https://fauna.com)
+- [Cloudflare Images](https://www.cloudflare.com/products/cloudflare-images/)
 
+
+> Make sure to supply all needed environment variables. See `.env.template`.
+
+## Developing
 
 ```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
 ## Building
@@ -19,3 +22,7 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+
+## Second Version (Cloudflare Images as Signature Storage)
+The alternate storage solution using cloudflare Images can be found inside the `archive` folder
