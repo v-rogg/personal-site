@@ -44,6 +44,17 @@
 		bottom: 2rem;
 		z-index: 800;
 		pointer-events: all;
+		animation: 250ms in ease-in-out;
+	}
+
+	@keyframes in {
+		0% {
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 1;
+		}
 	}
 
 	.small {

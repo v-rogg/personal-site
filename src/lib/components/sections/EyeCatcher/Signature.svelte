@@ -331,18 +331,29 @@
 						};
 					}}"
 					style="pointer-events: all">
-					<button id="save" aria-label="{$t('signature.save')}">
+					<button
+						id="save"
+						aria-label="{$t('signature.save')}"
+						transition:fade="{{ duration: 250 }}">
 						<i class="fa-solid fa-floppy-disk"></i>
 					</button>
 				</form>
-				<button id="clear" on:click="{() => clearCanvas()}" aria-label="{$t('signature.clear')}">
+				<button
+					id="clear"
+					on:click="{() => clearCanvas()}"
+					aria-label="{$t('signature.clear')}"
+					transition:fade="{{ duration: 250 }}">
 					<i class="fa-duotone fa-trash"></i>
 				</button>
 				<!--      <button id="exit" on:click={() => clearCanvas()}>-->
 				<!--        <i class="fa-solid fa-xmark-large"></i>-->
 				<!--      </button>-->
 			{:else if !$admin}
-				<button id="new" on:click="{() => newCanvas()}" aria-label="{$t('signature.new')}">
+				<button
+					id="new"
+					on:click="{() => newCanvas()}"
+					aria-label="{$t('signature.new')}"
+					transition:fade="{{ duration: 250 }}">
 					<i class="fa-solid fa-pen"></i>
 				</button>
 			{/if}
@@ -373,6 +384,17 @@
 		position: absolute;
 		padding: 0;
 		margin: 0;
+		opacity: 1;
+		animation: 250ms in ease-in-out;
+	}
+
+	@keyframes in {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
 	}
 
 	#pad {
