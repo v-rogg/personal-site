@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --c-green: #93c700;
   --c-green-hover: #aeed00;
