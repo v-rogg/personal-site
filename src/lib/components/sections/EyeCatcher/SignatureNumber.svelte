@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { currentSignatureStore } from "$lib/stores";
+	import { currentSignatureStore } from "$lib/components/sections/EyeCatcher/signature.stores";
 	import { locale } from "$lib/_i18n";
 	import { browser } from "$app/environment";
 </script>
 
-<div class="container">
+<div class="container container-tight">
 	<div class="signature-number">
 		{#if $currentSignatureStore && browser}
 			{#if Object.keys($currentSignatureStore).length > 0}
@@ -33,11 +33,11 @@
 		pointer-events: none;
 	}
 
-	@media (max-width: 540px) {
-		.container {
-			width: calc(100% + 2rem);
-		}
-	}
+	/*@media (max-width: 540px) {*/
+	/*	.container {*/
+	/*		width: calc(100% + 2rem);*/
+	/*	}*/
+	/*}*/
 
 	.signature-number {
 		position: absolute;

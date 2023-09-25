@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { currentSignatureStore, signatureRefsStore } from "$lib/stores";
+	import { currentSignatureStore, signatureRefsStore } from "$lib/components/sections/EyeCatcher/signature.stores";
 	import { t } from "$lib/_i18n";
 	import EyeCatcher from "$lib/components/sections/EyeCatcher/EyeCatcher.svelte";
 	import Header from "$lib/components/Header.svelte";
@@ -24,7 +24,7 @@
 
 <Header noLang />
 
-<section class="first">
+<section class="first container">
 	<EyeCatcher />
 </section>
 

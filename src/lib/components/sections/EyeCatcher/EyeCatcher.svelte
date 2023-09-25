@@ -11,15 +11,15 @@
 </script>
 
 <svelte:head>
-	<link rel="preload" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageLight}/50" />
-	<link rel="preload" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageLight}/75" />
-	<link rel="preload" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageLight}/100" />
-	<link rel="preload" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageDark}/50" />
-	<link rel="preload" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageDark}/75" />
-	<link rel="preload" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageDark}/100" />
+	<link rel="" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageLight}/50" />
+	<link rel="" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageLight}/75" />
+	<link rel="" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageLight}/100" />
+	<link rel="" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageDark}/50" />
+	<link rel="" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageDark}/75" />
+	<link rel="" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageDark}/100" />
 </svelte:head>
 
-<section class="eyecatcher">
+<section class="eyecatcher sm:rounded-xl mb-10">
 	{#if browser}
 		<Signature />
 		<SignatureNumber />
@@ -55,25 +55,28 @@
 <style>
 	.eyecatcher {
 		background: var(--c-secondary);
-		flex-grow: 1;
-		margin: 2rem;
-		border-radius: 4px;
+		margin-top: 2rem;
+		min-width: 100%;
+		/*padding: 2rem;*/
+		/*border-radius: 4px;*/
 		position: relative;
 		height: 650px;
 		overflow: hidden;
 	}
 
-	@media (max-width: 540px) {
-		.eyecatcher {
-			margin: 1rem 1rem 1rem;
-		}
-	}
+	/*@media (max-width: 540px) {*/
+	/*	.eyecatcher {*/
+	/*		margin: 1rem 1rem 1rem;*/
+	/*	}*/
+	/*}*/
 
 	img {
 		position: absolute;
 		bottom: 0;
 		left: 50%;
 		transform: translate(-50%);
+		display: block;
+		max-width: unset;
 	}
 
 	.image-dark {

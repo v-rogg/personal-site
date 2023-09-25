@@ -8,7 +8,7 @@ export const load: LayoutLoad = async ({ url }) => {
 	const loadUrl = new URL(url);
 	const { pathname } = loadUrl;
 
-	let lang: string = (pathname.match(/[^/]+?(?=\/|$)/) || [])[0];
+	let lang: string = (pathname.match(/[^/]+?(?=\/|$)/) || [])[0] || "";
 
 	if (Object.keys(config.translations).includes(lang) || pathname.includes("admin")) {
 		const route = pathname.replace(new RegExp(`^/${lang}`), "");

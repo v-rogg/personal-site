@@ -2,7 +2,7 @@
 	import { t, locale } from "$lib/_i18n";
 </script>
 
-<footer class="container">
+<footer class="container container-tight">
 	<div class="legal overlay">
 		<a href="/{$locale}{$t('slugs.legal')}">{$t("common.legal")}</a>
 		<div class="copy">
@@ -105,7 +105,7 @@
 			rel="noreferrer nofollow"
 			target="_blank"
 			class="mail"
-			aria-label="Mail"><i class="fa-solid fa-paper-plane"></i></a>
+			aria-label="Mail"><i class="fa-solid fa-envelope"></i></a>
 	</div>
 </footer>
 
@@ -132,11 +132,6 @@
 		display: flex;
 		gap: 16px;
 		justify-self: end;
-	}
-
-	.mail {
-		line-height: 1.4em;
-		font-size: 0.9em;
 	}
 
 	.legal {
@@ -171,7 +166,7 @@
 		position: absolute;
 		bottom: 100%;
 		right: 0;
-		transform: translate(0, 4px);
+		//transform: translate(0, 4px);
 	}
 
 	.copy {

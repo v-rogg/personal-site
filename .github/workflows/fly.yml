@@ -1,0 +1,23 @@
+name: Fly Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploy app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy \
+          --build-secret ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }} \
+          --build-secret PUBLIC_FAUNA_GQL_ENDPOINT=${{ secrets.PUBLIC_FAUNA_GQL_ENDPOINT }} \
+          --build-secret PUBLIC_FAUNA_SECRET=${{ secrets.PUBLIC_FAUNA_SECRET }} \
+          --build-secret FAUNA_SECRET=${{ secrets.FAUNA_SECRET }} \
+          --build-secret PUBLIC_TELEMETRYDECK_APP_ID=${{ secrets.PUBLIC_TELEMETRYDECK_APP_ID }} \
+          --build-secret PUBLIC_CF_IMAGES_ENDPOINT=${{ secrets.PUBLIC_CF_IMAGES_ENDPOINT }} \
+          --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

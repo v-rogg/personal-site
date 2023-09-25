@@ -47,6 +47,8 @@ export const actions: Actions = {
 					data
 				}
 			)
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
 			.then((res) => res.createSignature)
 			.catch((err) => {
 				console.log(err);
@@ -67,6 +69,7 @@ function shuffle(array: Signature[]): Signature[] {
 export const load: PageServerLoad = async ({ fetch }) => {
 	const client = getPrivateClient(fetch);
 
+
 	const approvedSignatures: SignaturesResponse = await client
 		.request(
 			gql`
@@ -79,6 +82,8 @@ export const load: PageServerLoad = async ({ fetch }) => {
 				}
 			`
 		)
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		.then((res) => res.allApprovedSignatures)
 		.catch((err) => {
 			console.log(err);
@@ -116,6 +121,8 @@ export const load: PageServerLoad = async ({ fetch }) => {
 				`,
 				{ id: shuffle(approvedSignatures.data)[0]._id }
 			)
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
 			.then((res) => res.findSignatureByID)
 			.catch((err) => {
 				console.log(err);

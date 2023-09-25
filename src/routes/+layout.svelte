@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { darkMode } from "$lib/stores";
 	import { t } from "$lib/_i18n";
-	import { currentSignatureStore, signatureRefsStore } from "$lib/stores";
+	import { currentSignatureStore, signatureRefsStore } from "$lib/components/sections/EyeCatcher/signature.stores";
+	import "../app.css";
+	import { onMount } from "svelte";
+	import * as cookie from "cookie";
+	import { PUBLIC_TELEMETRYDECK_APP_ID } from "$env/static/public";
 
 	export let data: { signatureRefs: []; currentSignature };
 
@@ -9,6 +13,51 @@
 		currentSignatureStore.set(data.currentSignature);
 		signatureRefsStore.set(data.signatureRefs);
 	}
+
+	onMount(() => {
+		if (cookie.parse(document.cookie)["darkModeEnabled"] === "true" || (!('darkModeEnabled' in cookie.parse(document.cookie)) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+			darkMode.set(true);
+		} else {
+			darkMode.set(false);
+		}
+
+		darkMode.subscribe((mode) => {
+			if (mode) {
+				document.documentElement.classList.remove("light");
+				document.documentElement.classList.add("dark");
+			} else {
+				document.documentElement.classList.remove("dark");
+				document.documentElement.classList.add("light");
+			}
+		})
+
+		const { language: locale } = navigator;
+
+		const body = {
+			appID: PUBLIC_TELEMETRYDECK_APP_ID,
+			url: location.href,
+			referrer: document.referrer,
+			telemetryClientVersion: `WebSDK 1.0.0`,
+			isTestMode: false,
+			locale,
+		};
+
+		if (
+			/^localhost$|^127(\.\d+){0,2}\.\d+$|^\[::1?]$/.test(location.hostname) ||
+			'file:' === location.protocol
+		) {
+			body.isTestMode = true;
+		}
+
+		fetch("https://nom.telemetrydeck.com/v2/w/", {
+			method: 'POST',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(body),
+		});
+	})
 
 	// telemetry.subscribe((t) => {
 	// 	if (t !== undefined) {
@@ -32,7 +81,8 @@
 	{/if}
 </svelte:head>
 
-<div class="app" class:light="{!$darkMode}" class:dark="{$darkMode}">
+<!--<div class="app" class:light="{!$darkMode}" class:dark="{$darkMode}">-->
+<div class="app bg-white dark:bg-dark_blue flex flex-col items-center">
 	<!--	<Header />-->
 	<slot />
 	<!--	<Footer />-->
@@ -43,7 +93,7 @@
 <style>
 	.app {
 		color: var(--c-black);
-		background: var(--c-bg);
+		/*background: var(--c-bg);*/
 		height: 100%;
 		min-height: 100vh;
 		/*position: absolute;*/

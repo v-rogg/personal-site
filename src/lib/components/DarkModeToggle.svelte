@@ -4,8 +4,7 @@
 
 	function toggle_dark_mode() {
 		$darkMode = !$darkMode;
-		document.cookie = `darkModeEnabled=${$darkMode};expires=Thu, 18 Dec 2300 12:00:00 UTC; path=/; SameSite=Strict`;
-		// localStorage.setItem("darkModeEnabled", $dark_mode)
+		document.cookie = `darkModeEnabled=${$darkMode}; max-age=604800; path=/; SameSite=Strict`;
 	}
 </script>
 

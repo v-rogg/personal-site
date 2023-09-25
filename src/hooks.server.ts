@@ -9,13 +9,13 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const { url, request } = event;
 	const { pathname } = url;
 
-	const lang: string = (pathname.match(/[^/]+?(?=\/|$)/) || [])[0];
+	const lang: string = (pathname.match(/[^/]+?(?=\/|$)/) || [])[0] || "";
 	const preferredLocale = `${`${request.headers.get("accept-language")}`.match(
 		/[a-zA-Z]+?(?=[-_,;])/
 	)}`.toLowerCase();
 
 	// If this request is a route request
-	if (Object.keys(config.translations).includes(lang) || lang === undefined) {
+	if (Object.keys(config.translations).includes(lang) || lang === "") {
 		// Set dark mode
 		const cookies = request.headers.get("cookie") || "";
 		darkMode.set(cookie.parse(cookies)["darkModeEnabled"] === "true");

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { currentSignatureStore, signatureRefsStore } from "$lib/stores";
+	import { currentSignatureStore, signatureRefsStore } from "$lib/components/sections/EyeCatcher/signature.stores";
 	import ShortBio from "$lib/components/sections/ShortBio/ShortBio.svelte";
 	import EyeCatcher from "$lib/components/sections/EyeCatcher/EyeCatcher.svelte";
 
@@ -21,7 +21,7 @@
 	<title>Valentin Rogg</title>
 </svelte:head>
 
-<section class="first">
+<section class="first container">
 	<EyeCatcher />
 </section>
 

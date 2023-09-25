@@ -1,0 +1,10 @@
+schema: schema.graphql
+exclude: fauna.graphql
+extensions:
+  endpoints:
+    Fauna GraphQL Endpoint:
+      url: https://graphql.eu.fauna.com/graphql
+      headers:
+        user-agent: JS GraphQL
+        authorization: Bearer fnAFOjsvxxAAzZBgOMnyNgMzqaKmRupooQWRkgYu
+      introspect: true

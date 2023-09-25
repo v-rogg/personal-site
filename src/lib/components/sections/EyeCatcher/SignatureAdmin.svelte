@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { currentSignatureStore, refIndexStore, signatureRefsStore } from "$lib/stores";
+	import { currentSignatureStore, refIndexStore, signatureRefsStore } from "$lib/components/sections/EyeCatcher/signature.stores";
 	import { enhance } from "$app/forms";
 	import { page } from "$app/stores";
 	import type { Signature, SignaturesResponse } from "$lib/fauna-gql/schema";
@@ -101,7 +101,7 @@
 	}
 </script>
 
-<div class="container">
+<div class="container container-tight">
 	<div class="overlay">
 		{#if $currentSignatureStore}
 			<form
@@ -161,7 +161,6 @@
 	.container {
 		position: absolute;
 		height: 100%;
-		width: calc(100% - 4rem);
 		left: 50%;
 		transform: translateX(-50%);
 		z-index: 799;

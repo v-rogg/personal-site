@@ -115,16 +115,12 @@ button {
   padding-top: 160px;
 }
 
-.container {
-  width: 100%;
-  max-width: 1300px;
-  margin-right: auto;
-  margin-left: auto;
+.container-tight {
   padding: 0 4rem;
 }
 
-@media (max-width: 540px) {
-  .container {
-    padding: 0 2rem;
-  }
-}
+/*@media (max-width: 540px) {*/
+/*  .container {*/
+/*    padding: 0 2rem;*/
+/*  }*/
+/*}*/

@@ -2,13 +2,14 @@
 	import { onMount } from "svelte";
 	import SignaturePad from "signature_pad";
 	import {
-		currentSignatureStore,
 		darkMode,
-		refIndexStore,
-		signatureRefsStore,
-		admin,
-		identifier
+		admin
 	} from "$lib/stores";
+	import {
+		currentSignatureStore,
+		refIndexStore,
+		signatureRefsStore
+	} from "$lib/components/sections/EyeCatcher/signature.stores"
 	import { t } from "$lib/_i18n";
 	import xss from "xss";
 	import type { Signature, SignatureData } from "$lib/fauna-gql/schema";
@@ -272,7 +273,7 @@
 <div id="pad">
 	<canvas id="signature" bind:this="{canvas}" class:dark="{$darkMode}"></canvas>
 	<!--	<div class="swipe" bind:this="{swipePad}"></div>-->
-	<div class="container">
+	<div class="container container-tight">
 		<div class="overlay">
 			{#if !drawModeActive && $signatureRefsStore}
 				{#if $signatureRefsStore.length - $refIndexStore - 1 > 0}
@@ -309,7 +310,6 @@
 
 							const json = JSON.stringify({
 								name: name,
-								user_identifier: $identifier,
 								signature
 							});
 
@@ -403,12 +403,12 @@
 		position: absolute;
 	}
 
-	.swipe {
-		height: 100%;
-		width: 100%;
-		position: absolute;
-		z-index: 750;
-	}
+	//.swipe {
+	//	height: 100%;
+	//	width: 100%;
+	//	position: absolute;
+	//	z-index: 750;
+	//}
 
 	.container {
 		position: absolute;
@@ -420,11 +420,11 @@
 		pointer-events: none;
 	}
 
-	@media (max-width: 540px) {
-		.container {
-			width: calc(100% + 2rem);
-		}
-	}
+	//@media (max-width: 540px) {
+	//	.container {
+	//		width: calc(100% + 2rem);
+	//	}
+	//}
 
 	.overlay {
 		position: relative;
