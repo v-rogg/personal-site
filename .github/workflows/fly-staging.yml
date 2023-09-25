@@ -14,7 +14,7 @@ jobs:
       - run: flyctl deploy \
           --config fly.staging.toml \
           --build-secret ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }} \
-          --build-secret PUBLIC_FAUNA_GQL_ENDPOINT=${{ secrets.PUBLIC_FAUNA_GQL_ENDPOINT }} \
+          --build-secret PUBLIC_FAUNA_GQL_ENDPOINT=${{ vars.PUBLIC_FAUNA_GQL_ENDPOINT }} \
           --build-secret PUBLIC_FAUNA_SECRET=${{ secrets.PUBLIC_FAUNA_SECRET }} \
           --build-secret FAUNA_SECRET=${{ secrets.FAUNA_SECRET }} \
           --build-secret PUBLIC_TELEMETRYDECK_APP_ID=${{ secrets.PUBLIC_TELEMETRYDECK_APP_ID }} \
