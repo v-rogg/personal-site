@@ -2,9 +2,17 @@ export type ID = string;
 export type UUID = string;
 export type TS = number;
 
+export type Pagination<T> = {
+	data: T;
+	after?: string;
+	before?: string;
+}
+
 export type Signature = {
 	_id?: ID;
+	id: ID;
 	_ts?: TS;
+	ts?: TS;
 	user_identifier?: UUID;
 	name?: string;
 	status?: string;

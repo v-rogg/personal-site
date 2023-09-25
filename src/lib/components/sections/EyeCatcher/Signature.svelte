@@ -13,11 +13,11 @@
 	import { t } from "$lib/_i18n";
 	import xss from "xss";
 	import type { Signature, SignatureData } from "$lib/fauna-gql/schema";
-	import { gql } from "graphql-request";
-	import { client } from "$lib/fauna-gql/public.client";
 	import { tweened } from "svelte/motion";
 	import { enhance } from "$app/forms";
 	import { fade } from "svelte/transition";
+	import { Client, fql } from "fauna";
+	import { PUBLIC_FAUNA_SECRET } from "$env/static/public";
 
 	let canvas: HTMLCanvasElement;
 	let pad: HTMLDivElement;
@@ -77,6 +77,8 @@
 		return centeredData;
 	}
 
+	const fClient = new Client({ secret: PUBLIC_FAUNA_SECRET });
+
 	async function loadDelta(delta) {
 		const deltaIndex = $refIndexStore + delta;
 
@@ -84,44 +86,12 @@
 
 		drawModeActive = false;
 
-		const promises = await Promise.all([
-			progressBarTween.update(() => 80, { duration: 200 }),
-			client
-				.request(
-					gql`
-						query ($id: ID!) {
-							findSignatureByID(id: $id) {
-								_id
-								_ts
-								name
-								status
-								ts_created
-								signature {
-									penColor
-									minWidth
-									maxWidth
-									dotSize
-									points {
-										x
-										y
-										time
-										pressure
-									}
-								}
-							}
-						}
-					`,
-					{ id: $signatureRefsStore[deltaIndex]._id }
-				)
-				.then((res) => res.findSignatureByID)
-				.catch((err) => {
-					console.log(err);
-				})
-		]);
+		let res = await fClient.query<Signature>(fql`
+			signatures.where(.id == ${$signatureRefsStore[deltaIndex].id}).first()
+		`).then(res => res.data)
 
 		$refIndexStore = deltaIndex;
-		$currentSignatureStore = promises[1];
-		await progressBarTween.update(() => 100, { duration: 100 });
+		$currentSignatureStore = res;
 	}
 
 	function resizeCanvas() {

@@ -1,9 +1,11 @@
 import type { PageServerLoad } from "./$types";
 import { gql } from "graphql-request";
-import type { Signature, SignaturesResponse } from "$lib/fauna-gql/schema";
+import type { Pagination, Signature } from "$lib/fauna-gql/schema";
 import { fail } from "@sveltejs/kit";
 import type { Actions } from "@sveltejs/kit";
 import { getPrivateClient } from "$lib/fauna-gql/private.client";
+import { Client, fql } from "fauna";
+import { PUBLIC_FAUNA_SECRET } from "$env/static/public";
 
 export const actions: Actions = {
 	create: async ({ request, fetch }) => {
@@ -66,74 +68,46 @@ function shuffle(array: Signature[]): Signature[] {
 	return array;
 }
 
-export const load: PageServerLoad = async ({ fetch }) => {
-	const client = getPrivateClient(fetch);
+export const load: PageServerLoad = async () => {
+	const fClient = new Client({ secret: PUBLIC_FAUNA_SECRET });
 
+	try {
+		const signatureRefs =
+			(await fClient
+				.query<Pagination<Signature[]>>(
+					fql`
+			signatures.where(.status == "approved").take(100) {
+				id
+			}`
+				)
+				.then((res) => shuffle(res.data.data))) || [];
 
-	const approvedSignatures: SignaturesResponse = await client
-		.request(
-			gql`
-				query {
-					allApprovedSignatures {
-						data {
-							_id
-						}
-					}
-				}
-			`
-		)
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
-		.then((res) => res.allApprovedSignatures)
-		.catch((err) => {
-			console.log(err);
-		});
+		if (signatureRefs.length > 0) {
+			const firstResult = await fClient
+				.query<Signature>(
+					fql`
+				signatures.where(.id == ${signatureRefs[0].id}).first()
+			`,
+					{ format: "simple" }
+				)
+				.then((res) => res.data);
 
-	if (!approvedSignatures.data) return fail(500, { msg: "query failed" });
+			console.log(signatureRefs);
+			console.log(firstResult);
 
-	if (approvedSignatures.data.length > 0) {
-		const firstResult = await client
-			.request(
-				gql`
-					query ($id: ID!) {
-						findSignatureByID(id: $id) {
-							_id
-							_ts
-							user_identifier
-							name
-							status
-							ts_created
-							ts_moderated
-							signature {
-								penColor
-								minWidth
-								maxWidth
-								dotSize
-								points {
-									x
-									y
-									time
-									pressure
-								}
-							}
-						}
-					}
-				`,
-				{ id: shuffle(approvedSignatures.data)[0]._id }
-			)
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			.then((res) => res.findSignatureByID)
-			.catch((err) => {
-				console.log(err);
-			});
-		return {
-			signatureRefs: approvedSignatures.data,
-			currentSignature: firstResult
-		};
-	} else {
-		return {
-			signatureRefs: approvedSignatures.data
-		};
+			return {
+				signatureRefs: signatureRefs,
+				currentSignature: firstResult,
+			};
+		} else {
+			return {
+				signatureRefs: []
+			};
+		}
+	} catch (error) {
+		return fail(500, { msg: String(error) });
+	}
+	return {
+		"msg": "Hello"
 	}
 };

@@ -1,10 +1,12 @@
 # syntax = docker/dockerfile:1
 
 # Adjust BUN_VERSION as desired
-ARG BUN_VERSION=1.0.0
-FROM oven/bun:${BUN_VERSION} as base
+#ARG BUN_VERSION=1.0.0
+#FROM oven/bun:${BUN_VERSION} as base
+ARG NODE_VERSION=20
+FROM node:${NODE_VERSION}-slim as base
 
-LABEL fly_launch_runtime="Bun"
+LABEL fly_launch_runtime="Node.js"
 
 # Bun app lives here
 WORKDIR /app
@@ -17,11 +19,11 @@ FROM base as build
 
 # Install packages needed to build node modules
 RUN apt-get update -qq && \
-    apt-get install -y build-essential pkg-config python
+    apt-get install -y python3 build-essential pkg-config
 
 # Install node modules
-COPY --link .npmrc bun.lockb package.json ./
-RUN bun install
+COPY --link .npmrc package.json ./
+RUN npm install --include=dev
 
 # Copy application code
 COPY --link . .
@@ -39,12 +41,11 @@ RUN --mount=type=secret,id=ADMIN_PASSWORD \
     FAUNA_SECRET="$(cat /run/secrets/FAUNA_SECRET)" \
     PUBLIC_TELEMETRYDECK_APP_ID="$(cat /run/secrets/PUBLIC_TELEMETRYDECK_APP_ID)" \
     PUBLIC_CF_IMAGES_ENDPOINT="$(cat /run/secrets/PUBLIC_CF_IMAGES_ENDPOINT)" \
-    bun run build
+    npm run build
 
 
 # Remove development dependencies
-RUN rm -rf node_modules && \
-    bun install --ci
+RUN npm prune --omit=dev
 
 
 # Final stage for app image
@@ -55,4 +56,4 @@ COPY --from=build /app /app
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD [ "bun", "./build/index.js" ]
+CMD [ "node", "./build/index.js" ]
