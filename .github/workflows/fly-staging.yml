@@ -2,7 +2,7 @@ name: Fly Deploy
 
 on:
   push:
-    branches: [main]
+    branches: [dev]
 
 jobs:
   deploy:
@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy \
-          --config fly.production.toml \
+          --config fly.staging.toml \
           --build-secret ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }} \
           --build-secret PUBLIC_FAUNA_GQL_ENDPOINT=${{ secrets.PUBLIC_FAUNA_GQL_ENDPOINT }} \
           --build-secret PUBLIC_FAUNA_SECRET=${{ secrets.PUBLIC_FAUNA_SECRET }} \
