@@ -6,8 +6,20 @@ export default {
     colors: {
       transparent: "transparent",
       current: "currentColor",
-      white: "#ffffff",
-      dark_blue: "#080C21",
+      white: {
+        500: "#ffffff",
+        600: "#FAF7F5",
+      },
+      skin: {
+        dark: "#6B6665"
+      },
+      blue: {
+        500: "#18a0fb",
+        600: "#608CFF",
+        700: "#253270",
+        800: "#141b3d",
+        900: "#080C21"
+      },
       green: {
         light: "#aeed00",
         DEFAULT: "#93c700",
@@ -17,8 +29,14 @@ export default {
     fontFamily: {
       sans: ["Candid", "sans-serif"],
       serif: ["PT Serif", "serif"],
+      display: ["Pulp Display", "sans-serif"],
+      mono: ["JetBrains Mono", "monospace"]
     },
-    extend: {},
+    extend: {
+      fontSize: {
+        'md-lg': ["1.1rem", "1.6rem"]
+      }
+    },
   },
   plugins: [],
 }

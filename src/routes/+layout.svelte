@@ -82,7 +82,7 @@
 </svelte:head>
 
 <!--<div class="app" class:light="{!$darkMode}" class:dark="{$darkMode}">-->
-<div class="app bg-white dark:bg-dark_blue flex flex-col items-center">
+<div class="app bg-white dark:bg-blue-900 flex flex-col items-center">
 	<!--	<Header />-->
 	<slot />
 	<!--	<Footer />-->

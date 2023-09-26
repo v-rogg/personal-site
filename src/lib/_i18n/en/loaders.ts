@@ -23,6 +23,12 @@ export const en_loaders = [
   },
   {
     locale: "en",
+    key: "cv",
+    routes: ["/en"],
+    loader: async () => (await import("./cv.json")).default
+  },
+  {
+    locale: "en",
     key: "legal",
     routes: ["/en/legal"],
     loader: async () => (await import("./legal.json")).default

@@ -19,7 +19,7 @@
 	<link rel="" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageDark}/100" />
 </svelte:head>
 
-<section class="eyecatcher sm:rounded-xl mb-10">
+<div class="eyecatcher sm:rounded-xl">
 	{#if browser}
 		<Signature />
 		<SignatureNumber />
@@ -50,7 +50,7 @@
 				height="575" />
 		</picture>
 	{/if}
-</section>
+</div>
 
 <style>
 	.eyecatcher {

@@ -92,9 +92,6 @@ export const load: PageServerLoad = async () => {
 				)
 				.then((res) => res.data);
 
-			console.log(signatureRefs);
-			console.log(firstResult);
-
 			return {
 				signatureRefs: signatureRefs,
 				currentSignature: firstResult,
