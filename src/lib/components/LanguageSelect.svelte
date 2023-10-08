@@ -1,8 +1,14 @@
 <script lang="ts">
-	import { goto } from "$app/navigation";
+	import { goto, preloadData } from "$app/navigation";
 	import { slugStore } from "../stores";
 	import { l, t, locale, locales } from "$lib/_i18n";
 	import { get } from "svelte/store";
+
+	// TODO: Add prefetching. Only load data not change lang when load functions run
+	// async function preload_toggle_lang(lang) {
+	// 	let i = $locales.findIndex((e) => e === lang);
+	// 	await preloadData(`/${$locales[i]}${get(l)($locales[i], $slugStore)}`);
+	// }
 
 	function toggle_lang(lang) {
 		let i = $locales.findIndex((e) => e === lang);

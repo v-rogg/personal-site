@@ -3,6 +3,8 @@
 	import ShortBio from "$lib/components/sections/ShortBio/ShortBio.svelte";
 	import EyeCatcher from "$lib/components/sections/EyeCatcher/EyeCatcher.svelte";
 	import CV from "$lib/components/sections/CV/CV.svelte";
+	import { onMount } from "svelte"
+	import { useStoryblokBridge } from "@storyblok/svelte";
 
 	export let data: {
 		lang: string;
@@ -16,7 +18,17 @@
 		currentSignatureStore.set(data.currentSignature);
 		signatureRefsStore.set(data.signatureRefs);
 	}
+
+	onMount(() => {
+		useStoryblokBridge(
+			data.cv.id,
+			(newStory) => {data.cv = newStory}
+		);
+	});
 </script>
+
+<div>
+</div>
 
 <svelte:head>
 	<title>Valentin Rogg</title>
@@ -30,8 +42,10 @@
 	<ShortBio />
 </section>
 
-<section class="third container">
-	<CV />
+<section class="third container mb-12">
+	{#if data.cv}
+		<CV blok={data.cv}/>
+	{/if}
 </section>
 
 <style>

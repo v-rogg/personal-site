@@ -18,8 +18,8 @@ export const { l, t, locale, locales, loading, loadTranslations, translations } 
 loading.subscribe(async ($loading) => {
 	if ($loading) {
 		console.log("Loading translations...");
-
 		await loading.toPromise();
-		console.log("Updated translations", translations.get());
+		console.log("Updated translations");
+		// console.log("Updated translations", translations.get());
 	}
 });

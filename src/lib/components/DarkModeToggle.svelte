@@ -4,7 +4,7 @@
 
 	function toggle_dark_mode() {
 		$darkMode = !$darkMode;
-		document.cookie = `darkModeEnabled=${$darkMode}; max-age=604800; path=/; SameSite=Strict`;
+		document.cookie = `darkModeEnabled=${$darkMode}; max-age=86400; path=/; SameSite=Strict`;
 	}
 </script>
 

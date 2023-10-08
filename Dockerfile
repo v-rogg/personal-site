@@ -35,12 +35,14 @@ RUN --mount=type=secret,id=ADMIN_PASSWORD \
     --mount=type=secret,id=FAUNA_SECRET \
     --mount=type=secret,id=PUBLIC_TELEMETRYDECK_APP_ID \
     --mount=type=secret,id=PUBLIC_CF_IMAGES_ENDPOINT \
+    --mount=type=secret,id=PUBLIC_STORYBLOK_TOKEN \
     ADMIN_PASSWORD="$(cat /run/secrets/ADMIN_PASSWORD)" \
     PUBLIC_FAUNA_GQL_ENDPOINT="$(cat /run/secrets/PUBLIC_FAUNA_GQL_ENDPOINT)" \
     PUBLIC_FAUNA_SECRET="$(cat /run/secrets/PUBLIC_FAUNA_SECRET)" \
     FAUNA_SECRET="$(cat /run/secrets/FAUNA_SECRET)" \
     PUBLIC_TELEMETRYDECK_APP_ID="$(cat /run/secrets/PUBLIC_TELEMETRYDECK_APP_ID)" \
     PUBLIC_CF_IMAGES_ENDPOINT="$(cat /run/secrets/PUBLIC_CF_IMAGES_ENDPOINT)" \
+    PUBLIC_STORYBLOK_TOKEN="$(cat /run/secrets/PUBLIC_STORYBLOK_TOKEN)" \
     npm run build
 
 

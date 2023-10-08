@@ -9,9 +9,10 @@ export default {
       white: {
         500: "#ffffff",
         600: "#FAF7F5",
+        700: "#eee8e6",
       },
       skin: {
-        dark: "#6B6665"
+        500: "#6B6665"
       },
       blue: {
         500: "#18a0fb",
@@ -28,6 +29,7 @@ export default {
     },
     fontFamily: {
       sans: ["Candid", "sans-serif"],
+      handwriting: ["Caveat", "sans-serif"],
       serif: ["PT Serif", "serif"],
       display: ["Pulp Display", "sans-serif"],
       mono: ["JetBrains Mono", "monospace"]

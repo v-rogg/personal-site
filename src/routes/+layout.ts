@@ -1,10 +1,14 @@
 import type { LayoutLoad } from "./$types";
 import { loadTranslations, translations } from "$lib/_i18n";
 import { slugStore } from "$lib/stores";
+import { storyblokInit, apiPlugin, useStoryblokApi } from "@storyblok/svelte";
+import { PUBLIC_STORYBLOK_TOKEN } from "$env/static/public";
+import Company from "$lib/components/sections/CV/Company.svelte";
+import Experience from "$lib/components/sections/CV/Experience.svelte";
 
 export const prerender = true;
 
-export const load: LayoutLoad = async ({ url }) => {
+export const load: LayoutLoad = async ({ url, fetch }) => {
 	const loadUrl = new URL(url);
 	const { pathname } = loadUrl;
 
@@ -25,5 +29,21 @@ export const load: LayoutLoad = async ({ url }) => {
 
 	slugStore.set(slug);
 
-	return { route, lang: "en" };
+	storyblokInit({
+		accessToken: PUBLIC_STORYBLOK_TOKEN,
+		use: [apiPlugin],
+		apiOptions: {
+			cache: { type: "memory" },
+			https: true,
+			fetch
+		},
+		components: {
+			"Company": Company,
+			"Experience": Experience
+		}
+	})
+
+	const storyblokApi = await useStoryblokApi();
+
+	return { route, lang: "en", storyblokApi };
 };

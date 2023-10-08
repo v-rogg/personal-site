@@ -74,6 +74,11 @@
 	</div>
 
 	<div class="links overlay">
+		<a href="https://www.komoot.de/user/2406562570904" rel="noreferrer nofollow"
+			 target="_blank"
+			 aria-label="Komoot">
+			<i class="fa-kit fa-komoot"></i>
+		</a>
 		<span class="overflow_hand cv">
 			<span class="looking_for_cv">{@html $t("common.looking_for_cv")}</span>
 			<span class="hand_arrow">

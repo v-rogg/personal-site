@@ -2,41 +2,196 @@
 	import { t } from "$lib/_i18n";
 
 	import * as one from "./content/xentral.json";
+	import * as d3 from "d3";
 
-	let companies = [one];
+	export let blok;
 
+	const heightPerYear = 150;
+	const titleOffset = 40;
+	const barWidth = 40;
+
+	let present = new Date();
+
+	$: companies = filterHidden(blok.content.companies) || [];
+	$: startDate = getStartDate(companies);
+	$: graphHeight = ((present - startDate) / (1000 * 60 * 60 * 24 * 365.25)) * heightPerYear + titleOffset;
+	$: legendYears = getLegendYears(present, startDate);
+
+	function filterHidden(companies) {
+		let data = []
+		companies.forEach(company => {if (!company.hidden) data.push(company) })
+		return data
+	}
+
+	function getLegendYears(present, startDate) {
+		let coeff = 1000 * 60 * 60 * 24 * 365.26;
+		let years = [];
+		let nextYear = new Date(Math.round(startDate.getTime() / coeff) * coeff);
+		while (nextYear < present) {
+			years.push(nextYear);
+			nextYear = new Date(Math.round((nextYear.getTime() + coeff) / coeff) * coeff);
+		}
+		console.log(years);
+		return years;
+	}
+
+	function sortCompanies(companies) {
+		return companies.sort((a, b) => {
+			let aMinDate = present;
+			let bMinDate = present;
+
+			a.jobs.forEach((job) => {
+				if (new Date(job.from) < aMinDate) aMinDate = new Date(job.from);
+			});
+			b.jobs.forEach((job) => {
+				if (new Date(job.from) < bMinDate) bMinDate = new Date(job.from);
+			});
+
+			return bMinDate - aMinDate;
+		});
+	}
+
+	function getStartDate(companies) {
+		let minDate = present;
+		companies.forEach((company) => {
+			company.jobs.forEach((job) => {
+				const date = new Date(job.from);
+				if (date < minDate) minDate = date;
+			});
+		});
+		return minDate;
+	}
+
+	function getDuration(job) {
+		const to = job.to ? new Date(job.to) : present;
+		const from = new Date(job.from);
+		return Math.round(((to - from) / (1000 * 60 * 60 * 24 * 365.25)) * heightPerYear);
+	}
+
+	function getStartPoint(job) {
+		const to = job.to ? new Date(job.to) : present;
+		return Math.round(((present - to) / (1000 * 60 * 60 * 24 * 365.25)) * heightPerYear + titleOffset);
+	}
+
+	function getYearOffset(year) {
+		return Math.round((present - year) / (1000 * 60 * 60 * 24 * 365.25)) * heightPerYear;
+	}
 </script>
 
 <h2 class="text-2xl font-semibold text-center mb-10">{$t("cv.title")}</h2>
-
-<div class="grid grid-cols-3 gap-6">
-	<div>
-
-	</div>
-	<div class="text-blue-900 dark:text-blue-700">
-		<svg width="16" height="872" viewBox="0 0 16 872" xmlns="http://www.w3.org/2000/svg">
-			<path d="M7.2926 0.292893C7.68312 -0.0976311 8.31629 -0.0976311 8.70681 0.292893L15.0708 6.65685C15.4613 7.04738 15.4613 7.68054 15.0708 8.07107C14.6802 8.46159 14.0471 8.46159 13.6566 8.07107L8.9997 3.41421L8.99967 872H6.99967L6.9997 3.41421L2.34285 8.07107C1.95232 8.46159 1.31916 8.46159 0.928635 8.07107C0.538111 7.68054 0.538111 7.04738 0.928635 6.65685L7.2926 0.292893Z" fill="currentColor"/>
-		</svg>
-	</div>
-	<div class="flex-col">
-		{#each companies as company}
-			<div>
-				<div class="font-semibold mb-6">{company.name}</div>
-				<div class="flex flex-col gap-6">
-					{#each company.experiences as experience}
-						<div class="experiences flex flex-col gap-1">
-							<div>{experience.name}</div>
-							<div class="text-sm">{experience.from} <i class="fa-solid fa-arrow-right"></i> {experience.to || "present"}</div>
-							<div class="text-sm">{experience.employmentType}</div>
-							<div class="flex flex-wrap gap-2 mt-1">
-								{#each experience.skills as skill}
-									<div class="rounded-lg text-xs px-1 py-0.5 border dark:border-blue-700 text-dark_blue">{skill}</div>
-								{/each}
-							</div>
-						</div>
-					{/each}
-				</div>
+<div
+	class="graph container flex mx-auto justify-center gap-4 mt-28 mb-28 relative"
+	style="height: {graphHeight}px; width: {(companies.length + 1) * (barWidth + 16) + 140}px">
+	<div class="timetable relative font-semibold">
+		<div class="absolute" style="top: {titleOffset}px; left: -80px; transform: translateY(-50%)">Now</div>
+		{#each legendYears as year}
+			<div
+				class="absolute legend-year"
+				style="top: {getYearOffset(year)}px; left: -80px; transform: translateY(-50%); --companies: {companies.length}">
+				{year.getFullYear()}
 			</div>
 		{/each}
 	</div>
+	{#each companies as company}
+		<div class="relative company" style="width: {barWidth}px">
+			<h4 class="absolute text-center company-title font-semibold">
+				{@html company.title}
+			</h4>
+			<div class="absolute jobs" style="width: {barWidth}px">
+				{#each company.jobs as job}
+					<div
+						class="bg-white-700 dark:bg-blue-800 rounded-lg absolute job"
+						style="height: {getDuration(job)}px; width: 40px; top: {getStartPoint(job)}px"
+						class:studies="{job.tags !== undefined ? job.tags.includes('studies') > 0 : false}">
+						<div
+							class="job-title pointer-events-none absolute text-sm overflow-ellipsis overflow-hidden text-skin-500 dark:text-blue-600 font-sans">
+							{@html job.title}
+						</div>
+					</div>
+				{/each}
+			</div>
+		</div>
+	{/each}
 </div>
+
+<style lang="scss">
+	.graph {
+		overflow-x: clip;
+		overflow-y: visible;
+	}
+
+	.legend-year:before {
+		@apply border;
+		@apply border-white-700;
+		@apply dark:border-blue-800;
+		content: attr(data-companies);
+		position: absolute;
+		height: 1px;
+		width: calc((var(--companies) + 1) * (40px + 1rem));
+		border-width: 1px;
+		top: 50%;
+		left: calc(100% + 20px);
+		transform: translateY(-50%);
+	}
+
+	.timetable {
+		height: 100%;
+	}
+
+	.studies {
+		--color: theme(colors.white.500);
+		background-image: repeating-linear-gradient(
+			45deg,
+			transparent,
+			transparent 15px,
+			var(--color) 15px,
+			var(--color) 30px
+		);
+		background-blend-mode: normal;
+	}
+
+	:global(.dark) .studies {
+			--color: theme(colors.blue.900);
+	}
+
+	.hidden {
+		opacity: 1;
+	}
+
+	.jobs {
+		left: 50%;
+		transform: translateX(-50%);
+	}
+
+	.company:hover .company-title {
+		opacity: 1;
+	}
+
+	.job:hover .job-title {
+		opacity: 1;
+	}
+
+	.company-title,
+	.job-title {
+		transition: opacity ease-in-out 500ms;
+		width: max-content;
+		transform: translateX(-50%);
+	}
+
+	.company-title {
+		position: absolute;
+		left: 50%;
+		display: block;
+		transform: rotateZ(-60deg);
+		transform-origin: left;
+	}
+
+	.job .job-title {
+		width: 104px;
+		z-index: 900;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%) !important;
+		text-align: center;
+	}
+</style>
