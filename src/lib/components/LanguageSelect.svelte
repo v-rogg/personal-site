@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto, preloadData } from "$app/navigation";
+	import { goto } from "$app/navigation";
 	import { slugStore } from "../stores";
 	import { l, t, locale, locales } from "$lib/_i18n";
 	import { get } from "svelte/store";

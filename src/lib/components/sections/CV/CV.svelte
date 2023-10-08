@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { t } from "$lib/_i18n";
 
-	import * as one from "./content/xentral.json";
-	import * as d3 from "d3";
-
 	export let blok;
 
 	const heightPerYear = 150;
