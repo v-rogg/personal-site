@@ -40,7 +40,7 @@ jobs:
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: |
           flyctl deploy \
-          --config fly.staging.toml \
+          --config fly.production.toml \
           --build-secret ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }} \
           --build-secret PUBLIC_FAUNA_GQL_ENDPOINT=${{ vars.PUBLIC_FAUNA_GQL_ENDPOINT }} \
           --build-secret PUBLIC_FAUNA_SECRET=${{ secrets.PUBLIC_FAUNA_SECRET }} \
