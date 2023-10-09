@@ -12,3 +12,5 @@ node_modules
 /.idea/codeStyles/Project.xml
 .graphqlconfig
 bun.lockb
+/localhost.pem
+/localhost-key.pem
