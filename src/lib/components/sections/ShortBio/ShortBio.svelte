@@ -6,17 +6,13 @@
 
 <section>
 	<h1 class="text-4xl text-center font-semibold mb-4 font-sans">Valentin Rogg</h1>
-	<p class="text-center my-4 flex flex-wrap justify-center">
+	<p class="text-center my-4 flex flex-wrap justify-center max-sm:mx-10">
 		{#each flags as flag}
 			<span class="block">{flag}</span>
 		{/each}
 	</p>
-	<p class="text-center font-serif text-md-lg">
-	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		{@html $t("bio.description").replace(
-			"project_placeholder",
-			`<a href='/${$locale}' class="bold">Parley</a>`
-		)}
+	<p class="text-center font-serif text-md-lg whitespace-pre-wrap max-sm:mx-10 max-w-2xl mx-auto">
+		{@html $t("bio.description")}
 	</p>
 
 	<div class="w-max mt-16 mb-6 mx-auto text-2xl">

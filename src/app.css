@@ -24,9 +24,9 @@
   --fs-10: 1rem;
   --fs-08: .875rem;
 
-  --ff-sans: "Two Inter", sans-serif;
-  --ff-handwriting: "Caveat", sans-serif;
-  --ff-display: "Two Candid", sans-serif;
+  --ff-sans: "Two Candid", sans-serif;
+  --ff-handwriting: "Two Caveat", sans-serif;
+  --ff-display: "Two Pulp Display", sans-serif;
 }
 
 .light {
@@ -118,9 +118,3 @@ button {
 .container-tight {
   padding: 0 4rem;
 }
-
-/*@media (max-width: 540px) {*/
-/*  .container {*/
-/*    padding: 0 2rem;*/
-/*  }*/
-/*}*/

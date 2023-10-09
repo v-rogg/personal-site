@@ -80,7 +80,7 @@
 	class="graph container flex mx-auto justify-center gap-4 mt-28 mb-28 relative"
 	style="height: {graphHeight}px; width: {(companies.length + 1) * (barWidth + 16) + 140}px">
 	<div class="timetable relative font-semibold">
-		<div class="absolute" style="top: {titleOffset}px; left: -80px; transform: translateY(-50%)">Now</div>
+		<div class="absolute" style="top: {titleOffset}px; left: -80px; transform: translateY(-50%)">{$t("cv.now")}</div>
 		{#each legendYears as year}
 			<div
 				class="absolute legend-year"
@@ -173,6 +173,7 @@
 		transition: opacity ease-in-out 500ms;
 		width: max-content;
 		transform: translateX(-50%);
+		z-index: 900;
 	}
 
 	.company-title {
@@ -185,7 +186,6 @@
 
 	.job .job-title {
 		width: 104px;
-		z-index: 900;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%) !important;

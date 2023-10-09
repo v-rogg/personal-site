@@ -28,11 +28,11 @@ export default {
       }
     },
     fontFamily: {
-      sans: ["Candid", "sans-serif"],
-      handwriting: ["Caveat", "sans-serif"],
-      serif: ["PT Serif", "serif"],
-      display: ["Pulp Display", "sans-serif"],
-      mono: ["JetBrains Mono", "monospace"]
+      sans: ["Two Candid", "sans-serif"],
+      handwriting: ["Two Caveat", "sans-serif"],
+      serif: ["Two PT Serif", "serif"],
+      display: ["Two Pulp Display", "sans-serif"],
+      mono: ["Two JetBrains Mono", "monospace"]
     },
     extend: {
       fontSize: {
