@@ -39,7 +39,7 @@
     "xss": "^1.0.14"
   },
   "scripts": {
-    "dev": "vite dev --port=8080 --host",
+    "dev": "vite dev --port=8080 --host --config=vite.config.js",
     "build": "vite build --config=vite.build.config.js",
     "package": "svelte-kit package",
     "preview": "vite preview",
