@@ -23,7 +23,7 @@ RUN apt-get update -qq && \
     apt-get install -y python3 build-essential pkg-config
 
 # Install node modules
-COPY --link .npmrc package.json ./
+COPY --link .npmrc package.json package-lock.json ./
 RUN npm ci --include=dev
 
 # Copy application code
