@@ -106,6 +106,11 @@
 			target="_blank"
 			aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
 		<a
+			href="https://www.youtube.com/@roggnroll"
+			rel="noreferrer nofollow"
+			target="_blank"
+			aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+		<a
 			href="mailto:mail@valentinrogg.de"
 			rel="noreferrer nofollow"
 			target="_blank"
