@@ -4,5 +4,8 @@
   "pref": "Vorherige Zeichnung",
   "new": "Neue Zeichnung",
   "clear": "Zeichnung löschen",
-  "save": "Zeichnung speichern"
+  "save": "Zeichnung speichern",
+  "draw": "Zeichnen",
+  "erase": "Radieren",
+  "submit_alert": "Deine Zeichnung wurde hochgeladen. Nachdem sie freigegeben wurde ist sie für jeden sichtbar."
 }

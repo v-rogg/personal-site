@@ -1,14 +1,13 @@
 import type { PageServerLoad } from "./$types";
-import { gql } from "graphql-request";
 import type { Pagination, Signature } from "$lib/fauna-gql/schema";
-import { fail } from "@sveltejs/kit";
 import type { Actions } from "@sveltejs/kit";
-import { getPrivateClient } from "$lib/fauna-gql/private.client";
+import { fail } from "@sveltejs/kit";
 import { Client, fql } from "fauna";
 import { PUBLIC_FAUNA_SECRET } from "$env/static/public";
+import { FAUNA_SECRET } from "$env/static/private";
 
 export const actions: Actions = {
-	create: async ({ request, fetch }) => {
+	create: async ({ request }) => {
 		const form = await request.formData();
 		const data = <Signature>JSON.parse(form.get("data")?.toString() || "{}");
 
@@ -18,45 +17,18 @@ export const actions: Actions = {
 		data.ts_created = Date.now() * 1000;
 		data.status = "new";
 
-		const client = getPrivateClient(fetch);
+		console.log(data);
 
-		const creation: Signature = await client
-			.request(
-				gql`
-					mutation ($data: SignatureInput!) {
-						createSignature(data: $data) {
-							_id
-							_ts
-							name
-							status
-							ts_created
-							signature {
-								penColor
-								minWidth
-								maxWidth
-								dotSize
-								points {
-									x
-									y
-									time
-									pressure
-								}
-							}
-						}
-					}
-				`,
-				{
-					data
-				}
-			)
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			.then((res) => res.createSignature)
-			.catch((err) => {
-				console.log(err);
-			});
+		const fClient = new Client({ secret: FAUNA_SECRET });
+		// const client = getPrivateClient(fetch);
 
-		return creation;
+		try {
+			return await fClient
+				.query<Signature>(fql`signatures.create(${data})`, { format: "simple" })
+				.then((res) => res.data);
+		} catch (error) {
+			return fail(500, { msg: String(error) });
+		}
 	}
 };
 
@@ -94,7 +66,7 @@ export const load: PageServerLoad = async () => {
 
 			return {
 				signatureRefs: signatureRefs,
-				currentSignature: firstResult,
+				currentSignature: firstResult
 			};
 		} else {
 			return {
@@ -103,8 +75,5 @@ export const load: PageServerLoad = async () => {
 		}
 	} catch (error) {
 		return fail(500, { msg: String(error) });
-	}
-	return {
-		"msg": "Hello"
 	}
 };

@@ -1,19 +1,15 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import SignaturePad from "signature_pad";
-	import {
-		darkMode,
-		admin
-	} from "$lib/stores";
+	import { darkMode, admin } from "$lib/stores";
 	import {
 		currentSignatureStore,
 		refIndexStore,
 		signatureRefsStore
-	} from "$lib/components/sections/EyeCatcher/signature.stores"
+	} from "$lib/components/sections/EyeCatcher/signature.stores";
 	import { t } from "$lib/_i18n";
 	import xss from "xss";
 	import type { Signature, SignatureData } from "$lib/fauna-gql/schema";
-	import { tweened } from "svelte/motion";
 	import { enhance } from "$app/forms";
 	import { fade } from "svelte/transition";
 	import { Client, fql } from "fauna";
@@ -21,20 +17,14 @@
 
 	let canvas: HTMLCanvasElement;
 	let pad: HTMLDivElement;
-	let signaturePad: SignaturePad;
+	let signaturePad;
 	let currentSignature: Signature;
-	let empty = true;
 	let drawModeActive = false;
-	let progressBarTween = tweened(0, { duration: 400 });
-	progressBarTween.subscribe((n) => {
-		if (n >= 100) {
-			progressBarTween.update(() => 0, { duration: 0 });
-		}
-	});
+	let eraseModeActive = false;
 
 	function clearCanvas() {
+		switchToDraw()
 		signaturePad.clear();
-		empty = signaturePad.isEmpty();
 	}
 
 	function centerSignature(data): SignatureData[] {
@@ -86,9 +76,13 @@
 
 		drawModeActive = false;
 
-		let res = await fClient.query<Signature>(fql`
+		let res = await fClient
+			.query<Signature>(
+				fql`
 			signatures.where(.id == ${$signatureRefsStore[deltaIndex].id}).first()
-		`).then(res => res.data)
+		`
+			)
+			.then((res) => res.data);
 
 		$refIndexStore = deltaIndex;
 		$currentSignatureStore = res;
@@ -108,6 +102,7 @@
 
 	function newCanvas() {
 		drawModeActive = true;
+		switchToDraw();
 
 		$currentSignatureStore = <Signature>{
 			name: null,
@@ -115,6 +110,20 @@
 		};
 
 		signaturePad.on();
+	}
+
+	function switchToErase() {
+		eraseModeActive = true;
+		signaturePad.compositeOperation = 'destination-out';
+		signaturePad.minWidth = 10
+		signaturePad.maxWidth = 10
+	}
+
+	function switchToDraw() {
+		eraseModeActive = false;
+		signaturePad.compositeOperation = 'source-over';
+		signaturePad.minWidth = 0.5
+		signaturePad.maxWidth = 2.5
 	}
 
 	onMount(() => {
@@ -131,7 +140,6 @@
 			currentSignature = $currentSignatureStore;
 			currentSignature.signature = centerSignature(signaturePad.toData());
 			$currentSignatureStore = currentSignature;
-			empty = signaturePad.isEmpty();
 		});
 
 		window.onresize = resizeCanvas;
@@ -139,110 +147,18 @@
 
 		currentSignatureStore.subscribe((data: Signature) => {
 			if (data !== <Signature>undefined) {
-				// console.log(data);
 				if (Object.keys(data).length > 0) {
 					signaturePad.fromData(uncenterSignature(data.signature));
-					// signaturePad.fromData(uncenterSignature(currentSignature.data.signature));
-					// centeredData = currentSignature;
 				}
 			} else {
 				signaturePad.clear();
 			}
 		});
-
-		// <!--/* Rafael Nockmann, 2017-09-10 */-->
-		// <!--/* Dieses Skript erkennt horizontale Touchgesten. */-->
-		//
-		// <!--/* START Optionen */-->
-		//
-		// <!--// Mindestdauer der Wischgeste in ms.-->
-		// <!--var durationMin = 100;-->
-		//
-		// <!--// Zurückgelegte Mindestdistanz auf der X-Koordinate.-->
-		// <!--var distanceTraveledMin = 100;-->
-		//
-		// <!--// Abweichung vom Kurs.-->
-		// <!--// Beispiel: Wenn eine Wischbewegung von links nach rechts erkannt werden soll, der Wert, den die Wischgeste nach oben oder unten verrutschen darf -> Toleranz-->
-		// <!--var courceTolerance = 150;-->
-		//
-		// <!--// Element, das auf Wischgeste geprüft werden soll.-->
-		//
-		// <!--var startX = null;-->
-		// <!--var startY = null;-->
-		// <!--var starttime = null;-->
-		//
-		// <!--swipePad.ontouchstart = function (e) {-->
-		// <!--	startX = e.changedTouches[0].pageX;-->
-		// <!--	startY = e.changedTouches[0].pageY;-->
-		// <!--	starttime = new Date().getTime();-->
-		// <!--};-->
-		//
-		// <!--swipePad.ontouchend = function (e) {-->
-		// <!--	var endX = e.changedTouches[0].pageX;-->
-		// <!--	var endY = e.changedTouches[0].pageY;-->
-		// <!--	var endtime = new Date().getTime();-->
-		//
-		// <!--	verifyHorizontalSwipe(endX, endY, endtime);-->
-		// <!--};-->
-		//
-		// <!--function verifyHorizontalSwipe(endX, endY, endtime) {-->
-		// <!--	// Dauer der Touchgeste in ms:-->
-		// <!--	var duration = endtime - starttime;-->
-		// <!--	// Distanz der Touchgeste in Pixel:-->
-		// <!--	var distanceTraveled = endX - startX;-->
-		// <!--	// Abweichung der Touchgeste nach oben oder unten in Pixel:-->
-		// <!--	var deviation = Math.abs(endY - startY);-->
-		//
-		// <!--	if (-->
-		// <!--		duration >= durationMin &&-->
-		// <!--		Math.abs(distanceTraveled) >= distanceTraveledMin &&-->
-		// <!--		deviation <= courceTolerance-->
-		// <!--	) {-->
-		// <!--		if (Math.sign(distanceTraveled) == 1) {-->
-		// <!--			if ($refIndexStore > 0) loadDelta(-1);-->
-		// <!--		} else if (Math.sign(distanceTraveled) == -1) {-->
-		// <!--			if ($signatureRefsStore.length - $refIndexStore - 1 > 0) loadDelta(1);-->
-		// <!--		}-->
-		// <!--	} else {-->
-		// <!--		// alert(-->
-		// <!--		// 	"Keine Wischgeste erkannt\n" +-->
-		// <!--		// 		"Dauer: " +-->
-		// <!--		// 		duration +-->
-		// <!--		// 		"\nZurückgelegte Strecke: " +-->
-		// <!--		// 		Math.abs(distanceTraveled) +-->
-		// <!--		// 		"\nKursabweichung: " +-->
-		// <!--		// 		deviation-->
-		// <!--		// );-->
-		// <!--	}-->
-		// <!--}-->
-		//
-		// <!--/* Touchgeste soll nicht als Zoom oder Scrollen erkannt werden, wenn der User im entsprechenden Element auf der Seite eine Touchgeste ausführt. */-->
-		// <!--swipePad.ontouchmove = function (e) {-->
-		// <!--	e.preventDefault();-->
-		// <!--};-->
-		//
-		// <!--/* Maussimulation */-->
-		//
-		// <!--swipePad.onmousedown = function (e) {-->
-		// <!--	startX = e.pageX;-->
-		// <!--	startY = e.pageY;-->
-		// <!--	starttime = new Date().getTime();-->
-		// <!--};-->
-		// swipePad.onmouseup = function (e) {
-		// 	var endX = e.pageX;
-		// 	var endY = e.pageY;
-		// 	var endtime = new Date().getTime();
-		//
-		// 	verifyHorizontalSwipe(endX, endY, endtime);
-		// };
 	});
-
-	// let swipePad;
 </script>
 
 <div id="pad">
 	<canvas id="signature" bind:this="{canvas}" class:dark="{$darkMode}"></canvas>
-	<!--	<div class="swipe" bind:this="{swipePad}"></div>-->
 	<div class="container container-tight">
 		<div class="overlay">
 			{#if !drawModeActive && $signatureRefsStore}
@@ -270,7 +186,7 @@
 				<form
 					method="post"
 					action="?/create"
-					use:enhance="{({ data, cancel }) => {
+					use:enhance="{({ formData, cancel }) => {
 						const signature = centerSignature(signaturePad.toData());
 						if (signature.length === 0) {
 							cancel();
@@ -283,28 +199,27 @@
 								signature
 							});
 
-							data.set('data', json);
+							formData.set('data', json);
 						}
 
 						return async ({ result }) => {
 							if (result.status === 200) {
-								$currentSignatureStore.status = result.data.status;
-								let signatureRefs = $signatureRefsStore;
-								signatureRefs.push(result.data._id);
-								$signatureRefsStore = signatureRefs;
+								alert($t('signature.submit_alert'))
 								$currentSignatureStore = result.data;
+								let signatureRefs = $signatureRefsStore;
+								signatureRefs.push({id: result.data.id});
 								$refIndexStore = signatureRefs.length - 1;
+								$signatureRefsStore = signatureRefs;
+								console.log($signatureRefsStore)
 
+								switchToDraw();
 								drawModeActive = false;
 								signaturePad.off();
 							}
 						};
 					}}"
 					style="pointer-events: all">
-					<button
-						id="save"
-						aria-label="{$t('signature.save')}"
-						transition:fade="{{ duration: 250 }}">
+					<button id="save" aria-label="{$t('signature.save')}" transition:fade="{{ duration: 250 }}">
 						<i class="fa-solid fa-floppy-disk"></i>
 					</button>
 				</form>
@@ -315,9 +230,23 @@
 					transition:fade="{{ duration: 250 }}">
 					<i class="fa-duotone fa-trash"></i>
 				</button>
-				<!--      <button id="exit" on:click={() => clearCanvas()}>-->
-				<!--        <i class="fa-solid fa-xmark-large"></i>-->
-				<!--      </button>-->
+				{#if !eraseModeActive}
+				<button
+					id="erase"
+					on:click="{() => switchToErase()}"
+					aria-label="{$t('signature.erase')}"
+					transition:fade="{{ duration: 250 }}">
+					<i class="fa-solid fa-eraser"></i>
+				</button>
+				{:else}
+					<button
+						id="draw"
+						on:click="{() => switchToDraw()}"
+						aria-label="{$t('signature.draw')}"
+						transition:fade="{{ duration: 250 }}">
+						<i class="fa-solid fa-pen"></i>
+					</button>
+				{/if}
 			{:else if !$admin}
 				<button
 					id="new"
@@ -329,26 +258,9 @@
 			{/if}
 		</div>
 	</div>
-
-	{#if $progressBarTween > 0}
-		<div
-			class="progress-bar"
-			role="progressbar"
-			aria-valuenow="{$progressBarTween}"
-			style="width: {$progressBarTween}%">
-		</div>
-	{/if}
 </div>
 
 <style lang="scss">
-	.progress-bar {
-		position: absolute;
-		bottom: 0;
-		height: 2px;
-		background: var(--c-primary);
-		z-index: 1;
-	}
-
 	#signature {
 		z-index: 100;
 		position: absolute;
@@ -373,13 +285,6 @@
 		position: absolute;
 	}
 
-	//.swipe {
-	//	height: 100%;
-	//	width: 100%;
-	//	position: absolute;
-	//	z-index: 750;
-	//}
-
 	.container {
 		position: absolute;
 		height: 100%;
@@ -389,12 +294,6 @@
 		z-index: 800;
 		pointer-events: none;
 	}
-
-	//@media (max-width: 540px) {
-	//	.container {
-	//		width: calc(100% + 2rem);
-	//	}
-	//}
 
 	.overlay {
 		position: relative;
@@ -422,7 +321,9 @@
 	#next,
 	#prev,
 	#new,
-	#save {
+	#save,
+	#erase,
+	#draw {
 		pointer-events: all;
 
 		&:hover {
@@ -474,6 +375,11 @@
 		width: 38px;
 		height: 38px;
 		font-size: 14px;
+	}
+
+	#erase, #draw {
+		right: .5rem;
+		bottom: calc(6rem + .5rem);
 	}
 
 	/*#exit {*/
