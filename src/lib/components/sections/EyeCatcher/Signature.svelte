@@ -207,10 +207,9 @@
 								alert($t('signature.submit_alert'))
 								$currentSignatureStore = result.data;
 								let signatureRefs = $signatureRefsStore;
-								signatureRefs.push({id: result.data.id});
-								$refIndexStore = signatureRefs.length - 1;
+								signatureRefs.splice($refIndexStore + 1, 0, ({id: result.data.id}));
 								$signatureRefsStore = signatureRefs;
-								console.log($signatureRefsStore)
+								$refIndexStore += 1;
 
 								switchToDraw();
 								drawModeActive = false;
