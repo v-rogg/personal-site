@@ -2,7 +2,7 @@
 	import { darkMode } from "$lib/stores";
 	import { t } from "$lib/_i18n";
 	import { currentSignatureStore, signatureRefsStore } from "$lib/components/sections/EyeCatcher/signature.stores";
-	import "../app.css";
+	import "../app.scss";
 	import { onMount } from "svelte";
 	import * as cookie from "cookie";
 	import { PUBLIC_TELEMETRYDECK_APP_ID } from "$env/static/public";

@@ -71,10 +71,21 @@
 
 html,
 body {
+  --white-500: theme(colors.white.500);
+  --white-700: theme(colors.white.700);
+  --skin-500: theme(colors.skin.500);
   font-family: var(--ff-sans);
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  scrollbar-color: var(--skin-500) var(--white-500);
+  scrollbar-width: thin;
+}
+
+html.dark, body.dark {
+  --blue-900: theme(colors.blue.900);
+  --blue-700: theme(colors.blue.700);
+  scrollbar-color: var(--blue-700) var(--blue-900);
 }
 
 a {
