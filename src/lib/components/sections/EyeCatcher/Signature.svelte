@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { onMount, onDestroy } from "svelte";
 	import SignaturePad from "signature_pad";
 	import { darkMode, admin } from "$lib/stores";
 	import {
@@ -9,11 +9,11 @@
 	} from "$lib/components/sections/EyeCatcher/signature.stores";
 	import { t } from "$lib/_i18n";
 	import xss from "xss";
-	import type { Signature, SignatureData } from "$lib/fauna-gql/schema";
 	import { enhance } from "$app/forms";
 	import { fade } from "svelte/transition";
-	import { Client, fql } from "fauna";
-	import { PUBLIC_FAUNA_SECRET } from "$env/static/public";
+	import { getPublicFaunaClient } from "$lib/fauna/fauna.public";
+	import { loadDelta } from "$lib/components/sections/EyeCatcher/signature.helpers";
+	import type { Signature, SignatureData } from "$lib/fauna/schema";
 
 	let canvas: HTMLCanvasElement;
 	let pad: HTMLDivElement;
@@ -67,25 +67,11 @@
 		return centeredData;
 	}
 
-	const fClient = new Client({ secret: PUBLIC_FAUNA_SECRET });
+	const fauna = getPublicFaunaClient();
 
-	async function loadDelta(delta) {
-		const deltaIndex = $refIndexStore + delta;
-
-		if (deltaIndex < 0 || deltaIndex >= $signatureRefsStore.length) return;
-
+	async function loadSignature(delta) {
 		drawModeActive = false;
-
-		let res = await fClient
-			.query<Signature>(
-				fql`
-			signatures.where(.id == ${$signatureRefsStore[deltaIndex].id}).first()
-		`
-			)
-			.then((res) => res.data);
-
-		$refIndexStore = deltaIndex;
-		$currentSignatureStore = res;
+		loadDelta(delta, fauna);
 	}
 
 	function resizeCanvas() {
@@ -155,6 +141,10 @@
 			}
 		});
 	});
+
+	onDestroy(() => {
+		fauna.close();
+	})
 </script>
 
 <div id="pad">
@@ -165,7 +155,7 @@
 				{#if $signatureRefsStore.length - $refIndexStore - 1 > 0}
 					<button
 						id="next"
-						on:click="{() => loadDelta(1)}"
+						on:click="{() => loadSignature(1)}"
 						aria-label="{$t('signature.next')}"
 						transition:fade="{{ duration: 150 }}">
 						<i class="fa-solid fa-angle-right"></i>
@@ -174,7 +164,7 @@
 				{#if $refIndexStore > 0}
 					<button
 						id="prev"
-						on:click="{() => loadDelta(-1)}"
+						on:click="{() => loadSignature(-1)}"
 						aria-label="{$t('signature.prev')}"
 						transition:fade="{{ duration: 250 }}">
 						<i class="fa-solid fa-angle-left"></i>
@@ -381,15 +371,6 @@
 		bottom: calc(6rem + .5rem);
 	}
 
-	/*#exit {*/
-	/*  right: -2rem;*/
-	/*  bottom: calc(1.5rem + 2px);*/
-	/*  background: none;*/
-	/*  width: 38px;*/
-	/*  height: 38px;*/
-	/*  font-size: 14px;*/
-	/*}*/
-
 	:global(#clear .fa-secondary) {
 		opacity: 1 !important;
 	}
@@ -404,9 +385,4 @@
 		transform: translateY(-10%) rotate(12deg);
 	}
 
-	/*.overlay {*/
-	/*  position: absolute;*/
-	/*  right: 0;*/
-	/*  bottom: 2rem;*/
-	/*}*/
 </style>

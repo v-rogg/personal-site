@@ -2,102 +2,28 @@
 	import { currentSignatureStore, refIndexStore, signatureRefsStore } from "$lib/components/sections/EyeCatcher/signature.stores";
 	import { enhance } from "$app/forms";
 	import { page } from "$app/stores";
-	import type { Signature, SignaturesResponse } from "$lib/fauna-gql/schema";
-	import { gql } from "graphql-request";
-	import { fail } from "@sveltejs/kit";
-	import { client } from "$lib/fauna-gql/public.client";
+	import { goto } from "$app/navigation";
 
 	const password = $page.url.searchParams.get("pa");
+
+	console.log("mounted");
 
 	enum Filter {
 		New,
 		All
 	}
 
-	let filter = Filter.New;
-
-	async function reloadSignatures() {
-		let reloadedSignatures: SignaturesResponse;
-
-		if (filter === Filter.New) {
-			reloadedSignatures = await client
-				.request(
-					gql`
-						query {
-							allNewSignatures {
-								data {
-									_id
-								}
-							}
-						}
-					`
-				)
-				.then((res) => res.allNewSignatures)
-				.catch((err) => {
-					console.log(err);
-				});
-		} else if (filter === Filter.All) {
-			reloadedSignatures = await client
-				.request(
-					gql`
-						query {
-							allSignatures {
-								data {
-									_id
-								}
-							}
-						}
-					`
-				)
-				.then((res) => res.allSignatures)
-				.catch((err) => {
-					console.log(err);
-				});
-		}
-
-		if (!reloadedSignatures.data) return fail(500, { msg: "query failed" });
-
-		if (reloadedSignatures.data.length > 0) {
-			const firstResult = await client
-				.request(
-					gql`
-						query ($id: ID!) {
-							findSignatureByID(id: $id) {
-								_id
-								_ts
-								name
-								status
-								ts_created
-								signature {
-									penColor
-									minWidth
-									maxWidth
-									dotSize
-									points {
-										x
-										y
-										time
-										pressure
-									}
-								}
-							}
-						}
-					`,
-					{ id: reloadedSignatures.data[0]._id }
-				)
-				.then((res) => res.findSignatureByID)
-				.catch((err) => {
-					console.log(err);
-				});
-
-			$signatureRefsStore = reloadedSignatures.data;
-			$currentSignatureStore = firstResult;
-			$refIndexStore = 0;
-		} else {
-			$signatureRefsStore = reloadedSignatures.data;
-			$currentSignatureStore = <Signature>undefined;
-			$refIndexStore = 0;
-		}
+	let filter;
+	switch ($page.url.searchParams.get("filter")) {
+		case "new":
+			filter = Filter.New
+			break;
+		case "all":
+			filter = Filter.All
+			break;
+		default:
+			filter = Filter.New;
+			break;
 	}
 </script>
 
@@ -107,11 +33,23 @@
 			<form
 				class="admin-panel"
 				method="post"
-				use:enhance="{({ data }) => {
-					data.set('id', $currentSignatureStore?._id);
+				use:enhance="{({ formData }) => {
+					formData.set('id', $currentSignatureStore?.id);
 
 					return async ({ result }) => {
-						if (result.status === 200) $currentSignatureStore.status = result.data.status;
+						if (result.status === 200) {
+
+							if (result.data.status) {
+								$currentSignatureStore.status = result.data.status;
+							}
+							if (result.data.deleted) {
+								$currentSignatureStore.status = 'deleted';
+								let refs = $signatureRefsStore;
+								refs.splice($refIndexStore, 1);
+								$signatureRefsStore = refs;
+								$refIndexStore = 0;
+							}
+						}
 					};
 				}}">
 				<button
@@ -128,6 +66,12 @@
 						$currentSignatureStore?.status !== 'new'}">
 					<i class="fa-regular fa-xmark"></i>
 				</button>
+				<button
+					id="delete"
+					class="before:bg-skin-500"
+					formaction="?/delete&pa={password}">
+					<i class="fa-solid fa-trash"></i>
+				</button>
 			</form>
 		{/if}
 		<div class="filter">
@@ -140,7 +84,8 @@
 			<button
 				on:click="{() => {
 					filter = Filter.New;
-					reloadSignatures();
+					$page.url.searchParams.set('filter', 'new');
+					goto($page.url, {invalidateAll: true});
 				}}"
 				class="filter_switch"
 				class:active="{filter === Filter.New}"
@@ -148,7 +93,8 @@
 			<button
 				on:click="{() => {
 					filter = Filter.All;
-					reloadSignatures();
+					$page.url.searchParams.set('filter', 'all');
+					goto($page.url, {invalidateAll: true});
 				}}"
 				class="filter_switch"
 				class:active="{filter === Filter.All}"
@@ -179,7 +125,7 @@
 		left: 50%;
 		transform: translateX(-50%);
 		display: grid;
-		grid-template-columns: repeat(2, 3rem);
+		grid-template-columns: repeat(3, 3rem);
 		align-items: center;
 		gap: 2rem;
 	}
@@ -190,7 +136,8 @@
 	}
 
 	#approve,
-	#decline {
+	#decline,
+	#delete {
 		border: none;
 		font-size: 1rem;
 		z-index: 250;
@@ -204,7 +151,8 @@
 	}
 
 	#approve:before,
-	#decline:before {
+	#decline:before,
+	#delete:before {
 		content: "";
 		position: absolute;
 		transition: 100ms ease-in-out;
@@ -217,7 +165,8 @@
 	}
 
 	#approve:hover,
-	#decline:hover {
+	#decline:hover,
+	#delete:hover {
 		opacity: 1;
 		cursor: pointer;
 	}
@@ -303,10 +252,6 @@
 		}
 	}
 
-	.filter_switch > span {
-		//transform: translateY(-1px);
-	}
-
 	.active {
 		font-weight: 700;
 		&:before {
@@ -320,12 +265,10 @@
 	}
 
 	.filter_switch:hover:not(.active) {
-		//background: var(--c-bg-hover);
 		cursor: pointer;
 	}
 
 	.filter_switch:active:not(.active) {
-		//background: var(--c-bg-active);
 		cursor: default;
 	}
 </style>

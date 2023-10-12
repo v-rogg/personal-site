@@ -3,6 +3,7 @@
 	import { t } from "$lib/_i18n";
 	import EyeCatcher from "$lib/components/sections/EyeCatcher/EyeCatcher.svelte";
 	import Header from "$lib/components/Header.svelte";
+	import { beforeUpdate } from "svelte";
 
 	export let data: {
 		lang: string;
@@ -16,6 +17,11 @@
 		currentSignatureStore.set(data.currentSignature);
 		signatureRefsStore.set(data.signatureRefs);
 	}
+
+	beforeUpdate(() => {
+		currentSignatureStore.set(data.currentSignature);
+		signatureRefsStore.set(data.signatureRefs);
+	})
 </script>
 
 <svelte:head>

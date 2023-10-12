@@ -1,5 +1,5 @@
-import type { Signature } from "$lib/fauna-gql/schema";
 import { writable } from "svelte/store";
+import type { Signature } from "$lib/fauna/schema";
 
 export const currentSignatureStore = writable(<Signature>{});
 export const signatureRefsStore = writable([]);

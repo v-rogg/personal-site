@@ -1,132 +1,126 @@
 import type { PageServerLoad } from "./$types";
-import { gql } from "graphql-request";
-import type { ID, SignaturesResponse, Signature } from "$lib/fauna-gql/schema";
 import type { Actions } from "@sveltejs/kit";
 import { fail } from "@sveltejs/kit";
-import { getPrivateClient } from "$lib/fauna-gql/private.client";
+import { getPrivateFaunaClient } from "$lib/fauna/fauna.private";
+import { fql } from "fauna";
+import type { ID, Pagination, Signature } from "$lib/fauna/schema";
 
-async function updateStatus(
-	_id: ID,
-	status: "approved" | "declined",
-	fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>
-) {
-	const client = getPrivateClient(fetch);
+async function updateStatus(id: ID, status: "approved" | "declined") {
+	const fauna = getPrivateFaunaClient();
 
-	const update: Signature = await client
-		.request(
-			gql`
-				mutation ($id: ID!, $data: PartialUpdateSignatureInput!) {
-					partialUpdateSignature(id: $id, data: $data) {
-						_id
-						_ts
-						status
-					}
-				}
-			`,
-			{
-				id: _id,
-				data: <Signature>{
-					status,
-					ts_moderated: Date.now() * 1000
-				}
-			}
-		)
-		.then((res) => res.partialUpdateSignature)
-		.catch((err) => {
-			console.log(err);
-		});
+	console.log(id);
 
-	return update.status;
+	try {
+		const update: Signature = await fauna
+			.query<Signature>(
+				fql`signatures.byId(${<ID>id})!.update({
+			status: ${status},
+			ts_moderated: ${Date.now() * 1000}
+		})`,
+				{ format: "simple" }
+			)
+			.then((res) => res.data);
+		fauna.close();
+		return update.status;
+	} catch (error) {
+		return fail(500, { msg: String(error) });
+	}
 }
 
 export const actions: Actions = {
-	approve: async ({ request, fetch }) => {
+	approve: async ({ request }) => {
 		const form = await request.formData();
-		const _id = form.get("id")?.toString();
+		const id = form.get("id")?.toString();
 
-		if (!_id) return fail(400, { _id, missing: true });
+		if (!id) return fail(400, { id, missing: true });
 
-		const status = await updateStatus(<ID>_id, "approved", fetch);
+		const status = await updateStatus(<ID>id, "approved");
 
 		return {
 			status
 		};
 	},
-	decline: async ({ request, fetch }) => {
+	decline: async ({ request }) => {
 		const form = await request.formData();
-		const _id = form.get("id")?.toString();
+		const id = form.get("id")?.toString();
 
-		if (!_id) return fail(400, { _id, missing: true });
+		if (!id) return fail(400, { id, missing: true });
 
-		const status = await updateStatus(<ID>_id, "declined", fetch);
+		const status = await updateStatus(<ID>id, "declined");
 
 		return {
 			status
 		};
+	},
+	delete: async ({ request }) => {
+		const form = await request.formData();
+		const id = form.get("id")?.toString();
+
+		if (!id) return fail(400, { id, missing: true });
+
+		const fauna = getPrivateFaunaClient();
+
+		try {
+			await fauna.query(fql`signatures.byId(${id})!.delete()`);
+			fauna.close();
+			return {
+				deleted: true
+			};
+		} catch (error) {
+			return fail(500, { msg: String(error) });
+		}
 	}
 };
 
-export const load: PageServerLoad = async ({ fetch }) => {
-	const client = getPrivateClient(fetch);
+export const load: PageServerLoad = async ({ url }) => {
+	const fauna = getPrivateFaunaClient();
+	const filter = url.searchParams.get("filter") || "new";
 
-	const newSignatures: SignaturesResponse = await client
-		.request(
-			gql`
-				query {
-					allNewSignatures {
-						data {
-							_id
-						}
-					}
-				}
-			`
-		)
-		.then((res) => res.allNewSignatures)
-		.catch((err) => {
-			console.log(err);
-		});
+	try {
 
-	if (!newSignatures.data) return fail(500, { msg: "query failed" });
+		let signatureRefs: Signature[];
+		if (filter === "new") {
+			signatureRefs =
+				(await fauna
+					.query<Pagination<Signature[]>>(
+						fql`signatures.where(.status == "new").take(100) {
+				id
+			}`
+					)
+					.then((res) => res.data.data)) || [];
+		} else {
+			signatureRefs =
+				(await fauna
+					.query<Pagination<Signature[]>>(
+						fql`signatures.all() {
+				id
+			}`
+					)
+					.then((res) => res.data.data)) || [];
+		}
 
-	if (newSignatures.data.length > 0) {
-		const firstResult = await client
-			.request(
-				gql`
-					query ($id: ID!) {
-						findSignatureByID(id: $id) {
-							_id
-							_ts
-							name
-							status
-							ts_created
-							signature {
-								penColor
-								minWidth
-								maxWidth
-								dotSize
-								points {
-									x
-									y
-									time
-									pressure
-								}
-							}
-						}
-					}
-				`,
-				{ id: newSignatures.data[0]._id }
-			)
-			.then((res) => res.findSignatureByID)
-			.catch((err) => {
-				console.log(err);
-			});
-		return {
-			signatureRefs: newSignatures.data,
-			currentSignature: firstResult
-		};
-	} else {
-		return {
-			signatureRefs: newSignatures.data
-		};
+		if (signatureRefs.length > 0) {
+			const firstResult = await fauna
+				.query<Signature>(
+					fql`
+				signatures.where(.id == ${signatureRefs[0].id}).first()
+			`,
+					{ format: "simple" }
+				)
+				.then((res) => res.data);
+
+			fauna.close();
+			return {
+				signatureRefs: signatureRefs,
+				currentSignature: firstResult
+			};
+		} else {
+			fauna.close();
+			return {
+				signatureRefs: signatureRefs
+			};
+		}
+	} catch (error) {
+		return fail(500, { msg: String(error) });
 	}
 };

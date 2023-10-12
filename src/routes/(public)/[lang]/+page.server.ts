@@ -1,10 +1,10 @@
 import type { PageServerLoad } from "./$types";
-import type { Pagination, Signature } from "$lib/fauna-gql/schema";
 import type { Actions } from "@sveltejs/kit";
 import { fail } from "@sveltejs/kit";
-import { Client, fql } from "fauna";
-import { PUBLIC_FAUNA_SECRET } from "$env/static/public";
-import { FAUNA_SECRET } from "$env/static/private";
+import { fql } from "fauna";
+import { getPublicFaunaClient } from "$lib/fauna/fauna.public";
+import { getPrivateFaunaClient } from "$lib/fauna/fauna.private";
+import type { Pagination, Signature } from "$lib/fauna/schema";
 
 export const actions: Actions = {
 	create: async ({ request }) => {
@@ -17,15 +17,14 @@ export const actions: Actions = {
 		data.ts_created = Date.now() * 1000;
 		data.status = "new";
 
-		console.log(data);
-
-		const fClient = new Client({ secret: FAUNA_SECRET });
-		// const client = getPrivateClient(fetch);
+		const fauna = getPrivateFaunaClient();
 
 		try {
-			return await fClient
+			const res = await fauna
 				.query<Signature>(fql`signatures.create(${data})`, { format: "simple" })
 				.then((res) => res.data);
+			fauna.close()
+			return res;
 		} catch (error) {
 			return fail(500, { msg: String(error) });
 		}
@@ -41,11 +40,11 @@ function shuffle(array: Signature[]): Signature[] {
 }
 
 export const load: PageServerLoad = async () => {
-	const fClient = new Client({ secret: PUBLIC_FAUNA_SECRET });
+	const fauna = getPublicFaunaClient();
 
 	try {
 		const signatureRefs =
-			(await fClient
+			(await fauna
 				.query<Pagination<Signature[]>>(
 					fql`
 			signatures.where(.status == "approved").take(100) {
@@ -55,7 +54,7 @@ export const load: PageServerLoad = async () => {
 				.then((res) => shuffle(res.data.data))) || [];
 
 		if (signatureRefs.length > 0) {
-			const firstResult = await fClient
+			const firstResult = await fauna
 				.query<Signature>(
 					fql`
 				signatures.where(.id == ${signatureRefs[0].id}).first()
@@ -64,11 +63,13 @@ export const load: PageServerLoad = async () => {
 				)
 				.then((res) => res.data);
 
+			fauna.close()
 			return {
 				signatureRefs: signatureRefs,
 				currentSignature: firstResult
 			};
 		} else {
+			fauna.close()
 			return {
 				signatureRefs: []
 			};
