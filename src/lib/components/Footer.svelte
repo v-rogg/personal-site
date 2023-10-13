@@ -4,11 +4,6 @@
 
 	let date =
 		env.PUBLIC_VERSION_DATE != undefined ? new Date(env.PUBLIC_VERSION_DATE) : new Date($t("common.last_edited.date"));
-	// if (PUBLIC_VERSION_DATE) {
-	// 	date = new Date(PUBLIC_VERSION_DATE);
-	// } else {
-	// 	date = new Date($t('common.last_edited.date'))
-	// }
 </script>
 
 <footer class="container container-tight">
