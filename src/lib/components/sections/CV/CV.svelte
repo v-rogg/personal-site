@@ -29,7 +29,6 @@
 			years.push(nextYear);
 			nextYear = new Date(nextYear.getFullYear() + 1, 0, 1, 0, 0);
 		}
-		console.log(years);
 		return years;
 	}
 
