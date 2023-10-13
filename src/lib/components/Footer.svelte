@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { t, locale } from "$lib/_i18n";
-	import { env } from "$env/dynamic/public";
+	import { PUBLIC_VERSION_DATE } from "$env/static/public";
 
-	console.log(env.PUBLIC_VERSION_DATE);
+	console.log(PUBLIC_VERSION_DATE);
 
 	let date =
-		env.PUBLIC_VERSION_DATE != undefined ? new Date(env.PUBLIC_VERSION_DATE) : new Date($t("common.last_edited.date"));
+		PUBLIC_VERSION_DATE != undefined && PUBLIC_VERSION_DATE != "" ? new Date(PUBLIC_VERSION_DATE) : new Date($t("common.last_edited.date"));
 </script>
 
 <footer class="container container-tight">
