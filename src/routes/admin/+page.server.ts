@@ -8,8 +8,6 @@ import type { ID, Pagination, Signature } from "$lib/fauna/schema";
 async function updateStatus(id: ID, status: "approved" | "declined") {
 	const fauna = getPrivateFaunaClient();
 
-	console.log(id);
-
 	try {
 		const update: Signature = await fauna
 			.query<Signature>(

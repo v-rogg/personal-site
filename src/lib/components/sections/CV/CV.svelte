@@ -15,37 +15,22 @@
 	$: legendYears = getLegendYears(present, startDate);
 
 	function filterHidden(companies) {
-		let data = []
-		companies.forEach(company => {if (!company.hidden) data.push(company) })
-		return data
+		let data = [];
+		companies.forEach((company) => {
+			if (!company.hidden) data.push(company);
+		});
+		return data;
 	}
 
-	function getLegendYears(present, startDate) {
-		let coeff = 1000 * 60 * 60 * 24 * 365.26;
+	function getLegendYears(present: Date, startDate: Date) {
 		let years = [];
-		let nextYear = new Date(Math.round(startDate.getTime() / coeff) * coeff);
+		let nextYear: Date = new Date(startDate.getFullYear() + 1, 0, 1, 0, 0);
 		while (nextYear < present) {
 			years.push(nextYear);
-			nextYear = new Date(Math.round((nextYear.getTime() + coeff) / coeff) * coeff);
+			nextYear = new Date(nextYear.getFullYear() + 1, 0, 1, 0, 0);
 		}
 		console.log(years);
 		return years;
-	}
-
-	function sortCompanies(companies) {
-		return companies.sort((a, b) => {
-			let aMinDate = present;
-			let bMinDate = present;
-
-			a.jobs.forEach((job) => {
-				if (new Date(job.from) < aMinDate) aMinDate = new Date(job.from);
-			});
-			b.jobs.forEach((job) => {
-				if (new Date(job.from) < bMinDate) bMinDate = new Date(job.from);
-			});
-
-			return bMinDate - aMinDate;
-		});
 	}
 
 	function getStartDate(companies) {
@@ -148,7 +133,7 @@
 	}
 
 	:global(.dark) .studies {
-			--color: theme(colors.blue.900);
+		--color: theme(colors.blue.900);
 	}
 
 	.hidden {
