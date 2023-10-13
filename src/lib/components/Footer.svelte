@@ -1,5 +1,14 @@
 <script lang="ts">
 	import { t, locale } from "$lib/_i18n";
+	import { env } from "$env/dynamic/public";
+
+	let date =
+		env.PUBLIC_VERSION_DATE != undefined ? new Date(env.PUBLIC_VERSION_DATE) : new Date($t("common.last_edited.date"));
+	// if (PUBLIC_VERSION_DATE) {
+	// 	date = new Date(PUBLIC_VERSION_DATE);
+	// } else {
+	// 	date = new Date($t('common.last_edited.date'))
+	// }
 </script>
 
 <footer class="container container-tight">
@@ -8,10 +17,7 @@
 		<div class="copy">
 			<i class="fa-regular fa-copyright"></i>
 			<div class="signature">
-				<svg
-					aria-label="{$t('common.name')}"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 511.28 172.72">
+				<svg aria-label="{$t('common.name')}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.28 172.72">
 					<path
 						d="M12.13,226.36l4-5.75L4.83,220.5A310,310,0,0,0,12.92,297c.74,3.19,3.27,4,6.33,3.66,9.66-1.12,15-9.87,19.58-17.4q8.45-13.77,16.66-27.69Q71.8,228,87.23,199.91q4.33-7.86,8.59-15.77c1.33-2.46,2.59-5,4-7.39.5-.87,1.59-3.22,2.6-3.5,2.72-.76,5.88-2.89,5.63-6.13-.23-3-3.72-4.38-6.33-3.65-10.26,2.86-14,13.11-18.63,21.67q-7.68,14.22-15.61,28.31Q51.78,241.37,35.24,268.8C32.18,273.87,29.12,279,26,284c-1.81,2.92-3.86,6.46-7.43,6.87l6.33,3.65A310.87,310.87,0,0,1,16.79,218c.05-2.43-2.72-3.77-4.78-3.81a7.93,7.93,0,0,0-6.57,3.7l-4.05,5.75c-1.72,2.44.14,5.54,2.72,6.21,3.24.83,6.23-1,8-3.52"
 						transform="translate(-0.72 -163.28)"
@@ -69,53 +75,32 @@
 		</div>
 		<div class="last_edited">
 			{$t("common.last_edited")}
-			{$t("common.last_edited.date")}
+			{date.toLocaleDateString($locale)}
 		</div>
 	</div>
 
 	<div class="links overlay">
-		<a href="https://www.komoot.de/user/2406562570904" rel="noreferrer nofollow"
-			 target="_blank"
-			 aria-label="Komoot">
+		<a href="https://www.komoot.de/user/2406562570904" rel="noreferrer nofollow" target="_blank" aria-label="Komoot">
 			<i class="fa-kit fa-komoot"></i>
 		</a>
 		<span class="overflow_hand cv">
 			<span class="looking_for_cv">{@html $t("common.looking_for_cv")}</span>
 			<span class="hand_arrow">
-				<svg
-					width="9"
-					height="17"
-					viewBox="0 0 9 17"
-					fill="none"
-					class="arrow"
-					xmlns="http://www.w3.org/2000/svg">
+				<svg width="9" height="17" viewBox="0 0 9 17" fill="none" class="arrow" xmlns="http://www.w3.org/2000/svg">
 					<path
 						d="M1.59524 0.236142C2.42858 0.747671 3.30952 1.28245 3.92857 2.00324C6.28572 4.7469 7 8.00209 6.5 11.513C6.33333 12.7221 5.92857 13.8847 5.59524 15.1635C6.7381 14.6055 7.85714 14.2799 9 15.117C7.5 15.303 6.26191 16.0238 5.04762 16.7446C4.90477 16.8143 4.78572 16.8841 4.64286 16.9306C4.04762 17.1166 3.66667 16.9306 3.5 16.3493C3.42858 16.1401 3.42857 15.9075 3.40476 15.6983C3.30952 13.9312 3.07143 12.2106 2.42858 10.5365C2.38096 10.397 2.45238 10.1645 2.47619 9.74594C3.7619 11.234 3.7619 12.9314 4.2619 14.559C5.61905 11.8153 5.92857 9.0949 5.09524 6.28149C4.30952 3.53783 3.07143 1.1662 0 0.236142C0.761905 -0.0428741 1 -0.112628 1.59524 0.236142Z"
 						fill="var(--c-black)"></path>
 				</svg>
 			</span>
-			<a
-				href="https://www.linkedin.com/in/vrogg/"
-				rel="noreferrer nofollow"
-				target="_blank"
-				aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+			<a href="https://www.linkedin.com/in/vrogg/" rel="noreferrer nofollow" target="_blank" aria-label="LinkedIn"
+				><i class="fa-brands fa-linkedin"></i></a>
 		</span>
-		<a
-			href="https://www.instagram.com/valentin_rogg/"
-			rel="noreferrer nofollow"
-			target="_blank"
-			aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-		<a
-			href="https://www.youtube.com/@roggnroll"
-			rel="noreferrer nofollow"
-			target="_blank"
-			aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-		<a
-			href="mailto:mail@valentinrogg.de"
-			rel="noreferrer nofollow"
-			target="_blank"
-			class="mail"
-			aria-label="Mail"><i class="fa-solid fa-envelope"></i></a>
+		<a href="https://www.instagram.com/valentin_rogg/" rel="noreferrer nofollow" target="_blank" aria-label="Instagram"
+			><i class="fa-brands fa-instagram"></i></a>
+		<a href="https://www.youtube.com/@roggnroll" rel="noreferrer nofollow" target="_blank" aria-label="YouTube"
+			><i class="fa-brands fa-youtube"></i></a>
+		<a href="mailto:mail@valentinrogg.de" rel="noreferrer nofollow" target="_blank" class="mail" aria-label="Mail"
+			><i class="fa-solid fa-envelope"></i></a>
 	</div>
 </footer>
 

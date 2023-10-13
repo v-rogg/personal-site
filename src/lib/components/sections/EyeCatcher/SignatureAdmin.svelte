@@ -68,7 +68,7 @@
 				</button>
 				<button
 					id="delete"
-					class="before:bg-skin-500"
+					class="before:bg-skin-500 dark:before:bg-blue-700"
 					formaction="?/delete&pa={password}">
 					<i class="fa-solid fa-trash"></i>
 				</button>

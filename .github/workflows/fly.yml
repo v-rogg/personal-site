@@ -21,6 +21,7 @@ jobs:
           --build-secret PUBLIC_TELEMETRYDECK_APP_ID=${{ secrets.PUBLIC_TELEMETRYDECK_APP_ID }} \
           --build-secret PUBLIC_CF_IMAGES_ENDPOINT=${{ secrets.PUBLIC_CF_IMAGES_ENDPOINT }} \
           --build-secret PUBLIC_STORYBLOK_TOKEN=${{ secrets.PUBLIC_STORYBLOK_TOKEN }} \
+          --build-secret PUBLIC_VERSION_DATE=${{github.event.head_commit.timestamp}} \
           --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
