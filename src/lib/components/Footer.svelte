@@ -2,8 +2,6 @@
 	import { t, locale } from "$lib/_i18n";
 	import { PUBLIC_VERSION_DATE } from "$env/static/public";
 
-	console.log(PUBLIC_VERSION_DATE);
-
 	let date =
 		PUBLIC_VERSION_DATE != undefined && PUBLIC_VERSION_DATE != "" ? new Date(PUBLIC_VERSION_DATE) : new Date($t("common.last_edited.date"));
 </script>
