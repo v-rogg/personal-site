@@ -47,7 +47,7 @@ export const load: PageServerLoad = async () => {
 			(await fauna
 				.query<Pagination<Signature[]>>(
 					fql`
-			signatures.where(.status == "approved").take(100) {
+			signatures.where(.status == "approved").take(1000) {
 				id
 			}`
 				)

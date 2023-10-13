@@ -81,7 +81,7 @@ export const load: PageServerLoad = async ({ url }) => {
 			signatureRefs =
 				(await fauna
 					.query<Pagination<Signature[]>>(
-						fql`signatures.where(.status == "new").take(100) {
+						fql`signatures.where(.status == "new").take(1000) {
 				id
 			}`
 					)
@@ -90,12 +90,16 @@ export const load: PageServerLoad = async ({ url }) => {
 			signatureRefs =
 				(await fauna
 					.query<Pagination<Signature[]>>(
-						fql`signatures.all() {
-				id
-			}`
+						fql`signatures.all().paginate(1000) {
+							data {
+								id
+							}
+						}`
 					)
-					.then((res) => res.data.data)) || [];
+					.then((res) => {console.log(res); return res.data.data})) || [];
 		}
+
+		console.log(signatureRefs.length);
 
 		if (signatureRefs.length > 0) {
 			const firstResult = await fauna
