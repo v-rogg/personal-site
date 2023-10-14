@@ -4,7 +4,7 @@
 	import { sendClientEvent } from "$lib/posthog";
 
 	let date =
-		PUBLIC_VERSION_DATE != undefined && PUBLIC_VERSION_DATE != "" ? new Date(PUBLIC_VERSION_DATE) : new Date($t("common.last_edited.date"));
+		PUBLIC_VERSION_DATE == undefined || PUBLIC_VERSION_DATE == "" ? new Date() : new Date(PUBLIC_VERSION_DATE);
 </script>
 
 <footer class="container container-tight">
