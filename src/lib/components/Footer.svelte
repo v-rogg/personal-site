@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { t, locale } from "$lib/_i18n";
 	import { PUBLIC_VERSION_DATE } from "$env/static/public";
+	import { sendClientEvent } from "$lib/posthog";
 
 	let date =
 		PUBLIC_VERSION_DATE != undefined && PUBLIC_VERSION_DATE != "" ? new Date(PUBLIC_VERSION_DATE) : new Date($t("common.last_edited.date"));
@@ -75,7 +76,7 @@
 	</div>
 
 	<div class="links overlay">
-		<a href="https://www.komoot.de/user/2406562570904" rel="noreferrer nofollow" target="_blank" aria-label="Komoot">
+		<a href="https://www.komoot.de/user/2406562570904" rel="noreferrer nofollow" target="_blank" aria-label="Komoot" on:click={() => sendClientEvent('open-social', document, {social: 'komoot'})}>
 			<i class="fa-kit fa-komoot"></i>
 		</a>
 		<span class="overflow_hand cv">
@@ -87,14 +88,14 @@
 						fill="var(--c-black)"></path>
 				</svg>
 			</span>
-			<a href="https://www.linkedin.com/in/vrogg/" rel="noreferrer nofollow" target="_blank" aria-label="LinkedIn"
+			<a href="https://www.linkedin.com/in/vrogg/" rel="noreferrer nofollow" target="_blank" aria-label="LinkedIn" on:click={() => sendClientEvent('open-social', document, {social: 'linkedin'})}
 				><i class="fa-brands fa-linkedin"></i></a>
 		</span>
-		<a href="https://www.instagram.com/valentin_rogg/" rel="noreferrer nofollow" target="_blank" aria-label="Instagram"
+		<a href="https://www.instagram.com/valentin_rogg/" rel="noreferrer nofollow" target="_blank" aria-label="Instagram" on:click={() => sendClientEvent('open-social', document, {social: 'instagram'})}
 			><i class="fa-brands fa-instagram"></i></a>
-		<a href="https://www.youtube.com/@roggnroll" rel="noreferrer nofollow" target="_blank" aria-label="YouTube"
+		<a href="https://www.youtube.com/@roggnroll" rel="noreferrer nofollow" target="_blank" aria-label="YouTube" on:click={() => sendClientEvent('open-social', document, {social: 'youtube'})}
 			><i class="fa-brands fa-youtube"></i></a>
-		<a href="mailto:mail@valentinrogg.de" rel="noreferrer nofollow" target="_blank" class="mail" aria-label="Mail"
+		<a href="mailto:mail@valentinrogg.de" rel="noreferrer nofollow" target="_blank" class="mail" aria-label="Mail" on:click={() => sendClientEvent('open-social', document, {social: 'mail'})}
 			><i class="fa-solid fa-envelope"></i></a>
 	</div>
 </footer>

@@ -14,6 +14,7 @@
 	import { getPublicFaunaClient } from "$lib/fauna/fauna.public";
 	import { loadDelta } from "$lib/components/sections/EyeCatcher/signature.helpers";
 	import type { Signature, SignatureData } from "$lib/fauna/schema";
+	import { sendClientEvent } from "$lib/posthog";
 
 	let canvas: HTMLCanvasElement;
 	let pad: HTMLDivElement;
@@ -24,6 +25,7 @@
 
 	function clearCanvas() {
 		switchToDraw()
+		sendClientEvent('signature-clear-canvas', document);
 		signaturePad.clear();
 	}
 
@@ -72,6 +74,7 @@
 	async function loadSignature(delta) {
 		drawModeActive = false;
 		loadDelta(delta, fauna);
+		sendClientEvent('signature-load-delta', document);
 	}
 
 	function resizeCanvas() {
@@ -103,6 +106,7 @@
 		signaturePad.compositeOperation = 'destination-out';
 		signaturePad.minWidth = 10
 		signaturePad.maxWidth = 10
+		sendClientEvent('signature-switch-to-erase', document);
 	}
 
 	function switchToDraw() {
@@ -110,6 +114,7 @@
 		signaturePad.compositeOperation = 'source-over';
 		signaturePad.minWidth = 0.5
 		signaturePad.maxWidth = 2.5
+		sendClientEvent('signature-switch-to-draw', document);
 	}
 
 	onMount(() => {
@@ -190,7 +195,9 @@
 							});
 
 							formData.set('data', json);
+							sendClientEvent('create-signature', document, {signature: name})
 						}
+
 
 						return async ({ result }) => {
 							if (result.status === 200) {

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { t } from "$lib/_i18n";
+	import { sendClientEvent } from "$lib/posthog";
 	const flags = ["🇦🇹","🇧🇪","🇨🇦","🇨🇿","🇩🇰","🇪🇬","🇪🇪","🇫🇴","🇫🇮","🇫🇷","🇩🇪","🇬🇱","🇮🇸","🇮🇪","🇮🇹","🇱🇻","🇲🇨","🇳🇱","🇳🇴",
 	"🇵🇱","🇵🇹","🇷🇺","🇪🇸","🇸🇪","🇨🇭","🇹🇷","🏴󠁧󠁢󠁥󠁮󠁧󠁿","🏴󠁧󠁢󠁳󠁣󠁴󠁿","🏴󠁧󠁢󠁷󠁬󠁳󠁿","🇺🇸"];
 </script>
@@ -19,7 +20,7 @@
 		<div class="flex gap-4">
 			<a href="https://www.komoot.de/user/2406562570904" rel="noreferrer nofollow"
 				 target="_blank"
-				 aria-label="Komoot">
+				 aria-label="Komoot" on:click={() => sendClientEvent('open-social', document, {social: 'komoot'})}>
 				<i class="fa-kit fa-komoot"></i>
 			</a>
 			<span class="overflow_hand cv">
@@ -41,24 +42,24 @@
 					href="https://www.linkedin.com/in/vrogg/"
 					rel="noreferrer nofollow"
 					target="_blank"
-					aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+					aria-label="LinkedIn" on:click={() => sendClientEvent('open-social', document, {social: 'linkedin'})}><i class="fa-brands fa-linkedin"></i></a>
 			</span>
 			<a
 				href="https://www.instagram.com/valentin_rogg/"
 				rel="noreferrer nofollow"
 				target="_blank"
-				aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+				aria-label="Instagram" on:click={() => sendClientEvent('open-social', document, {social: 'instagram'})}><i class="fa-brands fa-instagram"></i></a>
 			<a
 				href="https://www.youtube.com/@roggnroll"
 				rel="noreferrer nofollow"
 				target="_blank"
-				aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+				aria-label="YouTube" on:click={() => sendClientEvent('open-social', document, {social: 'youtube'})}><i class="fa-brands fa-youtube"></i></a>
 			<a
 				href="mailto:mail@valentinrogg.de"
 				rel="noreferrer nofollow"
 				target="_blank"
 				class="mail"
-				aria-label="Mail"><i class="fa-solid fa-envelope"></i></a>
+				aria-label="Mail" on:click={() => sendClientEvent('open-social', document, {social: 'mail'})}><i class="fa-solid fa-envelope"></i></a>
 		</div>
 	</div>
 </section>
