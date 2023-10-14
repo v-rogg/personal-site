@@ -160,6 +160,7 @@
 				{#if $signatureRefsStore.length - $refIndexStore - 1 > 0}
 					<button
 						id="next"
+						class="dark:bg-blue-900 dark:hover:bg-blue-700"
 						on:click="{() => loadSignature(1)}"
 						aria-label="{$t('signature.next')}"
 						transition:fade="{{ duration: 150 }}">
@@ -169,6 +170,7 @@
 				{#if $refIndexStore > 0}
 					<button
 						id="prev"
+						class="dark:bg-blue-900 dark:hover:bg-blue-700"
 						on:click="{() => loadSignature(-1)}"
 						aria-label="{$t('signature.prev')}"
 						transition:fade="{{ duration: 250 }}">
@@ -215,12 +217,13 @@
 						};
 					}}"
 					style="pointer-events: all">
-					<button id="save" aria-label="{$t('signature.save')}" transition:fade="{{ duration: 250 }}">
+					<button id="save" class="dark:bg-blue-900 dark:hover:bg-blue-700" aria-label="{$t('signature.save')}" transition:fade="{{ duration: 250 }}">
 						<i class="fa-solid fa-floppy-disk"></i>
 					</button>
 				</form>
 				<button
 					id="clear"
+					class="dark:bg-blue-900 dark:hover:bg-blue-700"
 					on:click="{() => clearCanvas()}"
 					aria-label="{$t('signature.clear')}"
 					transition:fade="{{ duration: 250 }}">
@@ -229,6 +232,7 @@
 				{#if !eraseModeActive}
 				<button
 					id="erase"
+					class="dark:bg-blue-900 dark:hover:bg-blue-700"
 					on:click="{() => switchToErase()}"
 					aria-label="{$t('signature.erase')}"
 					transition:fade="{{ duration: 250 }}">
@@ -237,6 +241,7 @@
 				{:else}
 					<button
 						id="draw"
+						class="dark:bg-blue-900 dark:hover:bg-blue-700"
 						on:click="{() => switchToDraw()}"
 						aria-label="{$t('signature.draw')}"
 						transition:fade="{{ duration: 250 }}">
@@ -246,6 +251,7 @@
 			{:else if !$admin}
 				<button
 					id="new"
+					class="dark:bg-blue-900 dark:hover:bg-blue-700"
 					on:click="{() => newCanvas()}"
 					aria-label="{$t('signature.new')}"
 					transition:fade="{{ duration: 250 }}">
@@ -299,7 +305,6 @@
 	}
 
 	.overlay button {
-		background: var(--c-bg);
 		border: none;
 		font-size: 1rem;
 		z-index: 250;
@@ -323,7 +328,6 @@
 		pointer-events: all;
 
 		&:hover {
-			background: var(--c-bg-hover);
 			cursor: pointer;
 		}
 

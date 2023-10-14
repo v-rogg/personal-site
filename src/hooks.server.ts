@@ -5,7 +5,6 @@ import * as cookie from "cookie";
 import { ADMIN_PASSWORD } from "$env/static/private";
 import { redirect } from "@sveltejs/kit";
 import { v4 as uuid_v4 } from "uuid";
-import { postHogClient } from "$lib/posthog";
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const { url, request } = event;
@@ -42,7 +41,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 			// 301 redirect
 			return new Response(undefined, {
-				headers: { location: `/${locale}${pathname}` },
+				headers: { location: `/${locale}${pathname}?${url.searchParams.toString()}` },
 				status: 301
 			});
 		}

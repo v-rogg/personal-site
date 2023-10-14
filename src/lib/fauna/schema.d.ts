@@ -9,9 +9,7 @@ export type Pagination<T> = {
 }
 
 export type Signature = {
-	_id?: ID;
 	id: ID;
-	_ts?: TS;
 	ts?: TS;
 	user_identifier?: UUID;
 	name?: string;

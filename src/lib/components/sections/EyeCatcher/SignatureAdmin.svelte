@@ -105,15 +105,18 @@
 		left: 50%;
 		transform: translateX(-50%);
 		z-index: 799;
+    pointer-events: none;
 	}
 
-	.overlay {
-		position: relative;
-		height: 100%;
-		width: 100%;
-	}
+  .overlay {
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+
 
 	.admin-panel {
+		pointer-events: all;
 		position: absolute;
 		bottom: 2rem;
 		z-index: 800;

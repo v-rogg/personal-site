@@ -57,18 +57,10 @@
 		background: var(--c-secondary);
 		margin-top: 2rem;
 		min-width: 100%;
-		/*padding: 2rem;*/
-		/*border-radius: 4px;*/
 		position: relative;
 		height: 650px;
 		overflow: hidden;
 	}
-
-	/*@media (max-width: 540px) {*/
-	/*	.eyecatcher {*/
-	/*		margin: 1rem 1rem 1rem;*/
-	/*	}*/
-	/*}*/
 
 	img {
 		position: absolute;

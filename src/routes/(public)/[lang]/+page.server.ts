@@ -4,7 +4,7 @@ import { fail } from "@sveltejs/kit";
 import { fql } from "fauna";
 import { getPublicFaunaClient } from "$lib/fauna/fauna.public";
 import { getPrivateFaunaClient } from "$lib/fauna/fauna.private";
-import type { Pagination, Signature } from "$lib/fauna/schema";
+import type { ID, Pagination, Signature } from "$lib/fauna/schema";
 
 export const actions: Actions = {
 	create: async ({ request }) => {
@@ -39,11 +39,14 @@ function shuffle(array: Signature[]): Signature[] {
 	return array;
 }
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({url}) => {
 	const fauna = getPublicFaunaClient();
 
+	const requestedSID: ID | undefined = url.searchParams.get("sid") || undefined;
+
 	try {
-		const signatureRefs =
+
+		let signatureRefs =
 			(await fauna
 				.query<Pagination<Signature[]>>(
 					fql`
@@ -53,7 +56,10 @@ export const load: PageServerLoad = async () => {
 				)
 				.then((res) => shuffle(res.data.data))) || [];
 
-		if (signatureRefs.length > 0) {
+		if (requestedSID) {
+			signatureRefs = signatureRefs.filter(signature => signature.id != requestedSID);
+			signatureRefs.unshift({id: requestedSID});
+
 			const firstResult = await fauna
 				.query<Signature>(
 					fql`
@@ -69,10 +75,27 @@ export const load: PageServerLoad = async () => {
 				currentSignature: firstResult
 			};
 		} else {
-			fauna.close()
-			return {
-				signatureRefs: []
-			};
+			if (signatureRefs.length > 0) {
+				const firstResult = await fauna
+					.query<Signature>(
+						fql`
+				signatures.where(.id == ${signatureRefs[0].id}).first()
+			`,
+						{ format: "simple" }
+					)
+					.then((res) => res.data);
+
+				fauna.close()
+				return {
+					signatureRefs: signatureRefs,
+					currentSignature: firstResult
+				};
+			} else {
+				fauna.close()
+				return {
+					signatureRefs: []
+				};
+			}
 		}
 	} catch (error) {
 		return fail(500, { msg: String(error) });
