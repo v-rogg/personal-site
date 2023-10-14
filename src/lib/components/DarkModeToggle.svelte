@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { darkMode } from "$lib/stores";
 	import { t } from "$lib/_i18n";
+	import { sendClientEvent } from "$lib/posthog";
 
 	function toggle_dark_mode() {
+		sendClientEvent('toggle-dark-mode', document);
 		$darkMode = !$darkMode;
 		document.cookie = `darkModeEnabled=${$darkMode}; max-age=86400; path=/; SameSite=Strict`;
 	}

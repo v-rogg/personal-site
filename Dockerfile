@@ -38,6 +38,7 @@ RUN --mount=type=secret,id=ADMIN_PASSWORD \
     --mount=type=secret,id=PUBLIC_CF_IMAGES_ENDPOINT \
     --mount=type=secret,id=PUBLIC_STORYBLOK_TOKEN \
     --mount=type=secret,id=PUBLIC_VERSION_DATE \
+    --mount=type=secret,id=PUBLIC_POSTHOG_TOKEN \
     ADMIN_PASSWORD="$(cat /run/secrets/ADMIN_PASSWORD)" \
     PUBLIC_FAUNA_GQL_ENDPOINT="$(cat /run/secrets/PUBLIC_FAUNA_GQL_ENDPOINT)" \
     PUBLIC_FAUNA_SECRET="$(cat /run/secrets/PUBLIC_FAUNA_SECRET)" \
@@ -46,6 +47,7 @@ RUN --mount=type=secret,id=ADMIN_PASSWORD \
     PUBLIC_CF_IMAGES_ENDPOINT="$(cat /run/secrets/PUBLIC_CF_IMAGES_ENDPOINT)" \
     PUBLIC_STORYBLOK_TOKEN="$(cat /run/secrets/PUBLIC_STORYBLOK_TOKEN)" \
     PUBLIC_VERSION_DATE="$(cat /run/secrets/PUBLIC_VERSION_DATE)" \
+    PUBLIC_POSTHOG_TOKEN="$(cat /run/secrets/PUBLIC_POSTHOG_TOKEN)" \
     npm run build
 
 

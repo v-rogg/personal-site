@@ -3,6 +3,7 @@
 	import { slugStore } from "../stores";
 	import { l, t, locale, locales } from "$lib/_i18n";
 	import { get } from "svelte/store";
+	import { sendClientEvent } from "$lib/posthog";
 
 	// TODO: Add prefetching. Only load data not change lang when load functions run
 	// async function preload_toggle_lang(lang) {
@@ -11,6 +12,7 @@
 	// }
 
 	function toggle_lang(lang) {
+		sendClientEvent('toggle-lang', document, {lang: lang})
 		let i = $locales.findIndex((e) => e === lang);
 		goto(`/${$locales[i]}${get(l)($locales[i], $slugStore)}`, { noScroll: true });
 	}

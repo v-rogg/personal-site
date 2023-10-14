@@ -4,6 +4,8 @@ import { darkMode } from "$lib/stores";
 import * as cookie from "cookie";
 import { ADMIN_PASSWORD } from "$env/static/private";
 import { redirect } from "@sveltejs/kit";
+import { v4 as uuid_v4 } from "uuid";
+import { postHogClient } from "$lib/posthog";
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const { url, request } = event;
@@ -14,11 +16,14 @@ export const handle: Handle = async ({ event, resolve }) => {
 		/[a-zA-Z]+?(?=[-_,;])/
 	)}`.toLowerCase();
 
+	const cookies = cookie.parse(request.headers.get("cookie") || "");
+	const identifier = cookies["identifier"] || uuid_v4();
+	event.cookies.set("identifier", identifier, {httpOnly: false, expires: new Date(2100, 1,1)})
+
 	// If this request is a route request
 	if (Object.keys(config.translations).includes(lang) || lang === "") {
 		// Set dark mode
-		const cookies = request.headers.get("cookie") || "";
-		darkMode.set(cookie.parse(cookies)["darkModeEnabled"] === "true");
+		darkMode.set(cookies["darkModeEnabled"] === "true");
 
 		// Get defined locales
 		const supportedLocales = locales.get();
