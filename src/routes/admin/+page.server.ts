@@ -90,7 +90,7 @@ export const load: PageServerLoad = async ({ url }) => {
 			signatureRefs =
 				(await fauna
 					.query<Pagination<Signature[]>>(
-						fql`signatures.all().paginate(1000) {
+						fql`signatures.all().order(desc(.ts_created)).paginate(1000) {
 							data {
 								id
 							}

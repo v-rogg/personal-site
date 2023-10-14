@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { t } from "$lib/_i18n";
+	import type { Company, Experience } from "$lib/storyblok/schema";
 
 	export let blok;
 
@@ -9,12 +10,12 @@
 
 	let present = new Date();
 
-	$: companies = filterHidden(blok.content.companies) || [];
+	$: companies = <Company[]>filterHidden(blok.content.companies) || <Company[]>[];
 	$: startDate = getStartDate(companies);
 	$: graphHeight = ((present - startDate) / (1000 * 60 * 60 * 24 * 365.25)) * heightPerYear + titleOffset;
 	$: legendYears = getLegendYears(present, startDate);
 
-	function filterHidden(companies) {
+	function filterHidden(companies: Company[]) {
 		let data = [];
 		companies.forEach((company) => {
 			if (!company.hidden) data.push(company);
@@ -32,7 +33,7 @@
 		return years;
 	}
 
-	function getStartDate(companies) {
+	function getStartDate(companies: Company[]) {
 		let minDate = present;
 		companies.forEach((company) => {
 			company.jobs.forEach((job) => {
@@ -43,13 +44,13 @@
 		return minDate;
 	}
 
-	function getDuration(job) {
+	function getDuration(job: Experience) {
 		const to = job.to ? new Date(job.to) : present;
 		const from = new Date(job.from);
 		return Math.round(((to - from) / (1000 * 60 * 60 * 24 * 365.25)) * heightPerYear);
 	}
 
-	function getStartPoint(job) {
+	function getStartPoint(job: Experience) {
 		const to = job.to ? new Date(job.to) : present;
 		return Math.round(((present - to) / (1000 * 60 * 60 * 24 * 365.25)) * heightPerYear + titleOffset);
 	}
@@ -78,12 +79,23 @@
 			<h4 class="absolute text-center company-title font-semibold">
 				{@html company.title}
 			</h4>
-			<div class="absolute jobs" style="width: {barWidth}px">
+			<div class="absolute jobs z-0" style="width: {barWidth}px">
 				{#each company.jobs as job}
 					<div
 						class="bg-white-700 dark:bg-blue-800 rounded-lg absolute job"
 						style="height: {getDuration(job)}px; width: 40px; top: {getStartPoint(job)}px"
 						class:studies="{job.tags !== undefined ? job.tags.includes('studies') > 0 : false}">
+						<div
+							class="job-title pointer-events-none absolute text-sm overflow-ellipsis overflow-hidden text-skin-500 dark:text-blue-600 font-sans">
+						</div>
+					</div>
+				{/each}
+			</div>
+			<div class="absolute jobs z-50" style="width: {barWidth}px">
+				{#each company.jobs as job}
+					<div
+						class="absolute job"
+						style="height: {getDuration(job)}px; width: 40px; top: {getStartPoint(job)}px">
 						<div
 							class="job-title pointer-events-none absolute text-sm overflow-ellipsis overflow-hidden text-skin-500 dark:text-blue-600 font-sans">
 							{@html job.title}
@@ -95,7 +107,7 @@
 	{/each}
 </div>
 
-<style lang="scss">
+<style lang="postcss">
 	.graph {
 		overflow-x: clip;
 		overflow-y: visible;
@@ -120,7 +132,7 @@
 	}
 
 	.studies {
-		--color: theme(colors.white.500);
+		--color: theme("colors.white.500");
 		background-image: repeating-linear-gradient(
 			45deg,
 			transparent,
@@ -132,7 +144,7 @@
 	}
 
 	:global(.dark) .studies {
-		--color: theme(colors.blue.900);
+		--color: theme("colors.blue.900");
 	}
 
 	.hidden {
@@ -157,7 +169,6 @@
 		transition: opacity ease-in-out 500ms;
 		width: max-content;
 		transform: translateX(-50%);
-		z-index: 900;
 	}
 
 	.company-title {

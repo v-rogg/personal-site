@@ -3,8 +3,6 @@ import { loadTranslations, translations } from "$lib/_i18n";
 import { slugStore } from "$lib/stores";
 import { storyblokInit, apiPlugin, useStoryblokApi } from "@storyblok/svelte";
 import { PUBLIC_STORYBLOK_TOKEN } from "$env/static/public";
-import Company from "$lib/components/sections/CV/Company.svelte";
-import Experience from "$lib/components/sections/CV/Experience.svelte";
 
 export const prerender = true;
 
@@ -36,10 +34,6 @@ export const load: LayoutLoad = async ({ url, fetch }) => {
 			cache: { type: "memory" },
 			https: true,
 			fetch
-		},
-		components: {
-			"Company": Company,
-			"Experience": Experience
 		}
 	})
 

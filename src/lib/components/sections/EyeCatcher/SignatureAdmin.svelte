@@ -6,8 +6,6 @@
 
 	const password = $page.url.searchParams.get("pa");
 
-	console.log("mounted");
-
 	enum Filter {
 		New,
 		All
@@ -43,11 +41,8 @@
 								$currentSignatureStore.status = result.data.status;
 							}
 							if (result.data.deleted) {
-								$currentSignatureStore.status = 'deleted';
-								let refs = $signatureRefsStore;
-								refs.splice($refIndexStore, 1);
-								$signatureRefsStore = refs;
 								$refIndexStore = 0;
+								goto($page.url, {invalidateAll: true});
 							}
 						}
 					};
