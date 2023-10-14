@@ -169,11 +169,12 @@
 		border: none;
 		color: var(--c-black);
 		height: 1rem;
+		width: 100%;
 
 		:global(> svg) {
-			height: 1rem;
+			height: 1.5rem;
 			transform-origin: left center;
-			transform: scale(1.5);
+			transform: translateY(-.20rem);
 		}
 	}
 
