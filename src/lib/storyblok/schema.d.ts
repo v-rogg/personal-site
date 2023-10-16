@@ -6,7 +6,7 @@ type File = {
 }
 
 export type Content<T> = {
-	id: string;
+	id: number;
 	content: T;
 }
 

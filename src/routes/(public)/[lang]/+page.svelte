@@ -60,15 +60,15 @@
 	<ShortBio blok={data.bio}/>
 </section>
 
-<section class="third container mb-16">
+<section class="third container mb-48">
 	<Memories settings="{data.memoriesSettings}" content="{data.memories}"/>
 </section>
 
-<section class="third container mb-12">
-	{#if data.cv}
-		<CV blok={data.cv}/>
-	{/if}
-</section>
+<!--<section class="third container mb-12">-->
+<!--	{#if data.cv}-->
+<!--		<CV blok={data.cv}/>-->
+<!--	{/if}-->
+<!--</section>-->
 
 <style>
 	.first {
