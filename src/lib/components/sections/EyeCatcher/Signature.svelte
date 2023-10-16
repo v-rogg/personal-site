@@ -18,14 +18,14 @@
 
 	let canvas: HTMLCanvasElement;
 	let pad: HTMLDivElement;
-	let signaturePad;
+	let signaturePad: SignaturePad;
 	let currentSignature: Signature;
 	let drawModeActive = false;
 	let eraseModeActive = false;
 
-	function clearCanvas() {
-		switchToDraw()
-		sendClientEvent('signature-clear-canvas', document);
+	function clearCanvas(sendEvent = true) {
+		switchToDraw(sendEvent)
+		if (sendEvent) sendClientEvent('signature-clear-canvas', document);
 		signaturePad.clear();
 	}
 
@@ -73,7 +73,7 @@
 
 	async function loadSignature(delta) {
 		drawModeActive = false;
-		loadDelta(delta, fauna);
+		await loadDelta(delta, fauna);
 		sendClientEvent('signature-load-delta', document);
 	}
 
@@ -81,7 +81,7 @@
 		canvas.width = pad.offsetWidth;
 		canvas.height = pad.offsetHeight;
 
-		clearCanvas();
+		clearCanvas(false);
 
 		if ($currentSignatureStore) {
 			const currentSignature = uncenterSignature($currentSignatureStore.signature);
@@ -91,7 +91,7 @@
 
 	function newCanvas() {
 		drawModeActive = true;
-		switchToDraw();
+		switchToDraw(false);
 
 		$currentSignatureStore = <Signature>{
 			name: null,
@@ -109,12 +109,12 @@
 		sendClientEvent('signature-switch-to-erase', document);
 	}
 
-	function switchToDraw() {
+	function switchToDraw(sendEvent = true) {
 		eraseModeActive = false;
 		signaturePad.compositeOperation = 'source-over';
 		signaturePad.minWidth = 0.5
 		signaturePad.maxWidth = 2.5
-		sendClientEvent('signature-switch-to-draw', document);
+		if (sendEvent) sendClientEvent('signature-switch-to-draw', document);
 	}
 
 	onMount(() => {
@@ -160,7 +160,7 @@
 				{#if $signatureRefsStore.length - $refIndexStore - 1 > 0}
 					<button
 						id="next"
-						class="dark:bg-blue-900 dark:hover:bg-blue-700"
+						class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700"
 						on:click="{() => loadSignature(1)}"
 						aria-label="{$t('signature.next')}"
 						transition:fade="{{ duration: 150 }}">
@@ -170,7 +170,7 @@
 				{#if $refIndexStore > 0}
 					<button
 						id="prev"
-						class="dark:bg-blue-900 dark:hover:bg-blue-700"
+						class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700"
 						on:click="{() => loadSignature(-1)}"
 						aria-label="{$t('signature.prev')}"
 						transition:fade="{{ duration: 250 }}">
@@ -210,20 +210,20 @@
 								$signatureRefsStore = signatureRefs;
 								$refIndexStore += 1;
 
-								switchToDraw();
+								switchToDraw(false);
 								drawModeActive = false;
 								signaturePad.off();
 							}
 						};
 					}}"
 					style="pointer-events: all">
-					<button id="save" class="dark:bg-blue-900 dark:hover:bg-blue-700" aria-label="{$t('signature.save')}" transition:fade="{{ duration: 250 }}">
+					<button id="save" class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700" aria-label="{$t('signature.save')}" transition:fade="{{ duration: 250 }}">
 						<i class="fa-solid fa-floppy-disk"></i>
 					</button>
 				</form>
 				<button
 					id="clear"
-					class="dark:bg-blue-900 dark:hover:bg-blue-700"
+					class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700"
 					on:click="{() => clearCanvas()}"
 					aria-label="{$t('signature.clear')}"
 					transition:fade="{{ duration: 250 }}">
@@ -232,7 +232,7 @@
 				{#if !eraseModeActive}
 				<button
 					id="erase"
-					class="dark:bg-blue-900 dark:hover:bg-blue-700"
+					class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700"
 					on:click="{() => switchToErase()}"
 					aria-label="{$t('signature.erase')}"
 					transition:fade="{{ duration: 250 }}">
@@ -241,7 +241,7 @@
 				{:else}
 					<button
 						id="draw"
-						class="dark:bg-blue-900 dark:hover:bg-blue-700"
+						class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700"
 						on:click="{() => switchToDraw()}"
 						aria-label="{$t('signature.draw')}"
 						transition:fade="{{ duration: 250 }}">
@@ -251,7 +251,7 @@
 			{:else if !$admin}
 				<button
 					id="new"
-					class="dark:bg-blue-900 dark:hover:bg-blue-700"
+					class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700"
 					on:click="{() => newCanvas()}"
 					aria-label="{$t('signature.new')}"
 					transition:fade="{{ duration: 250 }}">

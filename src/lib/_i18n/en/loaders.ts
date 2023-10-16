@@ -29,6 +29,12 @@ export const en_loaders = [
   },
   {
     locale: "en",
+    key: "memories",
+    routes: ["/en"],
+    loader: async () => (await import("./memories.json")).default
+  },
+  {
+    locale: "en",
     key: "legal",
     routes: ["/en/legal"],
     loader: async () => (await import("./legal.json")).default

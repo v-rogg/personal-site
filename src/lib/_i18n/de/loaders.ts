@@ -29,6 +29,12 @@ export const de_loaders =  [
   },
   {
     locale: "de",
+    key: "memories",
+    routes: ["/de"],
+    loader: async () => (await import("./memories.json")).default
+  },
+  {
+    locale: "de",
     key: "legal",
     routes: ["/de/rechtliches"],
     loader: async () => (await import("./legal.json")).default

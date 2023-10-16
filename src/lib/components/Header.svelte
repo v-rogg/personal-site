@@ -7,7 +7,7 @@
 </script>
 
 <header class="container container-tight">
-	<h1 class="overlay">
+	<h1 class="rounded-3xl px-4 py-2 -mx-4 -my-2 max-w-max backdrop-blur-[4px] font-display font-semibold text-md-lg">
 		<a href="/{$locale}"> Valentin Rogg </a>
 	</h1>
 
@@ -31,12 +31,7 @@
 	}
 
 	@media (max-width: 540px) {
-		h1 {
-			/*display: none;*/
-		}
-
 		header {
-			/*top: 2rem;*/
 			display: flex;
 			flex-direction: column;
 			gap: 1rem;
@@ -51,17 +46,5 @@
 		display: flex;
 		align-items: center;
 		gap: 16px;
-	}
-
-	h1 {
-		font-family: var(--ff-display);
-		font-size: 18px;
-		font-weight: 700;
-		white-space: nowrap;
-		padding: 0;
-		margin: 0;
-		border-radius: 4px;
-		backdrop-filter: blur(4px);
-		width: max-content;
 	}
 </style>

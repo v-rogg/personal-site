@@ -6,14 +6,20 @@ export const prerender = false;
 export const load: PageLoad = async ({ data, parent, params }) => {
 	const { storyblokApi } = await parent();
 
-	console.log(PUBLIC_NODE_ENV);
+	const version = PUBLIC_NODE_ENV === "production" ? "published" : "draft";
 
-	const cv = await storyblokApi.get(`cdn/stories/cv/${params.lang}`, {
-		version: PUBLIC_NODE_ENV === "production" ? "published" : "draft",
-	});
+	const [cv, bio, memoriesSettings, memories] = await Promise.all([
+		storyblokApi.get(`cdn/stories/cv/${params.lang}`, { version }),
+		storyblokApi.get(`cdn/stories/bio/${params.lang}`, { version }),
+		storyblokApi.get(`cdn/stories/memories/settings`, { version }),
+		storyblokApi.get(`cdn/stories`, { version, starts_with: "memories/", content_type: "Memory", per_page: 8, sort_by: "content.date:desc" })
+	]);
 
 	return {
 		cv: cv.data.story,
+		bio: bio.data.story,
+		memoriesSettings: memoriesSettings.data.story,
+		memories: memories.data.stories,
 		...data
 	};
 };

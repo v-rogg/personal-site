@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { t } from "$lib/_i18n";
 	import { sendClientEvent } from "$lib/posthog";
+
+	export let blok;
 </script>
 
 <h1 class="text-4xl text-center font-semibold mb-4 font-sans">Valentin Rogg</h1>
@@ -123,8 +125,8 @@
 		alt="🇺🇸"
 		src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f1fa-1f1f8.png" />
 </p>
-<p class="text-center font-serif text-md-lg whitespace-pre-wrap max-sm:mx-10 max-w-2xl mx-auto">
-	{@html $t("bio.description")}
+<p class="text-center font-serif text-md-lg whitespace-pre-wrap max-sm:mx-10 max-w-xl mx-auto">
+	{@html blok.content.short_bio}
 </p>
 
 <div class="w-max mt-16 mb-6 mx-auto text-2xl">

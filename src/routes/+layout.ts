@@ -3,6 +3,7 @@ import { loadTranslations, translations } from "$lib/_i18n";
 import { slugStore } from "$lib/stores";
 import { storyblokInit, apiPlugin, useStoryblokApi } from "@storyblok/svelte";
 import { PUBLIC_STORYBLOK_TOKEN } from "$env/static/public";
+import Memory from "$lib/components/sections/Memories/Memory.svelte";
 
 export const prerender = true;
 
@@ -34,8 +35,11 @@ export const load: LayoutLoad = async ({ url, fetch }) => {
 			cache: { type: "memory" },
 			https: true,
 			fetch
+		},
+		components: {
+			Memory: Memory
 		}
-	})
+	});
 
 	const storyblokApi = await useStoryblokApi();
 
