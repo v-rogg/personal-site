@@ -56,7 +56,7 @@
 	font-style: normal;
 	font-weight: 400;
 	font-display: swap;
-	src: url("https://personal-minio.fly.dev/fonts/JetBrainsMono-Regular.otf") format("opentype");
+	src: url("https://personal-minio.fly.dev/fonts/JetBrainsMono-Regular.ttf") format("truetype");
 }
 
 @font-face {

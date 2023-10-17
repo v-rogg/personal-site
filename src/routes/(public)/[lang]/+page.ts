@@ -12,7 +12,7 @@ export const load: PageLoad = async ({ data, parent, params }) => {
 		storyblokApi.get(`cdn/stories/cv/${params.lang}`, { version }),
 		storyblokApi.get(`cdn/stories/bio/${params.lang}`, { version }),
 		storyblokApi.get(`cdn/stories/memories/settings`, { version }),
-		storyblokApi.get(`cdn/stories`, { version, starts_with: "memories/", content_type: "Memory", per_page: 8, sort_by: "content.date:desc" })
+		storyblokApi.get(`cdn/stories`, { version, starts_with: "memories/", content_type: "Memory", per_page: 6, sort_by: "content.date:desc" })
 	]);
 
 	return {

@@ -7,6 +7,7 @@
 	import { useStoryblokBridge } from "@storyblok/svelte";
 	import type { Content, CvContent, BioContent, MemoriesSettingsContent, MemoryContent } from "$lib/storyblok/schema";
 	import Memories from "$lib/components/sections/Memories/Memories.svelte";
+	import { t } from "$lib/_i18n";
 
 	export let data: {
 		lang: string;
@@ -52,27 +53,25 @@
 	<title>Valentin Rogg</title>
 </svelte:head>
 
-<section class="first container mb-8">
+<section class="container mb-4">
 	<EyeCatcher />
 </section>
 
-<section class="second container mb-8">
+<section class="grid gap-4 container mb-4 grid-cols-4 lg:grid-cols-8">
 	<ShortBio blok={data.bio}/>
+	<div class="bg-white-600 rounded-2xl p-8 col-span-4 h-[25rem] overflow-hidden">
+		<h2 class="text-2xl font-semibold text-center mb-10">{$t("cv.title")}</h2>
+		<div class="hover:scale-[102%] duration-1000">
+			<CV blok={data.cv}/>
+		</div>
+	</div>
 </section>
 
-<section class="third container mb-48">
+<section class="grid gap-4 grid-cols-11 container mb-8">
 	<Memories settings="{data.memoriesSettings}" content="{data.memories}"/>
 </section>
 
 <!--<section class="third container mb-12">-->
 <!--	{#if data.cv}-->
-<!--		<CV blok={data.cv}/>-->
 <!--	{/if}-->
 <!--</section>-->
-
-<style>
-	.first {
-		display: flex;
-		flex-direction: column;
-	}
-</style>

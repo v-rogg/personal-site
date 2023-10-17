@@ -34,8 +34,8 @@
 <svelte:window bind:innerWidth={width} />
 
 <!--<h2 class="text-2xl font-semibold text-center mb-10">{$t("memories.title")}</h2>-->
-<div class="grid gap-4" style="grid-template-columns: repeat({columns}, 1fr);">
-	{#each content as memory}
-		<StoryblokComponent blok="{memory.content}" />
-	{/each}
-</div>
+<!--<div class="grid gap-4" style="grid-template-columns: repeat({columns}, 1fr);">-->
+{#each content as memory}
+	<StoryblokComponent blok="{memory.content}" />
+{/each}
+<!--</div>-->

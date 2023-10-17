@@ -4,7 +4,7 @@
 
 	export let blok;
 
-	const heightPerYear = 150;
+	const heightPerYear = 80;
 	const titleOffset = 40;
 	const barWidth = 40;
 
@@ -60,7 +60,6 @@
 	}
 </script>
 
-<h2 class="text-2xl font-semibold text-center mb-10">{$t("cv.title")}</h2>
 <div
 	class="graph container flex mx-auto justify-center gap-4 mt-28 mb-28 relative"
 	style="height: {graphHeight}px; width: {(companies.length + 1) * (barWidth + 16) + 140}px">
@@ -98,7 +97,9 @@
 						style="height: {getDuration(job)}px; width: 40px; top: {getStartPoint(job)}px">
 						<div
 							class="job-title pointer-events-none absolute text-sm overflow-ellipsis overflow-hidden text-skin-500 dark:text-blue-600 font-sans">
-							{@html job.title}
+							{#if job.preview}
+								{@html job.title}
+							{/if}
 						</div>
 					</div>
 				{/each}

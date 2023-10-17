@@ -7,7 +7,7 @@
 		PUBLIC_VERSION_DATE == undefined || PUBLIC_VERSION_DATE == "" ? new Date() : new Date(PUBLIC_VERSION_DATE);
 </script>
 
-<footer class="container container-tight">
+<footer class="container container-tight mx-auto mb-16">
 	<div class="legal overlay">
 		<a href="/{$locale}{$t('slugs.legal')}">{$t("common.legal")}</a>
 		<div class="copy">
@@ -105,11 +105,6 @@
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		align-items: flex-end;
-		font-size: var(--fs-10);
-		position: fixed;
-		left: 50%;
-		transform: translate(-50%);
-		bottom: 2rem;
 	}
 
 	.last_edited {
