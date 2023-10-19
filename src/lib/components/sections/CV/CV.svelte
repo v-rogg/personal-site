@@ -63,7 +63,7 @@
 <div
 	class="graph container flex mx-auto justify-center gap-4 mt-28 mb-28 relative"
 	style="height: {graphHeight}px; width: {(companies.length + 1) * (barWidth + 16) + 140}px">
-	<div class="timetable relative font-semibold">
+	<div class="timetable relative font-semibold dark:font-medium">
 		<div class="absolute" style="top: {titleOffset}px; left: -80px; transform: translateY(-50%)">{$t("cv.now")}</div>
 		{#each legendYears as year}
 			<div
@@ -75,13 +75,13 @@
 	</div>
 	{#each companies as company}
 		<div class="relative company" style="width: {barWidth}px">
-			<h4 class="absolute text-center company-title font-semibold">
+			<h4 class="absolute text-center company-title font-semibold dark:font-medium">
 				{@html company.title}
 			</h4>
 			<div class="absolute jobs z-0" style="width: {barWidth}px">
 				{#each company.jobs as job}
 					<div
-						class="bg-white-700 dark:bg-blue-800 rounded-lg absolute job"
+						class="bg-white-700 dark:bg-blue-900 rounded-lg absolute job"
 						style="height: {getDuration(job)}px; width: 40px; top: {getStartPoint(job)}px"
 						class:studies="{job.tags !== undefined ? job.tags.includes('studies') > 0 : false}">
 						<div
@@ -117,7 +117,7 @@
 	.legend-year:before {
 		@apply border;
 		@apply border-white-700;
-		@apply dark:border-blue-800;
+		@apply dark:border-blue-900;
 		content: attr(data-companies);
 		position: absolute;
 		height: 1px;
@@ -145,11 +145,7 @@
 	}
 
 	:global(.dark) .studies {
-		--color: theme("colors.blue.900");
-	}
-
-	.hidden {
-		opacity: 1;
+		--color: theme("colors.blue.800");
 	}
 
 	.jobs {

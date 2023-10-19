@@ -59,7 +59,7 @@
 
 <section class="grid gap-4 container mb-4 grid-cols-4 lg:grid-cols-8">
 	<ShortBio blok={data.bio}/>
-	<div class="bg-white-600 rounded-2xl p-8 col-span-4 h-[25rem] overflow-hidden">
+	<div class="bg-white-600 dark:bg-blue-800 rounded-2xl p-8 col-span-4 h-[25rem] overflow-hidden">
 		<h2 class="text-2xl font-semibold text-center mb-10">{$t("cv.title")}</h2>
 		<div class="hover:scale-[102%] duration-1000">
 			<CV blok={data.cv}/>
