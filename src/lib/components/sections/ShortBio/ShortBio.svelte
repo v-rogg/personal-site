@@ -128,7 +128,7 @@
 			src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f1fa-1f1f8.png" />
 	</p>
 	{/if}
-	<p class="font-sans text-md-lg whitespace-pre-wrap max-w-xl text-black dark:text-white-500" class:mx-auto={blok.content.align === "center"} class:ml-auto={blok.content.align === "right"} class:text-center={blok.content.align === "center"} class:text-right={blok.content.align === "right"}>
+	<p class="font-serif text-md-lg whitespace-pre-wrap max-w-xl text-black dark:text-white-500" class:mx-auto={blok.content.align === "center"} class:ml-auto={blok.content.align === "right"} class:text-center={blok.content.align === "center"} class:text-right={blok.content.align === "right"}>
 		{@html blok.content.short_bio}
 	</p>
 
