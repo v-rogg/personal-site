@@ -6,6 +6,9 @@ const meta = {
 	title: "Sections/ShortBio",
 	component: ShortBio,
 	tags: ["autodocs"],
+	parameters: {
+		chromatic: { delay: 3000 },
+	},
 	argTypes: {
 		short_bio: { control: "text" },
 		align: {
