@@ -1,27 +1,12 @@
 <script lang="ts">
 	import { t } from "$lib/_i18n";
 	import { sendClientEvent } from "$lib/posthog";
-	import {onMount} from "svelte"
 
 	export let blok;
-
-	let start: Date;
-	let diff: number;
-
-	onMount(() => {
-		start = new Date();
-		requestAnimationFrame(countUp);
-	})
-
-	function countUp() {
-		diff = new Date() - start ;
-		requestAnimationFrame(countUp);
-	}
 </script>
 
 
 <div class="col-span-4 px-16 flex flex-col justify-center h-[25rem]">
-	{diff}
 	<h1 class="text-4xl font-semibold mb-4 font-sans text-black dark:text-white-500" class:text-center={blok.content.align === "center"} class:text-right={blok.content.align === "right"}>Valentin Rogg</h1>
 	{#if blok.content.flags}
 	<p class="my-4 flex flex-wrap gap-0.5 max-sm:mx-10" id="flags" class:justify-center={blok.content.align === "center"} class:justify-end={blok.content.align === "right"}>
