@@ -70,6 +70,8 @@ export const load: PageServerLoad = async ({url}) => {
 				.then((res) => res.data);
 
 			fauna.close()
+
+
 			return {
 				signatureRefs: signatureRefs,
 				currentSignature: firstResult
@@ -86,6 +88,7 @@ export const load: PageServerLoad = async ({url}) => {
 					.then((res) => res.data);
 
 				fauna.close()
+				console.log(signatureRefs, firstResult);
 				return {
 					signatureRefs: signatureRefs,
 					currentSignature: firstResult
@@ -98,6 +101,8 @@ export const load: PageServerLoad = async ({url}) => {
 			}
 		}
 	} catch (error) {
-		return fail(500, { msg: String(error) });
+		console.log(error);
+		return {}
+		// return fail(500, { msg: String(error) });
 	}
 };
