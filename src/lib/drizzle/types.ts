@@ -1,6 +1,6 @@
 export type ID = string;
 export type UUID = string;
-export type TS = number;
+export type TS = string;
 
 export type Pagination<T> = {
 	data: T;
@@ -16,7 +16,7 @@ export type Signature = {
 	status?: string;
 	ts_created?: TS;
 	ts_moderated?: TS;
-	signature?: SignatureData[];
+	signature?: SignatureData[] | unknown;
 };
 
 export type SignaturesResponse = {

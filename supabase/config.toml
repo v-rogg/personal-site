@@ -33,7 +33,7 @@ port = 54329
 pool_mode = "transaction"
 # How many server connections to allow per user/database pair.
 default_pool_size = 20
-# Maximum number of client connections allowed.
+# Maximum number of clientServer connections allowed.
 max_client_conn = 100
 
 [realtime]

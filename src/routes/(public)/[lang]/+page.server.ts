@@ -1,10 +1,11 @@
 import type { PageServerLoad } from "./$types";
 import type { Actions } from "@sveltejs/kit";
 import { fail } from "@sveltejs/kit";
-import { fql } from "fauna";
-import { getPublicFaunaClient } from "$lib/fauna/fauna.public";
-import { getPrivateFaunaClient } from "$lib/fauna/fauna.private";
-import type { ID, Pagination, Signature } from "$lib/fauna/schema";
+import drizzlePublic from "$lib/drizzle/public";
+import drizzlePrivate from "$lib/drizzle/private";
+import { signatures } from "$lib/drizzle/schema";
+import type { ID, Signature } from "$lib/drizzle/types";
+import { eq } from "drizzle-orm";
 
 export const actions: Actions = {
 	create: async ({ request }) => {
@@ -14,17 +15,8 @@ export const actions: Actions = {
 		if (!data.name) return fail(400, { name: data.name, missing: true });
 		if (!data.signature) return fail(400, { signature: data.signature, missing: true });
 
-		data.ts_created = Date.now() * 1000;
-		data.status = "new";
-
-		const fauna = getPrivateFaunaClient();
-
 		try {
-			const res = await fauna
-				.query<Signature>(fql`signatures.create(${data})`, { format: "simple" })
-				.then((res) => res.data);
-			fauna.close()
-			return res;
+			return await drizzlePrivate.insert(signatures).values({name: data.name, signature: data.signature}).returning().then(res => res[0])
 		} catch (error) {
 			return fail(500, { msg: String(error) });
 		}
@@ -39,70 +31,44 @@ function shuffle(array: Signature[]): Signature[] {
 	return array;
 }
 
-export const load: PageServerLoad = async ({url}) => {
-	const fauna = getPublicFaunaClient();
-
+export const load: PageServerLoad = async ({ url }) => {
 	const requestedSID: ID | undefined = url.searchParams.get("sid") || undefined;
 
 	try {
+		let signatureRefs = await drizzlePublic
+			.select({ id: signatures.id })
+			.from(signatures)
+			.where(eq(signatures.approved, true));
 
-		let signatureRefs =
-			(await fauna
-				.query<Pagination<Signature[]>>(
-					fql`
-			signatures.where(.status == "approved").take(1000) {
-				id
-			}`
-				)
-				.then((res) => shuffle(res.data.data))) || [];
+		signatureRefs = shuffle(signatureRefs)
 
 		if (requestedSID) {
-			signatureRefs = signatureRefs.filter(signature => signature.id != requestedSID);
-			signatureRefs.unshift({id: requestedSID});
-
-			const firstResult = await fauna
-				.query<Signature>(
-					fql`
-				signatures.where(.id == ${signatureRefs[0].id}).first()
-			`,
-					{ format: "simple" }
-				)
-				.then((res) => res.data);
-
-			fauna.close()
-
+			signatureRefs = signatureRefs.filter((signature: Signature) => signature.id != requestedSID);
+			signatureRefs.unshift({ id: requestedSID });
+		}
+		if (signatureRefs.length > 0) {
+			const firstResult = await drizzlePublic
+				.select({
+					id: signatures.id,
+					name: signatures.name,
+					signature: signatures.signature,
+					ts_created: signatures.tsCreated
+				})
+				.from(signatures)
+				.where(eq(signatures.id, signatureRefs[0].id)).limit(1).then(res => res[0]);
 
 			return {
 				signatureRefs: signatureRefs,
 				currentSignature: firstResult
 			};
 		} else {
-			if (signatureRefs.length > 0) {
-				const firstResult = await fauna
-					.query<Signature>(
-						fql`
-				signatures.where(.id == ${signatureRefs[0].id}).first()
-			`,
-						{ format: "simple" }
-					)
-					.then((res) => res.data);
-
-				fauna.close()
-				console.log(signatureRefs, firstResult);
-				return {
-					signatureRefs: signatureRefs,
-					currentSignature: firstResult
-				};
-			} else {
-				fauna.close()
-				return {
-					signatureRefs: []
-				};
-			}
+			return {
+				signatureRefs: []
+			};
 		}
 	} catch (error) {
 		console.log(error);
-		return {}
+		return {};
 		// return fail(500, { msg: String(error) });
 	}
 };

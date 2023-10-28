@@ -73,7 +73,7 @@
 
 	async function loadSignature(delta) {
 		drawModeActive = false;
-		await loadDelta(delta, fauna);
+		await loadDelta(delta);
 		sendClientEvent('signature-load-delta', document);
 	}
 
