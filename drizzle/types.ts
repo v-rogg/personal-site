@@ -13,7 +13,7 @@ export type Signature = {
 	ts?: TS;
 	user_identifier?: UUID;
 	name?: string;
-	status?: string;
+	approved?: boolean | undefined;
 	ts_created?: TS;
 	ts_moderated?: TS;
 	signature?: SignatureData[] | unknown;

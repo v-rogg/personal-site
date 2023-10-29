@@ -1,50 +1,42 @@
 import type { PageServerLoad } from "./$types";
 import type { Actions } from "@sveltejs/kit";
 import { fail } from "@sveltejs/kit";
-import { getPrivateFaunaClient } from "$lib/fauna/fauna.private";
-import { fql } from "fauna";
-import type { ID, Pagination, Signature } from "$lib/fauna/schema";
+import { getPrivate, putPrivate, deletePrivate } from "$lib/connection/fetch.private";
+import { PUBLIC_SIGNATURES_WORKER } from "$env/static/public";
+import { get } from "$lib/connection/fetch.pulic";
+import type { ID, Signature } from "$drizzle/types";
+import type { Fetch } from "$lib/connection/fetch";
 
-async function updateStatus(id: ID, status: "approved" | "declined") {
-	const fauna = getPrivateFaunaClient();
+async function updateStatus(id: ID, approved: true | false | null, fetch: Fetch) {
 
 	try {
-		const update: Signature = await fauna
-			.query<Signature>(
-				fql`signatures.byId(${<ID>id})!.update({
-			status: ${status},
-			ts_moderated: ${Date.now() * 1000}
-		})`,
-				{ format: "simple" }
-			)
-			.then((res) => res.data);
-		fauna.close();
-		return update.status;
+		const update = await putPrivate<Partial<Signature>>(`${PUBLIC_SIGNATURES_WORKER}/${id}`, {approved}, fetch)
+		return update.approved;
 	} catch (error) {
 		return fail(500, { msg: String(error) });
 	}
 }
 
 export const actions: Actions = {
-	approve: async ({ request }) => {
+	approve: async ({ request, fetch }) => {
 		const form = await request.formData();
 		const id = form.get("id")?.toString();
 
 		if (!id) return fail(400, { id, missing: true });
 
-		const status = await updateStatus(<ID>id, "approved");
+		const status = await updateStatus(<ID>id, true, fetch);
 
 		return {
 			status
 		};
 	},
-	decline: async ({ request }) => {
+	decline: async ({ request, fetch }) => {
 		const form = await request.formData();
 		const id = form.get("id")?.toString();
 
 		if (!id) return fail(400, { id, missing: true });
 
-		const status = await updateStatus(<ID>id, "declined");
+		const status = await updateStatus(<ID>id, false, fetch);
 
 		return {
 			status
@@ -56,11 +48,8 @@ export const actions: Actions = {
 
 		if (!id) return fail(400, { id, missing: true });
 
-		const fauna = getPrivateFaunaClient();
-
 		try {
-			await fauna.query(fql`signatures.byId(${id})!.delete()`);
-			fauna.close();
+			await deletePrivate(`${PUBLIC_SIGNATURES_WORKER}/${id}`)
 			return {
 				deleted: true
 			};
@@ -70,54 +59,30 @@ export const actions: Actions = {
 	}
 };
 
-export const load: PageServerLoad = async ({ url }) => {
-	const fauna = getPrivateFaunaClient();
+export const load: PageServerLoad = async ({ url, fetch }) => {
 	const filter = url.searchParams.get("filter") || "new";
 
 	try {
-
-		let signatureRefs: Signature[];
+		let signatureRefs: Partial<Signature>[];
 		if (filter === "new") {
-			signatureRefs =
-				(await fauna
-					.query<Pagination<Signature[]>>(
-						fql`signatures.where(.status == "new").take(1000) {
-				id
-			}`
-					)
-					.then((res) => res.data.data)) || [];
+			signatureRefs = await getPrivate<Partial<Signature>[]>(
+				PUBLIC_SIGNATURES_WORKER + "?" + new URLSearchParams({ filter: "unreviewed" }),
+				fetch
+			);
 		} else {
-			signatureRefs =
-				(await fauna
-					.query<Pagination<Signature[]>>(
-						fql`signatures.all().order(desc(.ts_created)).paginate(1000) {
-							data {
-								id
-							}
-						}`
-					)
-					.then((res) => {console.log(res); return res.data.data})) || [];
+			signatureRefs = await getPrivate<Partial<Signature>[]>(PUBLIC_SIGNATURES_WORKER, fetch);
 		}
 
 		console.log(signatureRefs.length);
 
 		if (signatureRefs.length > 0) {
-			const firstResult = await fauna
-				.query<Signature>(
-					fql`
-				signatures.where(.id == ${signatureRefs[0].id}).first()
-			`,
-					{ format: "simple" }
-				)
-				.then((res) => res.data);
+			const firstResult = await get<Signature>(`${PUBLIC_SIGNATURES_WORKER}/${signatureRefs[0].id}`);
 
-			fauna.close();
 			return {
 				signatureRefs: signatureRefs,
 				currentSignature: firstResult
 			};
 		} else {
-			fauna.close();
 			return {
 				signatureRefs: signatureRefs
 			};

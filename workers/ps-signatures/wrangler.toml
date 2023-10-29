@@ -1,6 +1,10 @@
 name = "ps-signatures"
 main = "src/index.ts"
-compatibility_date = "2023-10-25"
+compatibility_date = "2023-10-29"
+node_compat = true
+
+[dev]
+host = "valentinrogg.de"
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.

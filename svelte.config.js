@@ -12,7 +12,7 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			"@storyblok/svelte": "./node_modules/@storyblok/svelte",
-			"$drizzle": "./src/drizzle"
+			"$drizzle": "./drizzle"
 		}
 	}
 };

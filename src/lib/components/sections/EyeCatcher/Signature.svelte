@@ -11,10 +11,10 @@
 	import xss from "xss";
 	import { enhance } from "$app/forms";
 	import { fade } from "svelte/transition";
-	import { getPublicFaunaClient } from "$lib/fauna/fauna.public";
+	// import { getPublicFaunaClient } from "$lib/fauna/fauna.public";
 	import { loadDelta } from "$lib/components/sections/EyeCatcher/signature.helpers";
-	import type { Signature, SignatureData } from "$lib/fauna/schema";
 	import { sendClientEvent } from "$lib/posthog";
+	import type { Signature, SignatureData } from "$drizzle/types";
 
 	let canvas: HTMLCanvasElement;
 	let pad: HTMLDivElement;
@@ -68,8 +68,6 @@
 
 		return centeredData;
 	}
-
-	const fauna = getPublicFaunaClient();
 
 	async function loadSignature(delta) {
 		drawModeActive = false;
@@ -146,10 +144,6 @@
 			}
 		});
 	});
-
-	onDestroy(() => {
-		fauna.close();
-	})
 </script>
 
 <div id="pad">

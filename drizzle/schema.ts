@@ -10,10 +10,10 @@ export const codeChallengeMethod = pgEnum("code_challenge_method", ['plain', 's2
 
 
 export const signatures = pgTable("signatures", {
-	id: uuid("id").default(sql`extensions.uuid_generate_v4()`).notNull(),
+	id: uuid("id").default(sql`uuid_generate_v4()`).primaryKey().notNull(),
 	name: text("name").notNull(),
-	tsCreated: timestamp("ts_created", { mode: 'string' }).defaultNow().notNull(),
-	tsModified: timestamp("ts_modified", { mode: 'string' }),
+	ts_created: timestamp("ts_created", { mode: 'string' }).defaultNow().notNull(),
+	ts_modified: timestamp("ts_modified", { mode: 'string' }),
 	approved: boolean("approved"),
 	signature: json("signature").notNull(),
 });

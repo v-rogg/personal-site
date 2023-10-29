@@ -36,7 +36,7 @@
     "node-postgres": "^0.6.2",
     "pg": "^8.11.3",
     "postcss": "^8.4.31",
-    "postgres": "^3.4.1",
+    "postgres": "^3.4.2",
     "posthog-node": "^3.1.2",
     "prettier": "^2.8.8",
     "prettier-plugin-svelte": "^2.10.1",

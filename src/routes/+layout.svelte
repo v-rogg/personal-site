@@ -5,7 +5,6 @@
 	import "../app.scss";
 	import { onMount } from "svelte";
 	import * as cookie from "cookie";
-	import { PUBLIC_TELEMETRYDECK_APP_ID } from "$env/static/public";
 
 	export let data: { signatureRefs: []; currentSignature };
 
@@ -30,33 +29,6 @@
 				document.documentElement.classList.add("light");
 			}
 		})
-
-		const { language: locale } = navigator;
-
-		const body = {
-			appID: PUBLIC_TELEMETRYDECK_APP_ID,
-			url: location.href,
-			referrer: document.referrer,
-			telemetryClientVersion: `WebSDK 1.0.0`,
-			isTestMode: false,
-			locale,
-		};
-
-		if (
-			/^localhost$|^127(\.\d+){0,2}\.\d+$|^\[::1?]$/.test(location.hostname) ||
-			'file:' === location.protocol
-		) {
-			body.isTestMode = true;
-		}
-
-		fetch("https://nom.telemetrydeck.com/v2/w/", {
-			method: 'POST',
-			mode: 'cors',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(body),
-		});
 	})
 
 	// telemetry.subscribe((t) => {

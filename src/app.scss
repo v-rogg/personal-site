@@ -1,4 +1,4 @@
-@import "fonts.css";
+@import "fonts";
 
 @tailwind base;
 @tailwind components;
@@ -71,6 +71,7 @@
 
 html,
 body {
+  // ignore invalid argument
   --white-500: theme(colors.white.500);
   --white-700: theme(colors.white.700);
   --skin-500: theme(colors.skin.500);

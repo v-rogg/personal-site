@@ -3,7 +3,7 @@
 	font-style: normal;
 	font-weight: 400;
 	font-display: swap;
-	src: url("https://personal-minio.fly.dev/fonts/Inter-Regular.woff2") format("woff2"),
+	src: local("Inter Regular"), url("https://personal-minio.fly.dev/fonts/Inter-Regular.woff2") format("woff2"),
 		url("https://personal-minio.fly.dev/fonts/Inter-Regular.ttf") format("truetype");
 }
 
@@ -12,7 +12,7 @@
 	font-style: normal;
 	font-weight: 600;
 	font-display: swap;
-	src: url("https://personal-minio.fly.dev/fonts/Inter-SemiBold.woff2") format("woff2"),
+	src: local("Inter SemiBold"), url("https://personal-minio.fly.dev/fonts/Inter-SemiBold.woff2") format("woff2"),
 		url("https://personal-minio.fly.dev/fonts/Inter-SemiBold.ttf") format("truetype");
 }
 
@@ -21,7 +21,7 @@
 	font-style: normal;
 	font-weight: 300;
 	font-display: swap;
-	src: url("https://personal-minio.fly.dev/fonts/Candid-Light.otf") format("opentype");
+	src: local("Candid Light"), url("https://personal-minio.fly.dev/fonts/Candid-Light.otf") format("opentype");
 }
 
 
@@ -30,7 +30,7 @@
 	font-style: normal;
 	font-weight: 400;
 	font-display: swap;
-	src: url("https://personal-minio.fly.dev/fonts/Candid-Regular.otf") format("opentype");
+	src: local("Candid Regular"), url("https://personal-minio.fly.dev/fonts/Candid-Regular.otf") format("opentype");
 }
 
 @font-face {
@@ -38,7 +38,7 @@
 	font-style: normal;
 	font-weight: 600;
 	font-display: swap;
-	src: url("https://personal-minio.fly.dev/fonts/Candid-SemiBold.woff2") format("woff2"),
+	src:  local("Candid SemiBold"), url("https://personal-minio.fly.dev/fonts/Candid-SemiBold.woff2") format("woff2"),
 		url("https://personal-minio.fly.dev/fonts/Candid-SemiBold.otf") format("opentype");
 }
 
@@ -47,7 +47,7 @@
 	font-style: normal;
 	font-weight: 700;
 	font-display: swap;
-	src: url("https://personal-minio.fly.dev/fonts/Candid-Bold.woff2") format("woff2"),
+	src: local("Candid Bold"), url("https://personal-minio.fly.dev/fonts/Candid-Bold.woff2") format("woff2"),
 		url("https://personal-minio.fly.dev/fonts/Candid-Bold.otf") format("opentype");
 }
 
@@ -56,7 +56,7 @@
 	font-style: normal;
 	font-weight: 400;
 	font-display: swap;
-	src: url("https://personal-minio.fly.dev/fonts/JetBrainsMono-Regular.ttf") format("truetype");
+	src: local("JetBrains Mono"), url("https://personal-minio.fly.dev/fonts/JetBrainsMono-Regular.ttf") format("truetype");
 }
 
 @font-face {
@@ -64,7 +64,7 @@
 	font-style: normal;
 	font-weight: 700;
 	font-display: swap;
-	src: url("https://personal-minio.fly.dev/fonts/Pulp-Display-Semi-Bold.otf") format("opentype");
+	src: local("Pulp Display Semi Bold"), url("https://personal-minio.fly.dev/fonts/Pulp-Display-Semi-Bold.otf") format("opentype");
 }
 
 @font-face {
@@ -72,7 +72,7 @@
 	font-style: normal;
 	font-weight: 400;
 	font-display: swap;
-	src: url("https://personal-minio.fly.dev/fonts/Caveat-Medium.woff2") format("woff2");
+	src: local("Caveat Medium"), url("https://personal-minio.fly.dev/fonts/Caveat-Medium.woff2") format("woff2");
 	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
 		U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -82,7 +82,7 @@
 	font-style: normal;
 	font-weight: 400;
 	font-display: swap;
-	src: url("https://personal-minio.fly.dev/fonts/PT-Serif-Regular.woff2") format("woff2");
+	src: local("PT Serif Regular"), url("https://personal-minio.fly.dev/fonts/PT-Serif-Regular.woff2") format("woff2");
 	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
 		U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
