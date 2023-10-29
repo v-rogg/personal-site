@@ -2,4 +2,4 @@
 .branches
 .temp
 .env
-.crt
+*.crt
