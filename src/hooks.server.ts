@@ -17,7 +17,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	const cookies = cookie.parse(request.headers.get("cookie") || "");
 	const identifier = cookies["identifier"] || uuid_v4();
-	event.cookies.set("identifier", identifier, {httpOnly: false, expires: new Date(2100, 1,1)})
+	event.cookies.set("identifier", identifier, {path: "/", httpOnly: false, expires: new Date(2100, 1,1)})
 
 	// If this request is a route request
 	if (Object.keys(config.translations).includes(lang) || lang === "") {

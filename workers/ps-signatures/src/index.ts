@@ -1,7 +1,7 @@
 import { Pool } from "pg";
 import { drizzle, type NodePgDatabase } from "drizzle-orm/node-postgres";
 import { eq, isNull } from "drizzle-orm";
-import { error, json, Router, withParams } from "itty-router";
+import { createCors, error, json, Router, withParams } from "itty-router";
 import { Signature } from "$drizzle/types";
 import { signatures } from "$drizzle/schema";
 
@@ -13,10 +13,16 @@ export interface Env {
 	SECURE: boolean;
 }
 
+const { preflight, corsify } = createCors({
+	methods: ["GET", "POST", "PUT", "DELETE"]
+});
+
 const router = Router();
 
 router
+	.all("*", preflight)
 	.all("*", withParams)
+
 
 	.all("*", (req, env) => {
 		const PRESHARED_AUTH_HEADER_KEY = "Authorization";
@@ -125,6 +131,6 @@ export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
 		env.POOL = new Pool({ connectionString: env.DB_CONN_STRING });
 		env.DB = drizzle(env.POOL);
-		return router.handle(request, env, ctx).then(json).catch(error);
+		return router.handle(request, env, ctx).then(json).catch(error).then(corsify);
 	}
 };

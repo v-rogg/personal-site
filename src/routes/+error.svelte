@@ -3,7 +3,7 @@
 </script>
 
 <section class="container">
-  <i class="bug fa-thin fa-bug"></i>
+  <i class="bug fa-regular fa-bug"></i>
   <h1>
     {$page.status} {$page.error.name}
   </h1>
