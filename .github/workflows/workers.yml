@@ -2,6 +2,9 @@ name: CF Workers Deploy
 
 on:
   workflow_call:
+    secrets:
+      CF_API_TOKEN:
+        required: true
 
 jobs:
   deploy-workers:
