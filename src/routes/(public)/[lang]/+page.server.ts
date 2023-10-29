@@ -36,13 +36,20 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
 	try {
 		let signatureRefs = await get<Partial<Signature>[]>(PUBLIC_SIGNATURES_WORKER, fetch);
 
+		console.log(signatureRefs);
+
 		signatureRefs = shuffle(signatureRefs);
 
+		console.log(signatureRefs);
+		console.log(requestedSID);
 		if (requestedSID) {
 			signatureRefs = signatureRefs.filter((signature) => signature.id != requestedSID);
 			signatureRefs.unshift({ id: requestedSID });
 		}
 		if (signatureRefs.length > 0) {
+
+			console.log(signatureRefs[0].id);
+
 			const firstResult = await get<Signature>(`${PUBLIC_SIGNATURES_WORKER}/${signatureRefs[0].id}`);
 
 			return {
