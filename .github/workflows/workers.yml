@@ -1,10 +1,10 @@
 name: CF Workers Deploy
 
 on:
-  push:
+  workflow_call:
 
 jobs:
-  deploy:
+  deploy-workers:
     name: Deploy workers
     runs-on: ubuntu-latest
     steps:
@@ -13,4 +13,4 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          workingDirectory: "workers/ps-signatures"
+          workingDirectory: "./workers/ps-signatures/"
