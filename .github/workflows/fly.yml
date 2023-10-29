@@ -14,15 +14,13 @@ jobs:
       - run: |
           flyctl deploy \
           --config fly.production.toml \
-          --build-secret ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }} \
-          --build-secret PUBLIC_FAUNA_GQL_ENDPOINT=${{ vars.PUBLIC_FAUNA_GQL_ENDPOINT }} \
-          --build-secret PUBLIC_FAUNA_SECRET=${{ secrets.PUBLIC_FAUNA_SECRET }} \
-          --build-secret FAUNA_SECRET=${{ secrets.FAUNA_SECRET }} \
-          --build-secret PUBLIC_TELEMETRYDECK_APP_ID=${{ secrets.PUBLIC_TELEMETRYDECK_APP_ID }} \
           --build-secret PUBLIC_CF_IMAGES_ENDPOINT=${{ secrets.PUBLIC_CF_IMAGES_ENDPOINT }} \
           --build-secret PUBLIC_STORYBLOK_TOKEN=${{ secrets.PUBLIC_STORYBLOK_TOKEN }} \
-          --build-secret PUBLIC_VERSION_DATE=${{ github.event.head_commit.timestamp }} \
           --build-secret PUBLIC_POSTHOG_TOKEN=${{ secrets.PUBLIC_POSTHOG_TOKEN }} \
+          --build-secret PUBLIC_VERSION_DATE=${{ github.event.head_commit.timestamp }} \
+          --build-secret PUBLIC_SIGNATURES_WORKER=${{ secrets.PUBLIC_SIGNATURES_WORKER }} \
+          --build-secret ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }} \
+          --build-secret WORKER_PSK=${{ secrets.WORKER_PSK }} \
           --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

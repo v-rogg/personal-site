@@ -30,24 +30,21 @@ RUN npm ci --include=dev
 COPY --link . .
 
 # Build application
-RUN --mount=type=secret,id=ADMIN_PASSWORD \
-    --mount=type=secret,id=PUBLIC_FAUNA_GQL_ENDPOINT \
-    --mount=type=secret,id=PUBLIC_FAUNA_SECRET \
-    --mount=type=secret,id=FAUNA_SECRET \
-    --mount=type=secret,id=PUBLIC_TELEMETRYDECK_APP_ID \
+RUN \
     --mount=type=secret,id=PUBLIC_CF_IMAGES_ENDPOINT \
     --mount=type=secret,id=PUBLIC_STORYBLOK_TOKEN \
-    --mount=type=secret,id=PUBLIC_VERSION_DATE \
     --mount=type=secret,id=PUBLIC_POSTHOG_TOKEN \
-    ADMIN_PASSWORD="$(cat /run/secrets/ADMIN_PASSWORD)" \
-    PUBLIC_FAUNA_GQL_ENDPOINT="$(cat /run/secrets/PUBLIC_FAUNA_GQL_ENDPOINT)" \
-    PUBLIC_FAUNA_SECRET="$(cat /run/secrets/PUBLIC_FAUNA_SECRET)" \
-    FAUNA_SECRET="$(cat /run/secrets/FAUNA_SECRET)" \
-    PUBLIC_TELEMETRYDECK_APP_ID="$(cat /run/secrets/PUBLIC_TELEMETRYDECK_APP_ID)" \
+    --mount=type=secret,id=PUBLIC_VERSION_DATE \
+    --mount=type=secret,id=PUBLIC_SIGNATURES_WORKER \
+    --mount=type=secret,id=ADMIN_PASSWORD \
+    --mount=type=secret,id=WORKER_PSK \
     PUBLIC_CF_IMAGES_ENDPOINT="$(cat /run/secrets/PUBLIC_CF_IMAGES_ENDPOINT)" \
     PUBLIC_STORYBLOK_TOKEN="$(cat /run/secrets/PUBLIC_STORYBLOK_TOKEN)" \
-    PUBLIC_VERSION_DATE="$(cat /run/secrets/PUBLIC_VERSION_DATE)" \
     PUBLIC_POSTHOG_TOKEN="$(cat /run/secrets/PUBLIC_POSTHOG_TOKEN)" \
+    PUBLIC_VERSION_DATE="$(cat /run/secrets/PUBLIC_VERSION_DATE)" \
+    PUBLIC_SIGNATURES_WORKER="$(cat /run/secrets/PUBLIC_SIGNATURES_WORKER)" \
+    ADMIN_PASSWORD="$(cat /run/secrets/ADMIN_PASSWORD)" \
+    WORKER_PSK="$(cat /run/secrets/WORKER_PSK)" \
     npm run build
 
 

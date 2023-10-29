@@ -11,10 +11,10 @@
 </script>
 
 <svelte:head>
-	<link rel="preload" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageLight}/50" />
+	<link rel="" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageLight}/50" />
 	<link rel="" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageLight}/75" />
 	<link rel="" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageLight}/100" />
-	<link rel="preload" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageDark}/50" />
+	<link rel="" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageDark}/50" />
 	<link rel="" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageDark}/75" />
 	<link rel="" as="image" href="{PUBLIC_CF_IMAGES_ENDPOINT}/{imageDark}/100" />
 </svelte:head>
