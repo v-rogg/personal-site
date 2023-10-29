@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - working-directory: ./workers/ps-signatures
+        run: npm ci
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
