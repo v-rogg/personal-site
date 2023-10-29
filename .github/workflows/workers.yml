@@ -5,7 +5,7 @@ on:
 
 jobs:
   deploy-workers:
-    name: Deploy workers
+    name: Deploy ps-signature worker
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -13,4 +13,4 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          workingDirectory: "./workers/ps-signatures/"
+#          workingDirectory: "./workers/ps-signatures/"
