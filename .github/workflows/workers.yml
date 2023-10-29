@@ -13,4 +13,5 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
-#          workingDirectory: "./workers/ps-signatures/"
+          workingDirectory: "./workers/ps-signatures/"
+          command: "wrangler deploy"
