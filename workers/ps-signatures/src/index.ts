@@ -27,7 +27,7 @@ router
 	})
 
 	.get("/", async (req, env, ctx) => {
-		let result = {};
+		let result;
 		if (req.SECURE) {
 			switch (req.query.filter) {
 				case "unreviewed":
@@ -94,8 +94,9 @@ router
 						id: signatures.id,
 						name: signatures.name,
 						signature: signatures.signature,
-						ts_created: signatures.ts_created
-					});
+						ts_created: signatures.ts_created,
+						approved: signatures.approved
+					}).then(res => res[0]);
 				ctx.waitUntil(env.POOL.end());
 				return result;
 			} else {

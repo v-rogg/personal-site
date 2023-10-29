@@ -7,8 +7,8 @@
 	const password = $page.url.searchParams.get("pa");
 
 	enum Filter {
-		New,
-		All
+		New = 0,
+		All = 1
 	}
 
 	let filter;
@@ -37,8 +37,8 @@
 					return async ({ result }) => {
 						if (result.status === 200) {
 
-							if (result.data.status) {
-								$currentSignatureStore.status = result.data.status;
+							if (result.data.approved !== undefined) {
+								$currentSignatureStore.approved = result.data.approved;
 							}
 							if (result.data.deleted) {
 								$refIndexStore = 0;
@@ -50,14 +50,14 @@
 				<button
 					id="approve"
 					formaction="?/approve&pa={password}"
-					class:notstatus="{$currentSignatureStore?.status !== 'approved' &&
+					class:notstatus="{$currentSignatureStore?.approved !== true &&
 						$currentSignatureStore?.status !== 'new'}">
 					<i class="fa-regular fa-check"></i>
 				</button>
 				<button
 					id="decline"
 					formaction="?/decline&pa={password}"
-					class:notstatus="{$currentSignatureStore?.status !== 'declined' &&
+					class:notstatus="{$currentSignatureStore?.approved !== false &&
 						$currentSignatureStore?.status !== 'new'}">
 					<i class="fa-regular fa-xmark"></i>
 				</button>
@@ -116,7 +116,7 @@
 
 
 	.admin-panel {
-		pointer-events: all;
+		pointer-events: auto;
 		position: absolute;
 		bottom: 2rem;
 		z-index: 800;
@@ -200,12 +200,13 @@
 
 	.filter {
 		position: absolute;
-		z-index: 250;
+		z-index: 800;
 		bottom: 2rem;
 		right: 0;
 		display: flex;
 		backdrop-filter: blur(8px);
 		border-radius: 4px;
+		pointer-events: auto;
 	}
 
 	.filter_switch {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, onDestroy } from "svelte";
+	import { onMount } from "svelte";
 	import SignaturePad from "signature_pad";
 	import { darkMode, admin } from "$lib/stores";
 	import {
@@ -11,7 +11,6 @@
 	import xss from "xss";
 	import { enhance } from "$app/forms";
 	import { fade } from "svelte/transition";
-	// import { getPublicFaunaClient } from "$lib/fauna/fauna.public";
 	import { loadDelta } from "$lib/components/sections/EyeCatcher/signature.helpers";
 	import { sendClientEvent } from "$lib/posthog";
 	import type { Signature, SignatureData } from "$drizzle/types";

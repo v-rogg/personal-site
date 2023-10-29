@@ -11,6 +11,7 @@ async function updateStatus(id: ID, approved: true | false | null, fetch: Fetch)
 
 	try {
 		const update = await putPrivate<Partial<Signature>>(`${PUBLIC_SIGNATURES_WORKER}/${id}`, {approved}, fetch)
+		console.log(update);
 		return update.approved;
 	} catch (error) {
 		return fail(500, { msg: String(error) });
@@ -24,10 +25,10 @@ export const actions: Actions = {
 
 		if (!id) return fail(400, { id, missing: true });
 
-		const status = await updateStatus(<ID>id, true, fetch);
+		const approved = await updateStatus(<ID>id, true, fetch);
 
 		return {
-			status
+			approved
 		};
 	},
 	decline: async ({ request, fetch }) => {
@@ -36,10 +37,10 @@ export const actions: Actions = {
 
 		if (!id) return fail(400, { id, missing: true });
 
-		const status = await updateStatus(<ID>id, false, fetch);
+		const approved = await updateStatus(<ID>id, false, fetch);
 
 		return {
-			status
+			approved
 		};
 	},
 	delete: async ({ request }) => {

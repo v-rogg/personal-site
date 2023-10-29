@@ -32,7 +32,7 @@ export async function putPrivate<T>(url: RequestInfo | URL, body: object, f = fe
 	}).then((res) => res.json());
 }
 
-export async function deletePrivate<T>(url: RequestInfo | URL, f = fetch) {
+export async function deletePrivate<T>(url: RequestInfo | URL, f = fetch): Promise<T> {
 	return f(url, {
 		method: "DELETE",
 		headers: {

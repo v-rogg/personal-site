@@ -65,12 +65,9 @@
 <style>
 	.app {
 		color: var(--c-black);
-		/*background: var(--c-bg);*/
 		height: 100%;
 		min-height: 100vh;
-		/*position: absolute;*/
 		top: 0;
 		width: 100%;
-		/*padding-bottom: 200px;*/
 	}
 </style>
