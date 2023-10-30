@@ -28,6 +28,10 @@ export default {
       },
       black: {
         DEFAULT: "#191919"
+      },
+      grey: {
+        600: "#DEDEDE",
+        800: "#3F3F3F"
       }
     },
     fontFamily: {

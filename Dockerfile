@@ -38,6 +38,7 @@ RUN \
     --mount=type=secret,id=PUBLIC_SIGNATURES_WORKER \
     --mount=type=secret,id=ADMIN_PASSWORD \
     --mount=type=secret,id=WORKER_PSK \
+    --mount=type=secret,id=RESEND_TOKEN \
     PUBLIC_CF_IMAGES_ENDPOINT="$(cat /run/secrets/PUBLIC_CF_IMAGES_ENDPOINT)" \
     PUBLIC_STORYBLOK_TOKEN="$(cat /run/secrets/PUBLIC_STORYBLOK_TOKEN)" \
     PUBLIC_POSTHOG_TOKEN="$(cat /run/secrets/PUBLIC_POSTHOG_TOKEN)" \
@@ -45,6 +46,7 @@ RUN \
     PUBLIC_SIGNATURES_WORKER="$(cat /run/secrets/PUBLIC_SIGNATURES_WORKER)" \
     ADMIN_PASSWORD="$(cat /run/secrets/ADMIN_PASSWORD)" \
     WORKER_PSK="$(cat /run/secrets/WORKER_PSK)" \
+    RESEND_TOKEN="$(cat /run/secrets/RESEND_TOKEN)" \
     npm run build
 
 

@@ -262,7 +262,7 @@
 		padding: 0;
 		margin: 0;
 		opacity: 1;
-		animation: 250ms in ease-in-out;
+		//animation: 250ms in ease-in-out;
 	}
 
 	@keyframes in {
