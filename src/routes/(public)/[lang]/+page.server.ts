@@ -5,6 +5,7 @@ import type { ID, Signature } from "$drizzle/types";
 import { PUBLIC_SIGNATURES_WORKER } from "$env/static/public";
 import { get } from "$lib/connection/fetch.pulic";
 import { postPrivate } from "$lib/connection/fetch.private";
+import { v4 as uuid_v4 } from "uuid";
 
 export const actions: Actions = {
 	create: async ({ request }) => {
@@ -15,7 +16,7 @@ export const actions: Actions = {
 		if (!data.signature) return fail(400, { signature: data.signature, missing: true });
 
 		try {
-			return await postPrivate<Signature>(PUBLIC_SIGNATURES_WORKER, { name: data.name, signature: data.signature }, fetch);
+			return await postPrivate<Signature>(PUBLIC_SIGNATURES_WORKER, { id: uuid_v4(), name: data.name, signature: data.signature }, fetch);
 		} catch (error) {
 			return fail(500, { msg: String(error) });
 		}

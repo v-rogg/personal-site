@@ -10,7 +10,7 @@ import type { Fetch } from "$lib/connection/fetch";
 async function updateStatus(id: ID, approved: true | false | null, fetch: Fetch) {
 
 	try {
-		const update = await putPrivate<Partial<Signature>>(`${PUBLIC_SIGNATURES_WORKER}/${id}`, {approved}, fetch)
+		const update = await putPrivate<Partial<Signature>>(`${PUBLIC_SIGNATURES_WORKER}/${id}`, {approved, ts_modified: new Date()}, fetch)
 		console.log(update);
 		return update.approved;
 	} catch (error) {

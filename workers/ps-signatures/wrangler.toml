@@ -6,6 +6,11 @@ node_compat = true
 [dev]
 host = "valentinrogg.de"
 
+[[ d1_databases ]]
+binding = "D1DB"
+database_name = "personal-site"
+database_id = "e903d5ec-aa82-4080-af4c-ba8c11e01875"
+
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
 # Docs: https://developers.cloudflare.com/workers/platform/environment-variables

@@ -13,7 +13,6 @@ create table signatures
 
 create or replace function update_ts_modified()
 returns trigger
-language plpgsql
 as $$
 begin
     NEW.ts_modified := current_timestamp;
