@@ -10,7 +10,7 @@
 	let message: string;
 </script>
 
-<section class="grid-settings bg-black dark:bg-blue-900 sm:rounded-2xl p-8 text-white-500 flex flex-col h-[25rem] min-w-[25rem]"  style="--sm: {blok.grid_sm}; --md: {blok.grid_md}; --lg: {blok.grid_lg}; --xl: {blok.grid_xl};"use:storyblokEditable={blok}>
+<section class="grid-settings bg-black dark:bg-blue-900 sm:rounded-2xl p-8 text-white-500 flex flex-col h-[25rem] min-w-[25rem]"  style="--sm: {blok.grid_sm}; --md: {blok.grid_md}; --lg: {blok.grid_lg}; --xl: {blok.grid_xl};" use:storyblokEditable={blok}>
 	<h3 class="text-3xl font-display text-center">{blok.title}</h3>
 	<form out:scale={{duration: 300}} method="POST" action="/actions/mail?/sendMail" class="mt-8 flex flex-col items-center gap-3 flex-grow" use:enhance={({formData}) => {
 		email = formData.get("email")?.toString() || "";
@@ -28,7 +28,7 @@
 			{#if !mailSent}
 				<button type="submit" class="bg-white-500 dark:bg-blue-800 text-black dark:text-white-500 px-2 py-1 rounded-lg border border-white-500 dark:border-blue-700">{$t("contactme.leaveMessage")}</button>
 			{:else}
-				<p class="self-center">{$t("contactme.messageSent")} <i class="fa-solid fa-paper-plane"></i></p>
+				<p class="self-center px-2 py-1 border border-transparent">{$t("contactme.messageSent")} <i class="fa-solid fa-paper-plane"></i></p>
 			{/if}
 		</div>
 	</form>
