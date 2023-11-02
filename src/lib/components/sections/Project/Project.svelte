@@ -10,7 +10,7 @@
 
 <section
 	use:storyblokEditable="{blok}"
-	class="grid-settings flex gap-4 justify-between bg-gradient-to-b from-white-600 to-white-700 dark:from-blue-800 dark:to-blue-800 sm:rounded-2xl p-8 col-span max-sm:min-h-[25rem] md:h-[25rem] overflow-hidden"
+	class="grid-settings flex gap-4 justify-between bg-white-600 dark:bg-blue-800 sm:rounded-2xl p-8 col-span max-sm:min-h-[25rem] md:h-[25rem] overflow-hidden"
 	style="--sm: {blok.grid_sm}; --md: {blok.grid_md}; --lg: {blok.grid_lg}; --xl: {blok.grid_xl};">
 	<div class="flex flex-col gap-4">
 		<div>
