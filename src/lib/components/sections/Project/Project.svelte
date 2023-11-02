@@ -2,10 +2,6 @@
 	import { StoryblokComponent, storyblokEditable } from "@storyblok/svelte";
 
 	export let blok;
-
-	if (blok) {
-		console.log(blok);
-	}
 </script>
 
 <section
