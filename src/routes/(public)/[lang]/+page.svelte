@@ -2,12 +2,10 @@
 	import { currentSignatureStore, signatureRefsStore } from "$lib/components/sections/EyeCatcher/signature.stores";
 	import ShortBio from "$lib/components/sections/ShortBio/ShortBio.svelte";
 	import EyeCatcher from "$lib/components/sections/EyeCatcher/EyeCatcher.svelte";
-	import CV from "$lib/components/sections/CV/CV.svelte";
 	import { onMount } from "svelte"
-	import { useStoryblokBridge } from "@storyblok/svelte";
-	import type { Content, CvContent, BioContent, MemoriesSettingsContent, MemoryContent } from "$lib/storyblok/schema";
-	import Memories from "$lib/components/sections/Memories/Memories.svelte";
-	import { t } from "$lib/_i18n";
+	import { useStoryblokBridge, StoryblokComponent } from "@storyblok/svelte";
+	import type { Content, CvContent, BioContent} from "$lib/storyblok";
+	import { storyblokEditable } from "@storyblok/svelte";
 
 	export let data: {
 		lang: string;
@@ -15,8 +13,7 @@
 		slug: string;
 		bio: Content<BioContent>;
 		cv: Content<CvContent>;
-		memoriesSettings: Content<MemoriesSettingsContent>;
-		memories: Content<MemoryContent>[];
+		page;
 		signatureRefs: [];
 		currentSignature: object;
 	};
@@ -24,7 +21,11 @@
 	if (data) {
 		currentSignatureStore.set(data.currentSignature);
 		signatureRefsStore.set(data.signatureRefs);
+
+		console.log(data.page);
 	}
+
+	$: page = data.page.content
 
 	onMount(() => {
 		useStoryblokBridge(
@@ -36,18 +37,12 @@
 			(newStory) => {data.bio = newStory}
 		);
 		useStoryblokBridge(
-			data.memoriesSettings.id,
-			(newStory) => {data.memoriesSettings = newStory}
-		)
-		useStoryblokBridge(
-			data.memories.id,
-			(newStory) => {data.memories = newStory}
+			data.page.id,
+			async (newStory) => {
+				data.page = newStory}
 		);
 	});
 </script>
-
-<div>
-</div>
 
 <svelte:head>
 	<title>Valentin Rogg</title>
@@ -57,21 +52,31 @@
 	<EyeCatcher />
 </section>
 
-<section class="grid gap-4 container mb-4 grid-cols-4 lg:grid-cols-8">
+<section class="grid gap-4 container mb-4 grid-cols-1 lg:grid-cols-2">
 	<ShortBio blok={data.bio}/>
-	<div class="bg-white-600 dark:bg-blue-800 rounded-2xl p-8 col-span-4 h-[25rem] overflow-hidden">
-		<h2 class="text-2xl font-semibold text-center mb-10">{$t("cv.title")}</h2>
-		<div class="hover:scale-[102%] duration-1000">
-			<CV blok={data.cv}/>
-		</div>
-	</div>
+	<StoryblokComponent blok="{data.page.content.spotlight[0]}" />
+
 </section>
 
-<section class="grid gap-4 grid-cols-11 container mb-8">
-	<Memories settings="{data.memoriesSettings}" content="{data.memories}"/>
+<section class="grid-settings grid gap-4 container mb-8" style="--sm: {page.grid_sm}; --md: {page.grid_md}; --lg: {page.grid_lg}; --xl: {page.grid_xl}" use:storyblokEditable={data.page}>
+	{#each data.page.content.feed as blok}
+		<StoryblokComponent {blok} />
+	{/each}
 </section>
 
-<!--<section class="third container mb-12">-->
-<!--	{#if data.cv}-->
-<!--	{/if}-->
-<!--</section>-->
+<style lang="postcss">
+	.grid-settings {
+		@media (min-width: theme('screens.sm')) {
+			grid-template-columns: repeat(var(--sm), 1fr);
+		}
+		@media (min-width: theme('screens.md')) {
+			grid-template-columns: repeat(var(--md), 1fr);
+		}
+		@media (min-width: theme('screens.lg')) {
+			grid-template-columns: repeat(var(--lg), 1fr);
+		}
+		@media (min-width: theme('screens.xl')) {
+			grid-template-columns: repeat(var(--xl), 1fr);
+		}
+	}
+</style>

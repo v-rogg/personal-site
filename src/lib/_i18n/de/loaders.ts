@@ -35,6 +35,12 @@ export const de_loaders =  [
   },
   {
     locale: "de",
+    key: "contactme",
+    routes: ["/de"],
+    loader: async () => (await import("./contactme.json")).default
+  },
+  {
+    locale: "de",
     key: "legal",
     routes: ["/de/rechtliches"],
     loader: async () => (await import("./legal.json")).default

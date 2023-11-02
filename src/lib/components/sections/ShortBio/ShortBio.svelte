@@ -6,7 +6,7 @@
 </script>
 
 
-<div class="col-span-4 px-16 flex flex-col justify-center h-[25rem]">
+<div class="px-16 flex flex-col justify-center min-h-[25rem]">
 	<h1 class="text-4xl font-semibold mb-4 font-sans text-black dark:text-white-500" class:text-center={blok.content.align === "center"} class:text-right={blok.content.align === "right"}>Valentin Rogg</h1>
 	{#if blok.content.flags}
 	<p class="my-4 flex flex-wrap gap-0.5 max-sm:mx-10" id="flags" class:justify-center={blok.content.align === "center"} class:justify-end={blok.content.align === "right"}>

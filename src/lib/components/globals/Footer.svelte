@@ -7,7 +7,7 @@
 		PUBLIC_VERSION_DATE == undefined || PUBLIC_VERSION_DATE == "" ? new Date() : new Date(PUBLIC_VERSION_DATE);
 </script>
 
-<footer class="container container-tight mx-auto mb-16">
+<footer class="container container-tight mx-auto mb-16 mt-16 xl:mt-0">
 	<div class="legal overlay">
 		<a href="/{$locale}{$t('slugs.legal')}">{$t("common.legal")}</a>
 		<div class="copy">
@@ -195,7 +195,7 @@
 		}
 
 		.hand_arrow {
-			transform: translate(0, 5px) !important;
+			transform: scale(1.3) translate(0, -1px) !important;
 		}
 
 		.legal {

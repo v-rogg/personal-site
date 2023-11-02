@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { t } from "$lib/_i18n";
-	import type { Content, MemoriesSettingsContent, MemoryContent } from "$lib/storyblok/schema";
+	import type { Content, MemoriesSettingsContent, MemoryContent } from "$lib/storyblok";
 	import { StoryblokComponent } from "@storyblok/svelte";
 
 	export let settings: Content<MemoriesSettingsContent>;

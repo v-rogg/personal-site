@@ -1,0 +1,45 @@
+<script lang="ts">
+	import { StoryblokComponent, storyblokEditable } from "@storyblok/svelte";
+
+	export let blok;
+
+	if (blok) {
+		console.log(blok);
+	}
+</script>
+
+<section
+	use:storyblokEditable="{blok}"
+	class="grid-settings flex gap-4 justify-between bg-gradient-to-b from-white-600 to-white-700 dark:from-blue-800 dark:to-blue-800 sm:rounded-2xl p-8 col-span max-sm:min-h-[25rem] md:h-[25rem] overflow-hidden"
+	style="--sm: {blok.grid_sm}; --md: {blok.grid_md}; --lg: {blok.grid_lg}; --xl: {blok.grid_xl};">
+	<div class="flex flex-col gap-4">
+		<div>
+			<h3 class="text-3xl font-semibold">{blok.title}</h3>
+			<h4 class="font-semibold" style="color: {blok.subtitle_color.color}">{blok.subtitle}</h4>
+		</div>
+		<p class="grow font-serif max-w-[20rem]">{blok.description}</p>
+		{#if blok.cta}
+			<StoryblokComponent blok="{blok.cta[0]}" />
+		{/if}
+	</div>
+	<div class="relative flex items-center">
+		<img src="{blok.img.filename}" alt="{blok.img.alt}" class="block h-fit max-h-[100%] min-w-[5rem] mx-auto" />
+	</div>
+</section>
+
+<style lang="postcss">
+	.grid-settings {
+		@media (min-width: theme("screens.sm")) {
+			grid-column: span var(--sm) / span var(--sm);
+		}
+		@media (min-width: theme("screens.md")) {
+			grid-column: span var(--md) / span var(--md);
+		}
+		@media (min-width: theme("screens.lg")) {
+			grid-column: span var(--lg) / span var(--lg);
+		}
+		@media (min-width: theme("screens.xl")) {
+			grid-column: span var(--xl) / span var(--xl);
+		}
+	}
+</style>

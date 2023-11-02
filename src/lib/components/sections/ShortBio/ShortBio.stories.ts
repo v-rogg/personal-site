@@ -25,7 +25,7 @@ const meta = {
 			"Hey there, I am Valentin, and my professional passion is crafting data experiences. I specialize in automated data collection, analysis, and interactive data visualization. On my own time, I am an aspiring musician and globetrotter.",
 		align: "center",
 		locale: "en",
-		flags: true
+		flags: false
 	},
 	render: ({ short_bio, align, locale, flags }) => {
 		loadTranslations(locale || defaultLocale, "/");
@@ -45,7 +45,8 @@ export const Left: Story = {
 };
 export const Center: Story = {
 	args: {
-		align: "center"
+		align: "center",
+		flags: true
 	}
 };
 

@@ -4,6 +4,9 @@ import { slugStore } from "$lib/stores";
 import { storyblokInit, apiPlugin, useStoryblokApi } from "@storyblok/svelte";
 import { PUBLIC_STORYBLOK_TOKEN } from "$env/static/public";
 import Memory from "$lib/components/sections/Memories/Memory.svelte";
+import ContactMe from "$lib/components/sections/ContactMe/ContactMe.svelte";
+import Project from "$lib/components/sections/Project/Project.svelte";
+import LinkButton from "$lib/components/globals/LinkButton/LinkButton.svelte";
 
 export const prerender = true;
 
@@ -37,7 +40,10 @@ export const load: LayoutLoad = async ({ url, fetch }) => {
 			fetch
 		},
 		components: {
-			Memory: Memory
+			Memory: Memory,
+			ContactMe: ContactMe,
+			Project: Project,
+			LinkButton: LinkButton
 		}
 	});
 
