@@ -1,6 +1,6 @@
 import { fail, type Actions } from "@sveltejs/kit";
 import { RESEND_TOKEN } from "$env/static/private";
-
+export const prerender = false;
 export const actions = {
 	sendMail: async ({ request, fetch }) => {
 		const form = await request.formData();
