@@ -7,5 +7,6 @@
   "save": "Save signature",
   "draw": "Draw",
   "erase": "Erase",
-  "submit_alert": "Your drawing has been submitted. After it has been reviewed it will be visible to all."
+  "submit_alert": "Your drawing has been submitted. After it has been reviewed it will be visible to all.",
+  "tutorial": "Create a Sketch"
 }
