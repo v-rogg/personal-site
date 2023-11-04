@@ -8,15 +8,11 @@ export const load: PageLoad = async ({ data, parent, params }) => {
 
 	const version = PUBLIC_NODE_ENV === "production" ? "published" : "draft";
 
-	const [cv, bio, page] = await Promise.all([
-		storyblokApi.get(`cdn/stories/cv/${params.lang}`, { version }),
-		storyblokApi.get(`cdn/stories/bio/${params.lang}`, { version }),
+	const [page] = await Promise.all([
 		storyblokApi.get(`cdn/stories/${params.lang}`, { version }),
 	]);
 
 	return {
-		cv: cv.data.story,
-		bio: bio.data.story,
 		page: page.data.story,
 		...data
 	};

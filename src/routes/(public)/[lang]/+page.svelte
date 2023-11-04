@@ -4,15 +4,12 @@
 	import EyeCatcher from "$lib/components/sections/EyeCatcher/EyeCatcher.svelte";
 	import { onMount } from "svelte"
 	import { useStoryblokBridge, StoryblokComponent } from "@storyblok/svelte";
-	import type { Content, CvContent, BioContent} from "$lib/storyblok";
 	import { storyblokEditable } from "@storyblok/svelte";
 
 	export let data: {
 		lang: string;
 		route: string;
 		slug: string;
-		bio: Content<BioContent>;
-		cv: Content<CvContent>;
 		page;
 		signatureRefs: [];
 		currentSignature: object;
@@ -22,20 +19,11 @@
 		currentSignatureStore.set(data.currentSignature);
 		signatureRefsStore.set(data.signatureRefs);
 
-		console.log(data.page);
 	}
 
 	$: page = data.page.content
 
 	onMount(() => {
-		useStoryblokBridge(
-			data.cv.id,
-			(newStory) => {data.cv = newStory}
-		);
-		useStoryblokBridge(
-			data.bio.id,
-			(newStory) => {data.bio = newStory}
-		);
 		useStoryblokBridge(
 			data.page.id,
 			async (newStory) => {
@@ -53,7 +41,7 @@
 </section>
 
 <section class="grid gap-4 container mb-4 grid-cols-1 lg:grid-cols-2">
-	<ShortBio blok={data.bio}/>
+	<ShortBio blok={data.page}/>
 	<StoryblokComponent blok="{data.page.content.spotlight[0]}" />
 
 </section>
