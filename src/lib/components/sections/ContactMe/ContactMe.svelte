@@ -3,6 +3,7 @@
 	import { scale } from "svelte/transition";
 	import { storyblokEditable } from "@storyblok/svelte";
 	import { t } from "$lib/_i18n";
+	import Button from "$lib/components/globals/Button/Button.svelte";
 	export let blok;
 
 	let mailSent = false;
@@ -26,7 +27,7 @@
 		<div class="flex gap-3">
 <!--			<a class="dark:bg-white-700 dark:text-blue-900 text-white-500 py-2 px-4 rounded-lg border border-white-500" href="{learnMoreURL.toString()}">Learn more</a>-->
 			{#if !mailSent}
-				<button type="submit" class="bg-white-500 dark:bg-blue-800 text-black dark:text-white-500 px-2 py-1 rounded-lg border border-white-500 dark:border-blue-700">{$t("contactme.leaveMessage")}</button>
+				<Button>{$t("contactme.leaveMessage")}</Button>
 			{:else}
 				<p class="self-center px-2 py-1 border border-transparent">{$t("contactme.messageSent")} <i class="fa-solid fa-paper-plane"></i></p>
 			{/if}

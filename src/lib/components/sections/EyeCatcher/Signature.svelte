@@ -153,7 +153,7 @@
 				{#if $signatureRefsStore.length - $refIndexStore - 1 > 0}
 					<button
 						id="next"
-						class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700"
+						class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700 ring-1 ring-inset ring-white-700 dark:ring-blue-700"
 						on:click="{() => loadSignature(1)}"
 						aria-label="{$t('signature.next')}"
 						transition:fade="{{ duration: 150 }}">
@@ -163,7 +163,7 @@
 				{#if $refIndexStore > 0}
 					<button
 						id="prev"
-						class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700"
+						class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700 ring-1 ring-inset ring-white-700 dark:ring-blue-700"
 						on:click="{() => loadSignature(-1)}"
 						aria-label="{$t('signature.prev')}"
 						transition:fade="{{ duration: 250 }}">
@@ -210,7 +210,7 @@
 						};
 					}}"
 					style="pointer-events: all">
-					<button id="save" class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700" aria-label="{$t('signature.save')}" transition:fade="{{ duration: 250 }}">
+					<button id="save" class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700 ring-1 ring-inset ring-white-700 dark:ring-blue-700" aria-label="{$t('signature.save')}" transition:fade="{{ duration: 250 }}">
 						<i class="fa-solid fa-floppy-disk"></i>
 					</button>
 				</form>
@@ -225,7 +225,7 @@
 				{#if !eraseModeActive}
 				<button
 					id="erase"
-					class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700"
+					class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700  ring-1 ring-inset ring-white-700 dark:ring-blue-700"
 					on:click="{() => switchToErase()}"
 					aria-label="{$t('signature.erase')}"
 					transition:fade="{{ duration: 250 }}">
@@ -234,7 +234,7 @@
 				{:else}
 					<button
 						id="draw"
-						class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700"
+						class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700 ring-1 ring-inset ring-white-700 dark:ring-blue-700"
 						on:click="{() => switchToDraw()}"
 						aria-label="{$t('signature.draw')}"
 						transition:fade="{{ duration: 250 }}">
@@ -244,7 +244,7 @@
 			{:else if !$admin}
 				<button
 					id="new"
-					class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700"
+					class="bg-white-500 hover:bg-white-700 dark:bg-blue-900 dark:hover:bg-blue-700 ring-1 ring-inset ring-white-700 dark:ring-blue-700"
 					on:click="{() => newCanvas()}"
 					aria-label="{$t('signature.new')}"
 					transition:fade="{{ duration: 250 }}">

@@ -10,9 +10,16 @@
 	class="grid-settings flex gap-4 justify-between bg-white-600 dark:bg-blue-800 sm:rounded-2xl p-8 col-span max-sm:min-h-[25rem] md:h-[25rem] overflow-hidden relative"
 	style="--sm: {blok.grid_sm}; --md: {blok.grid_md}; --lg: {blok.grid_lg}; --xl: {blok.grid_xl};">
 	<div class="flex flex-col gap-4">
-		<div>
-			<h3 class="text-3xl font-semibold">{blok.title}</h3>
-			<h4 class="font-regular" style="color: {blok.subtitle_color.color}">{blok.subtitle}</h4>
+		<div class="flex flex-col gap-2">
+			<h3 class="flex items-center gap-2">
+				{#if blok.icon}
+					<img class="block h-7" src="{blok.icon.filename}" alt="logo"/>
+				{/if}
+				<span class="block h-7 text-3xl font-semibold" style="line-height: 0.8em">
+					{blok.title}
+				</span>
+			</h3>
+			<h4 class="font-[400]" style="color: {blok.subtitle_color.color}">{blok.subtitle}</h4>
 		</div>
 		<p class="grow font-serif max-w-[20rem]">{blok.description}</p>
 		{#if blok.cta}

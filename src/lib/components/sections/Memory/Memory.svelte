@@ -30,7 +30,7 @@
 		{/if}
 	</div>
 	<div class="absolute left-8 top-8">
-		<Tag color="{blok.tag_color.color}">
+		<Tag color="{blok.tag_color.color}" seperateDarkmode="{false}">
 			Trip
 		</Tag>
 	</div>

@@ -3,7 +3,7 @@ import { loadTranslations, translations } from "$lib/_i18n";
 import { slugStore } from "$lib/stores";
 import { storyblokInit, apiPlugin, useStoryblokApi } from "@storyblok/svelte";
 import { PUBLIC_STORYBLOK_TOKEN } from "$env/static/public";
-import Memory from "$lib/components/sections/Memories/Memory.svelte";
+import Memory from "$lib/components/sections/Memory/Memory.svelte";
 import ContactMe from "$lib/components/sections/ContactMe/ContactMe.svelte";
 import Project from "$lib/components/sections/Project/Project.svelte";
 import LinkButton from "$lib/components/globals/LinkButton/LinkButton.svelte";

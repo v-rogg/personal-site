@@ -22,7 +22,7 @@
 	</span>
 </button>
 
-<style>
+<style lang="postcss">
 	.dark_switch {
 		position: relative;
 		width: 1.5rem;

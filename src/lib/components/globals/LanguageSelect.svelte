@@ -30,7 +30,7 @@
 	{/each}
 </div>
 
-<style lang="scss">
+<style lang="postcss">
 	.languages {
 		display: flex;
 		backdrop-filter: blur(8px);
@@ -86,22 +86,31 @@
 	.active {
 		font-weight: 700;
 		&:before {
+			@apply ring-1;
+			@apply ring-inset;
+			@apply ring-white-700;
 			background: var(--c-bg);
 			animation: in-right 250ms ease-in-out;
 		}
 	}
 
+  :global(.dark) .active {
+		&:before {
+		  @apply ring-blue-700;
+	  }
+	}
+
 	.active:last-of-type:before {
-		animation: in-left 250ms ease-in-out;
+	  animation: in-left 250ms ease-in-out;
 	}
 
 	.language_switch:hover:not(.active) {
-		//background: var(--c-bg-hover);
-		cursor: pointer;
+	//background: var(--c-bg-hover);
+	  cursor: pointer;
 	}
 
 	.language_switch:active:not(.active) {
-		//background: var(--c-bg-active);
-		cursor: default;
+	//background: var(--c-bg-active);
+	  cursor: default;
 	}
 </style>

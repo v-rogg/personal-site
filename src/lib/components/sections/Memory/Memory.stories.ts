@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/svelte";
-import Memory from "$lib/components/sections/Memories/Memory.svelte";
+import Memory from "$lib/components/sections/Memory/Memory.svelte";
 import data from "./sample.data.json";
 
 const meta = {
