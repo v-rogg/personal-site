@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { storyblokEditable } from "@storyblok/svelte";
-	import type { MemoryContent } from "$lib/storyblok/schema";
+	import type { MemoryContent } from "$lib/storyblok";
+	import Tag from "$lib/components/globals/Tag/Tag.svelte";
 	export let blok: MemoryContent;
 </script>
 
@@ -27,6 +28,11 @@
 				<!--				<div class="absolute -bottom-2 -right-1 text-md font-handwriting text-white-500">{new Date(blok.date).getFullYear().toString().substring(2)}</div>-->
 			</div>
 		{/if}
+	</div>
+	<div class="absolute left-8 top-8">
+		<Tag color="{blok.tag_color.color}">
+			Trip
+		</Tag>
 	</div>
 </div>
 

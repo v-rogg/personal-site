@@ -3,6 +3,9 @@ main = "src/index.ts"
 compatibility_date = "2023-10-29"
 node_compat = true
 
+[placement]
+mode = "smart"
+
 [dev]
 host = "valentinrogg.de"
 
