@@ -9,4 +9,3 @@ export const darkMode = writable(false, (set) => {
 });
 export const slugStore = writable("slug.default");
 export const admin = writable(false);
-
