@@ -36,7 +36,7 @@ export default {
 			}
 		},
 		fontFamily: {
-			sans: ["Pretendard Std", "sans-serif"]
+			sans: ["Pretendard Std Variable", "sans-serif"]
 		},
 		extend: {
 			fontSize: {

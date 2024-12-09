@@ -1,7 +1,16 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 :root {
-  background: white;
+	background: white;
+}
+
+@font-face {
+	font-family: "Pretendard Std Variable";
+	font-weight: 45 920;
+	font-style: normal;
+	font-display: swap;
+	src: url("https://r2.valentinrogg.de/fonts/pretendardstd/woff2/PretendardStdVariable.woff2")
+		format("woff2-variations");
 }
