@@ -1,17 +1,26 @@
-.DS_Store
 node_modules
-/build
-/.svelte-kit
-/package
-.env
-!.env.example
-.vercel
+
+# Output
 .output
-/archive
-.idea
-/.idea/codeStyles/Project.xml
-.graphqlconfig
-bun.lockb
-/localhost.pem
-/localhost-key.pem
-/build-storybook.log
+.vercel
+.netlify
+.wrangler
+/.svelte-kit
+/build
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# D1 Backup
+backup.sql

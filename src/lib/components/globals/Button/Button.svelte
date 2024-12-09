@@ -1,1 +1,0 @@
-<button type="submit" class="bg-white-500 dark:bg-blue-800 text-black dark:text-white-500 px-2 py-1 rounded-lg border border-white-500 dark:border-blue-700  hover:bg-white-700 active:bg-white-600 dark:hover:bg-blue-900 dark:active:bg-blue-800"><slot/></button>

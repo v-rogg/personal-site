@@ -1,0 +1,14 @@
+// Folder-specific settings
+//
+// For a full list of overridable settings, and general information on folder-specific settings,
+// see the documentation: https://zed.dev/docs/configuring-zed#settings-files
+{
+	"file_scan_exclusions": [".svelte-kit", "**/node_modules", "package-lock.json", ".DS_Store", ".git/"],
+	"lsp": {
+		"rust-analyzer": {
+			"initialization_options": {
+				"linkedProjects": ["./workers/vr-www-signatures-rs/Cargo.toml"]
+			}
+		}
+	}
+}

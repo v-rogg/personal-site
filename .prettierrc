@@ -3,12 +3,24 @@
   "singleQuote": false,
   "trailingComma": "none",
   "printWidth": 120,
-  "plugins": ["prettier-plugin-svelte"],
-  "svelteSortOrder" : "options-scripts-markup-styles",
+  "plugins": [
+    "prettier-plugin-svelte",
+    "prettier-plugin-tailwindcss"
+  ],
+  "svelteSortOrder": "options-scripts-markup-styles",
   "svelteStrictMode": true,
   "svelteBracketNewLine": false,
   "svelteAllowShorthand": false,
   "svelteIndentScriptAndStyle": true,
-  "pluginSearchDirs": ["."],
-  "overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }]
+  "pluginSearchDirs": [
+    "."
+  ],
+  "overrides": [
+    {
+      "files": "*.svelte",
+      "options": {
+        "parser": "svelte"
+      }
+    }
+  ]
 }
