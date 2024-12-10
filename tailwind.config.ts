@@ -32,7 +32,8 @@ export default {
 			},
 			grey: {
 				600: "#DEDEDE",
-				800: "#3F3F3F"
+				800: "#3F3F3F",
+				900: "#262626"
 			}
 		},
 		fontFamily: {
