@@ -4,11 +4,14 @@ import type { SignatureMeta, Signature } from "$lib/types";
 let listCache: SignatureMeta[] | null = null;
 const singleCache = new Map();
 
-export async function getSignatures() {
+export async function getSignatures(d1: D1Database) {
 	if (listCache) {
-		console.log("list cache triggered");
+		// console.log("list cache triggered");
 		return listCache;
 	}
+
+	const signatures = await d1.prepare("SELECT id, name FROM signatures WHERE approved = true").all();
+	console.log(signatures);
 
 	const res = await fetch(
 		`https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/d1/database/${CF_D1_DATABASE}/query`,
@@ -31,7 +34,7 @@ export async function getSignatures() {
 
 export async function getSignature(id: string) {
 	if (singleCache.has(id)) {
-		console.log("cache triggered");
+		// console.log("cache triggered");
 		return singleCache.get(id);
 	}
 

@@ -7,7 +7,7 @@
 
 	let { signatures } = $props();
 
-	// let signatureIndex = $state(0);
+	let signatureIndex = $state(0);
 
 	let canvas: HTMLCanvasElement;
 	let buildCanvas: HTMLCanvasElement;
@@ -106,7 +106,8 @@
 		emblaApi = event.detail;
 		// @ts-expect-error type unknown
 		emblaApi.on("select", () => {
-			// signatureIndex = emblaApi.selectedScrollSnap();
+			// @ts-expect-error type unknown
+			signatureIndex = emblaApi.selectedScrollSnap();
 		});
 	}
 </script>
@@ -149,7 +150,6 @@
 			<canvas bind:this={buildCanvas} class="absolute -z-50 m-0 hidden p-0" width="1536" height="650"></canvas>
 			<!-- <div class="overlay h-full w-full"> -->
 			<div class="relative h-full w-full">
-				<h1 class="absolute left-10 top-8 text-4xl text-black">vr</h1>
 				<img
 					src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/c6f4adce-577c-406a-f795-6b0892730a00/h=610"
 					alt="Valentin Rogg"
@@ -173,17 +173,17 @@
 			</div>
 			<!-- </div> -->
 		</div>
+		<div class="absolute bottom-0 right-10 z-30 mb-8 flex gap-3">
+			{#each signatures as signature, i}
+				<div
+					id={signature.id}
+					class="size-2 rounded-full bg-white-700 transition"
+					class:active={signatureIndex === i}
+					class:opacity-25={signatureImageCache.length < i}
+				></div>
+			{/each}
+		</div>
 	</div>
-	<!-- <div class="relative top-4 z-30 mb-8 flex w-full justify-center gap-8 px-40">
-		{#each signatures as signature, i}
-			<div
-				id={signature.id}
-				class="size-2 rounded-full bg-white-700 transition"
-				class:active={signatureIndex === i}
-				class:opacity-25={signatureImageCache.length < i}
-			></div>
-		{/each}
-	</div> -->
 </section>
 
 <style lang="postcss">

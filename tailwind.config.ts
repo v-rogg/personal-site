@@ -42,6 +42,9 @@ export default {
 		extend: {
 			fontSize: {
 				"md-lg": ["1.1rem", "1.6rem"]
+			},
+			spacing: {
+				"128": "26rem"
 			}
 		}
 	},

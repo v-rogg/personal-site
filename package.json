@@ -4,6 +4,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
+		"dev:cf": "wrangler pages dev .svelte-kit/cloudflare --d1 D1=e903d5ec-aa82-4080-af4c-ba8c11e01875 --live-reload",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -20,6 +21,7 @@
 		"@sveltejs/kit": "^2.9.0",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
 		"autoprefixer": "^10.4.20",
+		"embla-carousel-autoplay": "^8.5.1",
 		"embla-carousel-svelte": "^8.5.1",
 		"eslint": "^9.7.0",
 		"eslint-config-prettier": "^9.1.0",
@@ -34,9 +36,7 @@
 		"tailwindcss": "^3.4.9",
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.0.0",
-		"vite": "^6.0.0"
-	},
-	"dependencies": {
-		"embla-carousel-autoplay": "^8.5.1"
+		"vite": "^6.0.0",
+		"wrangler": "^3.95.0"
 	}
 }
