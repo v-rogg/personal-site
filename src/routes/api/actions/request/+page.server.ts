@@ -1,5 +1,5 @@
 import { fail, type Actions } from "@sveltejs/kit";
-import { CF_TURNSTILE_SECRET_KEY, RESEND_TOKEN } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 export const prerender = false;
 
 export const actions = {
@@ -12,21 +12,21 @@ export const actions = {
 		const url = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 		const turnstile_validation = await fetch(url, {
 			body: JSON.stringify({
-				secret: CF_TURNSTILE_SECRET_KEY,
+				secret: env.CF_TURNSTILE_SECRET_KEY,
 				response: turnstile
 			}),
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
 			}
-		}).then((res) => res.json());
+		}).then(async (res) => (await res.json()) as { success: boolean });
 
 		if (turnstile_validation.success) {
 			try {
 				await fetch("https://api.resend.com/emails", {
 					method: "POST",
 					headers: {
-						Authorization: `Bearer ${RESEND_TOKEN}`,
+						Authorization: `Bearer ${env.RESEND_TOKEN}`,
 						"Content-Type": "application/json"
 					},
 					body: JSON.stringify({

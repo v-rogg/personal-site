@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from "$app/forms";
 	import { fade, scale } from "svelte/transition";
-	import { PUBLIC_CF_TURNSTILE_SITE_KEY } from "$env/static/public";
+	import { env } from "$env/dynamic/public";
 
 	let { cls }: { cls?: string } = $props();
 
@@ -48,7 +48,7 @@
 			class:bg-grey-900={mailSent}
 			placeholder="Deine Nachricht"
 		></textarea>
-		<div class="cf-turnstile" data-sitekey={PUBLIC_CF_TURNSTILE_SITE_KEY}></div>
+		<div class="cf-turnstile" data-sitekey={env.PUBLIC_CF_TURNSTILE_SITE_KEY}></div>
 		<div class="flex gap-3 text-md-lg">
 			{#if !mailSent}
 				<button
