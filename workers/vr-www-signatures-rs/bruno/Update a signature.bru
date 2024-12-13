@@ -1,0 +1,20 @@
+meta {
+  name: Update a signature
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{host}}/:id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: 
+}
+
+body:json {
+  {
+  }
+}

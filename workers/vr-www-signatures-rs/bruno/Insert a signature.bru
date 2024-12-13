@@ -1,0 +1,17 @@
+meta {
+  name: Insert a signature
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{host}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "foobar",
+  }
+}

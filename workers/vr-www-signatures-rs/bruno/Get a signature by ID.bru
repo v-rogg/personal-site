@@ -1,0 +1,20 @@
+meta {
+  name: Get a signature by ID
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{host}}/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: fb1c08d4-9d89-463d-beeb-edc4577980d5
+}
+
+vars:pre-request {
+  approved: 2091d121-22d0-48c1-a7f8-245d6b57de60
+  unreviewed: 02676f96-682a-41e9-ace9-b0193d8aa6f0
+}
