@@ -7,7 +7,6 @@ services = [{ binding = "SIGNATURES_WORKER", service = "vr-www-signatures-rs" }]
 
 [vars]
 NODE_VERSION = "22"
-SIGNATURES_WORKER_KEY = "testkey"
 
 [env.production.vars]
 NODE_VERSION = "22"

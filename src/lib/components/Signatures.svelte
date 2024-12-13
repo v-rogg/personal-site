@@ -2,7 +2,7 @@
 	import SignaturePad, { type PointGroup } from "signature_pad";
 	import emblaCarouselSvelte from "embla-carousel-svelte";
 	import Autoplay from "embla-carousel-autoplay";
-	import type { Signature } from "$lib/types";
+	import type { Signature, SignatureMeta } from "$lib/types";
 	import { onMount } from "svelte";
 
 	let { signatures } = $props();
@@ -22,8 +22,9 @@
 		image: string;
 	}
 
-	let cache: Map<string, Signature> = $state(new Map());
+	// let cache: Map<string, Signature> = $state(new Map());
 	let signatureImageCache: ImageCache[] = $state([]);
+	signatureImageCache = Array(signatures.length);
 
 	function uncenterSignature(data: PointGroup[]): PointGroup[] {
 		if (box) {
@@ -92,13 +93,20 @@
 			buildCanvas.height = 650;
 		}
 
-		for (let signature of signatures) {
-			const res = (await fetch(`/api/signatures/${signature.id}`).then((res) => res.json())) as Signature;
-			cache.set(res.id, res);
+		const res = (await fetch(`/api/signatures/${signatures[0].id}`).then((res) => res.json())) as Signature;
+		// cache.set(res.id, res);
+		signatureBuildPad.fromData(uncenterSignature(JSON.parse(res.signature)));
+		signatureImageCache[0] = { ...res, image: signatureBuildPad.toDataURL() };
 
-			signatureBuildPad.fromData(uncenterSignature(JSON.parse(res.signature)));
-			signatureImageCache.push({ ...res, image: signatureBuildPad.toDataURL() });
-		}
+		await Promise.all(
+			signatures.slice(1).map(async (signature: SignatureMeta, i: number) => {
+				const res = (await fetch(`/api/signatures/${signature.id}`).then((res) => res.json())) as Signature;
+				// cache.set(res.id, res);
+
+				signatureBuildPad.fromData(uncenterSignature(JSON.parse(res.signature)));
+				signatureImageCache[i + 1] = { ...res, image: signatureBuildPad.toDataURL() };
+			})
+		);
 	});
 
 	// @ts-expect-error type unknown
@@ -122,7 +130,7 @@
 			onemblaInit={onInit}
 		>
 			<div class="embla__container flex h-full w-full">
-				{#each signatureImageCache as slide}
+				{#each signatureImageCache.filter((e) => e != undefined) as slide}
 					{@const date_created = new Date(slide.ts_created)}
 					<div class="embla__slide relative min-w-0 overflow-hidden font-sans" style="flex: 0 0 100%">
 						<div class="relative h-full w-full" class:old_signature_offset={date_created.getTime() <= 1733719053000}>
@@ -179,7 +187,7 @@
 					id={signature.id}
 					class="size-2 rounded-full bg-white-700 transition"
 					class:active={signatureIndex === i}
-					class:opacity-25={signatureImageCache.length < i}
+					class:opacity-25={signatureImageCache[i] == undefined}
 				></div>
 			{/each}
 		</div>

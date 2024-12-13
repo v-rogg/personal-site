@@ -1,3 +1,4 @@
+import { env } from "$env/dynamic/private";
 import type { SignatureMeta, Signature } from "$lib/types";
 
 let listCache: SignatureMeta[] | null = null;
@@ -5,13 +6,13 @@ const singleCache = new Map();
 
 export async function getSignatures(platform: App.Platform) {
 	if (listCache) {
-		// console.log("list cache triggered");
+		console.log("list cache triggered");
 		return listCache;
 	}
 
 	const signatures = await platform.env.SIGNATURES_WORKER.fetch("https://worker/", {
 		headers: {
-			AUTHORIZATION: `Bearer ${platform.env.SIGNATURES_WORKER_KEY}`
+			AUTHORIZATION: `Bearer ${env.SIGNATURES_WORKER_KEY}`
 		}
 	}).then(async (res) => (await res.json()) as SignatureMeta[]);
 
@@ -21,13 +22,13 @@ export async function getSignatures(platform: App.Platform) {
 
 export async function getSignature(id: string, platform: App.Platform) {
 	if (singleCache.has(id)) {
-		// console.log("cache triggered");
+		console.log("cache triggered");
 		return singleCache.get(id);
 	}
 
 	const signature = await platform.env.SIGNATURES_WORKER.fetch(`https://worker/${id}`, {
 		headers: {
-			AUTHORIZATION: `Bearer ${platform.env.SIGNATURES_WORKER_KEY}`
+			AUTHORIZATION: `Bearer ${env.SIGNATURES_WORKER_KEY}`
 		}
 	}).then(async (res) => (await res.json()) as Signature);
 
