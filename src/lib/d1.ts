@@ -1,61 +1,38 @@
-import { CF_ACCOUNT_ID, CF_D1_API_KEY, CF_D1_DATABASE } from "$env/static/private";
 import type { SignatureMeta, Signature } from "$lib/types";
 
 let listCache: SignatureMeta[] | null = null;
 const singleCache = new Map();
 
-export async function getSignatures(d1: D1Database) {
+export async function getSignatures(platform: App.Platform) {
 	if (listCache) {
 		// console.log("list cache triggered");
 		return listCache;
 	}
 
-	const signatures = await d1.prepare("SELECT id, name FROM signatures WHERE approved = true").all();
-	console.log(signatures);
-
-	const res = await fetch(
-		`https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/d1/database/${CF_D1_DATABASE}/query`,
-		{
-			method: "POST",
-			headers: {
-				Authorization: `Bearer ${CF_D1_API_KEY}`
-			},
-			body: JSON.stringify({
-				sql: "SELECT id, name FROM signatures WHERE approved = true"
-			})
+	const signatures = await platform.env.SIGNATURES_WORKER.fetch("https://worker/", {
+		headers: {
+			AUTHORIZATION: `Bearer ${platform.env.SIGNATURES_WORKER_KEY}`
 		}
-	)
-		.then((res) => res.json())
-		.then((res) => <SignatureMeta[]>res.result[0].results);
+	}).then(async (res) => (await res.json()) as SignatureMeta[]);
 
-	listCache = res;
-	return res;
+	listCache = signatures;
+	return signatures;
 }
 
-export async function getSignature(id: string) {
+export async function getSignature(id: string, platform: App.Platform) {
 	if (singleCache.has(id)) {
 		// console.log("cache triggered");
 		return singleCache.get(id);
 	}
 
-	const res = await fetch(
-		`https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/d1/database/${CF_D1_DATABASE}/query`,
-		{
-			method: "POST",
-			headers: {
-				Authorization: `Bearer ${CF_D1_API_KEY}`
-			},
-			body: JSON.stringify({
-				sql: "SELECT id, name, ts_created, ts_modified, approved, signature FROM signatures WHERE id = ?",
-				params: [id]
-			})
+	const signature = await platform.env.SIGNATURES_WORKER.fetch(`https://worker/${id}`, {
+		headers: {
+			AUTHORIZATION: `Bearer ${platform.env.SIGNATURES_WORKER_KEY}`
 		}
-	)
-		.then((res) => res.json())
-		.then((res) => <Signature>res.result[0].results[0]);
+	}).then(async (res) => (await res.json()) as Signature);
 
-	singleCache.set(id, res);
-	return res;
+	singleCache.set(id, signature);
+	return signature;
 }
 
 export function clearSignatureCache() {

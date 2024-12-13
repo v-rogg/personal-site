@@ -4,8 +4,8 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"dev:cf": "wrangler pages dev .svelte-kit/cloudflare --d1 D1=e903d5ec-aa82-4080-af4c-ba8c11e01875 --live-reload",
 		"build": "vite build",
+		"build:watch": "vite build --watch",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",

@@ -11,6 +11,8 @@ declare global {
 			env: {
 				D1: D1Database;
 				KV: KVNamespace;
+				SIGNATURES_WORKER: Fetcher;
+				SIGNATURES_WORKER_KEY: string;
 			};
 		}
 	}
