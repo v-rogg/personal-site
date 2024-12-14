@@ -3,20 +3,20 @@
 </script>
 
 <section class="rounded-xl {cls}">
-	<div class="flex h-128 flex-col justify-between px-10 py-10">
+	<div class="flex min-h-128 flex-col justify-between px-10 py-10">
 		<div>
-			<h1 class="relative mb-4 w-fit text-left font-sans text-4xl font-semibold">
-				Valentin Rogg<span class="absolute -right-2 bottom-0.5 translate-x-[100%] text-sm">M.A. B.Sc.</span>
+			<h1 class="relative mb-4 flex w-fit flex-wrap items-end gap-2 text-left font-sans text-4xl font-semibold">
+				Valentin Rogg<span class="relative bottom-0.5 text-sm">M.A. B.Sc.</span>
 			</h1>
 			<!-- prettier-ignore -->
-			<p class="max-w-2xl text-md-lg text-black text-left">
-Hallo, ich bin Valentin. Ich bin Entwickler und Mediengestalter und spezialisiere mich auf die Konzeption und Entwicklung von Micro-SaaS und MVPs. Mein Fokus liegt dabei
-vor allem in der automatisierten Datenanalyse und interaktiven Visualisierung.
-Ich benutzte gerne Svelte <img src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/5d02d81b-f14f-4945-c3f7-07659f629c00/h=18" alt="Svelte" class="inline -translate-y-0.5 -mx-0.5"/>, Rust 🦀 und WebGL <i class="fa-light fa-cubes text-[#980000]"></i>.<br/>
+			<p class="max-w-2xl text-md-lg text-black text-justify xl:text-left text-wrap" lang="de">
+Hallo, ich bin Valentin. Ich bin Entwickler und Produkt&shy;designer und spezialisiere mich auf die Konzeption und Entwicklung von Micro-SaaS und MVPs. Mein Fokus liegt dabei
+vor allem in der auto&shy;matisierten Daten&shy;analyse und interaktiven Visualisierung.
+Ich benutzte gerne <u>Svelte</u> , <u>Rust</u> und <u>WebGL</u>.
 Privat bin ich leidenschaftlicher Musiker, Sportler und Globetrotter.
-		</p>
+			</p>
 		</div>
-		<div class="mt-16 w-max text-2xl text-black">
+		<div class="mt-16 w-max text-2xl text-black max-lg:mx-auto">
 			<div class="flex gap-4">
 				<a
 					href="https://www.komoot.de/user/2406562570904"

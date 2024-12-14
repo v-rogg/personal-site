@@ -23,7 +23,7 @@
 	});
 </script>
 
-<header class="absolute top-8 z-50 w-full -translate-y-0.5 transition">
+<header class="absolute z-50 w-full -translate-y-0.5 transition sm:top-8">
 	<div class="container mx-auto mb-10 mt-8 flex items-center justify-between px-10">
 		<div class="flex h-10 items-center gap-4">
 			{#if $page.url.pathname == "/"}
