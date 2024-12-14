@@ -12,7 +12,10 @@
 
 <Header />
 {#key $page.url.pathname}
-	<div in:blur={{ delay: 100, duration: 500, amount: 10, easing: expoOut }} class="overflow-hidden">
+	<div
+		in:blur={{ delay: 100, duration: 500, amount: 10, easing: expoOut }}
+		class="overflow-hidden font-sans text-black"
+	>
 		{@render children()}
 	</div>
 {/key}

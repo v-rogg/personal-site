@@ -8,12 +8,26 @@
 			<h1 class="relative mb-4 flex w-fit flex-wrap items-end gap-2 text-left font-sans text-4xl font-semibold">
 				Valentin Rogg<span class="relative bottom-0.5 text-sm">M.A. B.Sc.</span>
 			</h1>
-			<!-- prettier-ignore -->
-			<p class="max-w-2xl text-md-lg text-black text-justify xl:text-left text-wrap" lang="de">
-Hallo, ich bin Valentin. Ich bin Entwickler und Produkt&shy;designer und spezialisiere mich auf die Konzeption und Entwicklung von Micro-SaaS und MVPs. Mein Fokus liegt dabei
-vor allem in der auto&shy;matisierten Daten&shy;analyse und interaktiven Visualisierung.
-Ich benutzte gerne <u>Svelte</u> , <u>Rust</u> und <u>WebGL</u>.
-Privat bin ich leidenschaftlicher Musiker, Sportler und Globetrotter.
+			<p class="max-w-2xl text-wrap text-justify text-black" lang="de">
+				Hey, ich bin Valentin. Als studierter <b>Entwickler</b> und <b>Produkt&shy;designer</b> spezialisiere ich mich
+				auf die Konzeption, Umsetzung und Vermarktung von
+				<span title="Software-as-a-Serivce" class="cursor-help"
+					>Micro-SaaS <sup><i class="fa-regular fa-info-circle"></i></sup></span
+				>
+				und
+				<span title="Minimal Viable Product" class="cursor-help"
+					>MVPs <sup><i class="fa-regular fa-info-circle"></i></sup></span
+				>. Mein Fokus liegt dabei vor allem auf Themen der auto&shy;matisierten Daten&shy;analyse und interaktiven
+				Visualisierung. Außerdem liegen meine Stärken im Management und Markteing. Ich benutzte gerne
+				<a href="https://svelte.dev" target="_blank" class="underline">Svelte</a>,
+				<a href="https://www.rust-lang.org/" target="_blank" class="underline">Rust</a>
+				und
+				<a href="https://threejs.org/" target="_blank" class="underline">WebGL</a>. Privat bin ich leidenschaftlicher
+				Musiker, Sportler und Globetrotter.
+			</p>
+			<p class="mt-2 max-w-2xl text-wrap text-justify text-black">
+				Auf meiner Seite gebe ich Einblick in meine Projekte und erzähle von meinen Learnings aus den letzten 5 Jahren
+				im Startup-Umfeld.
 			</p>
 		</div>
 		<div class="mt-16 w-max text-2xl text-black max-lg:mx-auto">
