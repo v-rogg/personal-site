@@ -30,8 +30,8 @@
 
 	function uncenterSignature(data: PointGroup[]): PointGroup[] {
 		if (box) {
-			const middleH = box.offsetWidth / 2;
-			const bottomV = box.offsetHeight;
+			const middleH = 1536 / 2;
+			const bottomV = 650;
 
 			let centeredData = [];
 
@@ -131,7 +131,10 @@
 			use:emblaCarouselSvelte={{ options: { loop: true }, plugins: emblaPlugins }}
 			onemblaInit={onInit}
 		>
-			<div class="embla__container flex h-full w-full">
+			<div
+				class="embla__container flex h-full w-full"
+				style="text-shadow: 0 0 20px #eee8e6, 0 0 10px #eee8e6, 0 0 5px #eee8e6, 0 0 25px #eee8e6"
+			>
 				{#each signatureImageCache.filter((e) => e != undefined) as slide, i}
 					{@const date_created = new Date(slide.ts_created)}
 					<div
@@ -191,7 +194,7 @@
 			{#each signatures as signature, i}
 				<button
 					id={signature.id}
-					class="size-2 rounded-full bg-white-700 transition hover:scale-125 hover:bg-grey-800"
+					class="size-2 rounded-full bg-white-700 transition hover:scale-125 hover:bg-grey-800 max-sm:hidden"
 					class:active={signatureIndex === i}
 					class:opacity-25={signatureImageCache[i] == undefined}
 					aria-label={`Zeichung Nr. ${i + 1}`}
@@ -210,7 +213,15 @@
 				class="relative size-12 rounded-full bg-white-500 transition hover:bg-white-700 active:bg-white-600"
 			>
 				<span class="absolute -left-16 -top-16 w-max rotate-6 text-center font-hand">
-					Erstell' auch<br /> eine Zeichnung
+					<!-- <span class="absolute -top-1 left-0 h-full w-[100px] scale-110 rounded-xl bg-white-700/40 blur-lg"> -->
+					<!-- blur-lg backdrop-blur-xl -->
+					<!-- </span> -->
+					<span
+						class="relative z-10"
+						style="text-shadow: 0 0 20px #eee8e6, 0 0 10px #eee8e6, 0 0 5px #eee8e6, 0 0 25px #eee8e6"
+					>
+						Erstell' auch<br /> eine Zeichnung
+					</span>
 				</span>
 				<span class="absolute bottom-full right-10 -rotate-6 -scale-x-100">
 					<svg width="9" height="17" viewBox="0 0 9 17" fill="none" class="arrow" xmlns="http://www.w3.org/2000/svg">
