@@ -3,6 +3,7 @@
 	import { blur as fly } from "svelte/transition";
 	import { page } from "$app/stores";
 	import type { NavigationTarget } from "@sveltejs/kit";
+	import { expoIn, expoOut } from "svelte/easing";
 
 	let slugs = $derived.by(() => {
 		const path = $page.url.pathname;
@@ -27,23 +28,23 @@
 		<div class="flex h-10 items-center gap-4">
 			{#if $page.url.pathname == "/"}
 				<span class="-mx-2 size-14 rounded p-2">
-					<img src="/favicon.svg" alt="vr" />
+					<img src="/favicon.svg" alt="vr" width="56" height="56" />
 				</span>
 			{:else}
 				<a class="-mx-2 size-14 rounded p-2 hover:bg-white-700 active:bg-white-600" href="/" aria-label="Home">
-					<img src="/favicon.svg" alt="vr" />
+					<img src="/favicon.svg" alt="vr" width="56" height="56" />
 				</a>
 			{/if}
 			<div class="flex items-center gap-1">
 				{#each slugs as page, i}
 					{@const name = page.split("/").at(-1) || ""}
 					{@const delay = 100}
-					{@const duration = 600}
+					{@const duration = 500}
 					{@const amount = 10}
 					<div
 						id={i + ""}
-						in:fly={{ delay: i * delay, duration, amount }}
-						out:fly={{ delay: (slugs.length + 1 - i) * delay, duration, amount }}
+						in:fly={{ delay: i * delay, duration, amount, easing: expoOut }}
+						out:fly={{ delay: (slugs.length + 1 - i) * delay, duration, amount, easing: expoIn }}
 					>
 						<i class="fa-solid fa-slash-forward"></i>
 						{#if slugs.length - 1 === i}

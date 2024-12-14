@@ -7,6 +7,7 @@ export default {
 			transparent: "transparent",
 			current: "currentColor",
 			white: {
+				DEFAULT: "#ffffff",
 				500: "#ffffff",
 				600: "#FAF7F5",
 				700: "#eee8e6"
@@ -15,6 +16,7 @@ export default {
 				500: "#6B6665"
 			},
 			blue: {
+				DEFAULT: "#18a0fb",
 				500: "#18a0fb",
 				600: "#0f81cb",
 				650: "#2d3e80",
@@ -37,7 +39,8 @@ export default {
 			}
 		},
 		fontFamily: {
-			sans: ["Pretendard Std Variable", "sans-serif"]
+			sans: ["Pretendard Std Variable", "sans-serif"],
+			hand: ["Borel", "sans-serif"]
 		},
 		extend: {
 			fontSize: {

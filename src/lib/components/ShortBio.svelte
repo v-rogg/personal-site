@@ -37,7 +37,7 @@ Privat bin ich leidenschaftlicher Musiker, Sportler und Globetrotter.
 				>
 				<span class="relative">
 					<span
-						class="absolute bottom-full right-0 w-max origin-right text-center font-['Borel'] text-sm leading-[0]"
+						class="absolute bottom-full right-0 w-max origin-right text-center font-hand text-sm leading-[0]"
 						style="transform: translate(24px, -24px) rotateZ(-4deg);">Mein Lebenslauf</span
 					>
 					<span class="absolute bottom-full right-0">

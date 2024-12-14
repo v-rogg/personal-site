@@ -3,11 +3,11 @@
 </script>
 
 <button
-	class="col-span-4 block rounded-xl bg-white-700 p-10"
+	class="col-span-4 block rounded-xl bg-green p-10"
 	role="link"
 	onclick={() => {
 		goto("projekte/wassererbe");
 	}}
 >
-	<h3>Wassererbe Augsburg</h3>
+	<h3 class="text-2xl text-white-500">Wassererbe Augsburg</h3>
 </button>
