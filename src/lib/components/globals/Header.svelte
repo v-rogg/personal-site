@@ -6,14 +6,16 @@
 	import { expoIn, expoOut } from "svelte/easing";
 
 	let slugs = $derived.by(() => {
-		const path = $page.url.pathname;
-		const segments = path.split("/").filter(Boolean);
+		if ($page.url) {
+			const path = $page.url.pathname;
+			const segments = path.split("/").filter(Boolean);
 
-		const possibleRoutes = segments.map((_, index) => {
-			return "/" + segments.slice(0, index + 1).join("/");
-		});
+			const possibleRoutes = segments.map((_, index) => {
+				return "/" + segments.slice(0, index + 1).join("/");
+			});
 
-		return possibleRoutes;
+			return possibleRoutes;
+		} else return [];
 	});
 
 	let navigationHistory: NavigationTarget[] = $state([]);
