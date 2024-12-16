@@ -15,6 +15,7 @@
 	"devDependencies": {
 		"@awesome.me/kit-fb271958c9": "^1.0.42",
 		"@eslint/compat": "^1.2.3",
+		"@jaames/iro": "^5.5.2",
 		"@sveltejs/adapter-auto": "^3.3.1",
 		"@sveltejs/adapter-cloudflare": "^4.8.0",
 		"@sveltejs/adapter-node": "^5.2.9",

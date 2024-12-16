@@ -65,7 +65,7 @@
 	</form>
 </section> -->
 <section class="flex h-128 flex-col bg-black p-8 text-white-500 sm:rounded-2xl {cls}">
-	<h3 class="text-center text-3xl font-medium">
+	<h3 class=" text-balance text-center text-3xl font-medium">
 		Du benötigst eine speziell angefertigte Website, Plattform oder Service?
 	</h3>
 	<form

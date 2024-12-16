@@ -8,7 +8,7 @@
 			<h1 class="relative mb-4 flex w-fit flex-wrap items-end gap-2 text-left font-sans text-4xl font-semibold">
 				Valentin Rogg<span class="relative bottom-0.5 text-sm">M.A. B.Sc.</span>
 			</h1>
-			<p class="max-w-2xl text-wrap text-justify text-black" lang="de">
+			<p class="max-w-2xl text-justify text-black" lang="de">
 				Hey, ich bin Valentin. Als studierter <b>Entwickler</b> und <b>Produkt&shy;designer</b> spezialisiere ich mich
 				auf die Konzeption, Umsetzung und Vermarktung von
 				<span title="Software-as-a-Serivce" class="cursor-help"
