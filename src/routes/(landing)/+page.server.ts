@@ -5,8 +5,6 @@ export const load: PageServerLoad = async ({ platform, url }) => {
 	if (platform) {
 		const signatures = (await getSignatures(platform)).sort(() => Math.random() - 0.5);
 
-		console.log(signatures.length);
-
 		const requestedSignature = url.searchParams.get("s");
 		if (requestedSignature) {
 			const check = await checkSignature(platform, requestedSignature);
@@ -23,8 +21,6 @@ export const load: PageServerLoad = async ({ platform, url }) => {
 						...updatedSignatures.slice(index + 1)
 					];
 				}
-
-				console.log(updatedSignatures.length);
 
 				return { signatures: updatedSignatures, autoplay: false };
 			}

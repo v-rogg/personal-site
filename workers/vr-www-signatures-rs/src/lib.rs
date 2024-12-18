@@ -193,7 +193,6 @@ async fn fetch(req: Request, env: Env, _ctx: Context) -> Result<Response> {
 
             let id = petname::petname(3, "-").unwrap();
 
-            console_log!("{}", id);
 
             let time = get_time();
             let db = ctx.env.d1("DB")?;

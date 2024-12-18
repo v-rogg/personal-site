@@ -13,12 +13,10 @@
 
 	function openEditMode() {
 		editMode = true;
-		console.log("openEditMode");
 	}
 
 	function closeEditMode() {
 		editMode = false;
-		console.log("closeEditMode");
 	}
 </script>
 

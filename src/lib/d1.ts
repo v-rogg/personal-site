@@ -20,7 +20,7 @@ export async function checkSignature(platform: App.Platform, id: string) {
 
 export async function getSignatures(platform: App.Platform) {
 	if (listCache) {
-		console.log("list cache triggered");
+		// console.log("list cache triggered");
 		return listCache;
 	}
 
@@ -32,17 +32,15 @@ export async function getSignatures(platform: App.Platform) {
 
 	listCache = signatures;
 
-	console.log(signatures.length);
-
 	return signatures;
 }
 
 export async function getSignature(id: string, platform: App.Platform) {
 	if (singleCache.has(id)) {
-		console.log("cache triggered", id);
+		// console.log("cache triggered", id);
 		return singleCache.get(id);
 	} else {
-		console.log("new", id);
+		// console.log("new", id);
 	}
 
 	const signature = await platform.env.SIGNATURES_WORKER.fetch(`https://worker/${id}`, {
