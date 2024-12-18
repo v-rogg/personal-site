@@ -1,0 +1,15 @@
+meta {
+  name: Check if signature exists by ID
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{host}}/:id/check
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: eagles-battle-safely
+}

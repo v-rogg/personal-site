@@ -1,3 +1,4 @@
+use core::str;
 use js_sys::Date;
 use serde::{Deserialize, Serialize};
 use std::iter::once;
@@ -126,6 +127,45 @@ async fn fetch(req: Request, env: Env, _ctx: Context) -> Result<Response> {
             Response::from_json(&signature)
         })
 
+        .get_async("/:id/check", |req, ctx| async move {
+            if !check_auth_header(&req, ctx.secret("SECRET_KEY")?.to_string()) {return Response::error("Not authorized", 401)};
+            let id = ctx.param("id").unwrap();
+            let db = ctx.env.d1("DB")?;
+
+            let stmt =
+                db.prepare("SELECT id, approved FROM signatures WHERE id = ?");
+            let query = stmt.bind(&[id.into()])?;
+
+
+            #[derive(Deserialize)]
+            struct SignatureCheckResult {
+                id: String,
+                approved: Option<u32>
+            }
+
+            let result = match query.first::<SignatureCheckResult>(None).await? {
+                Some(r) => r,
+                None => return Response::error("Not found", 404),
+            };
+
+            #[derive(Serialize)]
+            struct SignatureResponse {
+                id: String,
+                approved: Option<bool>
+            }
+
+            let signature = SignatureResponse {
+                id: result.id,
+                approved: result.approved.map(|v| match v {
+                    0 => false,
+                    1 => true,
+                    _ => false
+                }),
+            };
+
+            Response::from_json(&signature)
+        })
+
         .post_async("/", |mut req, ctx| async move {
             if !check_auth_header(&req, ctx.secret("SECRET_KEY")?.to_string()) {
                 return Response::error("Not authorized", 401)
@@ -135,6 +175,7 @@ async fn fetch(req: Request, env: Env, _ctx: Context) -> Result<Response> {
             struct SignatureInsert {
                 name: String,
                 signature: String,
+                email: Option<String>
             }
 
             let insert = match req.json::<SignatureInsert>().await {
@@ -142,22 +183,45 @@ async fn fetch(req: Request, env: Env, _ctx: Context) -> Result<Response> {
                 Err(_) => return Response::error("Wrong input data", 400)
             };
 
-            let id = uuid::Uuid::new_v4().to_string();
+            // let id = uuid::Uuid::new_v4().to_string();
+            // let id = human_ids::generate(Some(human_ids::Options{
+            //     capitalize: false,
+            //     add_adverb: true,
+            //     separator: Some("-"),
+            //     adjective_count: 0
+            // }));
+
+            let id = petname::petname(3, "-").unwrap();
+
+            console_log!("{}", id);
+
             let time = get_time();
             let db = ctx.env.d1("DB")?;
 
-            let result = db.prepare("INSERT INTO signatures (id, name, ts_created, signature) VALUES (?, ?, ?, ?)")
-                .bind(&[
-                    JsValue::from(&id),
-                    JsValue::from(&insert.name),
-                    JsValue::from(&time),
-                    JsValue::from(&insert.signature)
-                ])?
+            let mut params = vec![
+                JsValue::from(&id),
+                JsValue::from(&insert.name),
+                JsValue::from(&time),
+                JsValue::from(&insert.signature),
+            ];
+
+            let query = if let Some(email) = insert.email {
+                params.push(JsValue::from(email));
+                "INSERT INTO signatures (id, name, ts_created, signature, email) VALUES (?, ?, ?, ?, ?)"
+            } else {
+                "INSERT INTO signatures (id, name, ts_created, signature) VALUES (?, ?, ?, ?)"
+            };
+
+            let result = db.prepare(query)
+                .bind(&params)?
                 .run()
                 .await?;
 
             match result.success() {
-                true => Response::ok("Ok"),
+                true => Response::from_json(&serde_json::json!({
+                            "success": true,
+                            "id": id
+                        })),
                 false => Response::error("Could not insert", 400)
             }
         })
@@ -211,7 +275,9 @@ async fn fetch(req: Request, env: Env, _ctx: Context) -> Result<Response> {
                 .await?;
 
             match result.success() {
-                true => Response::ok("Ok"),
+                true => Response::from_json(&serde_json::json!({
+                    "success": true
+                })),
                 false => Response::error("Could not update", 400)
             }
         })
