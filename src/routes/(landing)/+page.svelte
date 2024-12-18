@@ -1,7 +1,7 @@
 <script lang="ts">
 	// import Memory from "$lib/components/Memory.svelte";
 	// import Project from "$lib/components/Project.svelte";
-	// import SendRequest from "$lib/components/SendRequest.svelte";
+	import SendRequest from "$lib/components/SendRequest.svelte";
 	import ShortBio from "$lib/components/ShortBio.svelte";
 	import Signatures from "$lib/components/Signatures.svelte";
 	import type { PageData } from "./$types";
@@ -9,10 +9,10 @@
 	let { data }: { data: PageData } = $props();
 </script>
 
-<Signatures signatures={data.signatures} />
+<Signatures signatures={data.signatures} autoplay={data.autoplay} />
 <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-9">
-	<ShortBio cls="xl:col-span-6" />
-	<!-- <SendRequest cls="xl:col-span-3" /> -->
+	<ShortBio cls="xl:col-span-5" />
+	<SendRequest cls="xl:col-span-4" />
 	<!-- <Project />
 	<Memory
 		image="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/69e7aabe-3fdf-4839-d45b-c3f612a69000/h=500"

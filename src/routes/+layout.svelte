@@ -6,9 +6,12 @@
 	import "../app.css";
 	import "@awesome.me/kit-fb271958c9/icons/css/all.min.css";
 	import { expoOut } from "svelte/easing";
+	import Toaster from "$lib/components/globals/Toaster.svelte";
 
 	let { children } = $props();
 </script>
+
+<Toaster />
 
 <Header />
 {#key $page.url.pathname}

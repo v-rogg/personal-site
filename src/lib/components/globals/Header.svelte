@@ -25,7 +25,7 @@
 	});
 </script>
 
-<header class="absolute z-50 w-full -translate-y-0.5 transition sm:top-8">
+<header class="pointer-events-none absolute z-50 w-full -translate-y-0.5 transition sm:top-8">
 	<div class="container mx-auto mb-10 mt-8 flex items-center justify-between px-10">
 		<div class="flex h-10 items-center gap-4">
 			{#if $page.url.pathname == "/"}
@@ -33,7 +33,11 @@
 					<img src="/favicon.svg" alt="vr" width="56" height="56" />
 				</span>
 			{:else}
-				<a class="-mx-2 size-14 rounded p-2 hover:bg-white-700 active:bg-white-600" href="/" aria-label="Home">
+				<a
+					class="pointer-events-auto -mx-2 size-14 rounded p-2 hover:bg-white-700 active:bg-white-600"
+					href="/"
+					aria-label="Home"
+				>
 					<img src="/favicon.svg" alt="vr" width="56" height="56" />
 				</a>
 			{/if}
@@ -55,7 +59,10 @@
 									{name.charAt(0).toUpperCase() + name.slice(1)}
 								</span>
 							{:else}
-								<a href={page} class="mx-1 rounded px-1 py-0.5 hover:bg-white-700 active:bg-white-600">
+								<a
+									href={page}
+									class="pointer-events-auto mx-1 rounded px-1 py-0.5 hover:bg-white-700 active:bg-white-600"
+								>
 									{name.charAt(0).toUpperCase() + name.slice(1)}
 								</a>
 							{/if}
@@ -68,11 +75,14 @@
 				</div>
 			{/if}
 		</div>
-		{#if navigationHistory.length > 0}
+		<!-- TODO: hide while in edit mode -->
+		<!-- {#if navigationHistory.length > 0}
 			<a href={navigationHistory.at(-1)?.url.href} in:fly={{ duration: 600, amount: 10 }}>
-				<i class="fa-solid fa-arrow-left mr-2 rounded px-2 py-1 hover:bg-white-700 active:bg-white-600"></i>
+				<i
+					class="fa-solid fa-arrow-left pointer-events-auto mr-2 rounded px-2 py-1 hover:bg-white-700 active:bg-white-600"
+				></i>
 				Zurück
 			</a>
-		{/if}
+		{/if} -->
 	</div>
 </header>

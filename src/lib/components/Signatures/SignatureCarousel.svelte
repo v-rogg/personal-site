@@ -8,14 +8,14 @@
 	import { onMount } from "svelte";
 	import type { Signature, SignatureMeta } from "$lib/types";
 
-	let { signatures = $bindable(), openEditMode } = $props();
+	let { signatures = $bindable(), openEditMode, autoplay } = $props();
 
 	interface ImageCache extends Signature {
 		image: string;
 	}
 
 	let emblaApi: EmblaCarouselType;
-	let emblaPlugins = [Autoplay({ playOnInit: true, delay: 6000 })];
+	let emblaPlugins = [Autoplay({ playOnInit: autoplay, delay: 6000 })];
 	let signatureIndex = $state(0);
 	let buildCanvas: HTMLCanvasElement;
 	let signatureBuildPad: SignaturePad;

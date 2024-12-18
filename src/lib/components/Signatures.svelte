@@ -1,17 +1,24 @@
 <script lang="ts">
+	import { browser } from "$app/environment";
 	import SignatureCarousel from "$lib/components/Signatures/SignatureCarousel.svelte";
 	import SignatureEditor from "$lib/components/Signatures/SignatureEditor.svelte";
 
-	let { signatures } = $props();
+	let { signatures, autoplay } = $props();
 
-	let editMode = $state(true);
+	if (autoplay == true && browser) {
+		window.history.replaceState({}, "", window.location.origin + window.location.pathname);
+	}
+
+	let editMode = $state(false);
 
 	function openEditMode() {
 		editMode = true;
+		console.log("openEditMode");
 	}
 
 	function closeEditMode() {
 		editMode = false;
+		console.log("closeEditMode");
 	}
 </script>
 
@@ -24,9 +31,9 @@
 			height="650"
 		/>
 		{#if !editMode}
-			<SignatureCarousel bind:signatures={signatures} openEditMode={openEditMode} />
+			<SignatureCarousel bind:signatures={signatures} autoplay={autoplay} openEditMode={openEditMode} />
 		{:else}
-			<SignatureEditor closeEditMode={closeEditMode} />
+			<SignatureEditor bind:signatures={signatures} closeEditMode={closeEditMode} />
 		{/if}
 	</div>
 </section>

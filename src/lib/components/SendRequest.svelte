@@ -71,7 +71,7 @@
 	<form
 		out:scale={{ duration: 300 }}
 		method="POST"
-		action="/actions/request?/sendMail"
+		action="/api/actions/request?/sendMail"
 		class="mt-8 flex flex-grow flex-col items-center gap-3"
 		use:enhance={({ formData }) => {
 			email = formData.get("email")?.toString() || "";

@@ -9,8 +9,8 @@
 				Valentin Rogg<span class="relative bottom-0.5 text-sm">M.A. B.Sc.</span>
 			</h1>
 			<p class="max-w-2xl text-justify text-black" lang="de">
-				Hey, ich bin Valentin. Als studierter <b>Entwickler</b> und <b>Produkt&shy;designer</b> spezialisiere ich mich
-				auf die Konzeption, Umsetzung und Vermarktung von
+				Hey, ich bin Valentin. Als studierter <b>Entwickler</b> und <b>Digital Product Designer</b> spezialisiere ich
+				mich auf die Konzeption, Umsetzung und Vermarktung von
 				<span title="Software-as-a-Serivce" class="cursor-help"
 					>Micro-SaaS <sup><i class="fa-regular fa-info-circle"></i></sup></span
 				>
@@ -19,11 +19,11 @@
 					>MVPs <sup><i class="fa-regular fa-info-circle"></i></sup></span
 				>. Mein Fokus liegt dabei vor allem auf Themen der auto&shy;matisierten Daten&shy;analyse und interaktiven
 				Visualisierung. Außerdem liegen meine Stärken im Management und Markteing. Ich benutzte gerne
-				<a href="https://svelte.dev" target="_blank" class="underline">Svelte</a>,
-				<a href="https://www.rust-lang.org/" target="_blank" class="underline">Rust</a>
+				<a href="https://svelte.dev" target="_blank" rel="noopener noreferrer" class="underline">Svelte</a>,
+				<a href="https://www.rust-lang.org/" target="_blank" rel="noopener noreferrer" class="underline">Rust</a>
 				und
-				<a href="https://threejs.org/" target="_blank" class="underline">WebGL</a>. Privat bin ich leidenschaftlicher
-				Musiker, Sportler und Globetrotter.
+				<a href="https://threejs.org/" target="_blank" rel="noopener noreferrer" class="underline">WebGL</a>. Privat bin
+				ich leidenschaftlicher Musiker, Sportler und Globetrotter.
 			</p>
 			<p class="mt-2 max-w-2xl text-wrap text-justify text-black">
 				Auf meiner Seite gebe ich Einblick in meine Projekte und erzähle von meinen Learnings aus den letzten 5 Jahren
