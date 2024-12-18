@@ -249,7 +249,10 @@
 			<i class="fa-solid fa-eraser"> </i>
 		</button>
 
-		<div class="absolute right-full top-0 mr-2 rounded-2xl bg-white p-2" class:hidden={!colorPicker}>
+		<div
+			class="absolute rounded-2xl bg-white p-2 shadow-lg max-sm:bottom-full max-sm:left-0 max-sm:mb-2 sm:right-full sm:top-0 sm:mr-2"
+			class:hidden={!colorPicker}
+		>
 			<div id="picker"></div>
 		</div>
 
