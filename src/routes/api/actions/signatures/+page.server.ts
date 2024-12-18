@@ -27,7 +27,7 @@ export const actions = {
 				from: "work@mail.valentinrogg.de",
 				to: "mail@valentinrogg.de",
 				subject: `Signature Created - ${name}`,
-				html: `URL: <a href="https://valentinrogg.de/?s=${result.id}">${name}</a><br/>EMail: ${email}`
+				html: `URL: <a href="https://valentinrogg.de/?s=${result.id}">${name}</a><br/>ID: ${result.id}<br/>EMail: ${email}`
 			})
 		});
 
