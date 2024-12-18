@@ -102,6 +102,7 @@
 			class:bg-grey-900={mailSent}
 			placeholder="Deine Nachricht"
 		></textarea>
+		{env.PUBLIC_CF_TURNSTILE_SITE_KEY}
 		<div class="cf-turnstile" data-sitekey={env.PUBLIC_CF_TURNSTILE_SITE_KEY}></div>
 		<div class="flex gap-3 text-md-lg">
 			{#if !mailSent}
