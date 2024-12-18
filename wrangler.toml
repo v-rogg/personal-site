@@ -7,7 +7,7 @@ services = [{ binding = "SIGNATURES_WORKER", service = "vr-www-signatures-rs" }]
 
 [vars]
 NODE_VERSION = "22"
-
+PUBLIC_CF_TURNSTILE_SITE_KEY = "0x4AAAAAAA12tzGwHYg7EToC"
 
 [[d1_databases]]
 database_id = "e903d5ec-aa82-4080-af4c-ba8c11e01875"
