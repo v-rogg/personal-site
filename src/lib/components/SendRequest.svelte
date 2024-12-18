@@ -64,7 +64,6 @@
 		</div>
 	</form>
 </section> -->
-<p>key {env.PUBLIC_CF_TURNSTILE_SITE_KEY}</p>
 <section class="flex h-128 flex-col bg-black p-8 text-white-500 sm:rounded-2xl {cls}">
 	<h3 class=" text-balance text-center text-3xl font-medium">
 		Du benötigst eine speziell angefertigte Website, Plattform oder Service?
