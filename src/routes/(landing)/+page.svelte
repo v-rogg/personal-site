@@ -57,6 +57,6 @@
 	/> -->
 </div>
 
-{#if data.blog}
+{#if data.blog && data.blog.length > 0}
 	<Blog blog={data.blog} tags={data.allTags} />
 {/if}
