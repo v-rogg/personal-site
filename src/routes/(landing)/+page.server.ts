@@ -39,6 +39,12 @@ function getBlogData(): {
 
 export const load: PageServerLoad = async ({ platform, url }) => {
 	if (platform) {
+		const blogData = getBlogData();
+		const allTags = blogData.reduce((tags: string[], blog) => {
+			const blogTags = blog.metadata?.tags || [];
+			return [...new Set([...tags, ...blogTags])];
+		}, []);
+
 		const signatures = (await getSignatures(platform)).sort(() => Math.random() - 0.5);
 
 		const requestedSignature = url.searchParams.get("s");
@@ -58,15 +64,9 @@ export const load: PageServerLoad = async ({ platform, url }) => {
 					];
 				}
 
-				return { signatures: updatedSignatures, autoplay: false };
+				return { signatures: updatedSignatures, autoplay: false, blog: blogData, allTags };
 			}
 		}
-
-		const blogData = getBlogData();
-		const allTags = blogData.reduce((tags: string[], blog) => {
-			const blogTags = blog.metadata?.tags || [];
-			return [...new Set([...tags, ...blogTags])];
-		}, []);
 
 		return {
 			signatures,
