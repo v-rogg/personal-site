@@ -32,7 +32,10 @@
 	});
 </script>
 
-<header class="pointer-events-none absolute z-50 w-full -translate-y-0.5 transition sm:top-8">
+<header
+	class="pointer-events-none absolute z-50 w-full -translate-y-0.5 transition sm:top-8"
+	class:floating-header={$page.url.pathname != "/"}
+>
 	<div class="container mx-auto mb-10 mt-8 flex items-center justify-between px-10">
 		<div class="flex h-10 items-center gap-4">
 			{#if $page.url.pathname == "/"}
@@ -76,10 +79,7 @@
 									{name.charAt(0).toUpperCase() + name.slice(1)}
 								</span>
 							{:else}
-								<a
-									href={page}
-									class="pointer-events-auto mx-1 rounded px-1 py-0.5 hover:bg-white-700 active:bg-white-600"
-								>
+								<a href={page} class="pointer-events-auto rounded px-2 py-1 hover:bg-white-700 active:bg-white-600">
 									{name.charAt(0).toUpperCase() + name.slice(1)}
 								</a>
 							{/if}
@@ -92,14 +92,31 @@
 				</div>
 			{/if}
 		</div>
-		<!-- TODO: hide while in edit mode -->
-		<!-- {#if navigationHistory.length > 0}
-			<a href={navigationHistory.at(-1)?.url.href} in:fly={{ duration: 600, amount: 10 }}>
-				<i
-					class="fa-solid fa-arrow-left pointer-events-auto mr-2 rounded px-2 py-1 hover:bg-white-700 active:bg-white-600"
-				></i>
+		{#if navigationHistory.length > 0 && $page.url.pathname != "/"}
+			<a
+				href={navigationHistory.at(-1)?.url.href}
+				in:fly={{ duration: 600, amount: 10 }}
+				class="pointer-events-auto rounded px-2 py-1 hover:bg-white-700 active:bg-white-600"
+			>
+				<i class="fa-solid fa-arrow-left mr-2"></i>
 				Zurück
 			</a>
-		{/if} -->
+		{/if}
 	</div>
 </header>
+
+<style lang="postcss">
+	.floating-header {
+		position: fixed;
+		@apply bg-white/40;
+		@apply backdrop-blur;
+		@apply top-0;
+		@apply pt-8;
+
+		> div {
+			@apply mt-0;
+			@apply mb-0;
+			@apply py-8;
+		}
+	}
+</style>
