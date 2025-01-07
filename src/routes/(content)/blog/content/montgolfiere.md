@@ -15,7 +15,7 @@ published: true
 # **Montgolfière: Konzeptstudie eines 3D-Strategiespiels**
 
 Montgolfière ist eine Konzeptstudie aus meinem Studienjahr 2021, die das klassische Spiel „Schiffe Versenken“ in ein dreidimensionales, webbasiertes Format überträgt. Das Projekt vereint innovative Spielmechaniken mit einer anspruchsvollen visuellen Gestaltung und einem durchdachten Designansatz. Ziel war es, das Potenzial eines modernen, modular aufgebauten Strategiespiels zu untersuchen, das auf aktuelle technische Standards und ästhetische Trends zugeschnitten ist.
-![](https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/c02fa871-ceea-45c5-ea5d-ce245ae06900/h=400)
+![Screenshot von der 3D Visualisierung des Schlachtfelds](https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/c02fa871-ceea-45c5-ea5d-ce245ae06900/h=400)
 
 ## **Spielidee und Designansatz**
 
@@ -23,7 +23,7 @@ Die Grundidee von Montgolfière basiert auf einem bekannten Prinzip: Zwei Spiele
 
 Ein zentraler Aspekt war die Einführung von **drei vertikalen Spielebenen**, wodurch sich das Spielfeld zwar verdichtet, gleichzeitig aber neue taktische Möglichkeiten entstehen. Das traditionelle Thema wurde durch die Wahl eines Steampunk-Settings erweitert, das klassische Schiffe durch Luftschiffe ersetzt und so eine zusätzliche Dimension visueller und thematischer Tiefe bietet.
 
-![](https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/ae8dd960-6707-438d-a656-6e258aacfd00/h=400)
+![Designkonzepte zur Landschaftsgestaltung](https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/ae8dd960-6707-438d-a656-6e258aacfd00/h=400)
 
 ## **Visuelle Umsetzung im Steampunk-Stil**
 
@@ -37,7 +37,7 @@ Für die technische Umsetzung wurde **three.js**, ein Framework für WebGL, verw
 
 Montgolfière blieb daher eine Studie, deren Hauptziel es war, technische Machbarkeit und kreative Ansätze zu erproben. Das Konzept bietet eine solide Grundlage für mögliche Erweiterungen, etwa in Form neuer Spielmechaniken, alternativer Szenarien oder zusätzlicher ästhetischer Feinheiten.
 
-![](https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/fae29eec-19f4-4d37-7897-0f02b7bb5400/h=400)
+![Mockup des Spiels auf einem iPad](https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/fae29eec-19f4-4d37-7897-0f02b7bb5400/h=400)
 
 ## **Der Trailer als Abschluss**
 
@@ -56,5 +56,6 @@ Montgolfière ist eine abgeschlossene Konzeptstudie, die das Potenzial einer mod
     style="border: none; position: absolute; top: 0; left: 0; height: 100%; width: 100%;"
     allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
     allowfullscreen="true"
+    title="Video des Prototypen mit der Abbildung einer beispielhaften Runde Luftschiffe versenken" 
   ></iframe>
 </div>
