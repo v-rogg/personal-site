@@ -10,3 +10,15 @@ export interface Signature extends SignatureMeta {
 	approved: boolean;
 	signature: string;
 }
+
+export type Metadata = {
+	title: string;
+	subtitle?: string;
+	date: string;
+	published: boolean;
+	preview: string;
+	previewImageUrl?: string;
+	slug?: string;
+	tags?: string[];
+	page?: boolean;
+};

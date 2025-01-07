@@ -2,6 +2,9 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Mono:ital,wght@0,300..700;1,300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+
 :root {
 	background: white;
 }
@@ -23,4 +26,42 @@
 	src: url("https://r2.valentinrogg.de/fonts/borel/Borel.woff2") format("woff2");
 	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
 		U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@layer {
+	.col-span-1 {
+		grid-column: span 1 / span 1;
+	}
+
+	.col-span-2 {
+		grid-column: span 2 / span 2;
+	}
+
+	.col-span-3 {
+		grid-column: span 3 / span 3;
+	}
+
+	.col-span-4 {
+		grid-column: span 4 / span 4;
+	}
+
+	.col-span-5 {
+		grid-column: span 5 / span 5;
+	}
+
+	.col-span-6 {
+		grid-column: span 6 / span 6;
+	}
+
+	.col-span-7 {
+		grid-column: span 7 / span 7;
+	}
+
+	.col-span-8 {
+		grid-column: span 8 / span 8;
+	}
+
+	.col-span-9 {
+		grid-column: span 9 / span 9;
+	}
 }

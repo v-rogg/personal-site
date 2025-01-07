@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import typography from "@tailwindcss/typography";
 
 export default {
 	content: ["./src/**/*.{html,js,ts,svelte}"],
@@ -36,10 +37,12 @@ export default {
 				600: "#DEDEDE",
 				800: "#3F3F3F",
 				900: "#262626"
-			}
+			},
+			red: "#ff0000"
 		},
 		fontFamily: {
 			sans: ["Pretendard Std Variable", "sans-serif"],
+			mono: ["JetBrain Mono", "Red Hat Mono", "serif"],
 			hand: ["Borel", "sans-serif"]
 		},
 		extend: {
@@ -51,5 +54,5 @@ export default {
 			}
 		}
 	},
-	plugins: []
+	plugins: [typography]
 } satisfies Config;

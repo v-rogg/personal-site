@@ -1,5 +1,41 @@
+import { APP_VERSION } from "$env/static/private";
 import { checkSignature, getSignatures } from "$lib/d1";
+import type { Metadata } from "$lib/types";
 import type { PageServerLoad } from "./$types";
+
+function getBlogData(): {
+	route: string;
+	metadata: Metadata;
+}[] {
+	const files = import.meta.glob("/src/routes/\\(content\\)/blog/**/*.md", { eager: true });
+	const blogData = Object.entries(files)
+		.map(([filePath, module]) => {
+			const route = filePath.replace("/src/routes/(content)/", "").replace("/content", "").replace(".md", "");
+
+			return {
+				route,
+				// @ts-expect-error unknown
+				metadata: module.metadata
+			};
+		})
+		.sort((a, b) => {
+			if (a.metadata && b.metadata && a.metadata.date && b.metadata.date) {
+				const dateA = new Date(a.metadata.date);
+				const dateB = new Date(b.metadata.date);
+				return dateB.getTime() - dateA.getTime();
+			} else {
+				return -1;
+			}
+		})
+		.filter((blog) => {
+			if (APP_VERSION === "production") {
+				return blog.metadata?.published === true;
+			}
+			return true;
+		});
+
+	return blogData;
+}
 
 export const load: PageServerLoad = async ({ platform, url }) => {
 	if (platform) {
@@ -26,8 +62,23 @@ export const load: PageServerLoad = async ({ platform, url }) => {
 			}
 		}
 
-		return { signatures, autoplay: true };
-	} else {
-		return {};
+		const blogData = getBlogData();
+		const allTags = blogData.reduce((tags: string[], blog) => {
+			const blogTags = blog.metadata?.tags || [];
+			return [...new Set([...tags, ...blogTags])];
+		}, []);
+
+		return {
+			signatures,
+			autoplay: true,
+			blog: blogData,
+			allTags
+		};
 	}
+	return {
+		signatures: [],
+		autoplay: false,
+		blog: [],
+		allTags: []
+	};
 };

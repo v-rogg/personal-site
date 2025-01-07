@@ -1,24 +1,38 @@
 <script lang="ts">
-	import { page } from "$app/stores";
-	import { blur } from "svelte/transition";
-	import Footer from "$lib/components/globals/Footer.svelte";
-	import Header from "$lib/components/globals/Header.svelte";
 	import "../app.css";
 	import "@awesome.me/kit-fb271958c9/icons/css/all.min.css";
-	import { expoOut } from "svelte/easing";
+	import Footer from "$lib/components/globals/Footer.svelte";
+	import Header from "$lib/components/globals/Header.svelte";
 	import Toaster from "$lib/components/globals/Toaster.svelte";
+	import { page } from "$app/stores";
+	import posthog from "posthog-js";
+	import { browser } from "$app/environment";
+	import { PUBLIC_POSTHOG_PROJECT_ID } from "$env/static/public";
+	import { afterNavigate, beforeNavigate } from "$app/navigation";
 
 	let { children } = $props();
+
+	if (browser) {
+		posthog.init(PUBLIC_POSTHOG_PROJECT_ID, {
+			api_host: "https://eu.i.posthog.com",
+			persistence: "memory",
+			capture_pageview: false,
+			capture_pageleave: false
+		});
+		beforeNavigate(() => posthog.capture("$pageleave"));
+		afterNavigate(() => posthog.capture("$pageview"));
+	}
 </script>
+
+<svelte:head>
+	<title>VR • Valentin Rogg</title>
+</svelte:head>
 
 <Toaster />
 
 <Header />
 {#key $page.url.pathname}
-	<div
-		in:blur={{ delay: 100, duration: 500, amount: 10, easing: expoOut }}
-		class="overflow-hidden font-sans text-black"
-	>
+	<div class="font-sans text-black">
 		{@render children()}
 	</div>
 {/key}

@@ -16,6 +16,7 @@
 
 	let emblaApi: EmblaCarouselType;
 	let emblaPlugins = [Autoplay({ playOnInit: autoplay, delay: 6000 })];
+	let autoplayState: boolean | undefined = $state(undefined);
 	let signatureIndex = $state(0);
 	let buildCanvas: HTMLCanvasElement;
 	let signatureBuildPad: SignaturePad;
@@ -26,6 +27,12 @@
 		emblaApi = event.detail;
 		emblaApi.on("select", () => {
 			signatureIndex = emblaApi.selectedScrollSnap();
+		});
+		emblaApi.on("autoplay:play", () => {
+			autoplayState = true;
+		});
+		emblaApi.on("autoplay:stop", () => {
+			autoplayState = false;
 		});
 	}
 
@@ -66,16 +73,34 @@
 			buildCanvas.width = 1536;
 			buildCanvas.height = 650;
 
-			const res = (await fetch(`/api/signatures/${signatures[0].id}`).then((res) => res.json())) as Signature;
+			const cache = localStorage.getItem("vr-www.signature." + signatures[0].id);
+			let res: Signature;
+			if (cache === null) {
+				res = (await fetch(`/api/signatures/${signatures[0].id}`).then((res) => res.json())) as Signature;
+
+				localStorage.setItem("vr-www.signature." + signatures[0].id, JSON.stringify(res));
+			} else {
+				res = JSON.parse(cache);
+			}
 			signatureBuildPad.fromData(uncenterSignature(JSON.parse(res.signature)));
 			signatureImageCache[0] = { ...res, image: signatureBuildPad.toDataURL() };
 
 			await Promise.all(
 				signatures.slice(1).map(async (signature: SignatureMeta, i: number) => {
-					const res = (await fetch(`/api/signatures/${signature.id}`).then((res) => res.json())) as Signature;
+					const cache = localStorage.getItem("vr-www.signature." + signature.id);
+					let res: Signature;
+					if (cache === null) {
+						res = (await fetch(`/api/signatures/${signature.id}`).then((res) => res.json())) as Signature;
 
-					signatureBuildPad.fromData(uncenterSignature(JSON.parse(res.signature)));
-					signatureImageCache[i + 1] = { ...res, image: signatureBuildPad.toDataURL() };
+						localStorage.setItem("vr-www.signature." + signature.id, JSON.stringify(res));
+					} else {
+						res = JSON.parse(cache);
+					}
+
+					setTimeout(() => {
+						signatureBuildPad.fromData(uncenterSignature(JSON.parse(res.signature)));
+						signatureImageCache[i + 1] = { ...res, image: signatureBuildPad.toDataURL() };
+					}, 0);
 				})
 			);
 		}
@@ -118,6 +143,31 @@
 	class="absolute bottom-0 right-10 z-50 flex h-12 items-center gap-3 sm:bottom-8"
 	transition:blur={{ amount: 10, duration: 600, easing: expoInOut }}
 >
+	{#if autoplayState}
+		<button
+			aria-label="Autoplay Stoppen"
+			title="Autoplay Stoppen"
+			onclick={() => {
+				emblaApi.plugins().autoplay.stop();
+			}}
+			in:blur={{ amount: 1 }}
+			class="relative mr-2 size-2"
+		>
+			<i class="fa-solid fa-pause absolute top-1/2 -translate-y-1/2"></i>
+		</button>
+	{:else}
+		<button
+			aria-label="Autoplay Starten"
+			title="Autoplay Starten"
+			onclick={() => {
+				emblaApi.plugins().autoplay.play();
+			}}
+			in:blur={{ amount: 1 }}
+			class="relative mr-2 size-2"
+		>
+			<i class="fa-solid fa-play absolute top-1/2 -translate-y-1/2"></i>
+		</button>
+	{/if}
 	{#each signatures as signature, i}
 		<button
 			id={signature.id}

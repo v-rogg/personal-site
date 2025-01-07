@@ -7,4 +7,6 @@ services = [{ binding = "SIGNATURES_WORKER", service = "vr-www-signatures-rs" }]
 
 [vars]
 NODE_VERSION = "22"
+APP_VERSION = "production"
 PUBLIC_CF_TURNSTILE_SITE_KEY = "0x4AAAAAAA12tzGwHYg7EToC"
+PUBLIC_POSTHOG_PROJECT_ID = "phc_sFoRTVpIH3ASer4ysmWWhB8TvNl0aqgfE43wdrXfvL"
