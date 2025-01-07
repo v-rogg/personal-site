@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Posts from "$lib/components/Blog/Posts.svelte";
+	import Post from "$lib/components/Blog/Post.svelte";
 	import type { Metadata } from "$lib/types";
 	import { SvelteMap } from "svelte/reactivity";
 	import { blur } from "svelte/transition";
@@ -60,7 +60,7 @@
 	</div>
 	<div class="grid grid-cols-1 gap-4 lg:grid-cols-9">
 		{#each blog as entry, i}
-			<Posts
+			<Post
 				url={entry.route}
 				cls="col-span-{gridColSeries[i % 8]} max-lg:col-span-1 {checkTags(entry.metadata)
 					? 'opacity-100'

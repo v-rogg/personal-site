@@ -2,6 +2,7 @@
 	import { enhance } from "$app/forms";
 	import { fade, scale } from "svelte/transition";
 	import { env } from "$env/dynamic/public";
+	import posthog from "posthog-js";
 
 	let { cls }: { cls?: string } = $props();
 
@@ -26,6 +27,7 @@
 			mailFormSent = true;
 			return async ({ result }) => {
 				if (result.status === 200) {
+					posthog.identify(email, { email: email });
 					mailSent = true;
 					mailFormSent = false;
 				}

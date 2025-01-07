@@ -299,15 +299,15 @@
 			transition:fade={{ duration: 250 }}
 		></div>
 		<div
-			class="fixed left-1/2 top-1/2 z-50 w-[90vw]
-            max-w-[450px] -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white
-            p-6 shadow-lg"
+			class="fixed left-1/2 top-1/2 z-50 w-full max-w-[450px]
+            -translate-x-1/2 -translate-y-1/2 bg-white p-6 shadow-lg
+            min-[450px]:w-[90vw] min-[450px]:rounded-xl"
 			{...$content}
 			transition:fade={{ duration: 250 }}
 			use:content
 		>
 			{#if signatureSentId === undefined}
-				<h2 {...$title} use:title class="m-0 -mt-2 text-xl font-semibold text-black">Zeichnung einreichen</h2>
+				<h2 {...$title} use:title class="m-0 -mt-2 pr-5 text-xl font-semibold text-black">Zeichnung einreichen</h2>
 				<p {...$description} use:description class="mb-8 mt-2">
 					Danke für das Erstellen deiner Zeichnung. Ich freue mich sehr darüber!
 				</p>
@@ -323,7 +323,7 @@
 							if (result.status === 200) {
 								// @ts-expect-error data
 								signatureSentId = result.data.id;
-								posthog.identify(signatureSentId, { email: formData.get("email") });
+								posthog.identify(signatureSentId, { id: signatureSentId, email: formData.get("email") });
 								signatureFormSent = false;
 								signatures.unshift({
 									id: signatureSentId,
@@ -358,7 +358,7 @@
 							placeholder="E-Mail (optional)"
 						/>
 					</fieldset>
-					<div class="mt-6 flex flex-row-reverse justify-start gap-4">
+					<div class="mt-6 flex flex-col justify-start gap-4 min-[450px]:flex-row-reverse">
 						<button class="rounded-lg bg-black px-4 py-2 text-white transition hover:bg-grey-800" type="submit">
 							Zeichnung einreichen
 							{#if signatureFormSent}
@@ -386,7 +386,7 @@
 				{@const signatureUrl = `${$page.url.origin}/?s=${signatureSentId}`}
 				{@const baseText =
 					"Ich%20habe%20mich%20verk%C3%BCnstelt%20und%20Valentin%20angemalt.%20Schau%20dir%20mein%20Meisterwerk%20an%20unter%3A%20"}
-				<h2 {...$title} use:title class="m-0 -mt-2 text-xl font-semibold text-black">Zeichnung eingereicht</h2>
+				<h2 {...$title} use:title class="m-0 -mt-2 pr-5 text-xl font-semibold text-black">Zeichnung eingereicht</h2>
 				<p {...$description} use:description class="mb-8 mt-2 text-balance">
 					Deine Zeichnung wurde eingereicht.<br /> Ich werde sie im Laufe der nächsten Tage freigeben.
 				</p>
@@ -422,7 +422,7 @@
 						<i class="fa-brands fa-signal-messenger"></i>
 					</a>
 				</fieldset>
-				<div class="mt-6 flex flex-row-reverse justify-start gap-4">
+				<div class="mt-6 flex justify-start gap-4 min-[450px]:flex-row-reverse">
 					<button
 						class="rounded-lg bg-black px-4 py-2 text-white transition hover:bg-grey-800"
 						onclick={() => {

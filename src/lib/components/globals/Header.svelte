@@ -62,7 +62,7 @@
 				</a>
 			{/if}
 			{#if $page.status === 200}
-				<div class="flex items-center gap-1">
+				<div class="flex items-center gap-1 max-[320px]:hidden">
 					{#each slugs as page, i}
 						{@const name = page.split("/").at(-1) || ""}
 						{@const delay = 100}
@@ -72,14 +72,18 @@
 							id={i + ""}
 							in:fly={{ delay: i * delay, duration, amount, easing: expoOut }}
 							out:fly={{ delay: (slugs.length + 1 - i) * delay, duration, amount, easing: expoIn }}
+							class="w-max"
 						>
 							<i class="fa-solid fa-slash-forward"></i>
 							{#if slugs.length - 1 === i}
-								<span class="mx-1 rounded px-1 py-0.5">
+								<span class="mx-1 overflow-hidden text-ellipsis rounded px-1 py-0.5">
 									{name.charAt(0).toUpperCase() + name.slice(1)}
 								</span>
 							{:else}
-								<a href={page} class="pointer-events-auto rounded px-2 py-1 hover:bg-white-700 active:bg-white-600">
+								<a
+									href={page}
+									class="pointer-events-auto overflow-hidden text-ellipsis rounded px-2 py-1 hover:bg-white-700 active:bg-white-600"
+								>
 									{name.charAt(0).toUpperCase() + name.slice(1)}
 								</a>
 							{/if}
@@ -96,7 +100,7 @@
 			<a
 				href={navigationHistory.at(-1)?.url.href}
 				in:fly={{ duration: 600, amount: 10 }}
-				class="pointer-events-auto rounded px-2 py-1 hover:bg-white-700 active:bg-white-600"
+				class="pointer-events-auto rounded px-2 py-1 hover:bg-white-700 active:bg-white-600 max-sm:hidden"
 			>
 				<i class="fa-solid fa-arrow-left mr-2"></i>
 				Zurück
