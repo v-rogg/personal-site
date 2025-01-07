@@ -25,6 +25,7 @@
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
 		"@tailwindcss/typography": "^0.5.15",
 		"autoprefixer": "^10.4.20",
+		"cssnano": "^7.0.6",
 		"embla-carousel": "^8.5.1",
 		"embla-carousel-autoplay": "^8.5.1",
 		"embla-carousel-svelte": "^8.5.1",
