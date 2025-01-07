@@ -9,23 +9,34 @@
 	import { page } from "$app/stores";
 	import { addToast } from "../globals/Toaster.svelte";
 	import { goto } from "$app/navigation";
+	import posthog from "posthog-js";
 
 	let { signatures = $bindable(), editMode = $bindable(), closeEditMode } = $props();
-
-	let canvas: HTMLCanvasElement;
-	let box: HTMLDivElement | undefined = $state();
-	let signaturePad: SignaturePad;
 
 	const Tools = {
 		pen: 1,
 		eraser: 2
 	};
 
+	let canvas: HTMLCanvasElement;
+	let box: HTMLDivElement | undefined = $state();
+	let signaturePad: SignaturePad;
 	let tool: number = $state(0);
-
 	let history: PointGroup[] = $state([]);
-
 	let colorPicker = $state(false);
+	let penColor = $state("#0f1418");
+	let picker = null;
+	let signatureSentId: string | undefined = $state(undefined);
+	let signatureFormSent = $state(false);
+
+	const {
+		elements: { overlay, content, title, description, close, portalled },
+		states: { open }
+	} = createDialog({
+		role: "alertdialog",
+		closeOnOutsideClick: false,
+		forceVisible: true
+	});
 
 	function hslToHex(h: number, s: number, l: number) {
 		l /= 100;
@@ -39,11 +50,6 @@
 		};
 		return `#${f(0)}${f(8)}${f(4)}`;
 	}
-
-	let penColor = $state("#0f1418");
-	let picker = null;
-
-	let signatureSentId: string | undefined = $state(undefined);
 
 	function resizeCanvas() {
 		if (canvas && box) {
@@ -140,15 +146,6 @@
 			}
 		});
 	}
-
-	const {
-		elements: { overlay, content, title, description, close, portalled },
-		states: { open }
-	} = createDialog({
-		role: "alertdialog",
-		closeOnOutsideClick: false,
-		forceVisible: true
-	});
 
 	onMount(async () => {
 		if (canvas && box) {
@@ -312,7 +309,7 @@
 			{#if signatureSentId === undefined}
 				<h2 {...$title} use:title class="m-0 -mt-2 text-xl font-semibold text-black">Zeichnung einreichen</h2>
 				<p {...$description} use:description class="mb-8 mt-2">
-					Danke für das Erstellen deiner Zeichnung. Ich freue mich sehr darüber 🤗
+					Danke für das Erstellen deiner Zeichnung. Ich freue mich sehr darüber!
 				</p>
 
 				<form
@@ -320,11 +317,14 @@
 					action="/api/actions/signatures?/create"
 					use:enhance={({ formData }) => {
 						formData.set("signature", JSON.stringify(history));
+						signatureFormSent = true;
 
 						return ({ result }) => {
 							if (result.status === 200) {
 								// @ts-expect-error data
 								signatureSentId = result.data.id;
+								posthog.identify(signatureSentId, { email: formData.get("email") });
+								signatureFormSent = false;
 								signatures.unshift({
 									id: signatureSentId,
 									approved: null
@@ -361,6 +361,11 @@
 					<div class="mt-6 flex flex-row-reverse justify-start gap-4">
 						<button class="rounded-lg bg-black px-4 py-2 text-white transition hover:bg-grey-800" type="submit">
 							Zeichnung einreichen
+							{#if signatureFormSent}
+								<i class="fa-solid fa-spinner-third fa-spin ml-2"></i>
+							{:else}
+								<i class="fa-solid fa-cloud-arrow-up ml-2"></i>
+							{/if}
 						</button>
 						<button {...$close} use:close class="py-w rounded-lg px-4 text-grey-800 transition hover:bg-grey-600">
 							Abbrechen
@@ -380,7 +385,7 @@
 			{:else}
 				{@const signatureUrl = `${$page.url.origin}/?s=${signatureSentId}`}
 				{@const baseText =
-					"Ich%20habe%20mich%20verk%C3%BCnstelt%20und%20Valentin%20angemalt.%20Schau%20dir%20meine%20Meisterwerk%20an%20unter%3A%20"}
+					"Ich%20habe%20mich%20verk%C3%BCnstelt%20und%20Valentin%20angemalt.%20Schau%20dir%20mein%20Meisterwerk%20an%20unter%3A%20"}
 				<h2 {...$title} use:title class="m-0 -mt-2 text-xl font-semibold text-black">Zeichnung eingereicht</h2>
 				<p {...$description} use:description class="mb-8 mt-2 text-balance">
 					Deine Zeichnung wurde eingereicht.<br /> Ich werde sie im Laufe der nächsten Tage freigeben.
