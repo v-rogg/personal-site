@@ -10,8 +10,10 @@ export default {
 			white: {
 				DEFAULT: "#ffffff",
 				500: "#ffffff",
-				600: "#FAF7F5",
-				700: "#eee8e6"
+				// 600: "#FAF7F5",
+				// 700: "#eee8e6"
+				600: "#f7f4f2",
+				700: "#e0dbd9"
 			},
 			skin: {
 				500: "#6B6665"
