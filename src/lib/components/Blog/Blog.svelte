@@ -26,7 +26,7 @@
 <section id="blog" class="mt-20">
 	<div class="mb-4 flex flex-col items-end gap-12 lg:flex-row">
 		<h2
-			class="-mb-[0.3em] block w-max text-[3.5rem] font-bold leading-none tracking-tight text-white-700 max-lg:-mt-10 max-md:pr-10 sm:text-[6rem] md:-mb-[0.14em] md:text-[10rem] lg:-ml-[8px] xl:-ml-[7px]"
+			class="-mb-[0.3em] block w-max text-[3.5rem] font-bold leading-none tracking-tight text-white-600 max-lg:-mt-10 max-md:pr-10 sm:text-[6rem] md:-mb-[0.14em] md:text-[10rem] lg:-ml-[8px] xl:-ml-[7px] 2xl:-ml-[12px] 2xl:text-[16rem]"
 		>
 			Beiträge
 		</h2>
