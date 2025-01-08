@@ -25,7 +25,7 @@
 				<a href="https://www.rust-lang.org/" target="_blank" rel="noopener noreferrer" class="underline">Rust</a>
 				und
 				<a href="https://threejs.org/" target="_blank" rel="noopener noreferrer" class="underline">WebGL</a>.<br
-				/>Privat bin ich leidenschaftlicher Musiker, Sportler und Globetrotter.
+				/>Privat bin ich Sportkursleiter und leidenschaftlicher Musiker.
 			</p>
 			<p class="mt-2 max-w-xl text-wrap text-justify text-black">
 				Auf meiner Seite gebe ich Einblick in meine Projekte und erzähle von meinen Learnings aus den letzten 5 Jahren
