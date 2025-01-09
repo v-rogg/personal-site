@@ -16,6 +16,7 @@ const config = {
 			smartypants: {
 				dashes: "oldschool"
 			},
+			layout: "./src/lib/mdx/BlogLayout.svelte",
 			highlight: {
 				highlighter: async (code, lang) => {
 					const highlighter = await createHighlighter({ theme: tokio, langs: [lang] });

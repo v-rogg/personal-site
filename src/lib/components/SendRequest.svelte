@@ -3,6 +3,7 @@
 	import { fade, scale } from "svelte/transition";
 	import { env } from "$env/dynamic/public";
 	import posthog from "posthog-js";
+	import { page } from "$app/state";
 
 	let { cls }: { cls?: string } = $props();
 
@@ -11,6 +12,12 @@
 	let email: string | undefined = $state();
 	let message: string | undefined = $state();
 </script>
+
+<svelte:head>
+	{#if !page.url.hostname.includes("localhost")}
+		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+	{/if}
+</svelte:head>
 
 <section class="flex min-h-128 flex-col bg-black p-8 text-white-500 sm:rounded-2xl {cls}">
 	<h3 class=" text-balance text-center text-3xl font-medium">

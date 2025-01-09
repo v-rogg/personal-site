@@ -26,11 +26,11 @@
 <section id="blog" class="mt-20">
 	<div class="mb-4 flex flex-col items-end gap-12 lg:flex-row">
 		<h2
-			class="-mb-[0.3em] block w-max text-[3.5rem] font-bold leading-none tracking-tight text-white-600 max-lg:-mt-10 max-md:pr-10 sm:text-[6rem] md:-mb-[0.14em] md:text-[10rem] lg:-ml-[8px] xl:-ml-[7px] 2xl:-ml-[12px] 2xl:text-[16rem]"
+			class="-mb-[0.5em] block w-max text-[4rem] font-bold leading-none tracking-tight text-white-600 max-lg:-mt-10 max-md:pr-10 sm:text-[6rem] md:-mb-[0.14em] md:text-[10rem] lg:-ml-[8px] xl:-ml-[7px] 2xl:-ml-[12px] 2xl:text-[16rem]"
 		>
 			Beiträge
 		</h2>
-		<div class="flex h-max flex-wrap items-end justify-between gap-2 max-md:px-10 lg:justify-end">
+		<div class="flex h-max flex-wrap items-end justify-start gap-2 max-md:px-10 lg:justify-end">
 			{#each tags.sort() as tag, i}
 				{#if filterOpen}
 					<button
@@ -58,7 +58,7 @@
 			{/each}
 		</div>
 	</div>
-	<div class="grid grid-cols-1 gap-4 lg:grid-cols-9">
+	<div class="flex grid-cols-1 flex-col gap-4 xl:grid xl:grid-cols-9">
 		{#each blog as entry, i}
 			<Post
 				url={entry.route}

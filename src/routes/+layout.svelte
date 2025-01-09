@@ -12,7 +12,7 @@
 
 	let { children } = $props();
 
-	if (browser) {
+	if (browser && PUBLIC_POSTHOG_PROJECT_ID) {
 		posthog.init(PUBLIC_POSTHOG_PROJECT_ID, {
 			api_host: "https://eu.i.posthog.com",
 			persistence: "memory",
