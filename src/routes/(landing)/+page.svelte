@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-	<title>VR • Valentin Rogg</title>
+	<title>Valentin Rogg</title>
 	<meta
 		name="description"
 		content="Als studierter Entwickler und Digital Product Designer spezialisiere ich mich auf die Konzeption, Umsetzung und Vermarktung von digitalen Produkten, Services und hardwarebasierter Sensortechnologie. Mein Fokus liegt dabei vor allem auf Themen der automatisierten Datenanalyse und interaktiven Visualisierung. Außerdem liegen meine Stärken im Management und Marketing. Ich benutzte gerne Svelte, Rust und WebGL.
