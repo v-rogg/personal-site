@@ -24,15 +24,19 @@
 	<h4 class="text-md relative z-20 text-black">{metadata?.subtitle}</h4>
 	<TagList tags={metadata?.tags} cls="bg-fade relative z-20 mt-4 rounded-md" />
 	<div
-		class="relative mt-4 flex flex-col items-end gap-8 sm:flex-row sm:items-start sm:justify-between xl:h-full xl:items-end"
+		class="relative mt-4 flex flex-col items-start gap-8 sm:flex-row sm:items-start sm:justify-between xl:h-full xl:items-end"
 	>
 		<p
-			class="max-lg:preview-text h-full w-full max-w-[90%] overflow-ellipsis hyphens-auto whitespace-normal text-pretty text-justify"
+			class="max-lg:preview-text h-full w-full overflow-ellipsis whitespace-normal text-pretty text-justify max-sm:hyphens-auto sm:pb-10"
 		>
 			{metadata?.preview}
 		</p>
 		{#if metadata?.previewImageUrl}
-			<img src={metadata.previewImageUrl} alt={metadata.title} class="fade -mr-10 -mt-4 h-auto max-w-72" />
+			<img
+				src={metadata.previewImageUrl}
+				alt={metadata.title}
+				class="fade -mr-10 -mt-4 ml-auto h-auto max-w-72 opacity-90 xl:max-w-48 2xl:max-w-72"
+			/>
 		{/if}
 	</div>
 	<div

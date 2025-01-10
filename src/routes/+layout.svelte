@@ -4,7 +4,7 @@
 	import Footer from "$lib/components/globals/Footer.svelte";
 	import Header from "$lib/components/globals/Header.svelte";
 	import Toaster from "$lib/components/globals/Toaster.svelte";
-	import { page } from "$app/stores";
+	import { page } from "$app/state";
 	import posthog from "posthog-js";
 	import { browser } from "$app/environment";
 	import { PUBLIC_POSTHOG_PROJECT_ID } from "$env/static/public";
@@ -31,7 +31,7 @@
 <Toaster />
 
 <Header />
-{#key $page.url.pathname}
+{#key page.url.pathname}
 	<div class="font-sans text-black">
 		{@render children()}
 	</div>

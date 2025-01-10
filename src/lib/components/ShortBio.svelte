@@ -12,15 +12,9 @@
 			</h1>
 			<p class="text-justify text-black" lang="de">
 				Hey, ich bin Valentin. Als studierter <b>Entwickler</b> und <b>Digital Product Designer</b> spezialisiere ich
-				mich auf die Konzeption, Umsetzung und Vermarktung von
-				<span title="Software-as-a-Serivce" class="cursor-help"
-					>Micro-SaaS <sup><i class="fa-regular fa-info-circle"></i></sup></span
-				>
-				und
-				<span title="Minimal Viable Product" class="cursor-help"
-					>MVPs <sup><i class="fa-regular fa-info-circle"></i></sup></span
-				>. Mein Fokus liegt dabei vor allem auf Themen der auto&shy;matisierten Daten&shy;analyse und interaktiven
-				Visualisierung. Außerdem liegen meine Stärken im Management und Marketing. Ich benutzte gerne
+				mich auf die Konzeption, Umsetzung und Vermarktung von digitalen Produkten, Services und hardware&shy;basierter
+				Sensor&shy;technologie. Mein Fokus liegt dabei vor allem auf Themen der auto&shy;matisierten Daten&shy;analyse
+				und interaktiven Visualisierung. Außerdem liegen meine Stärken im Management und Marketing. Ich benutzte gerne
 				<a href="https://svelte.dev" target="_blank" rel="noopener noreferrer" class="underline">Svelte</a>,
 				<a href="https://www.rust-lang.org/" target="_blank" rel="noopener noreferrer" class="underline">Rust</a>
 				und
