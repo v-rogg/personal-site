@@ -12,11 +12,9 @@
 <svelte:head>
 	<title>VR • Valentin Rogg</title>
 	<meta
-		name="descprition"
-		content="Hey, ich bin Valentin. Als studierter Entwickler und Digital Product Designer spezialisiere ich mich auf die Konzeption, Umsetzung und Vermarktung von digitalen Produkten, Services und hardwarebasierter Sensortechnologie. Mein Fokus liegt dabei vor allem auf Themen der automatisierten Datenanalyse und interaktiven Visualisierung. Außerdem liegen meine Stärken im Management und Marketing. Ich benutzte gerne Svelte, Rust und WebGL.
-Privat bin ich Sportkursleiter und leidenschaftlicher Musiker.
-
-Auf meiner Seite gebe ich Einblick in meine Projekte und erzähle von meinen Learnings aus den letzten 5 Jahren im Startup-Umfeld."
+		name="description"
+		content="Als studierter Entwickler und Digital Product Designer spezialisiere ich mich auf die Konzeption, Umsetzung und Vermarktung von digitalen Produkten, Services und hardwarebasierter Sensortechnologie. Mein Fokus liegt dabei vor allem auf Themen der automatisierten Datenanalyse und interaktiven Visualisierung. Außerdem liegen meine Stärken im Management und Marketing. Ich benutzte gerne Svelte, Rust und WebGL.
+Privat bin ich Sportkursleiter und leidenschaftlicher Musiker. Auf meiner Seite gebe ich Einblick in meine Projekte und erzähle von meinen Learnings aus den letzten 5 Jahren im Startup-Umfeld."
 	/>
 </svelte:head>
 
