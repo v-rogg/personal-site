@@ -26,7 +26,9 @@
 
 <svelte:head>
 	<title>VR • Valentin Rogg</title>
-	<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+	{#if !page.url.hostname.includes("localhost")}
+		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+	{/if}
 </svelte:head>
 
 <Toaster />

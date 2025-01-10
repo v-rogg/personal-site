@@ -22,7 +22,9 @@
 		{/if}
 	</div>
 	<h4 class="text-md relative z-20 text-black">{metadata?.subtitle}</h4>
-	<TagList tags={metadata?.tags} cls="bg-fade relative z-20 mt-4 rounded-md" />
+	{#if metadata.tags}
+		<TagList tags={metadata?.tags} cls="bg-fade relative z-20 mt-4 rounded-md" />
+	{/if}
 	<div
 		class="relative mt-4 flex flex-col items-start gap-8 sm:flex-row sm:items-start sm:justify-between xl:h-full xl:items-end"
 	>
