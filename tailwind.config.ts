@@ -2,7 +2,7 @@ import type { Config } from "tailwindcss";
 import typography from "@tailwindcss/typography";
 
 export default {
-	content: ["./src/**/*.{html,js,ts,svelte}"],
+	content: ["./src/**/*.{html,js,ts,svelte,mdx}"],
 	theme: {
 		colors: {
 			transparent: "transparent",

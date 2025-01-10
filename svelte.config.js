@@ -7,12 +7,12 @@ import tokio from "shiki/themes/tokyo-night.mjs";
 
 /** @type {import('@sveltejs/kit').Config}*/
 const config = {
-	extensions: [".svelte", ".md"],
+	extensions: [".svelte", ".mdx"],
 	preprocess: sequence([
 		vitePreprocess(),
 		preprocessMeltUI(),
 		mdsvex({
-			extension: ".md",
+			extension: ".mdx",
 			smartypants: {
 				dashes: "oldschool"
 			},

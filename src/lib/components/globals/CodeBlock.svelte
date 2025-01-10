@@ -48,7 +48,7 @@
 </script>
 
 <div
-	class="{base} {rounded} {shadow} {classes} {preBase} {prePadding} {preClasses}"
+	class="{base} {rounded} {shadow} {classes} {preBase} {prePadding} {preClasses} w-max sm:min-w-80"
 	style="font-family: serif !important;"
 >
 	<!-- eslint-disable-next-line -->

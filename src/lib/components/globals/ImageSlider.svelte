@@ -53,7 +53,7 @@
 			class="pane-vertical absolute left-1/2 h-full cursor-grab active:cursor-grabbing"
 		>
 			<span
-				class=" absolute top-1/2 flex size-8 -translate-y-4 translate-x-1/2 items-center justify-center rounded-full bg-white focus:ring-4 focus:!ring-black/40"
+				class="absolute top-1/2 flex size-8 -translate-y-4 translate-x-1/2 items-center justify-center rounded-full bg-white focus:ring-4 focus:!ring-black/40"
 			>
 				<i class="fa-solid fa-sort"></i>
 			</span>
@@ -81,7 +81,7 @@
 		</div>
 		<span {...$hThumbs[0]} use:hThumbs class="pane absolute top-0 h-full cursor-grab active:cursor-grabbing">
 			<span
-				class=" absolute top-1/2 flex size-8 -translate-x-1/2 -translate-y-4 items-center justify-center rounded-full bg-white focus:ring-4 focus:!ring-black/40"
+				class="absolute top-1/2 flex size-8 -translate-x-1/2 -translate-y-4 items-center justify-center rounded-full bg-white focus:ring-4 focus:!ring-black/40"
 			>
 				<i class="fa-solid fa-sort fa-rotate-90"></i>
 			</span>
@@ -101,7 +101,7 @@
 			height: 100%;
 			width: 2px;
 			transform: translateX(-1px);
-			background: white;
+			@apply bg-white;
 		}
 	}
 
@@ -116,7 +116,7 @@
 			height: 2px;
 			width: 1000px;
 			transform: translateY(-1px);
-			background: white;
+			@apply bg-white;
 		}
 	}
 </style>

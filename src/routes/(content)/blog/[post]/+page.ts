@@ -6,8 +6,8 @@ import { redirect } from "@sveltejs/kit";
 export const load: PageLoad = async ({ params }) => {
 	const post = params.post;
 
-	const files = import.meta.glob("../content/*.md");
-	const filePath = `../content/${post}.md`;
+	const files = import.meta.glob("../content/*.mdx");
+	const filePath = `../content/${post}.mdx`;
 
 	if (files[filePath]) {
 		const fileContent = (await files[filePath]()) as {

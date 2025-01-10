@@ -7,10 +7,10 @@ function getBlogData(): {
 	route: string;
 	metadata: Metadata;
 }[] {
-	const files = import.meta.glob("/src/routes/\\(content\\)/blog/**/*.md", { eager: true });
+	const files = import.meta.glob("/src/routes/\\(content\\)/blog/**/*.mdx", { eager: true });
 	const blogData = Object.entries(files)
 		.map(([filePath, module]) => {
-			const route = filePath.replace("/src/routes/(content)/", "").replace("/content", "").replace(".md", "");
+			const route = filePath.replace("/src/routes/(content)/", "").replace("/content", "").replace(".mdx", "");
 
 			return {
 				route,

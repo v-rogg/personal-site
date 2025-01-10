@@ -1,0 +1,206 @@
+---
+title: Wassererbe Augsburg
+subtitle: Interaktive Website zur Entwicklung der Wassernutzung einer Stadt
+slug: Wassererbe Augsburg
+date: 2025-01-08
+tags:
+  - data journalism
+  - information design
+  - historic data
+  - svelte
+published: true
+preview: Augsburg ist seit jeher eine vom Wasser geprägte Stadt. Im Rahmen meines Studiums erstellte ich eine interaktive Website zur Entwicklung der Stadt aufgrund von Wassernutzung.
+previewImageUrl: https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/41ad013f-7c8f-4237-9a8c-44d8baff1d00/h=300
+---
+
+<script lang="ts">
+	import ImageSlider from "$lib/components/globals/ImageSlider.svelte"; import Image from
+	"$lib/components/Blog/Image.svelte"; import CodeBlock from "$lib/components/globals/CodeBlock.svelte";
+</script>
+
+Augsburg ist seit jeher eine von Wasser geprägte Stadt.
+Mit über 530 Brücken und einem weitverzweigten Netz aus 100 Kilometern Kanälen erzählt das Stadtbild von einer engen Verbindung zu dieser lebenswichtigen Ressource.
+Anlässlich der [Auszeichnung als UNESCO-Welterbe](https://wassersystem-augsburg.de/de) habe ich im Rahmen des Kurses „Datenvisualisierung“ im Studiengang „Interaktive Mediensysteme“
+an der Technischen Hochschule Augsburg das Zusammenspiel von Stadt und Wasser erlebbar gemacht.
+
+<!-- <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/A_mx7ZHZ6bg?si=SGS9M2lsGhLCqgCL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+
+<!-- Im Gegensatz zu bestehenden Visualisierungen des Welterbes setzte ich den Fokus darauf,
+einzelne Stadtteile genauer zu betrachten und jeweils den historischen geprägten Verwendungszweck von Wasser genauer zu erläutern. -->
+
+In Augsburg gibt es mehrere historische, zur Wassernutzung gebaute Bauwerke, welche heute noch das Stadtbild prägen.
+Mit meinem Projekt „Wassererbe Augsburg“ möchte ich aufzeigen, wie sich die Stadt über die letzten 100 Jahre durch das Wasser verändert hat.
+Hierzu greife ich die Geschichte von 5 Stadtteilen auf: dem Hochablass, dem Lechviertel, dem Textilviertel, dem Proviantbachquartier und dem Herrenbachviertel.
+
+<a
+	class="flex w-max items-center rounded-md bg-white-600 px-4 py-3 no-underline"
+	href="https://wassererbe.de"
+	target="_blank"
+>
+	<i class="fa-regular fa-circle-exclamation mr-2 text-lg text-skin-500"></i>
+	Die Visualisierung findest du unter <u class="ml-1">wassererbe.de</u>
+</a>
+
+### Datenakquise
+
+Nach eingängiger Recherche und Gesprächen mit Mitarbeitern des Welterbe-Infozentrums entschied ich mich dazu,
+für die Geschichten der Stadtteile auf dem Inhalt von Büchern zu basieren.
+Gerade der BayernAtlas erwies sich als unbezahlbare Quelle. Unter der [Open Data Initiative](https://open.bydata.de/home?locale=de) hat das Bundesland Bayern historisches Kartenmaterial bis zurück ins Jahr 1890 über den [BayernAtlas](https://atlas.bayern.de/?c=639936,5359312&z=14&r=0&l=historisch&t=ba) frei zugänglich gemacht.
+Diese Karten dienten als Informationsbasis zur Einordnung der Flächennutzung.
+
+<div class="flex flex-col sm:flex-row justify-evenly items-center">
+  <div><img src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/c08581e8-d9a5-40a6-013b-697482206900/h=400" height=400 width=auto alt="Buch: 'Wasser Kunst Augsburg' als Datenquelle" class="w-full h-auto block"/></div>
+  <div><img src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/a750d2bd-d52c-4463-83c0-efb0ceadc500/h=400" height=400 width=auto alt="Historische Karten als Datenquelle" class="w-full h-auto block"/></div>
+</div>
+
+### Standardisierung und Klassifizierung der Daten
+
+Um die Flächennutzung historisch betrachten zu könnten, musste ich zunächst das unterschiedliche, zum Teil noch per Hand gezeichnete, Kartenmaterial übereinanderlegen und abgleichen. Hier zeigte sich, dass gerade bei älteren Karten kleine geografische Unterschiede zu moderneren Karten nach 1980 auftreten.
+Mithilfe von markanten historischen Gebäuden gelang es mir, die Karten deckungsgleich zu platzieren.
+
+<div class="flex justify-center">
+	<ImageSlider
+		a="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/381ceb90-74e0-4cbe-5057-41a7f8bcca00/h=500"
+		b="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/f5cecf4b-5715-4bc6-77d8-bc1719fcaa00/h=500"
+		aAlt="Augsburg 1890"
+		bAlt="Augsburg 1989"
+	/>
+</div>
+
+Als Nächstes galt es, ein geeignetes Raster zur Nutzungsklassifizierung einzelner Zonen zu finden.
+Grundsätzlich bieten sich zwei verschiedene Formen an, welche nahtlos ohne das Entstehen von Lücken aneinander gereiht werden können:
+das Rechteck und das Hexagon. Erste Tests zeigten, dass während ein Quadratraster eine leicht bessere Übersichtlichkeit bietet, sich mithilfe eines Hexagonmusters die organischen Gegebenheiten im Flusslauf und Stadtwachstum genauer darstellen lassen:
+
+<div class="flex flex-col sm:flex-row justify-evenly items-center">
+  <div><img src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/44e135b6-5e82-440d-db31-19c117c78700/h=160" height=160 width=auto alt="Quadrat-Raster Beispiel" class="w-full h-auto max-h-40 block"/></div>
+  <div><img src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/16a76002-85c4-45c0-6e0e-4c2aeffe4500/h=160" height=160 width=auto alt="Hexagon-Raster Beispiel" class="w-full h-auto max-h-40 block"/></div>
+</div>
+
+Neben der unterschiedlichen Form erprobte ich auch unterschiedliche Rasterskalierungen. Mir war es wichtig, einen Kompromiss zu finden zwischen Detailgrad und Abstrahierung.
+Die akkurate Abbildung der verwinkelten Wasserkanäle Augsburgs war eine Herausforderung.
+
+<div class="flex justify-center">
+	<ImageSlider
+		a="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/5054d0a4-442c-49d4-9e65-fe2255d6ba00/h=500"
+		b="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/f6d6a527-a95e-47cb-b918-872f352dfd00/h=500"
+		aAlt="Augsburg 2020"
+		bAlt="Augsburg 2020 gerastert"
+	/>
+</div>
+
+Die Flächennutzung wird in jeder Karte durch unterschiedliche Farben kodiert. Je nach Jahr gibt es verschiedene Farben und zum Teil auch mehr oder weniger Informationen zur Flächennutzung. Der größte gemeinsame Nenner sind fünf verschiedene Nutzungstypen: Landwirtschaft, Grasland, Wald, Wohnraum und Industrie.
+
+<div class="flex justify-center">
+	<div>
+		<img
+			src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/bd0012ab-733a-4079-58f8-488cac437700/h=280"
+			class="max-h-[280px]"
+			alt="Flachennutzungskategorien: Landwirtschaft, Grasland, Wald, Wohnraum, Industrie"
+		/>
+	</div>
+</div>
+
+Für jede Zone im Raster wurde der Durchschnitt der Flächennutzung gefunden und händisch kodiert. Da jede Karte unterschiedliche Merkmale aufweist, war es hier leider nicht rentabel, einen automatischen Algorithmus aufzusetzen. Insgesamt wurden 13 Karten über die Jahre 1890 bis 2022 ausgewertet.
+
+<div class="flex justify-center">
+	<ImageSlider
+		a="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/18d5c2ca-e8f4-4045-3b25-8278ce7a7100/h=500"
+		b="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/ca0381fe-de05-449f-22cd-f453a0f6c400/h=500"
+		aAlt="Augsburg 1964 gerasteret"
+		bAlt="Augsburg 1964 ausgewertet"
+	/>
+</div>
+
+Vielleicht ist es bereits aufgefallen, alle Karten sind nach Westen ausgerichtet. Das geht auf die erste Radierung Augsburgs aus dem späten 16. Jahrhundert von Franz Hogenberg zurück. Als kleine Hommage auf die Ursprünge der historischen Aufzeichnung Augsburgs habe ich auch meine Karten nach Westen ausgerichtet.
+
+<Image
+	src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/1555a52c-13eb-444c-f307-38d714954700/h=500"
+	alt="Augsburg als Radierung von Franz Hogenberg aus dem späten 16. Jahrhundert"
+/>
+
+Um dem Betrachter meiner Visualisierung die Verortung einzelner Stadtteile zu erleichtern, entschied ich mich dazu, eine Ortslegende einzubauen.
+
+<div class="flex justify-center">
+	<div>
+		<img
+			src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/c3fe9a73-d5ad-4d64-c26f-70caab7da300/h=500"
+			class="max-h-[500px]"
+			alt="Augsburg als Radierung von Franz Hogenberg aus dem späten 16. Jahrhundert"
+		/>
+	</div>
+</div>
+
+### Visualisierung mittels Svelte und SVG
+
+Um meine Erkenntnisse zu präsentieren, entwickelte ich eine Website mithilfe von [Svelte](https://svelte.dev). Die Website verfügt im Kern über drei Funktionen, welche miteinander interagieren:
+
+- Visualisierung der Flächennutzung geografisch und prozentual
+- Erzählung der Veränderung der Stadtteile anhand der Karte
+- Manipulation am Zeitstrahl
+
+Das erarbeitete Raster wurde als SVG-Grafik in die Website eingebettet. Jede Zone hat eine einzigartige ID, welche sie in einem X/Y-Koordinatensystem eindeutig zuordnen lässt.
+Außerdem besitzt jede Zone eine fortlaufende Nummer. Die Kanäle wurden eindeutig namentlich identifiziert.
+
+<Image src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/3f1ae15a-ce75-47fb-d316-0aa2096d9100/h=280" maxH=280 alt="Identifizierung der SVG Polygone nach X_Y_Index" />
+
+So ist es möglich, jede Zone und jeden Kanal programmatisch anzusprechen und je nach ausgewähltem Jahr einzufärben:
+
+<div class="py-4">
+	<div style="position: relative; padding-top: 56.25%" class="mx-auto">
+		<iframe
+			src="https://customer-o8nynecjdyitknhq.cloudflarestream.com/1aaf130b34078017879407f4dc805175/iframe?muted=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-o8nynecjdyitknhq.cloudflarestream.com%2F1aaf130b34078017879407f4dc805175%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600&controls=false"
+			loading="lazy"
+			style="border: none; position: absolute; top: 0; left: 0; height: 100%; width: 100%; border-radius: 0;"
+			allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+			allowfullscreen="true"
+		></iframe>
+	</div>
+</div>
+
+Über diese Zuweisung können auch mehrere Zonen für die Erzählung von Geschichten hervorgehoben werden:
+
+<div class="py-4">
+	<div style="position: relative; padding-top: 56.25%" class="mx-auto">
+		<iframe
+			src="https://customer-o8nynecjdyitknhq.cloudflarestream.com/3708077f57f3caf022156574acc3f992/iframe?muted=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-o8nynecjdyitknhq.cloudflarestream.com%2F3708077f57f3caf022156574acc3f992%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600&controls=false"
+			loading="lazy"
+			style="border: none; position: absolute; top: 0; left: 0; height: 100%; width: 100%; border-radius: 0;"
+			allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+			allowfullscreen="true"
+		></iframe>
+	</div>
+</div>
+
+Zum Abschluss des Semesters stellte ich das Projekt den Mitarbeitern des Welterbe-Infozentrums und Studenten & Professoren der Hochschule Luzern vor. Das Projekt erhielt ausgezeichnete Resonanz.
+
+<div class="mt-20 flex justify-center">
+	<a
+		href="https://wassererbe.de"
+		target="_blank"
+		class="w-max rounded-md bg-white-600 p-10 text-center text-lg no-underline"
+	>
+		Besuche <span class="underline">wassererbe.de</span> um zu erfahren, wie sich die Geschichte von Augsburg seit Ende
+		der Neuzeit dank intensiver Wassernutzung verändert
+	</a>
+</div>
+
+<!-- <div style="position: relative; padding-top: 34.14351851851852%;">
+	<iframe
+		src="https://customer-o8nynecjdyitknhq.cloudflarestream.com/06a7af241bf9af773100c900a7a140f9/iframe?muted=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-o8nynecjdyitknhq.cloudflarestream.com%2F06a7af241bf9af773100c900a7a140f9%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600&controls=false"
+		loading="lazy"
+		style="border: none; position: absolute; top: 0; left: 0; height: 100%; width: 100%;"
+		allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+		allowfullscreen="true"
+	></iframe>
+</div> -->
+
+<!-- ### Rückblick -->
+<!-- Die Arbeit mit historischen Daten brachte einige Herausforderungen mit sich. So war das **Klassifizieren alter Karten** teilweise schwierig, da die Zonen auf diesen Karten oft ungenau oder uneindeutig markiert waren. Auch das Bereinigen der **Open Data**, die für das Projekt genutzt wurden, nahm viel Zeit in Anspruch – offene Daten sind nicht immer sauber und erfordern eine gründliche Aufbereitung. Dennoch war es spannend, mit diesen Quellen zu arbeiten und die historische Entwicklung der Stadt Stück für Stück nachzuzeichnen. -->
+<!-- Das Projekt **„Wassererbe Augsburg“** war eine spannende Erfahrung, die mir viel über den Umgang mit Daten und die Verbindung von Technologie und Geschichte beigebracht hat. Besonders der modulare Aufbau und die Entkopplung von Daten und Visualisierung haben uns ermöglicht, flexibel zu bleiben, das Projekt zukunftssicher zu gestalten und vor allem entkoppelt zu zweit in einem Team daran zu arbeiten. -->
+
+<!-- Eine wichtige Inspiration für die Website war das Brettspiel **„Die Siedler von Catan“**, dessen hexagonale Spielfeldstruktur uns die Grundlage für die Karte lieferte. Die Orientierung der Karte **nach Westen** basiert auf alten historischen Stadtplänen Augsburgs, die ebenfalls in diese Richtung ausgerichtet waren. Ziel war es, eine lebendige und zugleich übersichtliche Darstellung der städtischen Wassernutzung von **1890 bis 2022** zu schaffen. -->
+<!-- Die Karte bildet den Mittelpunkt der Website. Hier laufen alle Daten und Interaktionen zusammen: Jedes **Hexagon** steht für eine Zone der Stadt und kann durch die hinterlegten Informationen farblich hervorgehoben werden. Die Umsetzung basiert auf einer **SVG-Datei**, in der jedes Hexagon eine eindeutige ID erhalten hat. So lassen sich Animationen, wie das **Ein- und Ausblenden von Beschreibungen oder Flussanimationen**, gezielt steuern. -->
+
+<!-- Die Website wurde mit dem Framework **SvelteKit** realisiert. Die Wahl fiel darauf, weil es die Entwicklung von dynamischen, komponentenbasierten Anwendungen erleichtert. -->
+<!-- Alle Informationen – sei es die Nutzung der Stadtzonen oder die Geschichten zur Entwicklung Augsburgs – sind in **JSON-Dateien** gespeichert. Diese Trennung von Daten und Darstellung hat uns Flexibilität gegeben: Neue Zeiträume oder Geschichten können einfach ergänzt werden, ohne den bestehenden Code zu verändern. -->
+<!-- Der **Zeitstrahl**, der die Jahre von 1890 bis 2022 abdeckt, generiert sich ebenfalls dynamisch aus den JSON-Daten. Mithilfe eines Svelte <code>tweened</code> Store haben wir einen flüssigen „Zeitraffer-Effekt“ realisiert, bei dem die Karte zwischen den Jahren animiert wechselt. -->
