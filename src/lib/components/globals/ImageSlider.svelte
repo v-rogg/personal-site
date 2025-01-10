@@ -28,7 +28,7 @@
 </script>
 
 {#if innerWidth.current && innerWidth.current < 768}
-	<div class="relative my-8 h-full w-full" {...$vRoot} use:vRoot>
+	<div class="relative my-8 h-full w-full overflow-hidden" {...$vRoot} use:vRoot>
 		<div
 			class="pointer-events-none relative w-full"
 			style="clip-path: polygon(0 0, 100% 0, 100% {$vValue}%, 0 {$vValue}%);"
@@ -60,7 +60,7 @@
 		</span>
 	</div>
 {:else}
-	<div class="relative my-8 h-full max-w-max" {...$hRoot} use:hRoot>
+	<div class="relative my-8 h-full max-w-max overflow-hidden" {...$hRoot} use:hRoot>
 		<div
 			class="pointer-events-none relative w-full max-w-max"
 			style="clip-path: polygon(0 0, {$hValue}% 0, {$hValue}% 100%, 0% 100%);"
