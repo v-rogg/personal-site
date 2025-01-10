@@ -113,7 +113,7 @@
 	transition:blur={{ amount: 10, duration: 600, easing: expoInOut }}
 	onemblaInit={onInit}
 >
-	<div class="embla__container flex h-full w-full">
+	<div class="embla__container flex h-full w-full cursor-grab active:cursor-grabbing">
 		{#each signatureImageCache.filter((e) => e != undefined) as slide}
 			{@const date_created = new Date(slide.ts_created)}
 			<div id={slide.id} class="embla__slide relative z-30 min-w-0 font-sans" style="flex: 0 0 100%">
