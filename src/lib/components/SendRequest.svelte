@@ -2,8 +2,9 @@
 	import { enhance } from "$app/forms";
 	import { fade, scale } from "svelte/transition";
 	import { env } from "$env/dynamic/public";
-	import posthog from "posthog-js";
+	import { page } from "$app/state";
 	import { onMount } from "svelte";
+	import posthog from "posthog-js";
 
 	let { cls }: { cls?: string } = $props();
 
@@ -13,9 +14,11 @@
 	let message: string | undefined = $state();
 
 	onMount(() => {
-		turnstile.render("#turnstile-widget", {
-			sitekey: env.PUBLIC_CF_TURNSTILE_SITE_KEY
-		});
+		if (!page.url.hostname.includes("localhost")) {
+			turnstile.render("#turnstile-widget", {
+				sitekey: env.PUBLIC_CF_TURNSTILE_SITE_KEY
+			});
+		}
 	});
 </script>
 
