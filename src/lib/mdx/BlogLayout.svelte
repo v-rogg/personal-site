@@ -12,7 +12,7 @@
 
 <div class="mt-2 text-sm">
 	<span class="mr-2">Veröffentlichung:</span>
-	{new Date(date).toLocaleDateString("de")}
+	{new Date(date).toLocaleDateString("de-DE", { day: "numeric", month: "2-digit", year: "numeric" })}
 </div>
 
 <hr />
