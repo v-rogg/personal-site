@@ -2,6 +2,7 @@ import { env } from "$env/dynamic/private";
 import type { SignatureMeta, Signature } from "$lib/types";
 
 let listCache: SignatureMeta[] | null = null;
+let listCacheDate: Date;
 const singleCache = new Map();
 
 export async function checkSignature(platform: App.Platform, id: string) {
@@ -19,7 +20,7 @@ export async function checkSignature(platform: App.Platform, id: string) {
 }
 
 export async function getSignatures(platform: App.Platform) {
-	if (listCache) {
+	if (listCache && listCacheDate && listCacheDate.getTime() > new Date().getTime() - 86400000) {
 		return listCache;
 	}
 
@@ -30,6 +31,7 @@ export async function getSignatures(platform: App.Platform) {
 	}).then(async (res) => (await res.json()) as SignatureMeta[]);
 
 	listCache = signatures;
+	listCacheDate = new Date();
 
 	return signatures;
 }
