@@ -6,7 +6,7 @@
 
 <h1>{title}</h1>
 
-<h2>{subtitle}</h2>
+<h2 class="text-wrap">{subtitle}</h2>
 
 <TagList tags={tags} />
 

@@ -1,14 +1,179 @@
 ---
 title: Obacht! Anonymes Personentracking
-date: 2022-07-20
+subtitle: LiDAR-basiertes Personentracking für Anwendungsfälle im öffentlichen Raum
+date: 2025-01-11
 tags:
   - lidar
-  - machine learning
-  - grpc
-  - c#
-  - go
-  - mqtt
-  - websocket
-  - svelte
-  - threejs
+  - ml
+  - tracking
+  # - grpc
+  # - mqtt
+  # - python
+  # - svelte
+  # - threejs
+published: true
+previewImageUrl: https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/64f48e3b-bbc1-4dbb-1081-d47a9cb18f00/h=300
+preview: Obacht! revolutioniert Personentracking durch eine Privacy-First Architektur, die mittels LiDAR-Sensoren und intelligenter Algorithmen anonyme Bewegungsdaten erfasst und in Echtzeit analysiert.
 ---
+
+<script lang="ts">import Image from "$lib/components/Blog/Image.svelte";</script>
+
+Das 21. Jahrhundert ist geprägt von einem exponentiellen Anstieg der Datenerfassung, insbesondere von personenbezogenen Daten. Während Kamera-basierte Systeme die Privatsphäre gefährden können, zeigt das Projekt "Obacht!" einen alternativen Weg auf: Die anonyme Erfassung von Bewegungsdaten mittels LiDAR-Sensoren.
+
+### LiDAR-Technologie bei Obacht!
+
+Die Besonderheit von Obacht! liegt in der Verwendung von LiDAR-Sensoren (Light Detection And Ranging). Diese messen mittels Infrarot-Laserstrahlen die Entfernung zu Objekten - vergleichbar mit Radar-Technologie. Das System nutzt kostengünstige 2D-LiDAR Sensoren, die in einer horizontalen Ebene messen:
+
+- Komplette Anonymität durch reine Abstandsmessung
+- Kostengünstig durch Einsatz von 2D statt 3D Sensoren
+- Hohe Messgenauigkeit von wenigen Millimetern
+- Wetterunabhängig durch aktive Infrarot-Messung
+- Messbereich bis zu 40 Meter (RPLidar S1)
+
+Mehrere Sensoren werden dabei so positioniert, dass sie sich ergänzen und "tote Winkel" ausgleichen. Die rohen Messdaten werden durch intelligentes Clustering in Personenpositionen umgewandelt.
+
+<div class="flex flex-col items-center justify-evenly gap-10 sm:flex-row">
+	<Image
+		src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/6ab7ad8d-d85c-4cb6-849a-b9337e6e2600/h=400"
+		alt="Obacht! Sensormodul"
+		height="400"
+	/>	<Image
+		src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/db71eb28-2913-43d0-38bb-7f063915a500/h=400"
+		alt="Exemplarische Messung eines 3D-LiDAR Sensors"
+		height="400"
+/>
+	<!-- <div style="position: relative; padding-top: 56.00000000000001%;">
+		<iframe
+			src="https://customer-o8nynecjdyitknhq.cloudflarestream.com/aae3177760a2d1384d80b52700299b6f/iframe?muted=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-o8nynecjdyitknhq.cloudflarestream.com%2Faae3177760a2d1384d80b52700299b6f%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600&controls=false"
+			loading="lazy"
+			style="border: none; position: absolute; top: 0; left: 0; height: 100%; width: 100%;"
+			allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+			allowfullscreen="true"
+		></iframe>
+	</div> -->
+</div>
+
+### Kamerabasiertes Tracking bei Theia
+
+Im Vergleich dazu setzt unser Projekt [Theia Tracking](https://theia-tracking.de) auf optische Erkennung mittels Kameras:
+
+- Höhere Datenqualität durch Bildverarbeitung
+- Personenidentifizierung über Merkmale möglich
+- Einfachere Installation durch größeres Sichtfeld
+- Kostengünstige Hardware verfügbar
+- Abhängig von Lichtverhältnissen
+
+Die Kameralösung eignet sich besonders für Anwendungen, bei denen die Identifizierung von Personen erwünscht ist, während Obacht! bewusst auf Anonymität setzt.
+
+<div class="flex flex-col items-center justify-evenly gap-10 sm:flex-row">
+	<Image
+		src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/22b7e9af-5c4e-4be7-f364-f1c44108c000/h=400"
+		alt="Theia Tracking Sensormodule"
+		height="400"
+	/>
+	<Image
+		src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/f428e7e0-2355-4b62-ac05-a452e8de0300/h=400"
+		alt="Camera Feed von Theia Tracking Sensormodul mit erkannten Personen"
+		height="400"
+	/>
+</div>
+
+### Direkter Vergleich der Technologien
+
+Die Entscheidung für LiDAR oder Kamera hängt vom Anwendungsfall ab:
+
+| LiDAR (Obacht!)                              | Kamera (Theia)                   |
+| -------------------------------------------- | -------------------------------- |
+| Höchste Priorität auf Datenschutz/Anonymität | Personenidentifikation notwendig |
+| Einsatz in sensiblen Bereichen               | Marketing/Retail Analytics       |
+| Wetterunabhängiger Außeneinsatz              | Sicherheitsanwendungen           |
+| Wissenschaftliche Bewegungsstudien           | Interaktive Installationen       |
+
+Beide Technologien haben ihre Berechtigung - wichtig ist die bewusste Wahl entsprechend der Anforderungen an Datenschutz und Funktionalität.
+
+<!-- ### Die technische Umsetzung
+
+Das System basiert auf einer modernen Microservice-Architektur, bei der verschiedene Komponenten über definierte Schnittstellen miteinander kommunizieren:
+
+### Netzwerkprotokolle und Kommunikation
+
+Die Kommunikation zwischen den Services erfolgt über verschiedene Protokolle:
+
+- MQTT für die Telemetriedaten der Sensoren
+- WebSocket für die Echtzeit-Kommunikation mit dem Frontend
+- gRPC für die interne Service-Kommunikation
+
+Ein zentraler Communication Service fungiert als "Single Source of Truth" und koordiniert den Datenaustausch zwischen allen Komponenten.
+
+### Microservices mit gRPC
+
+Die verschiedenen Services sind in unterschiedlichen Programmiersprachen implementiert und kommunizieren via gRPC:
+
+- Sensor Module in C++ für die hardwarenahe Programmierung
+- Communication Service in Go für optimale Performance
+- Tracking Service in Python für Machine Learning Funktionen
+- Frontend in TypeScript/Svelte für moderne Webtechnologien
+
+### Visualisierung mit Three.js und Svelte
+
+Das Frontend nutzt Three.js für die 3D-Visualisierung der Sensordaten in Echtzeit. Besondere Features:
+
+- Orthogonale Kamera für 2D-ähnliche Darstellung
+- Drag & Drop Controls für das Positioning von Sensoren
+- Rotate Controls für die Ausrichtung
+- Zoneneditor für die Definition von Tracking-Bereichen
+
+Das UI wurde mit Svelte und SvelteKit umgesetzt und bietet:
+
+- Reaktive Komponenten
+- Globales State Management
+- Server-Side Rendering
+- Responsive Design
+
+### ML-gestützte Objekterkennung
+
+Die Objekterkennung erfolgt in einem dedizierten Machine Learning Service auf Python-Basis. Ein Multi-Stage Processing Pipeline filtert zunächst die Punktwolken durch definierte Region-of-Interest Masken – essentiell für das Ausschließen statischer Obstacles. Die verbleibenden Points werden mittels DBSCAN (Density-Based Spatial Clustering of Applications with Noise) zu Clustern aggregiert. Jedes Cluster repräsentiert einen Track, dessen Position durch den Centroid bestimmt wird.
+
+Für eine robuste Detection werden multiple Sensoren in einem Mesh-Network angeordnet. Diese Redundanz kompensiert Occlusion-Effekte, die durch die Charakteristik einzelner Sensoren entstehen.
+
+### Fazit
+
+Das Projekt zeigt eindrucksvoll, wie moderne Softwarearchitektur und verschiedene Technologien zusammenspielen können, um ein skalierbares System für anonymes Personentracking zu realisieren. Der Microservice-Ansatz ermöglicht dabei eine flexible Erweiterung um neue Features.
+
+Spannende Erweiterungsmöglichkeiten wären:
+
+- Aufzeichnung und Wiedergabe von Messungen
+- Integration von Raumplänen/Maps
+- Verbesserte Personenerkennung durch ML
+- Personenidentifizierung über mehrere Scans
+- Abstandsmessungen
+
+Das Projekt ist ein gelungenes Beispiel dafür, wie Technik im Dienste der Privatsphäre eingesetzt werden kann. -->
+
+<div class="mt-20">
+	<div class="mx-auto flex items-center justify-center gap-4 rounded-md bg-white-600 p-10 no-underline max-sm:flex-col sm:gap-10">
+		<i class="fa-regular fa-code text-4xl"></i>
+		<span class="max-sm:text-center">
+			<span class="text-md leading-none">
+				Ich habe den Code auf GitHub veröffentlicht und zur freien Verfügung gestellt:
+			</span>
+			<ul>
+				<li>
+					<a href="https://github.com/v-rogg/obacht-sdk-frontend">Obacht! SDK Frontend</a>
+				</li>
+				<li>
+					<a href="https://github.com/v-rogg/obacht-sdk-communication">Obacht! SDK Communication</a>
+				</li>
+				<li>
+					<a href="https://github.com/v-rogg/obacht-sdk-tracking">Obacht! SDK Tracking</a>
+				</li>
+				<li>
+					<a href="https://github.com/v-rogg/obacht-sdk-backend">Obacht! SDK Backend</a>
+				</li>
+				<li>
+					<a href="https://github.com/v-rogg/obacht-sdk-sensormodule">Obacht! SDK Sensormodule</a>
+				</li>
+			</ul>
+		</span>
+	</div>
+</div>

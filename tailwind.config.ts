@@ -53,6 +53,14 @@ export default {
 			},
 			spacing: {
 				"128": "26rem"
+			},
+			typography: {
+				DEFAULT: {
+					css: {
+						"--tw-prose-th-borders": "#e0dbd9",
+						"--tw-prose-td-borders": "#f7f4f2"
+					}
+				}
 			}
 		}
 	},
