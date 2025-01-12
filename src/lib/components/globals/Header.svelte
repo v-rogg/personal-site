@@ -6,6 +6,8 @@
 	import { expoIn, expoOut } from "svelte/easing";
 	import { appState } from "$lib/stores.svelte";
 
+	let navigationHistory: NavigationTarget[] = $state([]);
+
 	let slugs = $derived.by(() => {
 		if (page.url) {
 			const path = page.url.pathname;
@@ -16,7 +18,7 @@
 			});
 
 			const currentSlug = appState.metadata?.slug;
-			if (currentSlug) {
+			if (currentSlug && page.route.id?.includes("[post]")) {
 				possibleRoutes.pop();
 				possibleRoutes.push(currentSlug);
 			}
@@ -25,9 +27,8 @@
 		} else return [];
 	});
 
-	let navigationHistory: NavigationTarget[] = $state([]);
-
 	afterNavigate((e) => {
+		console.log(e, slugs);
 		if (e.from) navigationHistory.push(e.from);
 	});
 </script>
@@ -81,7 +82,7 @@
 						{@const duration = 500}
 						{@const amount = 10}
 						<div
-							id={`${i}`}
+							id="{i}+''"
 							in:fly={{ delay: i * delay, duration, amount, easing: expoOut }}
 							out:fly={{ delay: (slugs.length + 1 - i) * delay, duration, amount, easing: expoIn }}
 							class="w-max"

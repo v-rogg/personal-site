@@ -68,6 +68,27 @@
 				metadata={entry.metadata}
 			/>
 		{/each}
+		<div
+			class="col-span-{gridColSeries[
+				blog.length % 8
+			]} project relative flex flex-col overflow-hidden bg-white-500 pb-10 pl-10 pr-10 pt-9 text-skin-500 opacity-80 backdrop-blur transition duration-500 hover:shadow-xl max-lg:col-span-1 sm:rounded-xl"
+			in:blur={{ duration: 500, amount: 10, delay: 400 }}
+		>
+			<h3 class="relative z-20 text-xl font-semibold">Work in Progress</h3>
+			<p class="my-0 text-pretty text-justify">
+				Ich arbeite gerade meine alten Projekte auf, habe jedoch auch schon einige interessante neue Themen auf meiner
+				To-Do-Liste:
+			</p>
+			<div class="prose my-2 prose-ul:text-skin-500 prose-li:my-1">
+				<ul class="my-0 py-0">
+					<li>Svelte vs D3 für Datenvisualisierungen</li>
+					<li>Rust WASM vs JS für Datenverarbeitung</li>
+					<li>Svelte Blog mithilfe von MDSveX</li>
+					<li>Rust in Cloudflare Workers</li>
+				</ul>
+			</div>
+			<p>Außerdem arbeite ich an einer englischen Version 🇬🇧 meiner Seite.</p>
+		</div>
 	</div>
 </section>
 

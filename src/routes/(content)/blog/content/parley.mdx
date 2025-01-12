@@ -1,5 +1,99 @@
 ---
-title: Parley! Packlist Community
-date: 2023-03-03
-width: 4
+title: Hey Parley! Packlist Community
+subtitle: Ein soziales Enzyklopädie für effizientes Packen
+slug: Hey Parley! Packlist Community
+date: 2024-12-24
+tags:
+  - cloudflare workers
+  - social network
+  - serverless
+  - svelte
+  - information design
+published: true
+preview: Parley verbindet das Konzept eines sozialen Netzwerks mit einer kollaborativen Enzyklopädie für effizientes Packen. Die Plattform nutzt moderne Serverless-Technologien und eine innovative Visualisierung der Packplanung, um Nutzern zu helfen, von den Erfahrungen anderer zu lernen und ihre Ausrüstung optimal zu organisieren.
+previewImageUrl: https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/31879e3c-e54a-4b2e-9113-6223f7c50900/h=300
 ---
+
+<script lang="ts">import Image from "$lib/components/Blog/Image.svelte";</script>
+
+Ob Wandern, Camping oder Reisen - die richtige Packstrategie ist entscheidend für ein gelungenes Erlebnis. Mit Parley habe ich im Rahmen meiner Masterarbeit eine Plattform entwickelt, die Menschen beim effizienten Packen unterstützt und vernetzt.
+
+### Vom Wiki zum sozialen Netzwerk
+
+Parley verbindet die Funktionen eines Wikis mit den sozialen Aspekten moderner Plattformen. Nach den Erfahrungen aus meinem vorherigen Projekt "nei damit" wurde schnell klar, dass eine reine Packlistenfunktion nicht ausreicht. Die Nutzer suchen nicht nur nach Listen, sondern nach Erfahrungen und Kontext - warum wurde etwas eingepackt, was hat sich bewährt, was war überflüssig?
+
+<Image
+	src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/4b6bcd5d-e4c3-4520-297e-32dd808ef700/h=500"
+	alt="Designstudie zum Packlisten-Konfigurator des Projekts „nei damit“"
+/>
+
+Die Plattform orientiert sich dabei an Reddit's Funktionalität: Nutzer können Posts erstellen, diese werden in verschiedene Kategorien eingeteilt und können von der Community bewertet werden. Anders als bei Reddit liegt der Fokus jedoch auf der Packplanung. Jeder Post kann eine visuelle Packplanung enthalten, die das Volumen und Gewicht der Ausrüstung darstellt.
+
+Das Herzstück ist die Visualisierung der Packplanung. Nach mehreren technischen Studien entschied ich mich für eine Hybridlösung: Eine Physiksimulation sorgt für ansprechende Animationen beim "Eingießen" der Gegenstände, während ein HTML-basiertes Balkendiagramm präzise Werte liefert. Diese Kombination macht die Plattform nicht nur funktional, sondern auch visuell attraktiv.
+
+<Image
+	src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/888669f5-7601-433e-3893-b67396a29100/h=500"
+	alt="Physiksimulation mit Matter zur Visualisierung der Packplanung (Zeitraffer)"
+/>
+
+Die Entscheidung für diese Art der Darstellung war nicht nur technisch motiviert. Sie dient als Eye-Catcher und Marketingwerkzeug, unterscheidet Parley von bestehenden Lösungen und macht die oft trockene Packplanung zu einem interaktiven Erlebnis.
+
+### Visualisierung der Packplanung
+
+Ein Kernfeature von Parley ist die intuitive Visualisierung der Packplanung. Nach mehreren Iterationen entwickelte ich eine Hybridlösung, die verschiedene Technologien kombiniert:
+
+- Matter.js für flüssige Animationen
+- Rapier für präzise Physikberechnungen
+- SVG-Elemente für akkurate Füllstandsanzeigen
+
+<Image
+	src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/ca609619-194e-4d5f-2e18-74a3642a4200/h=500"
+	alt="Darstellung der Packlistenplanung mit Versionierung in Parley"
+/>
+
+Die finale Implementierung verbindet die Vorteile einer physikbasierten Animation für das Einfüllen mit der Genauigkeit eines HTML-basierten Balkendiagramms. Dies ermöglicht sowohl eine ansprechende visuelle Darstellung als auch präzise Messwerte.
+
+### Technische Umsetzung und Entwicklung der Benutzeroberfläche
+
+Das Projekt basiert auf einer modernen Serverless-Architektur auf Basis von [Svelte](https://svelte.dev) und [Cloudflare Workers](https://workers.cloudflare.com/) mit [Fauna](https://fauna.com) als Datenbanklösung. Diese Entscheidung ermöglicht nicht nur eine kostengünstige Skalierung, sondern auch eine hohe Performance bei steigender Nutzerzahl. Ein wesentlicher Bestandteil der Entwicklung war die Implementierung einer eigenen Authentifizierungsbibliothek als Beitrag zum Open-Source-Projekt [Lucia](https://lucia-auth.com).
+
+Die Benutzeroberfläche wurde bewusst an bekannte Social-Media-Plattformen angelehnt, um Nutzern einen vertrauten Einstieg zu ermöglichen. Gleichzeitig wurden spezielle Features für die Packplanung integriert:
+
+- Visualisierung von Packvolumen und -gewicht
+- Gruppierung von Ausrüstungsgegenständen
+- Interaktive Packlistenerstellung
+
+<Image
+	src="https://imagedelivery.net/JEc1YLA5ZSivE42ux7pbDw/d968b268-4f39-4a67-577c-04b868fe5f00/h=500"
+	alt="Darstellung eines Posts mit Nutzerfeedback in Parley"
+/>
+
+Die Plattform ist als offene Alpha-Version unter heyparley.de verfügbar. Aufgrund von Zeitmangel ist das Projekt bis auf weiteres pausiert.
+
+<div class="mt-20">
+	<a
+		href="https://heyparley.de"
+		target="_blank"
+		class="mx-auto flex items-center justify-center gap-4 rounded-md bg-white-600 p-10 no-underline max-sm:flex-col sm:gap-10"
+	>
+		<i class="fa-regular fa-globe-pointer text-4xl"></i>
+		<span class="max-sm:text-center">
+			<span class="text-2xl">
+				Besuche <span class="underline">heyparley.de</span>
+			</span>
+			<br />
+			<span class="text-md leading-none">und teile deine Packstrategien</span>
+		</span>
+	</a>
+</div>
+
+<!--
+"Parley" ist ein innovatives soziales Netzwerk, das sich der effizienten Packplanung widmet. Das Herzstück der Plattform ist eine visuelle Packplanungskomponente, die sowohl funktional als auch als Marketing-Element dient. In der technischen Umsetzung wurden verschiedene Visualisierungstechniken erprobt, darunter Physiksimulationen mit den Frameworks Matter und Rapier, bis schließlich eine Hybridlösung entwickelt wurde.
+
+Der technische Aufbau von "Parley" basiert auf einer modernen Serverless-Architektur, bei der Fauna als primäre Datenbanklösung zum Einsatz kommt. Diese Entscheidung für eine Serverless-Infrastruktur erwies sich trotz anfänglicher Komplexität als vorteilhaft, da sie sowohl Kosteneffizienz als auch hohe Performance gewährleistet.
+
+Ein zentrales technisches Element ist die selbst entwickelte Authentifizierungsbibliothek, die als Beitrag zum Open-Source-Projekt [Lucia](https//lucia-auth.com) eingebracht wurde. Diese Implementierung ermöglicht eine maßgeschneiderte Benutzerverwaltung, auch wenn dies einen höheren initialen Entwicklungsaufwand bedeutete als die Verwendung bestehender Authentifizierungslösungen.
+
+Die Visualisierungskomponente der Packplanung wurde in mehreren technischen Iterationen entwickelt. Zunächst wurde das JavaScript Framework Matter eingesetzt, das sich jedoch aufgrund von Clipping-Problemen und Performance-Einschränkungen als unzureichend erwies. Ein zweiter Ansatz verwendete Rapier, eine in Rust geschriebene und mittels WebAssembly im Browser ausführbare Lösung, die zwar bessere Performance bot, aber Probleme bei der präzisen Füllstandsdarstellung zeigte. Die finale Implementierung ist eine Hybridlösung, die Matter für die Eingießanimation nutzt und gleichzeitig HTML-Elemente für die präzise Füllstandsanzeige verwendet. Diese Kombination ermöglicht sowohl ansprechende Animationen als auch genaue Darstellungen der Packplanung.
+
+Die gesamte Anwendung wurde mit Fokus auf Skalierbarkeit und Wartbarkeit entwickelt, wobei der Code durch eine klare Struktur und Dokumentation übersichtlich gehalten wurde. Die Alpha-Version ist unter heyparley.de verfügbar und enthält bereits integrierte Monitoring- und Feedback-Funktionen zur weiteren Optimierung. -->
