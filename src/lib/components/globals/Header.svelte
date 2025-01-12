@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { afterNavigate } from "$app/navigation";
-	import { blur as fly } from "svelte/transition";
+	import { blur } from "svelte/transition";
 	import { page } from "$app/state";
 	import type { NavigationTarget } from "@sveltejs/kit";
 	import { expoIn, expoOut } from "svelte/easing";
 	import { appState } from "$lib/stores.svelte";
 
-	let navigationHistory: NavigationTarget[] = $state([]);
+	let navigationHistory: NavigationTarget[] = $state([page]);
 
 	let slugs = $derived.by(() => {
 		if (page.url) {
@@ -37,7 +37,7 @@
 	class="pointer-events-none absolute z-50 w-full max-w-[100vw] -translate-y-0.5 overflow-hidden bg-transparent transition sm:top-8"
 	class:floating-header={page.url.pathname != "/"}
 >
-	<div class="container mx-auto mb-10 mt-8 flex items-center justify-between px-2 sm:px-10">
+	<div class="container relative mx-auto mb-10 mt-8 flex items-center justify-between px-2 sm:px-10">
 		<div class="flex h-10 items-center gap-4">
 			{#if page.url.pathname == "/"}
 				<span class="flex size-10 items-center justify-center rounded">
@@ -83,8 +83,8 @@
 						{@const amount = 10}
 						<div
 							id="{i}+''"
-							in:fly={{ delay: i * delay, duration, amount, easing: expoOut }}
-							out:fly={{ delay: (slugs.length + 1 - i) * delay, duration, amount, easing: expoIn }}
+							in:blur={{ delay: i * delay, duration, amount, easing: expoOut }}
+							out:blur={{ delay: (slugs.length + 1 - i) * delay, duration, amount, easing: expoIn }}
 							class="w-max"
 						>
 							<i class="fa-solid fa-slash-forward"></i>
@@ -95,7 +95,7 @@
 							{:else}
 								<a
 									href={p}
-									class="pointer-events-auto overflow-hidden text-ellipsis rounded px-2 py-1 hover:bg-white-700 active:bg-white-600"
+									class="pointer-events-auto overflow-hidden text-ellipsis rounded-md px-2 py-1 hover:bg-white-600 active:bg-white-700"
 								>
 									{name.charAt(0).toUpperCase() + name.slice(1)}
 								</a>
@@ -112,8 +112,8 @@
 		{#if navigationHistory.length > 0 && page.url.pathname != "/"}
 			<a
 				href={navigationHistory.at(-1)?.url.href}
-				in:fly={{ duration: 600, amount: 10 }}
-				class="pointer-events-auto rounded px-2 py-1 hover:bg-white-700 active:bg-white-600 max-sm:hidden"
+				in:blur={{ duration: 600, amount: 10 }}
+				class="pointer-events-auto rounded-md px-2 py-1 hover:bg-white-600 active:bg-white-700 max-sm:hidden"
 			>
 				<i class="fa-solid fa-arrow-left mr-2"></i>
 				Zurück

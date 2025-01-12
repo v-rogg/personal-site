@@ -17,7 +17,7 @@
 		<h3 class="relative z-20 text-xl font-semibold text-black">{metadata?.title}</h3>
 		{#if metadata?.date}
 			<div class="leading-7 text-black">
-				{new Date(metadata.date).toLocaleDateString("de-DE", { day: "numeric", month: "2-digit", year: "numeric" })}
+				{new Date(metadata.date).toLocaleDateString("de-DE", { day: "numeric", month: "short", year: "numeric" })}
 			</div>
 		{/if}
 	</div>

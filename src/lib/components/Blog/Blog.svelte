@@ -71,7 +71,7 @@
 		<div
 			class="col-span-{gridColSeries[
 				blog.length % 8
-			]} project relative flex flex-col overflow-hidden bg-white-500 pb-10 pl-10 pr-10 pt-9 text-skin-500 opacity-80 backdrop-blur transition duration-500 hover:shadow-xl max-lg:col-span-1 sm:rounded-xl"
+			]} project relative flex flex-col overflow-hidden bg-white-500 pb-10 pl-10 pr-10 pt-9 text-skin-500 opacity-50 max-lg:col-span-1"
 			in:blur={{ duration: 500, amount: 10, delay: 400 }}
 		>
 			<h3 class="relative z-20 text-xl font-semibold">Work in Progress</h3>

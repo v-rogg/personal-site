@@ -34,9 +34,22 @@
 <Toaster />
 
 <Header />
+
 {#key page.url.pathname}
 	<div class="font-sans text-black">
 		{@render children()}
 	</div>
 {/key}
+
+<div class="mt-16 flex justify-center">
+	<button
+		onclick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+		class="rounded-md px-2 py-1 hover:bg-white-600 active:bg-white-700"
+		aria-label="Zurück nach oben"
+	>
+		<i class="fa-solid fa-arrow-up mr-2"></i>
+		Nach oben
+	</button>
+</div>
+
 <Footer />
