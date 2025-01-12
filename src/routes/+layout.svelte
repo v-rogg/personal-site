@@ -43,7 +43,10 @@
 
 <div class="mt-16 flex justify-center">
 	<button
-		onclick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+		onclick={() => {
+			window.scrollTo({ top: 0, behavior: "smooth" });
+			posthog.capture("click.back-to-top");
+		}}
 		class="rounded-md px-2 py-1 hover:bg-white-600 active:bg-white-700"
 		aria-label="Zurück nach oben"
 	>

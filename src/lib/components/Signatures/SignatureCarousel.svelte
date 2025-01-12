@@ -7,6 +7,7 @@
 	import SignaturePad, { type PointGroup } from "signature_pad";
 	import { onMount } from "svelte";
 	import type { Signature, SignatureMeta } from "$lib/types";
+	import posthog from "posthog-js";
 
 	let { signatures = $bindable(), openEditMode, autoplay } = $props();
 
@@ -59,11 +60,13 @@
 	function loadPrev() {
 		emblaApi.scrollPrev();
 		emblaApi.plugins().autoplay.stop();
+		posthog.capture("click.signatures.previous");
 	}
 
 	function loadNext() {
 		emblaApi.scrollNext();
 		emblaApi.plugins().autoplay.stop();
+		posthog.capture("click.signatures.next");
 	}
 
 	onMount(async () => {
@@ -149,6 +152,7 @@
 			title="Autoplay Stoppen"
 			onclick={() => {
 				emblaApi.plugins().autoplay.stop();
+				posthog.capture("click.signatures.autoplay.stop");
 			}}
 			in:blur={{ amount: 1 }}
 			class="relative mr-2 size-2 max-sm:hidden"
@@ -161,6 +165,7 @@
 			title="Autoplay Starten"
 			onclick={() => {
 				emblaApi.plugins().autoplay.play();
+				posthog.capture("click.signatures.autoplay.start");
 			}}
 			in:blur={{ amount: 1 }}
 			class="relative mr-2 size-2 max-sm:hidden"
@@ -178,6 +183,7 @@
 			onclick={() => {
 				emblaApi.scrollTo(i);
 				emblaApi.plugins().autoplay.stop();
+				posthog.capture("click.signatures.carousel.skip");
 			}}
 			disabled={signatureImageCache[i] == undefined}
 		>
@@ -238,16 +244,6 @@
 	.active {
 		@apply bg-grey-800;
 		@apply scale-125;
-	}
-
-	.text-outline {
-		@media (min-width: 640px) {
-			text-shadow:
-				1px 1px 0 theme("colors.white.700"),
-				-1px -1px 0 theme("colors.white.700"),
-				1px -1px 0 theme("colors.white.700"),
-				-1px 1px 0 theme("colors.white.700");
-		}
 	}
 
 	.old_signature_offset {

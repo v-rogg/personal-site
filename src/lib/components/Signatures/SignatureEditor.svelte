@@ -64,12 +64,14 @@
 		history.pop();
 		signaturePad.fromData(uncenterSignature(history));
 		colorPicker = false;
+		posthog.capture("click.signatures.editor.undo");
 	}
 
 	function clear() {
 		history = [];
 		signaturePad.clear();
 		colorPicker = false;
+		posthog.capture("click.signatures.editor.clear");
 	}
 
 	function enablePen() {
@@ -81,6 +83,7 @@
 		} else {
 			colorPicker = !colorPicker;
 		}
+		posthog.capture("click.signatures.editor.pen");
 	}
 
 	function enabledErase() {
@@ -89,6 +92,7 @@
 		signaturePad.minWidth = 4;
 		signaturePad.maxWidth = 4;
 		colorPicker = false;
+		posthog.capture("click.signatures.editor.eraser");
 	}
 
 	function centerSignature(data: PointGroup[]): PointGroup[] {
@@ -188,6 +192,7 @@
 
 		picker.on("color:change", (color: { hexString: string }) => {
 			penColor = color.hexString;
+			posthog.capture("click.signatures.editor.color.change", { color: penColor });
 		});
 	});
 </script>
@@ -276,6 +281,7 @@
 		aria-label="Speichern"
 		onclick={() => {
 			$open = true;
+			posthog.capture("click.signatures.editor.openSaveDialog");
 		}}
 		disabled={history.length === 0}
 	>
@@ -397,6 +403,7 @@
 						id="url"
 						onclick={() => {
 							toClipboard(signatureUrl);
+							posthog.capture("click.signatures.editor.clipboard.text");
 						}}
 					>
 						{signatureUrl}
@@ -427,6 +434,7 @@
 						class="rounded-lg bg-black px-4 py-2 text-white transition hover:bg-grey-800"
 						onclick={() => {
 							toClipboard(signatureUrl);
+							posthog.capture("click.signatures.editor.clipboard.button");
 						}}
 						type="submit"
 					>

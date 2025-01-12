@@ -1,6 +1,7 @@
 <script lang="ts">
 	import SignatureCarousel from "$lib/components/Signatures/SignatureCarousel.svelte";
 	import SignatureEditor from "$lib/components/Signatures/SignatureEditor.svelte";
+	import posthog from "posthog-js";
 
 	let { signatures, autoplay } = $props();
 
@@ -8,10 +9,12 @@
 
 	function openEditMode() {
 		editMode = true;
+		posthog.capture("click.signatures.editor.open");
 	}
 
 	function closeEditMode() {
 		editMode = false;
+		posthog.capture("click.signatures.editor.close");
 	}
 </script>
 
