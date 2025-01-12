@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Post from "$lib/components/Blog/Post.svelte";
 	import type { Metadata } from "$lib/types";
+	import posthog from "posthog-js";
 	import { SvelteMap } from "svelte/reactivity";
 	import { blur } from "svelte/transition";
 
@@ -50,6 +51,7 @@
 							} else {
 								filterTags.set(tag, !filterTags.get(tag));
 							}
+							posthog.capture("click.blog.tags.tag", { tag: tag });
 						}}
 					>
 						{tag}
