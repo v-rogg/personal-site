@@ -17,7 +17,8 @@
 			api_host: "https://eu.i.posthog.com",
 			persistence: "memory",
 			capture_pageview: false,
-			capture_pageleave: false
+			capture_pageleave: false,
+			autocapture: false
 		});
 		beforeNavigate(() => posthog.capture("$pageleave"));
 		afterNavigate(() => posthog.capture("$pageview"));
