@@ -4,10 +4,10 @@
 	import { onMount } from "svelte";
 	import { expoInOut } from "svelte/easing";
 	import { blur, fade } from "svelte/transition";
-	import { createDialog } from "@melt-ui/svelte";
+	import { createDialog, createSlider } from "@melt-ui/svelte";
 	import { enhance } from "$app/forms";
-	import { page } from "$app/stores";
-	import { addToast } from "../globals/Toaster.svelte";
+	import { page } from "$app/state";
+	import { addToast } from "$lib/components/globals/Toaster.svelte";
 	import { goto } from "$app/navigation";
 	import posthog from "posthog-js";
 
@@ -38,6 +38,23 @@
 		forceVisible: true
 	});
 
+	const {
+		elements: { root, range, thumbs },
+		states: { value: penWidthMultiplicator }
+	} = createSlider({
+		defaultValue: [1],
+		min: 0.5,
+		max: 4,
+		step: 0.1
+	});
+
+	penWidthMultiplicator.subscribe((v) => {
+		if (tool === Tools.pen) {
+			signaturePad.minWidth = 0.5 * v[0];
+			signaturePad.maxWidth = 2.5 * v[0];
+		}
+	});
+
 	function hslToHex(h: number, s: number, l: number) {
 		l /= 100;
 		const a = (s * Math.min(l, 1 - l)) / 100;
@@ -63,6 +80,7 @@
 	function undo() {
 		history.pop();
 		signaturePad.fromData(uncenterSignature(history));
+		if (colorPicker) posthog.capture("click.signatures.colorPicker.close", { color: penColor });
 		colorPicker = false;
 		posthog.capture("click.signatures.editor.undo");
 	}
@@ -70,6 +88,7 @@
 	function clear() {
 		history = [];
 		signaturePad.clear();
+		if (colorPicker) posthog.capture("click.signatures.colorPicker.close", { color: penColor });
 		colorPicker = false;
 		posthog.capture("click.signatures.editor.clear");
 	}
@@ -78,12 +97,17 @@
 		if (tool !== Tools.pen) {
 			tool = Tools.pen;
 			signaturePad.compositeOperation = "source-over";
-			signaturePad.minWidth = 0.5;
-			signaturePad.maxWidth = 2.5;
+			signaturePad.minWidth = 0.5 * $penWidthMultiplicator[0];
+			signaturePad.maxWidth = 2.5 * $penWidthMultiplicator[0];
+			posthog.capture("click.signatures.editor.pen");
 		} else {
 			colorPicker = !colorPicker;
+			if (colorPicker) {
+				posthog.capture("click.signatures.colorPicker.open");
+			} else {
+				posthog.capture("click.signatures.colorPicker.close", { color: penColor });
+			}
 		}
-		posthog.capture("click.signatures.editor.pen");
 	}
 
 	function enabledErase() {
@@ -91,6 +115,7 @@
 		signaturePad.compositeOperation = "destination-out";
 		signaturePad.minWidth = 4;
 		signaturePad.maxWidth = 4;
+		if (colorPicker) posthog.capture("click.signatures.colorPicker.close", { color: penColor });
 		colorPicker = false;
 		posthog.capture("click.signatures.editor.eraser");
 	}
@@ -168,6 +193,7 @@
 
 			signaturePad.addEventListener("beginStroke", () => {
 				signaturePad.penColor = penColor;
+				if (colorPicker) posthog.capture("click.signatures.colorPicker.close", { color: penColor });
 				colorPicker = false;
 			});
 		}
@@ -192,7 +218,6 @@
 
 		picker.on("color:change", (color: { hexString: string }) => {
 			penColor = color.hexString;
-			posthog.capture("click.signatures.editor.color.change", { color: penColor });
 		});
 	});
 </script>
@@ -224,22 +249,27 @@
 			<i class="fa-solid fa-circle absolute bottom-1 right-1" style="color: {penColor}"> </i>
 			<i class="fa-regular fa-circle absolute bottom-1 right-1 text-white"> </i>
 			<span
-				class="text-outline absolute right-full w-max text-center font-hand max-sm:hidden sm:-left-8 sm:-top-16 sm:rotate-6"
+				class="absolute -left-12 -top-[82px] right-full w-max rotate-6 rounded-lg border-4 border-white bg-white-700 px-2 py-1 text-center font-[450] leading-tight max-sm:hidden"
 			>
 				<span class="relative z-10 text-black" style="">
 					Jetzt auch<br />
-					in Farbe
+					in <span class="color-animate font-bold">Farbe</span>
 				</span>
 			</span>
 			<span
 				class="text-outline pointer-events-none absolute bottom-full right-10 -translate-y-1 -rotate-6 -scale-x-100 max-sm:hidden"
 			>
-				<svg width="9" height="17" viewBox="0 0 9 17" fill="none" class="arrow" xmlns="http://www.w3.org/2000/svg">
-					<path
-						d="M1.59524 0.236142C2.42858 0.747671 3.30952 1.28245 3.92857 2.00324C6.28572 4.7469 7 8.00209 6.5 11.513C6.33333 12.7221 5.92857 13.8847 5.59524 15.1635C6.7381 14.6055 7.85714 14.2799 9 15.117C7.5 15.303 6.26191 16.0238 5.04762 16.7446C4.90477 16.8143 4.78572 16.8841 4.64286 16.9306C4.04762 17.1166 3.66667 16.9306 3.5 16.3493C3.42858 16.1401 3.42857 15.9075 3.40476 15.6983C3.30952 13.9312 3.07143 12.2106 2.42858 10.5365C2.38096 10.397 2.45238 10.1645 2.47619 9.74594C3.7619 11.234 3.7619 12.9314 4.2619 14.559C5.61905 11.8153 5.92857 9.0949 5.09524 6.28149C4.30952 3.53783 3.07143 1.1662 0 0.236142C0.761905 -0.0428741 1 -0.112628 1.59524 0.236142Z"
-						fill="black"
-					></path>
-				</svg>
+				<svg
+					width="20"
+					viewBox="0 0 67 32"
+					version="1.1"
+					xmlns="http://www.w3.org/2000/svg"
+					style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+					class="-translate-y-[2.5px] translate-x-[4px] -rotate-[80deg] -scale-x-100"
+					><path
+						d="M47.077,26.077C13.31,30.875 0.2,2.975 0.2,2.975C-0.291,1.935 0.153,0.692 1.193,0.2C2.232,-0.291 3.475,0.153 3.967,1.193C3.967,1.193 15.872,26.16 46.303,21.976L45.626,18.386C45.47,17.559 45.73,16.709 46.321,16.11C46.913,15.512 47.761,15.242 48.589,15.389L64.622,18.228C65.671,18.413 66.495,19.229 66.693,20.275C66.89,21.321 66.42,22.381 65.511,22.936L51.615,31.423C50.897,31.862 50.009,31.92 49.24,31.578C48.471,31.237 47.919,30.539 47.763,29.712L47.077,26.077Z"
+					></path></svg
+				>
 			</span>
 		</button>
 		<button
@@ -252,13 +282,25 @@
 		</button>
 
 		<div
-			class="absolute rounded-2xl bg-white p-2 shadow-lg max-sm:bottom-full max-sm:left-0 max-sm:mb-2 sm:right-full sm:top-0 sm:mr-2"
+			class="absolute rounded-2xl border-2 border-white-700 bg-white p-2 max-sm:bottom-full max-sm:left-0 max-sm:mb-2 sm:right-full sm:top-0 sm:mr-2"
 			class:hidden={!colorPicker}
 		>
 			<div id="picker"></div>
+			<div id="penWidth" class="relative mb-1 ml-3 mr-2 mt-4">
+				<span {...$root} use:root class="relative mt-1 flex h-[20px] w-[80px] items-center">
+					<span {...$range} use:range class="absolute h-1 w-[84px] rounded-full bg-white-600"></span>
+					<span
+						{...$thumbs[0]}
+						use:thumbs
+						class="absolute size-3 rounded-full outline-none"
+						style="{$thumbs[0].style}; transform:  translateX(-50%) scale({$penWidthMultiplicator[0] *
+							0.6}); background: {penColor}"
+					></span>
+				</span>
+			</div>
 		</div>
 
-		<hr class="text-white-700" />
+		<hr class="h-[2px] bg-white-700 text-transparent" />
 		<button
 			class="size-12 bg-white transition hover:bg-white-700 active:bg-white-600 disabled:cursor-not-allowed disabled:bg-white-600 disabled:hover:bg-white-600 disabled:active:bg-white-600 max-sm:bg-white-600 disabled:max-sm:bg-white"
 			aria-label="Rückgängig"
@@ -389,7 +431,7 @@
 					>
 				</form>
 			{:else}
-				{@const signatureUrl = `${$page.url.origin}/?s=${signatureSentId}`}
+				{@const signatureUrl = `${page.url.origin}/?s=${signatureSentId}`}
 				{@const baseText =
 					"Ich%20habe%20mich%20verk%C3%BCnstelt%20und%20Valentin%20angemalt.%20Schau%20dir%20mein%20Meisterwerk%20an%20unter%3A%20"}
 				<h2 {...$title} use:title class="m-0 -mt-2 pr-5 text-xl font-semibold text-black">Zeichnung eingereicht</h2>
@@ -470,6 +512,46 @@
 {/if}
 
 <style lang="postcss">
+	.color-animate {
+		animation: colorchange 20s infinite alternate;
+	}
+
+	@keyframes colorchange {
+		0% {
+			color: blue;
+		}
+		10% {
+			color: #8e44ad;
+		}
+		20% {
+			color: #1abc9c;
+		}
+		30% {
+			color: #d35400;
+		}
+		40% {
+			color: blue;
+		}
+		50% {
+			color: #34495e;
+		}
+		60% {
+			color: blue;
+		}
+		70% {
+			color: #2980b9;
+		}
+		80% {
+			color: #f1c40f;
+		}
+		90% {
+			color: #2980b9;
+		}
+		100% {
+			color: pink;
+		}
+	}
+
 	.active {
 		@apply bg-black;
 		@apply text-white;
