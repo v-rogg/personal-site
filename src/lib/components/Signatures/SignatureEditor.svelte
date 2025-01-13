@@ -407,7 +407,13 @@
 						/>
 					</fieldset>
 					<div class="mt-6 flex flex-col justify-start gap-4 min-[450px]:flex-row-reverse">
-						<button class="rounded-lg bg-black px-4 py-2 text-white transition hover:bg-grey-800" type="submit">
+						<button
+							class="rounded-lg bg-black px-4 py-2 text-white transition hover:bg-grey-800"
+							type="submit"
+							onclick={() => {
+								posthog.capture("click.signatures.saveDialog.save");
+							}}
+						>
 							Zeichnung einreichen
 							{#if signatureFormSent}
 								<i class="fa-solid fa-spinner-third fa-spin ml-2"></i>
