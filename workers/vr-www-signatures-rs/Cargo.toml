@@ -4,6 +4,9 @@ version = "0.1.0"
 edition = "2021"
 authors = ["v-rogg <mail@valentinrogg.de>"]
 
+[observability.logs]
+enabled = true
+
 [package.metadata.release]
 release = false
 
