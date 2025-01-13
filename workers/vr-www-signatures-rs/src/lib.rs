@@ -1,7 +1,11 @@
 use core::str;
+use flate2::{write::GzEncoder, Compression};
 use js_sys::Date;
 use serde::{Deserialize, Serialize};
-use std::iter::once;
+use std::{
+    io::{Read, Write},
+    iter::once,
+};
 use wasm_bindgen::prelude::*;
 use worker::*;
 
@@ -111,6 +115,16 @@ async fn fetch(req: Request, env: Env, _ctx: Context) -> Result<Response> {
                 signature: String,
             }
 
+            let decoded_signature_data = if result.signature.starts_with("[") {
+                result.signature
+            } else {
+                let compressed_data = base64::Engine::decode(&base64::engine::general_purpose::STANDARD, &result.signature).unwrap();
+                let mut decoder = flate2::read::GzDecoder::new(&compressed_data[..]);
+                let mut decompressed_data = String::new();
+                decoder.read_to_string(&mut decompressed_data).unwrap();
+                decompressed_data
+            };
+
             let signature = SignatureResponse {
                 id: result.id,
                 name: result.name,
@@ -121,7 +135,7 @@ async fn fetch(req: Request, env: Env, _ctx: Context) -> Result<Response> {
                     1 => true,
                     _ => false
                 }),
-                signature: result.signature
+                signature: decoded_signature_data
             };
 
             Response::from_json(&signature)
@@ -197,12 +211,24 @@ async fn fetch(req: Request, env: Env, _ctx: Context) -> Result<Response> {
             let time = get_time();
             let db = ctx.env.d1("DB")?;
 
+            let signature_data_string: String;
+
+            if insert.signature.len() > 200000 {
+                let mut encoder = GzEncoder::new(Vec::new(), Compression::default());
+                encoder.write_all(insert.signature.clone().as_bytes()).expect("Failed to write data");
+                let compressed_data = encoder.finish().expect("Failed to finish compression");
+                signature_data_string = base64::Engine::encode(&base64::engine::general_purpose::STANDARD, compressed_data);
+            } else {
+                signature_data_string = insert.signature;
+            }
+
             let mut params = vec![
                 JsValue::from(&id),
                 JsValue::from(&insert.name),
                 JsValue::from(&time),
-                JsValue::from(&insert.signature),
+                JsValue::from(&signature_data_string)
             ];
+
 
             let query = if let Some(email) = insert.email {
                 params.push(JsValue::from(email));
