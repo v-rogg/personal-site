@@ -115,14 +115,14 @@ async fn fetch(req: Request, env: Env, _ctx: Context) -> Result<Response> {
                 signature: String,
             }
 
-            let decoded_signature_data = if result.signature.starts_with("[") {
-                result.signature
-            } else {
-                let compressed_data = base64::Engine::decode(&base64::engine::general_purpose::STANDARD, &result.signature).unwrap();
-                let mut decoder = flate2::read::GzDecoder::new(&compressed_data[..]);
-                let mut decompressed_data = String::new();
-                decoder.read_to_string(&mut decompressed_data).unwrap();
-                decompressed_data
+            let decoded_signature_data = match base64::Engine::decode(&base64::engine::general_purpose::STANDARD, &result.signature) {
+                Ok(compressed_data) => {
+                    let mut decoder = flate2::read::GzDecoder::new(&compressed_data[..]);
+                    let mut decompressed_data = String::new();
+                    decoder.read_to_string(&mut decompressed_data).unwrap();
+                    decompressed_data
+                },
+                Err(_) => result.signature
             };
 
             let signature = SignatureResponse {
@@ -211,16 +211,10 @@ async fn fetch(req: Request, env: Env, _ctx: Context) -> Result<Response> {
             let time = get_time();
             let db = ctx.env.d1("DB")?;
 
-            let signature_data_string: String;
-
-            if insert.signature.len() > 200000 {
-                let mut encoder = GzEncoder::new(Vec::new(), Compression::default());
-                encoder.write_all(insert.signature.clone().as_bytes()).expect("Failed to write data");
-                let compressed_data = encoder.finish().expect("Failed to finish compression");
-                signature_data_string = base64::Engine::encode(&base64::engine::general_purpose::STANDARD, compressed_data);
-            } else {
-                signature_data_string = insert.signature;
-            }
+            let mut encoder = GzEncoder::new(Vec::new(), Compression::default());
+            encoder.write_all(insert.signature.clone().as_bytes()).expect("Failed to write data");
+            let compressed_data = encoder.finish().expect("Failed to finish compression");
+            let signature_data_string = base64::Engine::encode(&base64::engine::general_purpose::STANDARD, compressed_data);
 
             let mut params = vec![
                 JsValue::from(&id),
