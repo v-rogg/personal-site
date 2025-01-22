@@ -31,10 +31,8 @@
 					></path></svg
 				>
 			</span>
-			<a
-				href="https://r2.valentinrogg.de/files/Lebenslauf_Valentin_Rogg_250117.pdf"
-				target="_blank"
-				aria-label="Lebenslauf"><i class="fa-regular fa-memo"></i></a
+			<a href="https://r2.valentinrogg.de/files/Valentin_Rogg_Lebenslauf.pdf" target="_blank" aria-label="Lebenslauf"
+				><i class="fa-regular fa-memo"></i></a
 			>
 		</span>
 		<a href="https://www.linkedin.com/in/vrogg/" rel="noreferrer nofollow" target="_blank" aria-label="LinkedIn"
