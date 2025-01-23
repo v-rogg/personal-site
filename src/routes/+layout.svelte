@@ -15,10 +15,10 @@
 	if (browser && PUBLIC_POSTHOG_PROJECT_ID) {
 		posthog.init(PUBLIC_POSTHOG_PROJECT_ID, {
 			api_host: "https://eu.i.posthog.com",
-			persistence: "memory",
+			persistence: "localStorage",
 			capture_pageview: false,
 			capture_pageleave: false,
-			autocapture: false
+			autocapture: true
 		});
 		beforeNavigate(() => posthog.capture("$pageleave"));
 		afterNavigate(() => posthog.capture("$pageview"));
