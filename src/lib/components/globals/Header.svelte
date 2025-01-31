@@ -18,7 +18,7 @@
 			});
 
 			const currentSlug = appState.metadata?.slug;
-			if (currentSlug && page.route.id?.includes("[post]")) {
+			if (currentSlug) {
 				possibleRoutes.pop();
 				possibleRoutes.push(currentSlug);
 			}
@@ -28,7 +28,6 @@
 	});
 
 	afterNavigate((e) => {
-		console.log(e, slugs);
 		if (e.from) navigationHistory.push(e.from);
 	});
 </script>

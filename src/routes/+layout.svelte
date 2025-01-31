@@ -9,6 +9,7 @@
 	import { browser } from "$app/environment";
 	import { PUBLIC_POSTHOG_PROJECT_ID } from "$env/static/public";
 	import { afterNavigate, beforeNavigate } from "$app/navigation";
+	import BackToTop from "$lib/components/globals/BackToTop.svelte";
 
 	let { children } = $props();
 
@@ -42,18 +43,6 @@
 	</div>
 {/key}
 
-<div class="mt-16 flex justify-center">
-	<button
-		onclick={() => {
-			window.scrollTo({ top: 0, behavior: "smooth" });
-			posthog.capture("click.back-to-top");
-		}}
-		class="rounded-md px-2 py-1 hover:bg-white-600 active:bg-white-700"
-		aria-label="Zurück nach oben"
-	>
-		<i class="fa-solid fa-arrow-up mr-2"></i>
-		Nach oben
-	</button>
-</div>
+<BackToTop />
 
 <Footer />
