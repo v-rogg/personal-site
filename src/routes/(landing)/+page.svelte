@@ -1,7 +1,7 @@
 <script lang="ts">
+	// import Blog from "$lib/components/Blog/Blog.svelte";
 	// import Memory from "$lib/components/Memory.svelte";
 	import SendRequest from "$lib/components/SendRequest.svelte";
-	import Blog from "$lib/components/Blog/Blog.svelte";
 	import ShortBio from "$lib/components/ShortBio.svelte";
 	import Signatures from "$lib/components/Signatures.svelte";
 	import type { PageData } from "./$types";
@@ -24,6 +24,6 @@ Privat bin ich Sportkursleiter und leidenschaftlicher Musiker. Auf meiner Seite 
 	<SendRequest cls="xl:col-span-4" />
 </div>
 
-{#if data.blog && data.blog.length > 0}
+<!-- {#if data.blog && data.blog.length > 0}
 	<Blog blog={data.blog} tags={data.allTags} />
-{/if}
+{/if} -->
