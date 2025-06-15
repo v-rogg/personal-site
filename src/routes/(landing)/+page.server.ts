@@ -10,7 +10,10 @@ function getBlogData(): {
 	const files = import.meta.glob("/src/routes/\\(content\\)/blog/**/*.mdx", { eager: true });
 	const blogData = Object.entries(files)
 		.map(([filePath, module]) => {
-			const route = filePath.replace("/src/routes/(content)/", "").replace("/content", "").replace(".mdx", "");
+			const route = filePath
+				.replace("/src/routes/(content)/", "")
+				.replace("/content", "")
+				.replace(".mdx", "");
 
 			return {
 				route,
@@ -23,9 +26,9 @@ function getBlogData(): {
 				const dateA = new Date(a.metadata.date);
 				const dateB = new Date(b.metadata.date);
 				return dateB.getTime() - dateA.getTime();
-			} else {
-				return -1;
 			}
+
+			return -1;
 		})
 		.filter((blog) => {
 			if (APP_VERSION === "production") {
@@ -42,7 +45,11 @@ export const load: PageServerLoad = async ({ platform, url }) => {
 		const blogData = getBlogData();
 		const allTags = blogData.reduce((tags: string[], blog) => {
 			const blogTags = blog.metadata?.tags || [];
-			return [...new Set([...tags, ...blogTags])];
+			const newTags = new Set(tags);
+			for (const tag of blogTags) {
+				newTags.add(tag);
+			}
+			return Array.from(newTags);
 		}, []);
 
 		const signatures = (await getSignatures(platform)).sort(() => Math.random() - 0.5);

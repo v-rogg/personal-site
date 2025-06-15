@@ -1,6 +1,10 @@
 {
+	"author": {
+		"name": "v-rogg",
+		"email": "mail@valentinrogg.de"
+	},
 	"name": "vr-www",
-	"version": "3.1.0",
+	"version": "3.1.1",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev --host",
@@ -8,10 +12,15 @@
 		"build:watch": "vite build --watch",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"format": "biome format --write .",
+		"format:check": "biome format .",
+		"lint": "biome lint .",
+		"lint:fix": "biome lint --write ."
 	},
 	"devDependencies": {
 		"@awesome.me/kit-fb271958c9": "^1.0.42",
+		"@biomejs/biome": "^1.9.4",
 		"@eslint/compat": "^1.2.3",
 		"@jaames/iro": "^5.5.2",
 		"@melt-ui/pp": "^0.3.2",

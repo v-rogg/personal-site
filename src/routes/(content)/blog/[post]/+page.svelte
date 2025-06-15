@@ -2,7 +2,7 @@
 	import { appState } from "$lib/stores.svelte";
 	let { data } = $props();
 
-	if (data.metadata && data.metadata.slug) {
+	if (data.metadata?.slug) {
 		appState.metadata = data.metadata;
 	}
 </script>
