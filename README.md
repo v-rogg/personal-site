@@ -8,7 +8,7 @@
 npm i
 
 # inside workers/vr-www-signatures-rs
-wrangler dev
+npx wrangler dev
 
 npm run dev
 ```
@@ -19,4 +19,10 @@ To create a production version of your app:
 
 ```bash
 npm run build
+```
+
+## Deploy `vr-www-signatures-rs` Worker
+
+```bash
+npx wrangler deploy
 ```

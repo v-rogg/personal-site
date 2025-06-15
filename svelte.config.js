@@ -1,6 +1,6 @@
 import { preprocessMeltUI, sequence } from "@melt-ui/pp";
-import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import adapter from "@sveltejs/adapter-cloudflare";
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { mdsvex } from "mdsvex";
 import { createHighlighter } from "shiki";
 import tokio from "shiki/themes/tokyo-night.mjs";
@@ -14,20 +14,26 @@ const config = {
 		mdsvex({
 			extension: ".mdx",
 			smartypants: {
-				dashes: "oldschool"
+				dashes: "oldschool",
 			},
 			layout: "./src/lib/mdx/BlogLayout.svelte",
 			highlight: {
 				highlighter: async (code, lang) => {
-					const highlighter = await createHighlighter({ theme: tokio, langs: [lang] });
-					const html = highlighter.codeToHtml(code, { lang: lang, theme: tokio });
-					return "{@html `" + html + "`}";
-				}
-			}
-		})
+					const highlighter = await createHighlighter({
+						theme: tokio,
+						langs: [lang],
+					});
+					const html = highlighter.codeToHtml(code, {
+						lang: lang,
+						theme: tokio,
+					});
+					return `{@html \`${html}\`}`;
+				},
+			},
+		}),
 	]),
 	kit: {
-		adapter: adapter()
-	}
+		adapter: adapter(),
+	},
 };
 export default config;

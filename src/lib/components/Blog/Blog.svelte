@@ -1,27 +1,29 @@
 <script lang="ts">
-	import Post from "$lib/components/Blog/Post.svelte";
-	import type { Metadata } from "$lib/types";
-	import posthog from "posthog-js";
-	import { SvelteMap } from "svelte/reactivity";
-	import { blur } from "svelte/transition";
+import Post from "$lib/components/Blog/Post.svelte";
+import type { Metadata } from "$lib/types";
+import posthog from "posthog-js";
+import { SvelteMap } from "svelte/reactivity";
+import { blur } from "svelte/transition";
 
-	let { blog, tags } = $props();
+let { blog, tags } = $props();
 
-	let filterOpen = $state(true);
-	let filterTags: Map<string, boolean> = $state(new SvelteMap(tags.map((tag: string) => [tag, true])));
-	const gridColSeries = [4, 5, 6, 3, 5, 4, 3, 6];
+let filterOpen = $state(true);
+let filterTags: Map<string, boolean> = $state(
+	new SvelteMap(tags.map((tag: string) => [tag, true])),
+);
+const gridColSeries = [4, 5, 6, 3, 5, 4, 3, 6];
 
-	function checkTags(metadata: Metadata) {
-		if (metadata && metadata.tags) {
-			for (let tag of metadata.tags) {
-				if (filterTags.has(tag) && filterTags.get(tag)) {
-					return true;
-				}
+function checkTags(metadata: Metadata) {
+	if (metadata?.tags) {
+		for (let tag of metadata.tags) {
+			if (filterTags.has(tag) && filterTags.get(tag)) {
+				return true;
 			}
-			return false;
 		}
-		return true;
+		return false;
 	}
+	return true;
+}
 </script>
 
 <section id="blog" class="mt-20">
@@ -89,7 +91,6 @@
 					<li>Rust in Cloudflare Workers</li>
 				</ul>
 			</div>
-			<p>Außerdem arbeite ich an einer englischen Version 🇬🇧 meiner Seite.</p>
 		</div>
 	</div>
 </section>

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import TagList from "$lib/components/globals/TagList.svelte";
+import TagList from "$lib/components/globals/TagList.svelte";
 
-	let { title, subtitle, tags, date, timeframe = [], children } = $props();
+let { title, subtitle, tags, date, timeframe = [], children } = $props();
 </script>
 
 <div class="-mx-10 rounded-xl bg-white-600 px-10 py-10">

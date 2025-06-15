@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { afterNavigate } from "$app/navigation";
-	import { blur } from "svelte/transition";
 	import { page } from "$app/state";
+	import { appState } from "$lib/stores.svelte";
 	import type { NavigationTarget } from "@sveltejs/kit";
 	import { expoIn, expoOut } from "svelte/easing";
-	import { appState } from "$lib/stores.svelte";
+	import { blur } from "svelte/transition";
 
 	let navigationHistory: NavigationTarget[] = $state([page]);
 
@@ -14,7 +14,7 @@
 			const segments = path.split("/").filter(Boolean);
 
 			const possibleRoutes = segments.map((_, index) => {
-				return "/" + segments.slice(0, index + 1).join("/");
+				return `/${segments.slice(0, index + 1).join("/")}`;
 			});
 
 			const currentSlug = appState.metadata?.slug;
@@ -24,7 +24,9 @@
 			}
 
 			return possibleRoutes;
-		} else return [];
+		}
+
+		return [];
 	});
 
 	afterNavigate((e) => {
@@ -34,8 +36,7 @@
 
 <header
 	class="pointer-events-none absolute z-50 w-full max-w-[100vw] -translate-y-0.5 overflow-hidden bg-transparent transition sm:top-8"
-	class:floating-header={page.url.pathname != "/"}
->
+	class:floating-header={page.url.pathname != "/"}>
 	<div class="container relative mx-auto mb-10 mt-8 flex items-center justify-between px-2 sm:px-10">
 		<div class="flex h-10 items-center gap-4">
 			{#if page.url.pathname == "/"}
@@ -49,16 +50,14 @@
 						style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
 						><path
 							d="M327.107,499.126L174.648,499.126L-0,0L143.395,0C143.395,0 238.714,326.09 247.532,356.259C247.918,357.58 249.13,358.489 250.508,358.489L250.942,358.489C251.98,358.489 252.938,358.054 253.617,357.335L257.56,346.128C276.369,289.039 360.886,51.774 376.768,7.227L379.31,0L519.187,0C627.964,0 716.277,72.692 716.277,197.09C716.277,254.796 691.424,306.743 651.846,342.801L706.545,499.126L563.151,499.126L532.347,393.747C532.317,393.749 532.287,393.751 532.256,393.753C521.454,356.8 509.169,314.77 497.754,275.721C497.495,274.833 497.669,273.875 498.224,273.134C498.778,272.394 499.65,271.958 500.575,271.958C507.03,271.958 519.187,271.958 519.187,271.958C560.508,271.958 594.055,238.411 594.055,197.09C594.055,155.769 560.508,122.222 519.187,122.222L459.37,122.222L327.107,499.126Z"
-							style="fill:currentColor"
-						></path></svg
-					>
+							style="fill:currentColor"></path
+						></svg>
 				</span>
 			{:else}
 				<a
 					class="pointer-events-auto flex size-10 items-center justify-center rounded hover:text-white-700 active:text-white-600"
 					href="/"
-					aria-label="Home"
-				>
+					aria-label="Home">
 					<svg
 						width="40"
 						height="40"
@@ -68,9 +67,8 @@
 						style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
 						><path
 							d="M327.107,499.126L174.648,499.126L-0,0L143.395,0C143.395,0 238.714,326.09 247.532,356.259C247.918,357.58 249.13,358.489 250.508,358.489L250.942,358.489C251.98,358.489 252.938,358.054 253.617,357.335L257.56,346.128C276.369,289.039 360.886,51.774 376.768,7.227L379.31,0L519.187,0C627.964,0 716.277,72.692 716.277,197.09C716.277,254.796 691.424,306.743 651.846,342.801L706.545,499.126L563.151,499.126L532.347,393.747C532.317,393.749 532.287,393.751 532.256,393.753C521.454,356.8 509.169,314.77 497.754,275.721C497.495,274.833 497.669,273.875 498.224,273.134C498.778,272.394 499.65,271.958 500.575,271.958C507.03,271.958 519.187,271.958 519.187,271.958C560.508,271.958 594.055,238.411 594.055,197.09C594.055,155.769 560.508,122.222 519.187,122.222L459.37,122.222L327.107,499.126Z"
-							style="fill:currentColor"
-						></path></svg
-					>
+							style="fill:currentColor"></path
+						></svg>
 				</a>
 			{/if}
 			{#if page.status === 200}
@@ -84,8 +82,7 @@
 							id="{i}+''"
 							in:blur={{ delay: i * delay, duration, amount, easing: expoOut }}
 							out:blur={{ delay: (slugs.length + 1 - i) * delay, duration, amount, easing: expoIn }}
-							class="w-max"
-						>
+							class="w-max">
 							<i class="fa-solid fa-slash-forward"></i>
 							{#if slugs.length - 1 === i}
 								<span class="mx-1 overflow-hidden text-ellipsis rounded px-1 py-0.5">
@@ -94,8 +91,7 @@
 							{:else}
 								<a
 									href={p}
-									class="pointer-events-auto overflow-hidden text-ellipsis rounded-md px-2 py-1 hover:bg-white-600 active:bg-white-700"
-								>
+									class="pointer-events-auto overflow-hidden text-ellipsis rounded-md px-2 py-1 hover:bg-white-600 active:bg-white-700">
 									{name.charAt(0).toUpperCase() + name.slice(1)}
 								</a>
 							{/if}
@@ -112,8 +108,7 @@
 			<a
 				href={navigationHistory.at(-1)?.url.href}
 				in:blur={{ duration: 600, amount: 10 }}
-				class="pointer-events-auto rounded-md px-2 py-1 hover:bg-white-600 active:bg-white-700 max-sm:hidden"
-			>
+				class="pointer-events-auto rounded-md px-2 py-1 hover:bg-white-600 active:bg-white-700 max-sm:hidden">
 				<i class="fa-solid fa-arrow-left mr-2"></i>
 				Zurück
 			</a>
