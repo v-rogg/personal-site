@@ -2,7 +2,10 @@ name = "vr-www"
 pages_build_output_dir = ".svelte-kit/cloudflare"
 compatibility_date = "2024-12-09"
 
-services = [{ binding = "SIGNATURES_WORKER", service = "vr-www-signatures-rs" }]
+services = [
+  { binding = "SIGNATURES_WORKER", service = "vr-www-signatures-rs" },
+  { binding = "PH_ANALYTICS_WORKER", service = "vr-www-posthog-analytics-rs" },
+]
 
 [observability]
 enabled = true

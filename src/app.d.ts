@@ -13,6 +13,8 @@ declare global {
 				KV: KVNamespace;
 				SIGNATURES_WORKER: Fetcher;
 				SIGNATURES_WORKER_KEY: string;
+				PH_ANALYTICS_WORKER: Fetcher;
+				PH_ANALYTICS_WORKER_KEY: string;
 			};
 		}
 	}

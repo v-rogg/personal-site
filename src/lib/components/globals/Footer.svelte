@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { version } from "../../../../package.json";
+	import { page } from "$app/state";
 	import Socials from "./Socials.svelte";
 </script>
 
@@ -9,7 +9,7 @@
 			<i class="fa-regular fa-copyright"></i>
 			Valentin Rogg
 			<i class="fa-regular fa-code-commit ml-2"></i>
-			{version}
+			{page.data.version}
 		</div>
 	</div>
 

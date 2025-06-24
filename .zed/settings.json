@@ -6,7 +6,7 @@
   "lsp": {
     "rust-analyzer": {
       "initialization_options": {
-        "linkedProjects": ["./workers/vr-www-signatures-rs/Cargo.toml"]
+        "linkedProjects": ["./workers/vr-www-signatures-rs/Cargo.toml", "./workers/vr-www-posthog-analytics-rs/Cargo.toml"]
       }
     }
   }

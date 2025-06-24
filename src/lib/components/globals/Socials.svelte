@@ -4,15 +4,14 @@
 
 <div class="{cls} w-max text-black">
 	<div class="flex gap-4">
-		<a href="https://github.com/v-rogg/personal-site" rel="noreferrer nofollow" target="_blank" aria-label="GitHub"
-			><i class="fa-brands fa-github"></i></a
-		>
+		<a href="https://github.com/v-rogg/personal-site" rel="noreferrer nofollow" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
 		<a href="https://www.instagram.com/valentin_rogg/" rel="noreferrer nofollow" target="_blank" aria-label="Instagram"
 			><i class="fa-brands fa-instagram"></i></a
 		>
-		<a href="https://www.youtube.com/@roggnroll" rel="noreferrer nofollow" target="_blank" aria-label="YouTube"
+		<!-- <a href="https://www.youtube.com/@roggnroll" rel="noreferrer nofollow" target="_blank" aria-label="YouTube"
 			><i class="fa-brands fa-youtube"></i></a
-		>
+		> -->
+		<a href="https://www.linkedin.com/in/vrogg/" rel="noreferrer nofollow" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
 		<span class="relative">
 			<span
 				class="absolute bottom-full right-0 -m-[2px] w-max origin-right rounded-lg border-2 border-white-500 bg-white-700 px-2 py-1 text-center text-sm font-[450]"
@@ -35,11 +34,6 @@
 				><i class="fa-regular fa-memo"></i></a
 			>
 		</span>
-		<a href="https://www.linkedin.com/in/vrogg/" rel="noreferrer nofollow" target="_blank" aria-label="LinkedIn"
-			><i class="fa-brands fa-linkedin"></i></a
-		>
-		<a href="mailto:mail@valentinrogg.de" rel="noreferrer nofollow" target="_blank" class="mail" aria-label="Mail"
-			><i class="fa-solid fa-envelope"></i></a
-		>
+		<a href="mailto:mail@valentinrogg.de" rel="noreferrer nofollow" target="_blank" class="mail" aria-label="Mail"><i class="fa-solid fa-envelope"></i></a>
 	</div>
 </div>

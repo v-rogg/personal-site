@@ -1,4 +1,5 @@
 import { APP_VERSION } from "$env/static/private";
+import { getWeekStats } from "$lib/components/Analytics/analytics";
 import { checkSignature, getSignatures } from "$lib/d1";
 import type { Metadata } from "$lib/types";
 import type { PageServerLoad } from "./$types";
@@ -75,9 +76,12 @@ export const load: PageServerLoad = async ({ platform, url }) => {
 			}
 		}
 
+		const weekStats = await getWeekStats(platform);
+
 		return {
 			signatures,
 			autoplay: true,
+			weekStats,
 			blog: blogData,
 			allTags
 		};
@@ -85,6 +89,7 @@ export const load: PageServerLoad = async ({ platform, url }) => {
 	return {
 		signatures: [],
 		autoplay: false,
+		weekStats: [],
 		blog: [],
 		allTags: []
 	};

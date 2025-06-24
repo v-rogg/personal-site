@@ -23,3 +23,6 @@ vite.config.ts.timestamp-*
 
 # D1 Backup
 backup.sql
+
+# API Testing
+tests/api

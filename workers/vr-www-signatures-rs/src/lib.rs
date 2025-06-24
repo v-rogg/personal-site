@@ -1,5 +1,5 @@
 use core::str;
-use flate2::{write::GzEncoder, Compression};
+use flate2::{Compression, write::GzEncoder};
 use js_sys::Date;
 use serde::{Deserialize, Serialize};
 use std::{
@@ -27,6 +27,12 @@ pub fn get_time() -> String {
 async fn fetch(req: Request, env: Env, _ctx: Context) -> Result<Response> {
     once(console_error_panic_hook::hook);
     Router::new()
+
+        .get_async("/health", |_req, _ctx| async move {
+            Response::from_json(&serde_json::json!({
+                "status": "healthy",
+            }))
+        })
 
         .get_async("/", |req, ctx| async move {
             if !check_auth_header(&req, ctx.secret("SECRET_KEY")?.to_string()) {

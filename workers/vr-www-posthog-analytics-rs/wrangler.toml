@@ -1,0 +1,16 @@
+name = "vr-www-posthog-analytics-rs"
+main = "build/worker/shim.mjs"
+compatibility_date = "2025-06-15"
+
+[build]
+command = "cargo install -q worker-build && worker-build --release"
+
+[dev]
+port = 8786
+
+[observability.logs]
+enabled = true
+
+[vars]
+POSTHOG_PROJECT_ID = "35470"
+# 5Wd97qcd2@4u9BJjoiqGg!PGRQ26Pk%88v6
