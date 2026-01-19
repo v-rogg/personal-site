@@ -1,5 +1,5 @@
 import { APP_VERSION } from "$env/static/private";
-import { getWeekStats } from "$lib/components/Analytics/analytics";
+import { getStats } from "$lib/components/Analytics/analytics";
 import { checkSignature, getSignatures } from "$lib/d1";
 import type { Metadata } from "$lib/types";
 import type { PageServerLoad } from "./$types";
@@ -76,12 +76,12 @@ export const load: PageServerLoad = async ({ platform, url }) => {
 			}
 		}
 
-		const weekStats = await getWeekStats(platform);
+		const stats = await getStats(platform, "d180");
 
 		return {
 			signatures,
 			autoplay: true,
-			weekStats,
+			stats,
 			blog: blogData,
 			allTags
 		};
@@ -89,7 +89,15 @@ export const load: PageServerLoad = async ({ platform, url }) => {
 	return {
 		signatures: [],
 		autoplay: false,
-		weekStats: [],
+		stats: {
+			conversion_step_1: 0,
+			conversion_step_2: 0,
+			conversion_rate: 0,
+			painting_durations: [],
+			has_painting_data: false,
+			average_eraser_uses: 0,
+			average_drawing_time_seconds: 0
+		},
 		blog: [],
 		allTags: []
 	};

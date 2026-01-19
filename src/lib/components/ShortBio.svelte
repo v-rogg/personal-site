@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Socials from "./globals/Socials.svelte";
+import Socials from "./globals/Socials.svelte";
 
-	let { cls }: { cls?: string } = $props();
+let { cls }: { cls?: string } = $props();
 </script>
 
 <section class="rounded-xl {cls}">
@@ -16,7 +16,7 @@
 				auf Themen der auto&shy;matisierten Daten&shy;analyse und interaktiven Visualisierung. Außerdem liegen meine Stärken im Management und
 				Marketing. Aktuell arbeite ich als <b>Data Engineer</b> bei
 				<a href="https://credium.de" target="_blank" rel="noopener noreferrer" class="underline">credium</a>.
-				<br /><br />Privat bin ich leidenschaftlicher Musiker und
+				<br /><br />Privat bin ich leidenschaftlicher <a href="https://singtonic.net" target="_blank" rel="noopener noreferrer" class="underline">Musiker</a> und
 				<a
 					href="https://anmeldung.sport.uni-augsburg.de/angebote/aktueller_zeitraum/_Kleine_Spiele.html"
 					target="_blank"

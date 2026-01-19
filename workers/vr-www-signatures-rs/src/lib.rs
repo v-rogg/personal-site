@@ -186,6 +186,70 @@ async fn fetch(req: Request, env: Env, _ctx: Context) -> Result<Response> {
             Response::from_json(&signature)
         })
 
+        // Find signature by Unix timestamp (with 10 second tolerance)
+        .get_async("/by-timestamp/:timestamp", |req, ctx| async move {
+            if !check_auth_header(&req, ctx.secret("SECRET_KEY")?.to_string()) {
+                return Response::error("Not authorized", 401)
+            };
+
+            let timestamp_str = ctx.param("timestamp").unwrap();
+            let timestamp: i64 = match timestamp_str.parse() {
+                Ok(ts) => ts,
+                Err(_) => return Response::error("Invalid timestamp", 400),
+            };
+
+            let db = ctx.env.d1("DB")?;
+
+            // Convert Unix timestamp to both ISO and space-separated formats for comparison (10 second tolerance)
+            // D1 stores timestamps in two formats:
+            // - ISO: "2024-12-17T10:32:41.046Z"
+            // - Space-separated: "2024-11-26 21:54:29"
+            use chrono::{Utc, TimeZone};
+            let ts_lower = Utc.timestamp_opt(timestamp - 10, 0).unwrap();
+            let ts_upper = Utc.timestamp_opt(timestamp + 10, 0).unwrap();
+
+            // Format for ISO comparison (YYYY-MM-DDTHH:MM:SS)
+            let ts_lower_iso = ts_lower.format("%Y-%m-%dT%H:%M:%S").to_string();
+            let ts_upper_iso = ts_upper.format("%Y-%m-%dT%H:%M:%SZ").to_string();
+
+            // Format for space-separated comparison (YYYY-MM-DD HH:MM:SS)
+            let ts_lower_space = ts_lower.format("%Y-%m-%d %H:%M:%S").to_string();
+            let ts_upper_space = ts_upper.format("%Y-%m-%d %H:%M:%S").to_string();
+
+            #[derive(Deserialize)]
+            struct SignatureResult {
+                id: String,
+                ts_created: String,
+            }
+
+            // Query for signatures created within the time window, handling both formats
+            let stmt = db.prepare(
+                "SELECT id, ts_created FROM signatures WHERE (ts_created >= ? AND ts_created <= ?) OR (ts_created >= ? AND ts_created <= ?) ORDER BY ts_created DESC LIMIT 1"
+            );
+            let query = stmt.bind(&[
+                ts_lower_iso.into(),
+                ts_upper_iso.into(),
+                ts_lower_space.into(),
+                ts_upper_space.into(),
+            ])?;
+
+            let result = match query.first::<SignatureResult>(None).await? {
+                Some(r) => r,
+                None => return Response::error("Not found", 404),
+            };
+
+            #[derive(Serialize)]
+            struct SignatureResponse {
+                id: String,
+                ts_created: String,
+            }
+
+            Response::from_json(&SignatureResponse {
+                id: result.id,
+                ts_created: result.ts_created,
+            })
+        })
+
         .post_async("/", |mut req, ctx| async move {
             if !check_auth_header(&req, ctx.secret("SECRET_KEY")?.to_string()) {
                 return Response::error("Not authorized", 401)

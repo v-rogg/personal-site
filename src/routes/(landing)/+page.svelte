@@ -1,13 +1,14 @@
 <script lang="ts">
-	import Analytics from "$lib/components/Analytics/Analytics.svelte";
-	// import Blog from "$lib/components/Blog/Blog.svelte";
-	// import Memory from "$lib/components/Memory.svelte";
-	import SendRequest from "$lib/components/SendRequest.svelte";
-	import ShortBio from "$lib/components/ShortBio.svelte";
-	import Signatures from "$lib/components/Signatures.svelte";
-	import type { PageData } from "./$types";
+import Analytics from "$lib/components/Analytics/Analytics.svelte";
+import type { AnalyticsStats } from "$lib/components/Analytics/analytics";
+import Blog from "$lib/components/Blog/Blog.svelte";
+// import Memory from "$lib/components/Memory.svelte";
+import SendRequest from "$lib/components/SendRequest.svelte";
+import ShortBio from "$lib/components/ShortBio.svelte";
+import Signatures from "$lib/components/Signatures.svelte";
+import type { PageData } from "./$types";
 
-	let { data }: { data: PageData } = $props();
+let { data }: { data: PageData } = $props();
 </script>
 
 <svelte:head>
@@ -25,8 +26,10 @@ Privat bin ich Sportkursleiter und leidenschaftlicher Musiker."
 	<SendRequest cls="xl:col-span-4" />
 </div>
 
-<Analytics weekStats={data.weekStats} />
+{#if data.stats}
+	<Analytics stats={data.stats as AnalyticsStats} />
+{/if}
 
-<!-- {#if data.blog && data.blog.length > 0}
+{#if data.blog && data.blog.length > 0}
 	<Blog blog={data.blog} tags={data.allTags} />
-{/if} -->
+{/if}
