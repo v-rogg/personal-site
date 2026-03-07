@@ -1,0 +1,17 @@
+node_modules/
+.deno/
+.svelte-kit/
+build/
+.git/
+backend/target/
+target/
+data/
+*.md
+.env*
+!.env.example
+d1_export.json
+scripts/
+terraform/
+crowdsec/
+docs/
+.npmrc

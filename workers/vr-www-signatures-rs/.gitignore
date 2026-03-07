@@ -1,6 +1,0 @@
-target
-node_modules
-.wrangler
-*.sqlite-shm
-*.sqlite-wal
-local.sql

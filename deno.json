@@ -1,0 +1,8 @@
+{
+	"tasks": {
+		"format": "deno run -A npm:@biomejs/biome format --write .",
+		"format:check": "deno run -A npm:@biomejs/biome format .",
+		"lint": "deno run -A npm:@biomejs/biome lint .",
+		"lint:fix": "deno run -A npm:@biomejs/biome lint --write ."
+	}
+}

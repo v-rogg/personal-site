@@ -1,0 +1,40 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+import '../styles/global.css';
+import '@awesome.me/kit-fb271958c9/icons/css/all.css';
+import Header from '../components/globals/Header.svelte';
+import Footer from '../components/globals/Footer.svelte';
+import BackToTop from '../components/globals/BackToTop.svelte';
+import Toaster from '../components/globals/Toaster.svelte';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title = 'VR - Valentin Rogg', description = 'Personal website of Valentin Rogg' } = Astro.props;
+const gitCommit = import.meta.env.PUBLIC_GIT_COMMIT || '';
+---
+
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={description} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>{title}</title>
+		<ViewTransitions />
+	</head>
+	<body class="font-sans text-black">
+		<Toaster client:load transition:persist />
+		<Header client:load transition:persist />
+
+		<main>
+			<slot />
+		</main>
+
+		<BackToTop client:visible />
+		<Footer commit={gitCommit} />
+	</body>
+</html>

@@ -1,0 +1,19 @@
+# Copy to terraform.tfvars and fill in values
+
+# Required
+hcloud_token   = "your-hetzner-cloud-api-token"
+ssh_public_key = "ssh-ed25519 AAAA... you@example.com"
+
+# Optional - server config
+server_name = "vr-www"
+server_type = "cx22"       # ~4 EUR/month
+location    = "fsn1"       # Falkenstein, Germany
+backups     = false        # +20% cost if enabled
+
+# Optional - restrict SSH to your IP
+# ssh_allowed_ips = ["YOUR_IP/32"]
+
+# Optional - app settings
+app_user      = "www"
+app_directory = "/opt/www"
+domain        = "valentinrogg.de"

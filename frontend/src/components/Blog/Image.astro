@@ -1,0 +1,16 @@
+---
+interface Props {
+	src: string;
+	alt: string;
+	height?: string;
+}
+
+const { src, alt, height = "500" } = Astro.props;
+---
+
+<div class="flex justify-center">
+	<div class="relative">
+		<img src={src} style={`max-height: ${height}px;`} class="w-auto h-auto" alt={alt} />
+		<span class="absolute bottom-2 left-0 rounded-md bg-white/70 p-1 text-xs backdrop-blur">{alt}</span>
+	</div>
+</div>

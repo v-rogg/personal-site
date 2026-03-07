@@ -1,0 +1,96 @@
+services:
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./files:/srv/files:ro
+      - caddy_data:/data
+      - caddy_config:/config
+      - caddy_logs:/var/log/caddy
+    depends_on:
+      - frontend
+      - api
+    networks:
+      - web
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        FONTAWESOME_TOKEN: ${FONTAWESOME_TOKEN}
+        PUBLIC_API_URL: ""
+        API_URL: http://api:8080
+    restart: unless-stopped
+    environment:
+      - PORT=3000
+      - HOST=0.0.0.0
+      - API_URL=http://api:8080
+    networks:
+      - web
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=/data/app.db
+      - RUST_LOG=info,vr_www_api=debug
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT:-465}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASS=${SMTP_PASS}
+      - FRIENDLY_CAPTCHA_SECRET=${FRIENDLY_CAPTCHA_SECRET}
+      - FRIENDLY_CAPTCHA_SITEKEY=${FRIENDLY_CAPTCHA_SITEKEY}
+      - EMAIL_FROM=${EMAIL_FROM:-noreply@valentinrogg.de}
+      - EMAIL_TO=${EMAIL_TO:-mail@valentinrogg.de}
+      - BASE_URL=${BASE_URL:-https://valentinrogg.de}
+    volumes:
+      - ./data:/data
+    networks:
+      - web
+
+  # Crowdsec security engine
+  crowdsec:
+    image: crowdsecurity/crowdsec:latest
+    restart: unless-stopped
+    volumes:
+      - ./crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml:ro
+      - ./crowdsec/profiles.yaml:/etc/crowdsec/profiles.yaml:ro
+      - crowdsec_config:/etc/crowdsec
+      - crowdsec_data:/var/lib/crowdsec/data
+      - caddy_logs:/var/log/caddy:ro
+    environment:
+      - COLLECTIONS=crowdsecurity/caddy crowdsecurity/http-cve crowdsecurity/base-http-scenarios
+      - GID=1000
+    networks:
+      - web
+
+  # Crowdsec firewall bouncer
+  crowdsec-firewall-bouncer:
+    image: crowdsecurity/crowdsec-firewall-bouncer-iptables:latest
+    restart: unless-stopped
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - ./crowdsec/bouncer.yaml:/etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml:ro
+    depends_on:
+      - crowdsec
+
+volumes:
+  caddy_data:
+  caddy_config:
+  caddy_logs:
+  crowdsec_config:
+  crowdsec_data:
+
+networks:
+  web:
+    driver: bridge

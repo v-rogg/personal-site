@@ -1,0 +1,25 @@
+:80 {
+    # Static files (fonts, PDFs, images, videos)
+    handle /files/* {
+        root * /srv
+        file_server
+        header Cache-Control "public, max-age=31536000, immutable"
+    }
+
+    # API routes -> Rust backend
+    handle /api/* {
+        reverse_proxy api:8080
+    }
+
+    # Health check
+    handle /health {
+        reverse_proxy api:8080
+    }
+
+    # Everything else -> Frontend
+    handle {
+        reverse_proxy frontend:3000
+    }
+
+    encode gzip
+}

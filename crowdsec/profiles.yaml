@@ -1,0 +1,15 @@
+name: default_ip_remediation
+filters:
+  - Alert.Remediation == true && Alert.GetScope() == "Ip"
+decisions:
+  - type: ban
+    duration: 4h
+on_success: break
+---
+name: high_confidence_ban
+filters:
+  - Alert.Remediation == true && Alert.GetConfidence() >= 3
+decisions:
+  - type: ban
+    duration: 24h
+on_success: break

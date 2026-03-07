@@ -1,0 +1,44 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import TagList from "../components/globals/TagList.svelte";
+
+interface Props {
+	title: string;
+	subtitle?: string;
+	date: Date;
+	tags?: string[];
+	preview: string;
+}
+
+const { title, subtitle, date, tags, preview } = Astro.props;
+---
+
+<BaseLayout title={`VR - ${title}`} description={preview}>
+	<main class="container mx-auto mt-24 px-2 sm:mt-40 sm:px-10">
+		<article
+			class="rounded-images prose mx-auto max-w-4xl text-wrap text-justify prose-headings:text-left prose-h1:mb-2 prose-h2:mb-2
+			prose-h2:mt-0 prose-h3:mt-14 prose-h3:border-b prose-h3:border-b-white-700 prose-h3:pb-2 prose-h3:text-2xl prose-h4:text-lg
+			prose-li:marker:text-white-700 prose-hr:my-4 prose-hr:border-white-700"
+		>
+			<header class="mb-12">
+				<h1 class="text-4xl font-bold">{title}</h1>
+				{subtitle && <h2 class="text-xl text-skin-500 mt-2">{subtitle}</h2>}
+				<div class="flex items-center gap-4 mt-4 text-sm text-skin-500">
+					<time datetime={date.toISOString()}>
+						{date.toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" })}
+					</time>
+				</div>
+				{tags && tags.length > 0 && <TagList tags={tags} />}
+			</header>
+			<slot />
+		</article>
+	</main>
+</BaseLayout>
+
+<style is:global>
+	.rounded-images img,
+	.rounded-images video,
+	.rounded-images iframe {
+		border-radius: 4px;
+	}
+</style>

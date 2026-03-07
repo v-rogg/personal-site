@@ -1,4 +1,5 @@
 node_modules
+.deno
 
 # Output
 .output
@@ -15,7 +16,13 @@ Thumbs.db
 .env.*
 !.env.example
 !.env.test
-!.env.template
+
+# Private registry tokens
+.npmrc
+
+# Migration artifacts
+d1_export.json
+posthog_persons.json
 
 # Vite
 vite.config.js.timestamp-*
@@ -26,3 +33,25 @@ backup.sql
 
 # API Testing
 tests/api
+
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/*.tfvars
+!terraform/terraform.tfvars.example
+terraform/crash.log
+terraform/*.tfplan
+
+# Rust/Backend
+backend/target/
+backend/Cargo.lock
+
+# Data directory (SQLite database)
+data/
+
+# Backups
+backups/
+
+# Static files (fonts, images, videos - download separately)
+files/

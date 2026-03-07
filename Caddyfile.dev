@@ -1,0 +1,24 @@
+# Development Caddyfile - proxies to local Astro dev server for HMR
+:80 {
+    # Static files (fonts, PDFs, images, videos)
+    handle /files/* {
+        root * /srv
+        file_server
+        header Cache-Control "no-cache"
+    }
+
+    # API routes -> Rust backend in Docker
+    handle /api/* {
+        reverse_proxy api:8080
+    }
+
+    # Health check
+    handle /health {
+        reverse_proxy api:8080
+    }
+
+    # Everything else -> Local Astro dev server (host machine)
+    handle {
+        reverse_proxy host.docker.internal:4321
+    }
+}

@@ -1,0 +1,5 @@
+# Caddy access logs (JSON format)
+filenames:
+  - /var/log/caddy/access.json
+labels:
+  type: caddy

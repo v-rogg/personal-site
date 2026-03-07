@@ -1,0 +1,49 @@
+services:
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./Caddyfile.local:/etc/caddy/Caddyfile:ro
+      - ./files:/srv/files:ro
+    depends_on:
+      - frontend
+      - api
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        FONTAWESOME_TOKEN: ${FONTAWESOME_TOKEN}
+        PUBLIC_API_URL: http://localhost:8080
+        API_URL: http://api:8080
+        GIT_COMMIT: ${GIT_COMMIT:-dev}
+    restart: unless-stopped
+    environment:
+      - PORT=3000
+      - HOST=0.0.0.0
+      - API_URL=http://api:8080
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=/data/app.db
+      - RUST_LOG=info,vr_www_api=debug
+      - SMTP_HOST=${SMTP_HOST:-smtp.resend.com}
+      - SMTP_PORT=${SMTP_PORT:-465}
+      - SMTP_USER=${SMTP_USER:-resend}
+      - SMTP_PASS=${SMTP_PASS}
+      - FRIENDLY_CAPTCHA_SECRET=${FRIENDLY_CAPTCHA_SECRET}
+      - FRIENDLY_CAPTCHA_SITEKEY=${FRIENDLY_CAPTCHA_SITEKEY}
+      - EMAIL_FROM=${EMAIL_FROM:-noreply@valentinrogg.de}
+      - EMAIL_TO=${EMAIL_TO:-mail@valentinrogg.de}
+      - BASE_URL=http://localhost:8080
+    volumes:
+      - ./data:/data

@@ -1,0 +1,37 @@
+# Development mode with HMR
+# Frontend runs locally with `deno task dev`, this runs only API + Caddy
+# Use docker-compose.local.yml for full Docker setup without HMR
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./Caddyfile.dev:/etc/caddy/Caddyfile:ro
+      - ./files:/srv/files:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=/data/app.db
+      - RUST_LOG=info,vr_www_api=debug
+      - SMTP_HOST=${SMTP_HOST:-smtp.resend.com}
+      - SMTP_PORT=${SMTP_PORT:-465}
+      - SMTP_USER=${SMTP_USER:-resend}
+      - SMTP_PASS=${SMTP_PASS}
+      - FRIENDLY_CAPTCHA_SECRET=${FRIENDLY_CAPTCHA_SECRET}
+      - FRIENDLY_CAPTCHA_SITEKEY=${FRIENDLY_CAPTCHA_SITEKEY}
+      - EMAIL_FROM=${EMAIL_FROM:-noreply@valentinrogg.de}
+      - EMAIL_TO=${EMAIL_TO:-mail@valentinrogg.de}
+      - BASE_URL=http://localhost:8080
+    volumes:
+      - ./data:/data

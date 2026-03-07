@@ -1,0 +1,123 @@
+---
+title: Rewriting My Personal Site
+subtitle: From Cloudflare to Self-Hosted with AI
+slug: astro-onprem-rewrite
+date: 2026-01-26
+tags:
+  - astro
+  - rust
+  - cloudflare
+  - hetzner
+  - ai
+published: true
+preview: How I migrated from SvelteKit + Cloudflare Workers to Astro + Rust on a Hetzner VPS, with AI assistance from Claude Code.
+---
+
+After running my personal site on Cloudflare's edge infrastructure for over a year, I decided to rewrite everything and move to a self-hosted setup. This post documents the journey, the technical decisions, and what it's like to build with AI assistance.
+
+### Why Rewrite?
+
+The old setup worked fine, but several factors pushed me toward a rewrite:
+
+**Data Residency (GDPR)**: With Cloudflare Workers and D1, my data was distributed globally. While convenient, this created GDPR compliance headaches. Having everything on a German Hetzner VPS means full control over where data lives.
+
+**Complexity**: The old architecture involved SvelteKit for the frontend, Cloudflare Pages for hosting, two separate Workers (one for signatures, one for analytics), and D1 for the database. That's a lot of moving parts for a personal site.
+
+**Cost**: While Cloudflare's free tier is generous, I was approaching limits on D1 reads. A 4 EUR/month Hetzner VPS gives me far more resources with predictable pricing.
+
+**Learning**: I wanted to deepen my Rust backend skills and try Astro's content-focused approach.
+
+### The Old Architecture
+
+```
+SvelteKit Frontend
+    └── Cloudflare Pages
+    └── PostHog Analytics (third-party)
+
+Cloudflare Worker: signatures-rs (Rust)
+    └── D1 Database (signatures, users)
+
+Cloudflare Worker: analytics-rs (Rust)
+    └── D1 Database (events, sessions)
+```
+
+This worked, but debugging across Workers was painful, and the cold start times were noticeable for Rust Workers.
+
+### The New Architecture
+
+```
+Astro Frontend (with Svelte islands)
+    └── Docker container
+    └── Built-in analytics client
+
+Rust API (Axum)
+    └── Docker container
+    └── SQLite database (WAL mode)
+    └── In-memory signature cache
+
+Caddy
+    └── Automatic HTTPS
+    └── Reverse proxy
+
+Hetzner VPS (4 EUR/month)
+    └── Docker Compose
+    └── CrowdSec for security
+```
+
+Everything runs on a single VPS. The Astro frontend makes server-side API calls to the Rust backend, and client-side JavaScript handles tracking and interactive features.
+
+### AI-Assisted Development
+
+This rewrite was done almost entirely with Claude Code. Here's what worked well:
+
+**Schema Migrations**: Claude helped translate D1 schemas to SQLite, handle the data export/import, and update column types (like changing timestamp formats).
+
+**Incremental Progress**: We worked in focused sessions - first the backend API, then the frontend port, then analytics migration. Having the AI maintain context across a complex codebase was invaluable.
+
+**Debugging**: When the signature carousel wasn't loading correctly, Claude traced through the SSR data flow to find where props weren't being passed correctly.
+
+**Code Review**: The AI caught several issues I would have missed - like not compressing signature data on updates, or cache invalidation edge cases.
+
+What didn't work as well:
+
+**Over-engineering**: The AI sometimes suggested more abstraction than needed. I had to explicitly request simpler solutions.
+
+**Context Limits**: Very long sessions would sometimes lose important context. Starting fresh sessions with a clear summary helped.
+
+### Technical Decisions
+
+**Why Astro?** Astro's content collections and MDX support are perfect for a blog. The island architecture means I can use Svelte for interactive components (signature editor, carousel) while keeping the rest static.
+
+**Why Rust for the Backend?** Type safety, performance, and the excellent Axum framework. SQLx provides compile-time checked queries. The resulting binary is tiny and starts instantly.
+
+**Why SQLite?** For a personal site with low traffic, SQLite in WAL mode handles concurrent reads/writes perfectly. Single-file backups, no database server to maintain, and blazing fast queries.
+
+### Challenges
+
+**PostHog Migration**: Exporting 15,000 events from PostHog and reformatting them for SQLite required careful timestamp handling and session reconstruction.
+
+**Signature Caching**: The in-memory cache needed careful invalidation logic. When a signature is approved, rejected, or edited, the cache must update correctly without a full reload.
+
+**Session Management**: Anonymous session tracking without cookies requires generating stable session IDs client-side and handling the case where sessions get created from multiple sources (page view vs signature save).
+
+### Results
+
+The migration took about two weeks of evening work. The results:
+
+- **Simpler**: One codebase, one database, one server
+- **Faster**: No cold starts, sub-50ms API responses
+- **Cheaper**: 4 EUR/month vs approaching paid tiers
+- **Private**: All data on German servers
+- **Maintainable**: Standard Docker deployment, easy backups
+
+### Lessons Learned
+
+1. **Edge isn't always better**: For a personal site, a simple VPS beats distributed infrastructure.
+
+2. **AI assistance is transformative**: Claude Code handled 80% of the routine work, letting me focus on architecture decisions.
+
+3. **Start simple**: The temptation to over-engineer is real. A Rust API with SQLite is plenty for most use cases.
+
+4. **Own your data**: Self-hosting means full control. No third-party analytics, no vendor lock-in.
+
+The source code is available on my GitHub. Feel free to use it as a reference for your own Astro + Rust projects.

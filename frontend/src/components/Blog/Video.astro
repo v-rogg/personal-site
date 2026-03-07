@@ -1,0 +1,21 @@
+---
+interface Props {
+  src: string;
+  title?: string;
+  class?: string;
+}
+
+const { src, title = "Video", class: className = "" } = Astro.props;
+---
+
+<div class:list={["relative w-full", className]} style="padding-top: 56.25%;">
+  <video
+    src={src}
+    title={title}
+    autoplay
+    loop
+    muted
+    playsinline
+    class="absolute top-0 left-0 w-full h-full object-cover"
+  />
+</div>
