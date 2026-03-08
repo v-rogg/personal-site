@@ -1,6 +1,6 @@
 ---
-title: Building Custom Analytics
-subtitle: Why I Replaced PostHog with 200 Lines of Rust
+title: Eigene Analytics in 200 Zeilen Rust
+subtitle: Warum ich PostHog ersetzt habe
 slug: custom-analytics-replacing-posthog
 date: 2026-01-26
 tags:
@@ -9,55 +9,55 @@ tags:
   - privacy
   - gdpr
 published: true
-preview: How I built a privacy-first, GDPR-compliant analytics system that perfectly integrates with my signature feature - and why SQLite is more than enough for a personal site.
+preview: Wie ich ein Privacy-First-Analytics-System gebaut habe, das perfekt mit meinem Signatur-Feature zusammenspielt — und warum SQLite für eine persönliche Website mehr als genug ist.
 ---
 
-When I rewrote my personal site, I decided to ditch PostHog and build my own analytics. Not because PostHog is bad - it's actually excellent - but because sometimes the simple solution is the right one.
+Beim Umbau meiner Website habe ich PostHog rausgeworfen und eigene Analytics gebaut. Nicht weil PostHog schlecht ist — es ist exzellent — sondern weil manchmal die einfache Lösung die richtige ist.
 
-### Why Replace PostHog?
+### Warum PostHog ersetzen?
 
-**Data Residency**: Even with PostHog EU, my data was still on third-party servers. For GDPR compliance, having everything on my own German VPS is much cleaner. No data processing agreements, no third-party sub-processors.
+**Datenhoheit**: Selbst mit PostHog EU lagen meine Daten auf Drittanbieter-Servern. Alles auf dem eigenen deutschen VPS macht DSGVO-Compliance deutlich einfacher. Keine Auftragsverarbeitungsverträge, keine Sub-Prozessoren.
 
-**Cost**: PostHog's free tier is generous, but scales can tip quickly. My custom solution costs exactly 0 EUR on top of my existing VPS.
+**Kosten**: PostHog's Free-Tier ist großzügig, kann aber schnell kippen. Meine Lösung kostet exakt 0 EUR zusätzlich zum bestehenden VPS.
 
-**Integration**: I wanted tight integration between analytics and my signature feature. Who drew what, how long did they spend, what was their journey? With custom analytics, these joins are trivial.
+**Integration**: Ich wollte enge Verzahnung zwischen Analytics und meinem Signatur-Feature. Wer hat was gezeichnet, wie lange, was war die Journey? Mit eigenen Analytics sind solche Joins trivial.
 
-**Overkill**: PostHog has feature flags, session replay, A/B testing, funnels, and dozens of other features. For a personal site, I need page views and custom events. That's it.
+**Overkill**: PostHog hat Feature Flags, Session Replay, A/B Testing, Funnels und dutzende weitere Features. Für eine persönliche Website brauche ich Page Views und Custom Events. Mehr nicht.
 
-### What I Track
+### Was ich tracke
 
-The tracking is intentionally minimal:
+Das Tracking ist bewusst minimal:
 
 **Page Views**
-- URL and referrer (external only - no internal navigation tracking)
-- Scroll depth (how far down the page)
+- URL und Referrer (nur extern — keine interne Navigation)
+- Scroll-Tiefe
 - Timestamp
 
 **Custom Events**
-- Signature editor: open, save, undo, redo, eraser toggle
-- Carousel: navigation, autoplay state
-- Blog: tag clicks, time on page
-- Contact form: submissions
+- Signatur-Editor: Öffnen, Speichern, Undo, Redo, Radierer
+- Karussell: Navigation, Autoplay-Status
+- Blog: Tag-Klicks, Verweildauer
+- Kontaktformular: Absendungen
 
 **Sessions**
-- Anonymous session ID (generated client-side)
-- Country and region (from GeoIP lookup)
-- First seen / last seen timestamps
+- Anonyme Session-ID (clientseitig generiert)
+- Land und Region (GeoIP-Lookup)
+- Erste/letzte Aktivität
 
-### The Implementation
+### Die Implementierung
 
-The entire backend analytics is about 200 lines of Rust:
+Das gesamte Backend-Analytics besteht aus ca. 200 Zeilen Rust:
 
 ```rust
-// Event ingestion endpoint
+// Event-Ingestion-Endpoint
 pub async fn track_event(
     State(state): State<Arc<AppState>>,
     Json(req): Json<TrackEventRequest>,
 ) -> Result<Json<()>, AppError> {
     let now = chrono::Utc::now().timestamp();
-    
+
     sqlx::query(
-        "INSERT INTO events (id, session_id, event, properties, ts) 
+        "INSERT INTO events (id, session_id, event, properties, ts)
          VALUES (?, ?, ?, ?, ?)"
     )
     .bind(uuid::Uuid::new_v4().to_string())
@@ -72,126 +72,124 @@ pub async fn track_event(
 }
 ```
 
-The client-side is even simpler - about 50 lines of TypeScript that sends events to `/api/tracking/events` with the session ID and event data.
+Client-seitig sind es ca. 50 Zeilen TypeScript, die Events an `/api/tracking/events` mit Session-ID und Event-Daten senden.
 
-**No cookies**. The session ID is generated once with `crypto.randomUUID()` and stored in sessionStorage. Close the tab, get a new session. Simple.
+**Keine Cookies**. Die Session-ID wird einmalig mit `crypto.randomUUID()` erzeugt und in sessionStorage gespeichert. Tab schließen, neue Session. Fertig.
 
-### GDPR Compliance Benefits
+### DSGVO-Vorteile
 
-This setup makes GDPR compliance trivial:
+Dieses Setup macht DSGVO-Compliance trivial:
 
-1. **All data stays on my German VPS** - no third-party transfers
-2. **No third-party data sharing** - I'm both controller and processor
-3. **Anonymous by design** - no PII stored, just session IDs
-4. **Easy data deletion** - `DELETE FROM events WHERE session_id = ?`
-5. **No consent required** - anonymous analytics don't need consent under GDPR
+1. **Alle Daten auf dem eigenen deutschen VPS** — keine Drittanbieter-Transfers
+2. **Keine Datenweitergabe** — ich bin gleichzeitig Verantwortlicher und Auftragsverarbeiter
+3. **Anonym by Design** — keine personenbezogenen Daten, nur Session-IDs
+4. **Einfache Löschung** — `DELETE FROM events WHERE session_id = ?`
+5. **Keine Einwilligung nötig** — anonymes Analytics braucht keine Consent-Abfrage
 
-I don't track:
-- IP addresses (only used for GeoIP lookup, not stored)
-- User agents
-- Device fingerprints
-- Cross-site tracking
-- Any personally identifiable information
+Was ich nicht tracke:
+- IP-Adressen (nur für GeoIP-Lookup, nicht gespeichert)
+- User Agents
+- Device Fingerprints
+- Cross-Site-Tracking
+- Personenbezogene Daten jeglicher Art
 
-### Merging Analytics with Signatures
+### Analytics + Signaturen
 
-The real power comes from joining analytics with signature data. Every signature has a `session_id`, so I can ask questions like:
+Die eigentliche Stärke: Joins zwischen Analytics und Signatur-Daten. Jede Signatur hat eine `session_id`, damit kann ich fragen:
 
-**Drawing Duration**: How long between opening the editor and saving?
+**Zeichendauer**: Wie lange zwischen Editor-Öffnen und Speichern?
 
 ```sql
-SELECT 
+SELECT
     s.id,
     s.name,
     (save_event.ts - open_event.ts) as duration_seconds
 FROM signatures s
-JOIN events open_event ON open_event.session_id = s.session_id 
+JOIN events open_event ON open_event.session_id = s.session_id
     AND open_event.event = 'signature_editor_open'
-JOIN events save_event ON save_event.session_id = s.session_id 
+JOIN events save_event ON save_event.session_id = s.session_id
     AND save_event.event = 'signature_saved'
 WHERE save_event.ts > open_event.ts
 ORDER BY duration_seconds DESC
 ```
 
-**Conversion Funnel**: What percentage of people who open the editor actually save?
+**Conversion Funnel**: Wie viel Prozent der Nutzer, die den Editor öffnen, speichern tatsächlich?
 
 ```sql
-SELECT 
+SELECT
     COUNT(DISTINCT CASE WHEN event = 'signature_editor_open' THEN session_id END) as opened,
     COUNT(DISTINCT CASE WHEN event = 'signature_saved' THEN session_id END) as saved
 FROM events
 ```
 
-**Engagement Metrics**: How many times did they use the eraser?
+**Radierer-Nutzung**: Wie oft wurde korrigiert?
 
 ```sql
-SELECT 
+SELECT
     s.id,
     COUNT(*) as eraser_toggles
 FROM signatures s
-JOIN events e ON e.session_id = s.session_id 
+JOIN events e ON e.session_id = s.session_id
     AND e.event = 'signature_eraser_toggled'
 WHERE e.ts BETWEEN s.ts_created - 3600 AND s.ts_created + 60
 GROUP BY s.id
 ```
 
-### Drawbacks and Trade-offs
+### Nachteile und Tradeoffs
 
-Let's be honest about the downsides:
+Ehrlich gesagt:
 
-**Manual Implementation**: I had to build everything myself. PostHog gives you dashboards, funnels, retention charts out of the box. I have SQL queries.
+**Eigenimplementierung**: Alles selbst bauen. PostHog liefert Dashboards, Funnels, Retention Charts out of the box. Ich habe SQL-Queries.
 
-**No Fancy Dashboards**: My "dashboard" is running queries in the SQLite CLI. For a personal site, this is fine. For a business, you'd want something more polished.
+**Keine Dashboards**: Mein „Dashboard" sind Queries im SQLite-CLI. Für eine persönliche Website reicht das. Für ein Unternehmen nicht.
 
-**No Real-Time**: I query data when I want to see it. There's no live dashboard showing current visitors. Again, fine for a personal site.
+**Kein Echtzeit**: Ich frage Daten ab, wenn ich sie sehen will. Kein Live-Dashboard mit aktuellen Besuchern.
 
-**Single Server Scale**: This approach doesn't scale horizontally. But for a personal site getting a few hundred visits a day, SQLite handles it effortlessly.
+**Keine horizontale Skalierung**: Aber für eine Website mit ein paar hundert Besuchen am Tag ist SQLite mühelos ausreichend.
 
-**Implementation Time**: Building this took a day. Setting up PostHog takes 10 minutes. The ROI only makes sense if you have specific requirements like mine.
+**Implementierungszeit**: Ein Tag Arbeit. PostHog einrichten dauert 10 Minuten. Der ROI stimmt nur bei spezifischen Anforderungen wie meinen.
 
-### SQLite is Fine
+### SQLite reicht
 
-I want to address the elephant in the room: "SQLite for analytics? Really?"
+„SQLite für Analytics? Wirklich?"
 
-Yes. Here's why:
+Ja.
 
-**Low Traffic**: My site gets maybe 100-500 page views per day. SQLite can handle thousands of writes per second.
+**Wenig Traffic**: 100-500 Page Views am Tag. SQLite schafft tausende Writes pro Sekunde.
 
-**WAL Mode**: Write-Ahead Logging means reads never block writes. Multiple concurrent requests are no problem.
+**WAL-Modus**: Write-Ahead Logging — Reads blockieren nie Writes. Parallele Requests kein Problem.
 
-**Single-File Backup**: `cp app.db backup.db` - done. No database server to maintain, no connection pooling to configure.
+**Single-File-Backup**: `cp app.db backup.db` — fertig. Kein Datenbankserver, kein Connection Pooling.
 
-**Query Performance**: With proper indexes, even queries over millions of rows complete in milliseconds.
+**Query-Performance**: Mit vernünftigen Indizes laufen selbst Queries über Millionen Zeilen in Millisekunden.
 
-The tech industry has overcomplicated data storage. For the vast majority of applications, SQLite is not just adequate - it's optimal.
+Die Tech-Branche hat Datenhaltung überkompliziert. Für die meisten Anwendungen ist SQLite nicht nur ausreichend — es ist optimal.
 
-### Results
+### Ergebnisse
 
-After running this for a few weeks, here are some actual numbers from my site:
+Nach einigen Wochen Betrieb, echte Zahlen:
 
-- **16.7% editor conversion rate** - people who open the editor and save a signature
-- **Average drawing time: ~13 minutes** - people really take their time
-- **Longest session: 30 minutes** - someone was very dedicated
-- **5.3 average eraser uses per drawing** - mistakes happen
+- **16,7% Editor Conversion Rate** — Nutzer die den Editor öffnen und eine Signatur speichern
+- **Durchschnittliche Zeichenzeit: ~13 Minuten** — die Leute nehmen sich Zeit
+- **Längste Session: 30 Minuten** — jemand war sehr engagiert
+- **5,3 durchschnittliche Radierer-Nutzungen pro Zeichnung** — Fehler passieren
 
-These insights would be buried in PostHog's interface. With custom analytics, they're a SQL query away.
+Diese Insights wären in PostHog's Interface vergraben. Mit eigenen Analytics sind sie eine SQL-Query entfernt.
 
-### When to Use This Approach
+### Wann eigene Analytics sinnvoll sind
 
-Custom analytics makes sense when:
+Eigene Analytics lohnen sich wenn:
+- Volle Datenhoheit gewünscht
+- Spezifische Integrationsanforderungen bestehen
+- SQL kein Problem ist
+- Traffic moderat ist (unter 10k täglich)
+- Keine Echtzeit-Dashboards nötig sind
 
-- You want full data ownership
-- You have specific integration requirements
-- You're comfortable with SQL
-- Your traffic is moderate (sub-10k daily)
-- You don't need real-time dashboards
+PostHog/Plausible/etc. sind besser wenn:
+- Ein Team Dashboards braucht
+- Plug-and-Play gewünscht ist
+- Features wie Session Replay oder A/B Testing nötig sind
+- Millionen Events anfallen
+- Kein Code gewartet werden soll
 
-Stick with PostHog/Plausible/etc when:
-
-- You need a team to access dashboards
-- You want plug-and-play setup
-- You need advanced features (session replay, A/B testing)
-- You're scaling to millions of events
-- You don't want to maintain code
-
-For my personal site, the custom approach is perfect. Full control, zero cost, and exactly the features I need.
+Für meine persönliche Website ist der eigene Ansatz perfekt. Volle Kontrolle, null Zusatzkosten, genau die Features die ich brauche.

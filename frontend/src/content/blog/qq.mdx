@@ -1,0 +1,142 @@
+---
+title: "qq: Ein Query-Tool für alles"
+subtitle: PostgreSQL, DuckDB, Azure Blob Storage und 3D-Exporte in einem CLI
+slug: qq
+date: 2026-02-10
+tags:
+  - rust
+  - cli
+  - geospatial
+  - duckdb
+  - postgres
+published: true
+preview: Ein einziges CLI-Tool für SQL-Queries über PostgreSQL, DuckDB, lokale Dateien und Azure Blob Storage — mit automatischer Engine-Erkennung, interaktiven Karten und 3D-Modellexport.
+---
+
+Im Geodaten-Alltag wechselt man ständig zwischen Tools. pgAdmin für Postgres, DBeaver für DuckDB, QGIS für Karten, Blender für 3D. Jeder Kontextwechsel kostet Zeit. **qq** eliminiert das: ein einziges CLI für Queries, Visualisierung und Export.
+
+### Das Problem
+
+Als Geospatial Data Engineer arbeite ich täglich mit:
+- PostgreSQL/PostGIS für die Produktionsdaten
+- DuckDB für lokale Analysen und Parquet-Dateien
+- Azure Blob Storage für große Geodatensätze
+- 3D-Gebäudemodelle (CityGML/CityJSON) die in Blender oder ArchiCAD landen müssen
+
+Für jede Kombination braucht man ein anderes Tool, andere Auth, andere Exportpipeline. qq macht das überflüssig.
+
+### Automatische Engine-Erkennung
+
+qq entscheidet selbst, welche Engine eine Query braucht:
+
+```bash
+# Geht automatisch an PostgreSQL
+qq query "SELECT * FROM dwh.buildings LIMIT 10"
+
+# Erkennt Dateireferenz → DuckDB
+qq query "SELECT * FROM read_parquet('data.parquet')"
+
+# Erkennt Azure Blob URL → DuckDB mit Azure Extension
+qq query "SELECT * FROM read_parquet('az://container/surfaces.parquet')"
+```
+
+Die Erkennung analysiert den SQL-Text: Dateiendungen (`.parquet`, `.csv`, `.ndjson`), Blob-URLs (`az://`, `s3://`) und DuckDB-spezifische Funktionen (`read_parquet()`, `read_csv_auto()`) triggern DuckDB. Alles andere geht an Postgres.
+
+Cross-Source-Joins funktionieren ebenfalls — DuckDB attached die Postgres-Datenbank als read-only und ermöglicht Queries wie:
+
+```bash
+qq query "
+  SELECT s.gmlid, s.geom, b.height
+  FROM read_parquet('az://container/surfaces.parquet') s
+  JOIN pg.dwh.buildings b ON s.gmlid = b.gmlid
+  LIMIT 100
+" -o html -O
+```
+
+### Ausgabeformate
+
+Tabellarische Ausgabe ist der Default. Aber die eigentliche Stärke liegt in den Geo-Exports:
+
+**Interaktive Karten** (`-o html`): Ergebnisse mit Geometriespalten werden als GeoParquet in eine MapLibre-GL-Karte eingebettet. ZSTD-komprimiert, Base64-kodiert, JavaScript via oxc minifiziert. Eine einzige HTML-Datei, die man direkt öffnen oder verschicken kann.
+
+**3D-Modelle** (`-o obj`, `-o gltf`, `-o dxf`):
+- **OBJ** → öffnet direkt in Blender
+- **glTF/GLB** → farbkodiert nach Gebäudetyp, für Web-Viewer und 3D-Engines
+- **DXF** → öffnet direkt in ArchiCAD, mit XData-Metadaten pro Fläche
+
+Die 3D-Pipeline parst WKB (Well-Known Binary) direkt aus den Query-Ergebnissen, erkennt automatisch ob WGS84 (Grad) oder projizierte Koordinaten (Meter) vorliegen, und transformiert entsprechend:
+
+```rust
+let is_wgs84 = center_x.abs() <= 180.0 && center_y.abs() <= 90.0;
+let (scale_x, scale_y) = if is_wgs84 {
+    let lat_rad = center_y.to_radians();
+    (111_320.0 * lat_rad.cos(), 111_320.0)
+} else {
+    (1.0, 1.0)
+};
+```
+
+`qq query "..." -o obj -O` reicht — Blender wird automatisch gefunden und gestartet.
+
+### Der diff-Befehl
+
+Datenmigration und ETL-Pipelines brauchen Validierung. `qq diff` vergleicht Tabellen zeilenweise:
+
+```bash
+# Zwei Tabellen vergleichen
+qq diff dwh.buildings_v1 dwh.buildings_v2 -b gmlid
+
+# Spaltenstatistiken vergleichen
+qq diff "dwh.buildings_v1#height" "dwh.buildings_v2#height" -b gmlid
+
+# Multi-Source: Parquet vs. Postgres vs. Referenztabelle
+qq diff local.parquet dwh.buildings ref.buildings -b gmlid -g schema_clean
+```
+
+Output ist eine Summary-Tabelle mit Counts (hinzugefügt, entfernt, geändert, unverändert) plus Unicode-Sparklines für numerische Verteilungen. Funktioniert über alle Quellen hinweg — Dateien, Blob Storage, Datenbanken.
+
+### Azure AD & Credential Management
+
+Enterprise-Umgebungen brauchen Azure AD Auth. qq implementiert den Device Code Flow mit Keychain-Caching:
+
+1. Erster Login: Browser öffnet sich, Token wird im OS-Keychain gespeichert
+2. Folge-Queries: Refresh Token aus dem Keychain, kein Browser nötig
+3. Dual-Scope: Separate Tokens für PostgreSQL (`ossrdbms-aad`) und Blob Storage (`storage.azure.com`)
+
+Kein manuelles Token-Management, kein Ablauf-Stress.
+
+### Introspection
+
+```bash
+# Alle Tabellen und Schemas auflisten
+qq table list
+
+# Spalten einer Tabelle anzeigen
+qq table show dwh.buildings
+
+# Schema einer lokalen Datei inspizieren (kein DB nötig)
+qq file schema data.parquet
+
+# Laufende Postgres-Prozesse
+qq process list
+```
+
+### Tech Stack
+
+- **Rust** mit Tokio für async I/O
+- **DuckDB 1.4** (bundled) mit Spatial, Azure und Postgres Extensions
+- **tokio-postgres** mit nativer TLS
+- **clap** für CLI-Parsing
+- **Apache Arrow** für GeoParquet-Export
+- **oxc** für JavaScript-Minifizierung der Karten-Viewer
+- **keyring** für OS-natives Credential-Caching
+
+### Warum nicht bestehende Tools?
+
+**pgcli/usql**: Gute SQL-CLIs, aber kein Geo-Export, kein Cross-Source, kein Azure AD.
+
+**QGIS**: Mächtig, aber Overkill wenn man nur schnell eine Query auf einer Karte sehen will. Und kein Terminal.
+
+**DBeaver**: GUI, langsam, keine 3D-Pipeline, kein diff.
+
+qq ist kein Ersatz für diese Tools. Es ist das Bindeglied, das den Weg von der Query zum Ergebnis auf Sekunden verkürzt — egal ob Tabelle, Karte oder 3D-Modell.

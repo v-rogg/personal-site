@@ -1,0 +1,134 @@
+---
+title: "azout: Azure-Datenprodukte im Terminal"
+subtitle: Ein Ratatui-TUI für das Monitoring von Pipelines, Spark Pools und mehr
+slug: azout
+date: 2026-02-18
+tags:
+  - rust
+  - cli
+  - azure
+  - tui
+  - monitoring
+published: true
+preview: Warum ich das Azure Portal für das Monitoring unserer Datenprodukte durch ein Rust-TUI ersetzt habe — mit Echtzeit-Updates, Desktop-Notifications und Spark-Pool-Überwachung.
+---
+
+Das Azure Portal ist langsam. Drei Klicks bis zur Pipeline-Übersicht, fünf bis zu den Activity-Details, und bei jedem Refresh lädt die gesamte Seite neu. Bei 20+ Pipeline-Runs pro Tag wird das zum Produktivitätskiller. **azout** löst das: ein Terminal-UI das alle Azure-Datenprodukte auf einen Blick zeigt — Synapse Pipelines, Spark Pools, Azure DevOps Integration, und perspektivisch Container Apps und Functions.
+
+### Was azout zeigt
+
+Das TUI hat zwei Hauptbereiche:
+
+**Pipeline-Tabelle**: Alle Runs der letzten N Stunden — Name, Status (farbkodiert), Dauer, Start/Ende, Bundesland-Kürzel (extrahiert aus den Pipeline-Parametern). Filtert nach Status (Running/Succeeded/Failed/Cancelled), durchsucht Pipeline-Namen und Parameter-JSON, sortiert nach 10 verschiedenen Spalten.
+
+**Spark-Pool-Panel**: Kapazität (vCores/Memory), aktive Sessions und Batches, Auto-Scale-Konfiguration, Auslastung in Prozent. Die Metriken kommen direkt aus Azure Monitor — nicht nur statische Pool-Config, sondern tatsächlich allokierte Ressourcen.
+
+### Non-Blocking Architecture
+
+Das Kernproblem bei TUI-Tools: API-Calls dauern Sekunden. Wenn das UI dabei einfriert, ist das Tool wertlos. azout löst das mit einer strikten Trennung:
+
+```rust
+// Background-Task für API-Calls
+let tx = result_tx.clone();
+let synapse = synapse.clone();
+tokio::spawn(async move {
+    let (runs, pools) = tokio::join!(
+        synapse.list_pipeline_runs(hours),
+        synapse.fetch_spark_pool_status()
+    );
+    let _ = tx.send(BackgroundResult::Refresh { runs, pools }).await;
+});
+```
+
+Alle API-Calls laufen in Tokio-Tasks. Die Event Loop bleibt frei für Keyboard-Input und Rendering. Ein animierter Spinner zeigt den Ladezustand. Navigation, Filterung und Sortierung funktionieren auch während des Ladens.
+
+Pending-Operations werden getrackt um doppelte Requests zu vermeiden:
+
+```rust
+pub pending_activity_load: Option<(String, String)>,
+pub pending_spark_jobs_load: Option<String>,
+pub pending_cancel: Option<String>,
+```
+
+### State Machine statt Spaghetti
+
+Jeder Screen ist ein expliziter App-Modus:
+
+```rust
+pub enum AppMode {
+    Normal,              // Pipeline-Tabelle
+    Filter,              // Textsuche
+    Help,                // Hilfe-Popup
+    ActivityView,        // Drill-Down in Pipeline-Activities
+    HistoryComparison,   // Laufzeit-Vergleich über Runs
+    SparkJobsView,       // Spark Sessions/Batches
+}
+```
+
+Jeder Modus hat einen dedizierten Event-Handler. Kein verschachteltes if/else, kein globaler State der sich gegenseitig beeinflusst.
+
+### Desktop Notifications
+
+azout benachrichtigt per Desktop-Notification wenn Pipelines fertig werden — aber intelligent:
+
+- Nur Pipelines die **nach App-Start** begonnen haben lösen Notifications aus
+- `HashSet<run_id>` verhindert Duplikate
+- Fast-Finish-Erkennung: Pipelines die innerhalb eines Refresh-Zyklus (30s) starten und enden werden trotzdem erkannt
+- Separat konfigurierbar für Success und Failure
+
+Das klingt trivial, war es aber nicht. Ohne Launch-Time-Tracking kamen beim Erweitern des Zeitfensters (z.B. von 24h auf 48h) falsche Notifications für alte Runs.
+
+### Drill-Down: Activities und History
+
+**Enter** auf einem Run zeigt alle Activities — die einzelnen Schritte einer Pipeline. Typ (DataFlow, Copy, ExecutePipeline), Status, Dauer, Fehlermeldungen. Pagination via Continuation Tokens für große Pipelines.
+
+**Space** zeigt den Laufzeit-Verlauf: alle Runs derselben Pipeline, sortiert nach Startzeit, mit Duration-Deltas. Sofort sichtbar ob ein Run langsamer wurde.
+
+**o** öffnet den Run direkt im Azure Portal — die korrekte Workspace-URL wird automatisch zusammengebaut.
+
+### Bundesland-Erkennung
+
+Unsere Pipelines verarbeiten Geodaten pro Bundesland. azout extrahiert das Kürzel aus den Pipeline-Parametern und färbt es ein:
+
+```rust
+"bayern" | "bavaria" => Some(("BY", Color::Rgb(0, 125, 182))),
+"mecklenburg-vorpommern" | "mecklenburg vorpommern"
+| "mecklenburg_vorpommern"
+| "mecklenburg-western pomerania" => Some(("MV", Color::Rgb(0, 85, 164))),
+```
+
+Alle 16 Bundesländer mit Varianten (Bindestriche, Unterstriche, Leerzeichen, englische Namen). Auf einen Blick sichtbar welches Bundesland gerade läuft.
+
+### Keyboard-First
+
+```
+j/k oder Pfeile    Navigation
+/                   Filter
+Tab                 Status-Filter wechseln
+s                   Sortierung wechseln
+Enter               Activity-Details / Spark-Jobs
+Space               Laufzeit-Vergleich
+c                   Pipeline abbrechen
+R                   Manueller Refresh
+a                   Auto-Refresh togglen
+n                   Notifications togglen
+b                   Spark-Panel ein/ausblenden
+`                   Fokus zwischen Panels wechseln
++/-                 Zeitfenster anpassen
+o                   Im Browser öffnen
+```
+
+### Tech Stack
+
+- **Rust** mit Tokio (async, multi-threaded)
+- **Ratatui** für das Terminal-UI
+- **Azure SDK** (`azure_identity`, `azure_core`) mit DefaultAzureCredential
+- **Crossterm** für Terminal-Kontrolle
+- **notify-rust** für Desktop-Notifications
+- **rusqlite** (bundled) für lokale History
+
+### Was es spart
+
+Vorher: Azure Portal öffnen, zur Synapse-Instanz navigieren, Monitor-Tab, Pipeline-Runs filtern, auf einen Run klicken, Activities laden. Pro Check ~30 Sekunden, 20x am Tag = 10 Minuten reines Warten.
+
+Jetzt: Terminal ist offen, azout läuft. Alles auf einen Blick, Auto-Refresh alle 30 Sekunden, Notification wenn etwas fertig wird oder fehlschlägt. Die eingesparte Zeit summiert sich.

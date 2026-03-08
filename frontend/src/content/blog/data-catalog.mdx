@@ -1,0 +1,152 @@
+---
+title: Datenkatalog als Code
+subtitle: Markdown als Single Source of Truth für Datenprodukte — mit PDF-Export, Confluence und JSON
+slug: data-catalog
+date: 2026-03-08
+tags:
+  - python
+  - data-engineering
+  - documentation
+  - pdf
+published: true
+preview: Wie wir bei credium einen Datenkatalog gebaut haben, der aus strukturierten Markdown-Dateien automatisch PDFs, Confluence-Seiten und JSON generiert — mit eigenem Parser, zweisprachigem Rendering und Datenlineage.
+---
+
+Datenkataloge werden oft in Wikis gepflegt. Das Problem: Wikis sind keine Versionskontrolle, haben keine Validierung, und die Inhalte divergieren schnell von der Realität. Unser Ansatz bei credium: der Katalog lebt als **Markdown-Dateien im Git-Repository** — strukturiert, versioniert, und automatisch in alle Zielformate exportiert.
+
+### Die Idee
+
+Jedes Datenprodukt, jede Dimension, jede Quelle und jedes Attribut wird als einzelne Markdown-Datei beschrieben. Diese Dateien folgen einem definierten Schema mit YAML-Metadaten, zweisprachigen Inhaltsblöcken und Datenlineage-Referenzen. Ein CLI-Tool parst, validiert und exportiert diese Dateien nach Confluence, JSON und PDF.
+
+Eine Produktdatei sieht so aus:
+
+```markdown
+| 2026-02-27 | Add version history table |
+| 2026-01-15 | Initial creation |
+---
+
+**Pipeline:** [buildings_etl](https://dev.azure.com/...)
+**Product:** [Buildings](https://app.credium.de/...)
+
+[[EN]]
+[name] Buildings
+[short] Enriched building dataset for Germany
+[long] Contains classified building types, wall areas,
+and dimensional attributes for every building in Germany.
+
+[[DE]]
+[name] Gebäude
+[short] Angereicherter Gebäudedatensatz für Deutschland
+[long] Enthält klassifizierte Gebäudetypen, Wandflächen
+und dimensionale Attribute für jedes Gebäude in Deutschland.
+
+## Attributes
+
+### building_type
+T: string
+L: dimension
+-> [building_type @ BuildingType](dimensions/building_type.md)
+
+[[EN]]
+[short] Classification of the building
+[[DE]]
+[short] Klassifikation des Gebäudes
+```
+
+### Eigener Markdown-Parser
+
+Standardbibliotheken können unsere Syntax nicht parsen — Sprachblöcke (`[[EN]]`/`[[DE]]`), Lineage-Pfeile (`->`, `<-`), YAML-Metadaten in Attributen, Obsidian-Kommentare (`%%...%%`). Also haben wir einen eigenen Parser gebaut.
+
+Zwei Phasen:
+1. **Block-Level** — Zeilenweiser State-Machine-Parser für Absätze, Listen, Tabellen, Code-Blöcke, Callouts und Bilder
+2. **Inline-Level** — Regex-basiert mit Prioritätsordnung für Bold, Italic, Links, Code, Sub/Superscript
+
+Das Ergebnis ist ein sauberer AST aus `BlockNode` und `InlineNode` Dataclasses. Derselbe AST wird von drei Renderern konsumiert:
+
+- **HTMLRenderer** → für PDF-Generierung
+- **ADFRenderer** → für Confluence (Atlassian Document Format)
+- **JSON** → direkte Serialisierung der Datenmodelle
+
+### PDF-Export mit CSS Paged Media
+
+Der PDF-Export war die größte Herausforderung. Das Ziel: professionelle, gebrandete Dokumentation die man an Kunden schicken kann.
+
+Die Pipeline: Markdown → AST → HTML → PDF (via WeasyPrint).
+
+**Cover Page** — Dunkelblaue Seite mit eingebettetem SVG-Logo, Koordinaten und Datum. `@page :first` entfernt Header und Footer.
+
+**Running Headers/Footers** — CSS `position: running()` und `@page`-Margin-Boxes:
+```css
+@page {
+    @bottom-left { content: element(footer-left); }
+    @bottom-right { content: element(footer-right); }
+    @top-right { content: element(header-right); }
+}
+```
+Der Sektionsname wird per `string-set` gesetzt und erscheint automatisch im Footer jeder Seite.
+
+**Inhaltsverzeichnis** — Automatische Seitenzahlen über `target-counter(attr(href url), page)`. WeasyPrint löst die Referenzen während der PDF-Generierung auf.
+
+**Zweisprachiges Layout** — Englisch und Deutsch nebeneinander in einem `display: table` / `table-cell`-Layout bei je 50% Breite.
+
+**Lokale Bilder** — Werden als Base64 Data-URIs eingebettet. Das PDF ist komplett eigenständig, keine externen Abhängigkeiten.
+
+### Attribut-Vererbung
+
+90+ Dimensionsdateien teilen sich viele Attribute. Statt Copy-Paste nutzen wir Vererbung:
+
+```markdown
+### height
+[$metadata](shared/building_attributes.md)
+
+-> [height @ HeightModel](dimensions/height_model.md)
+```
+
+`[$metadata]` importiert YAML-Metadaten und Beschreibungen aus der referenzierten Datei. Das Attribut definiert nur noch seine eigene Lineage. Änderungen an der Quelle propagieren automatisch.
+
+### Datenlineage und Abhängigkeiten
+
+Die `->` und `<-` Pfeile in Attributen definieren die Datenherkunft:
+
+```markdown
+-> [building_type @ BuildingType](dimensions/building_type.md)
+<- [api_buildings @ BuildingsAPI](products/api_buildings.md)
+```
+
+Der `DependencySorter` nutzt Kahn's Algorithmus für topologische Sortierung — Dimensionen werden vor den Produkten hochgeladen, die sie referenzieren. Zirkuläre Abhängigkeiten werden per DFS erkannt und gemeldet.
+
+### Linting und Validierung
+
+Template-Dateien definieren die erwartete Struktur pro Typ (Produkt, Dimension, Quelle). Der Linter prüft:
+
+- Pflichtfelder vorhanden (Name, Short-Description in beiden Sprachen)
+- Versionstabelle gepflegt
+- Attribut-Metadaten vollständig
+- Lineage-Referenzen auflösbar
+- Keine Obsidian-Kommentare in externen Exporten
+
+Der Linter läuft als Pre-Commit-Hook und in der CI/CD-Pipeline.
+
+### CI/CD
+
+Bei jedem Merge auf `main`:
+1. Geänderte Dateien erkennen (Git Diff)
+2. Confluence-Seiten aktualisieren (inkl. Umbenennung und Löschung)
+3. JSON exportieren
+4. PDF generieren
+5. Medien nach Azure Blob Storage hochladen
+6. Dependency-Graphen als Mermaid-Diagramme generieren
+
+### Internes vs. Externes
+
+`%%Interne Notiz%%` — Obsidian-Style-Kommentare die im internen Modus sichtbar sind, aber bei externen Exporten automatisch entfernt werden. Damit können Teams interne Kontextinformationen direkt neben der offiziellen Dokumentation pflegen.
+
+### Tech Stack
+
+- **Python** mit Click für das CLI
+- **WeasyPrint** für PDF-Rendering via CSS Paged Media
+- **Eigener Markdown-Parser** (Block + Inline, zwei Renderer)
+- **Azure DevOps Pipelines** für CI/CD
+- **Confluence REST API** + ADF für Wiki-Export
+- **Azure Blob Storage** für Medien
+- **uv** als Paketmanager

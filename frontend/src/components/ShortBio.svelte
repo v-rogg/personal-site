@@ -8,21 +8,18 @@ let { cls }: { cls?: string } = $props();
 	<div class="flex min-h-128 flex-col justify-between px-10 py-10">
 		<div>
 			<h1 class="relative mb-4 flex w-fit flex-wrap items-end gap-2 text-left font-sans text-4xl font-semibold">
-				Valentin Rogg<span class="relative bottom-0.5 text-sm">M.A. B.Sc.</span>
+				Valentin Rogg
 			</h1>
 			<p class="text-justify text-black" lang="de">
-				Hey, ich bin Valentin. Als studierter <b>Software Engineer</b> und <b>Digital Product Designer</b> spezialisiere ich mich auf die Konzeption,
-				Umsetzung und Vermarktung von digitalen Produkten, Services und hardware&shy;basierter Sensor&shy;technologie. Mein Fokus liegt dabei vor allem
-				auf Themen der auto&shy;matisierten Daten&shy;analyse und interaktiven Visualisierung. Außerdem liegen meine Stärken im Management und
-				Marketing. Aktuell arbeite ich als <b>Data Engineer</b> bei
+				<b>Geospatial Data Engineer</b> bei
 				<a href="https://credium.de" target="_blank" rel="noopener noreferrer" class="underline">credium</a>.
-				<br /><br />Privat bin ich leidenschaftlicher <a href="https://singtonic.net" target="_blank" rel="noopener noreferrer" class="underline">Musiker</a> und
+				Daten&shy;infra&shy;struktur, Tooling und Geo&shy;visualisierungen in Rust, Python und Spark.
+				Nebenbei <a href="https://singtonic.net" target="_blank" rel="noopener noreferrer" class="underline">Acapella-Gesang</a> und
 				<a
 					href="https://anmeldung.sport.uni-augsburg.de/angebote/aktueller_zeitraum/_Kleine_Spiele.html"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="underline">Sportkursleiter</a
-				>.
+					class="underline">Sport</a>.
 			</p>
 		</div>
 		<Socials />

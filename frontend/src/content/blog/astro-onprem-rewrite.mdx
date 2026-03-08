@@ -1,6 +1,6 @@
 ---
-title: Rewriting My Personal Site
-subtitle: From Cloudflare to Self-Hosted with AI
+title: Meine Website neu gebaut
+subtitle: Von Cloudflare zu Self-Hosted mit KI
 slug: astro-onprem-rewrite
 date: 2026-01-26
 tags:
@@ -10,114 +10,105 @@ tags:
   - hetzner
   - ai
 published: true
-preview: How I migrated from SvelteKit + Cloudflare Workers to Astro + Rust on a Hetzner VPS, with AI assistance from Claude Code.
+preview: Wie ich von SvelteKit + Cloudflare Workers zu Astro + Rust auf einem Hetzner VPS migriert bin — mit KI-Unterstützung durch Claude Code.
 ---
 
-After running my personal site on Cloudflare's edge infrastructure for over a year, I decided to rewrite everything and move to a self-hosted setup. This post documents the journey, the technical decisions, and what it's like to build with AI assistance.
+Nach über einem Jahr auf Cloudflare's Edge-Infrastruktur habe ich meine persönliche Website komplett neu geschrieben und auf einen eigenen Server umgezogen.
 
-### Why Rewrite?
+### Warum der Umbau?
 
-The old setup worked fine, but several factors pushed me toward a rewrite:
+**Datenhoheit (DSGVO)**: Mit Cloudflare Workers und D1 lagen meine Daten global verteilt. Auf einem deutschen Hetzner VPS habe ich volle Kontrolle über den Speicherort.
 
-**Data Residency (GDPR)**: With Cloudflare Workers and D1, my data was distributed globally. While convenient, this created GDPR compliance headaches. Having everything on a German Hetzner VPS means full control over where data lives.
+**Komplexität**: Die alte Architektur bestand aus SvelteKit für das Frontend, Cloudflare Pages fürs Hosting, zwei separaten Workers (Signaturen und Analytics) und D1 als Datenbank. Viele bewegliche Teile für eine persönliche Website.
 
-**Complexity**: The old architecture involved SvelteKit for the frontend, Cloudflare Pages for hosting, two separate Workers (one for signatures, one for analytics), and D1 for the database. That's a lot of moving parts for a personal site.
+**Kosten**: Cloudflare's Free-Tier ist großzügig, aber ich näherte mich den D1-Limits. Ein Hetzner VPS für 4 EUR/Monat bietet mehr Ressourcen bei planbaren Kosten.
 
-**Cost**: While Cloudflare's free tier is generous, I was approaching limits on D1 reads. A 4 EUR/month Hetzner VPS gives me far more resources with predictable pricing.
+**Lernen**: Ich wollte meine Rust-Backend-Kenntnisse vertiefen und Astro's Content-Ansatz ausprobieren.
 
-**Learning**: I wanted to deepen my Rust backend skills and try Astro's content-focused approach.
-
-### The Old Architecture
+### Alte Architektur
 
 ```
 SvelteKit Frontend
     └── Cloudflare Pages
-    └── PostHog Analytics (third-party)
+    └── PostHog Analytics (Third-Party)
 
 Cloudflare Worker: signatures-rs (Rust)
-    └── D1 Database (signatures, users)
+    └── D1 Database (Signaturen, Nutzer)
 
 Cloudflare Worker: analytics-rs (Rust)
-    └── D1 Database (events, sessions)
+    └── D1 Database (Events, Sessions)
 ```
 
-This worked, but debugging across Workers was painful, and the cold start times were noticeable for Rust Workers.
+Funktionierte, aber Debugging über mehrere Workers war mühsam, und die Cold-Start-Zeiten bei Rust Workers spürbar.
 
-### The New Architecture
+### Neue Architektur
 
 ```
-Astro Frontend (with Svelte islands)
-    └── Docker container
-    └── Built-in analytics client
+Astro Frontend (mit Svelte Islands)
+    └── Docker Container
+    └── Eigener Analytics-Client
 
 Rust API (Axum)
-    └── Docker container
-    └── SQLite database (WAL mode)
-    └── In-memory signature cache
+    └── Docker Container
+    └── SQLite (WAL-Modus)
+    └── In-Memory Signatur-Cache
 
 Caddy
-    └── Automatic HTTPS
-    └── Reverse proxy
+    └── Automatisches HTTPS
+    └── Reverse Proxy
 
-Hetzner VPS (4 EUR/month)
+Hetzner VPS (4 EUR/Monat)
     └── Docker Compose
-    └── CrowdSec for security
+    └── CrowdSec für Sicherheit
 ```
 
-Everything runs on a single VPS. The Astro frontend makes server-side API calls to the Rust backend, and client-side JavaScript handles tracking and interactive features.
+Alles läuft auf einem einzigen VPS. Das Astro-Frontend macht serverseitige API-Calls an das Rust-Backend, clientseitiges JavaScript übernimmt Tracking und interaktive Features.
 
-### AI-Assisted Development
+### KI-gestützte Entwicklung
 
-This rewrite was done almost entirely with Claude Code. Here's what worked well:
+Der Umbau lief fast vollständig mit Claude Code. Was gut funktioniert hat:
 
-**Schema Migrations**: Claude helped translate D1 schemas to SQLite, handle the data export/import, and update column types (like changing timestamp formats).
+**Schema-Migrationen**: Claude hat D1-Schemas nach SQLite übersetzt, den Datenexport/-import übernommen und Spaltentypen angepasst.
 
-**Incremental Progress**: We worked in focused sessions - first the backend API, then the frontend port, then analytics migration. Having the AI maintain context across a complex codebase was invaluable.
+**Inkrementeller Fortschritt**: Wir haben in fokussierten Sessions gearbeitet — erst die Backend-API, dann der Frontend-Port, dann die Analytics-Migration. Dass die KI den Kontext über eine komplexe Codebasis halten konnte, war extrem wertvoll.
 
-**Debugging**: When the signature carousel wasn't loading correctly, Claude traced through the SSR data flow to find where props weren't being passed correctly.
+**Debugging**: Als das Signatur-Karussell nicht korrekt lud, hat Claude den SSR-Datenfluss durchgearbeitet und gefunden, wo Props nicht weitergereicht wurden.
 
-**Code Review**: The AI caught several issues I would have missed - like not compressing signature data on updates, or cache invalidation edge cases.
+Was weniger gut lief:
 
-What didn't work as well:
+**Over-Engineering**: Die KI schlug manchmal mehr Abstraktion vor als nötig. Ich musste explizit einfachere Lösungen einfordern.
 
-**Over-engineering**: The AI sometimes suggested more abstraction than needed. I had to explicitly request simpler solutions.
+**Kontextlimits**: Sehr lange Sessions verloren manchmal wichtigen Kontext. Neue Sessions mit klarer Zusammenfassung halfen.
 
-**Context Limits**: Very long sessions would sometimes lose important context. Starting fresh sessions with a clear summary helped.
+### Technische Entscheidungen
 
-### Technical Decisions
+**Warum Astro?** Content Collections und MDX-Support sind perfekt für einen Blog. Die Island-Architektur erlaubt Svelte für interaktive Komponenten (Signatur-Editor, Karussell) bei ansonsten statischen Seiten.
 
-**Why Astro?** Astro's content collections and MDX support are perfect for a blog. The island architecture means I can use Svelte for interactive components (signature editor, carousel) while keeping the rest static.
+**Warum Rust?** Typsicherheit, Performance und das Axum-Framework. SQLx bietet Compile-Time-geprüfte Queries. Das resultierende Binary ist winzig und startet sofort.
 
-**Why Rust for the Backend?** Type safety, performance, and the excellent Axum framework. SQLx provides compile-time checked queries. The resulting binary is tiny and starts instantly.
+**Warum SQLite?** Für eine persönliche Website mit wenig Traffic bewältigt SQLite im WAL-Modus gleichzeitige Lese-/Schreibzugriffe problemlos. Single-File-Backups, kein Datenbankserver, schnelle Queries.
 
-**Why SQLite?** For a personal site with low traffic, SQLite in WAL mode handles concurrent reads/writes perfectly. Single-file backups, no database server to maintain, and blazing fast queries.
+### Herausforderungen
 
-### Challenges
+**PostHog-Migration**: 15.000 Events aus PostHog exportieren und für SQLite umformatieren erforderte sorgfältiges Timestamp-Handling und Session-Rekonstruktion.
 
-**PostHog Migration**: Exporting 15,000 events from PostHog and reformatting them for SQLite required careful timestamp handling and session reconstruction.
+**Signatur-Caching**: Der In-Memory-Cache brauchte durchdachte Invalidierungslogik. Wird eine Signatur freigegeben, abgelehnt oder bearbeitet, muss der Cache korrekt aktualisiert werden — ohne vollständigen Reload.
 
-**Signature Caching**: The in-memory cache needed careful invalidation logic. When a signature is approved, rejected, or edited, the cache must update correctly without a full reload.
+**Session-Management**: Anonymes Session-Tracking ohne Cookies erfordert stabile Client-seitige Session-IDs und die Behandlung von Sessions, die aus mehreren Quellen entstehen (Page View vs. Signatur-Speichern).
 
-**Session Management**: Anonymous session tracking without cookies requires generating stable session IDs client-side and handling the case where sessions get created from multiple sources (page view vs signature save).
+### Ergebnis
 
-### Results
+Die Migration hat etwa zwei Wochen Abendarbeit gedauert:
 
-The migration took about two weeks of evening work. The results:
+- **Einfacher**: Eine Codebasis, eine Datenbank, ein Server
+- **Schneller**: Keine Cold Starts, API-Antworten unter 50ms
+- **Günstiger**: 4 EUR/Monat statt Paid-Tier-Annäherung
+- **Privat**: Alle Daten auf deutschen Servern
+- **Wartbar**: Standard-Docker-Deployment, einfache Backups
 
-- **Simpler**: One codebase, one database, one server
-- **Faster**: No cold starts, sub-50ms API responses
-- **Cheaper**: 4 EUR/month vs approaching paid tiers
-- **Private**: All data on German servers
-- **Maintainable**: Standard Docker deployment, easy backups
+### Fazit
 
-### Lessons Learned
-
-1. **Edge isn't always better**: For a personal site, a simple VPS beats distributed infrastructure.
-
-2. **AI assistance is transformative**: Claude Code handled 80% of the routine work, letting me focus on architecture decisions.
-
-3. **Start simple**: The temptation to over-engineer is real. A Rust API with SQLite is plenty for most use cases.
-
-4. **Own your data**: Self-hosting means full control. No third-party analytics, no vendor lock-in.
-
-The source code is available on my GitHub. Feel free to use it as a reference for your own Astro + Rust projects.
+1. **Edge ist nicht immer besser**: Für eine persönliche Website schlägt ein einfacher VPS verteilte Infrastruktur.
+2. **KI-Unterstützung ist transformativ**: Claude Code hat ~80% der Routinearbeit übernommen.
+3. **Einfach anfangen**: Ein Rust-API mit SQLite reicht für die meisten Anwendungsfälle.
+4. **Daten selbst hosten**: Self-Hosting bedeutet volle Kontrolle. Kein Third-Party-Analytics, kein Vendor Lock-in.

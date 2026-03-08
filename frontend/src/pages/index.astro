@@ -3,9 +3,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Signatures from "../components/Signatures.svelte";
 import ShortBio from "../components/ShortBio.svelte";
 import SendRequest from "../components/SendRequest.svelte";
-import Analytics from "../components/Analytics/Analytics.svelte";
+import GeoViewer from "../components/GeoViewer.svelte";
 import Blog from "../components/Blog/Blog.svelte";
-import { getSignaturesWithFirstData, getStats } from "../lib/api.server";
+import { getSignaturesWithFirstData } from "../lib/api.server";
 import { getCollection } from "astro:content";
 
 // Server-side data fetching
@@ -14,22 +14,18 @@ const { signatures, preloadedSignatures, autoplay } = await getSignaturesWithFir
 	requestedSignature,
 	5 // Preload first 5 signatures for smooth initial experience
 );
-const stats = await getStats(180);
 
-// Get blog posts from content collection
+// Get blog posts from content collection - only published
 const allPosts = await getCollection("blog");
-const isProduction = import.meta.env.PROD;
-
-// Filter and sort blog posts
 const blogPosts = allPosts
-	.filter((post) => !isProduction || post.data.published)
+	.filter((post) => post.data.published)
 	.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 // Extract all unique tags
 const allTags = [...new Set(blogPosts.flatMap((post) => post.data.tags || []))];
 
 const title = "Valentin Rogg";
-const description = "Als studierter Entwickler und Digital Product Designer spezialisiere ich mich auf die Konzeption, Umsetzung und Vermarktung von digitalen Produkten, Services und hardwarebasierter Sensortechnologie. Mein Fokus liegt dabei vor allem auf Themen der automatisierten Datenanalyse und interaktiven Visualisierung. Außerdem liegen meine Stärken im Management und Marketing. Privat bin ich Sportkursleiter und leidenschaftlicher Musiker.";
+const description = "Geospatial Data Engineer. Dateninfrastruktur, Tooling und interaktive Visualisierung.";
 ---
 
 <BaseLayout title={title} description={description}>
@@ -45,9 +41,7 @@ const description = "Als studierter Entwickler und Digital Product Designer spez
 			<SendRequest client:visible cls="xl:col-span-4" />
 		</div>
 
-		{stats && (
-			<Analytics client:visible stats={stats} />
-		)}
+		<GeoViewer client:visible />
 
 		{blogPosts.length > 0 && (
 			<Blog client:visible blog={blogPosts} tags={allTags} />

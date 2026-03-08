@@ -76,9 +76,9 @@ async function handleSubmit(e: Event) {
 </script>
 
 <section class="flex min-h-128 flex-col bg-black p-8 text-white-500 sm:rounded-2xl {cls}">
-	<h3 class="text-balance text-center text-3xl font-medium">
-		Du hast eine Idee für ein spannendes neue Website, Projekt oder Service?
-	</h3>
+	<!-- <h3 class="text-balance text-center text-3xl font-medium">
+		Schreib mir.
+	</h3> -->
 	<form
 		out:scale={{ duration: 300 }}
 		class="mt-8 flex grow flex-col items-center gap-3"
@@ -116,7 +116,7 @@ async function handleSubmit(e: Event) {
 				<button
 					type="submit"
 					class="rounded-lg border border-white-500 bg-white-500 px-3 py-1 text-black hover:bg-white-700 active:bg-white-600"
-					>Melde dich bei mir
+					>Schreib mirt
 					{#if mailFormSent}
 						<i class="fa-solid fa-spinner-third fa-spin ml-2"></i>
 					{:else}
