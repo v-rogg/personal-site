@@ -1,0 +1,3370 @@
+<!doctype html>
+<!-- template-hash: 2026-03-09-sunpos-v1 -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>qq __RUN_ID__</title>
+    <script src="https://unpkg.com/maplibre-gl@5.18.0/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl@5.18.0/dist/maplibre-gl.css" rel="stylesheet" />
+    <script type="importmap">
+      { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/" } }
+    </script>
+    <script src="https://unpkg.com/earcut@2.2.4/dist/earcut.min.js"></script>
+    <style>
+      :root {
+        --background: #f7f4f2;
+        --foreground: #191919;
+        --card: #ffffff;
+        --card-foreground: #191919;
+        --popover: #ffffff;
+        --popover-foreground: #191919;
+        --primary: #191919;
+        --primary-foreground: #ffffff;
+        --secondary: #e0dbd9;
+        --secondary-foreground: #191919;
+        --muted: #e0dbd9;
+        --muted-foreground: #6b6665;
+        --accent: #f7f4f2;
+        --accent-foreground: #191919;
+        --border: rgba(0, 0, 0, 0.1);
+        --input: rgba(0, 0, 0, 0.1);
+        --ring: #e0dbd9;
+        --radius: 0.5rem;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          "Pretendard Std Variable",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        background: var(--background);
+        color: var(--foreground);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .main-container {
+        display: flex;
+        height: 100vh;
+      }
+      .map-container {
+        flex: 1;
+        position: relative;
+      }
+      .map-container:focus,
+      .map-container *:focus,
+      .map canvas:focus {
+        outline: none;
+      }
+      .map {
+        width: 100%;
+        height: 100%;
+      }
+      #three-container {
+        width: 100%;
+        height: 100%;
+        background: var(--background);
+      }
+      #map-2d {
+        width: 100%;
+        height: 100%;
+        background: var(--background);
+      }
+      .controls {
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        display: inline-flex;
+        align-items: center;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 4px;
+        gap: 4px;
+        box-shadow: none;
+      }
+      .controls button {
+        background: transparent;
+        color: var(--muted-foreground);
+        border: none;
+        padding: 8px 12px;
+        border-radius: calc(var(--radius) - 4px);
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .controls button svg.icon {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+      }
+      .controls button:hover {
+        background: var(--accent);
+        color: var(--foreground);
+      }
+      .controls button.active {
+        background: var(--secondary);
+        color: var(--foreground);
+        box-shadow: none;
+      }
+      .combobox {
+        position: relative;
+      }
+      .combobox-trigger {
+        display: flex;
+        height: 42px;
+        width: 100%;
+        min-width: 180px;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--card);
+        color: var(--foreground);
+        border: 1px solid var(--border);
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        box-shadow: none;
+      }
+      .combobox-trigger:hover {
+        border-color: var(--ring);
+      }
+      .combobox-trigger:focus {
+        outline: none;
+        border-color: var(--ring);
+        box-shadow: none;
+      }
+      .combobox-trigger svg {
+        width: 16px;
+        height: 16px;
+        stroke: var(--muted-foreground);
+        flex-shrink: 0;
+      }
+      .combobox-trigger span {
+        flex: 1;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .combobox-trigger .placeholder {
+        color: var(--muted-foreground);
+      }
+      .combobox-popover {
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 0;
+        right: 0;
+        background: var(--popover);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        box-shadow: none;
+        z-index: 1002;
+        overflow: hidden;
+      }
+      .combobox-input-wrapper {
+        padding: 8px;
+        border-bottom: 1px solid var(--border);
+      }
+      .combobox-input {
+        width: 100%;
+        height: 32px;
+        background: transparent;
+        border: none;
+        color: var(--foreground);
+        font-size: 14px;
+        outline: none;
+      }
+      .combobox-input::placeholder {
+        color: var(--muted-foreground);
+      }
+      .combobox-list {
+        max-height: 200px;
+        overflow-y: auto;
+        padding: 4px;
+        scrollbar-width: thin;
+        scrollbar-color: var(--border) transparent;
+      }
+      .combobox-list::-webkit-scrollbar {
+        width: 8px;
+      }
+      .combobox-list::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .combobox-list::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 9999px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+      }
+      .combobox-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--foreground);
+      }
+      .combobox-item:hover {
+        background: var(--accent);
+      }
+      .combobox-item.selected {
+        background: var(--accent);
+      }
+      .combobox-item svg {
+        width: 16px;
+        height: 16px;
+        stroke: currentColor;
+        flex-shrink: 0;
+      }
+      .combobox-item svg.check-hidden {
+        visibility: hidden;
+      }
+      .combobox-empty {
+        padding: 8px;
+        text-align: center;
+        color: var(--muted-foreground);
+        font-size: 14px;
+      }
+      .legend {
+        background-color: var(--card);
+        border: 1px solid var(--border);
+        padding: 8px 10px 8px 14px;
+        border-radius: 6px;
+        max-height: 300px;
+        overflow-y: auto;
+        box-shadow: none;
+        scrollbar-width: thin;
+        scrollbar-color: var(--border) transparent;
+      }
+      .legend::-webkit-scrollbar {
+        width: 8px;
+      }
+      .legend::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .legend::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 9999px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+      }
+      .legend::-webkit-scrollbar-thumb:hover {
+        background: var(--muted-foreground);
+        background-clip: content-box;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 2px 0;
+        font-size: 13px;
+        cursor: pointer;
+      }
+      .legend-item:hover {
+        background: var(--accent);
+      }
+      .legend-item.hidden-category .legend-color {
+        background: var(--muted) !important;
+        opacity: 0.4;
+      }
+      .legend-item.hidden-category .legend-label {
+        opacity: 0.4;
+      }
+      .legend-item.hidden-category .legend-count {
+        opacity: 0.4;
+      }
+      .legend-kbd {
+        pointer-events: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 20px;
+        min-width: 20px;
+        padding: 0 4px;
+        font-family: inherit;
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--muted-foreground);
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        box-shadow: none;
+        flex-shrink: 0;
+      }
+      .legend-color {
+        width: 12px;
+        height: 12px;
+        border-radius: 2px;
+        flex-shrink: 0;
+        cursor: pointer;
+        transition: transform 0.1s ease;
+      }
+      .legend-color:hover {
+        transform: scale(1.2);
+      }
+      .color-picker-input {
+        position: absolute;
+        width: 0;
+        height: 0;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .legend-label {
+        white-space: nowrap;
+        color: var(--foreground);
+        flex: 1;
+      }
+      .legend-count {
+        color: var(--muted-foreground);
+        font-size: 12px;
+      }
+      .hover-tooltip {
+        position: fixed;
+        z-index: 1001;
+        background: var(--popover);
+        border: 1px solid var(--border);
+        padding: 8px 10px;
+        border-radius: 6px;
+        font-size: 12px;
+        color: var(--foreground);
+        pointer-events: none;
+        box-shadow: none;
+        max-width: 380px;
+        max-height: 320px;
+        overflow-y: auto;
+      }
+      .hover-tooltip .tooltip-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        font-size: 13px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 4px;
+        white-space: nowrap;
+      }
+      .hover-tooltip .tooltip-color {
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        flex-shrink: 0;
+      }
+      .hover-tooltip .tooltip-props {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 1px 10px;
+        font-size: 12px;
+      }
+      .hover-tooltip .tooltip-props .prop-key {
+        color: var(--muted-foreground);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 140px;
+      }
+      .hover-tooltip .tooltip-props .prop-val {
+        color: var(--foreground);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 220px;
+      }
+      .hidden {
+        display: none !important;
+      }
+      .divider {
+        width: 1px;
+        background: var(--border);
+        cursor: col-resize;
+        position: relative;
+        flex-shrink: 0;
+        z-index: 100;
+      }
+      .divider::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -10px;
+        width: 21px;
+        cursor: col-resize;
+      }
+      .divider:hover {
+        background: var(--ring);
+      }
+      .style-toggle {
+        position: absolute;
+        bottom: 20px;
+        left: 12px;
+        z-index: 1000;
+        display: inline-flex;
+        align-items: center;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 4px;
+        gap: 4px;
+        box-shadow: none;
+      }
+      .style-toggle button {
+        background: transparent;
+        color: var(--muted-foreground);
+        border: none;
+        padding: 8px;
+        border-radius: calc(var(--radius) - 4px);
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .style-toggle button svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+      }
+      .style-toggle button:hover {
+        background: var(--accent);
+        color: var(--foreground);
+      }
+      .style-toggle button.active {
+        background: var(--secondary);
+        color: var(--foreground);
+        box-shadow: none;
+      }
+      /* Toggle icon visibility based on active state */
+      .controls button .icon-inactive,
+      .style-toggle button .icon-inactive,
+      .link-toggle button .icon-inactive {
+        display: none;
+      }
+      .controls button:not(.active) .icon-active,
+      .style-toggle button:not(.active) .icon-active,
+      .link-toggle button:not(.active) .icon-active {
+        display: none;
+      }
+      .controls button:not(.active) .icon-inactive,
+      .style-toggle button:not(.active) .icon-inactive,
+      .link-toggle button:not(.active) .icon-inactive {
+        display: block;
+      }
+      kbd {
+        pointer-events: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 20px;
+        min-width: 20px;
+        padding: 0 4px;
+        font-family: inherit;
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--muted-foreground);
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        box-shadow: none;
+      }
+      .controls-wrapper {
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+      }
+      .controls-wrapper .view-kbd {
+        position: absolute;
+        left: calc(100% + 6px);
+      }
+      .controls-wrapper .link-group {
+        position: absolute;
+        right: calc(100% + 12px);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .link-toggle {
+        display: inline-flex;
+        align-items: center;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 4px;
+        box-shadow: none;
+      }
+      .link-toggle button {
+        background: transparent;
+        color: var(--muted-foreground);
+        border: none;
+        padding: 8px;
+        border-radius: calc(var(--radius) - 4px);
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .link-toggle button svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+      }
+      .link-toggle button:hover {
+        background: var(--accent);
+        color: var(--foreground);
+      }
+      .link-toggle button.active {
+        background: var(--secondary);
+        color: var(--foreground);
+        box-shadow: none;
+      }
+      .category-wrapper {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .category-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .legend-item .solo-kbd {
+        margin-left: auto;
+        visibility: hidden;
+      }
+      .legend-item.solo-next .solo-kbd {
+        visibility: visible;
+      }
+      .style-wrapper {
+        position: absolute;
+        bottom: 20px;
+        left: 12px;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+      }
+      .compass-toggle {
+        display: inline-flex;
+        align-items: center;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 4px;
+        box-shadow: none;
+      }
+      .compass {
+        background: transparent;
+        border: none;
+        padding: 8px;
+        border-radius: calc(var(--radius) - 4px);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.15s ease;
+      }
+      .compass:hover {
+        background: var(--accent);
+      }
+      .compass svg {
+        width: 16px;
+        height: 16px;
+        fill: var(--muted-foreground);
+        transition:
+          transform 0.1s ease-out,
+          fill 0.15s ease;
+      }
+      .compass:hover svg {
+        fill: var(--foreground);
+      }
+      .style-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .controls {
+        position: static;
+        transform: none;
+      }
+      .combobox {
+        flex: 1;
+      }
+      .style-toggle {
+        position: static;
+      }
+      /* Query info box */
+      .query-info {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 1000;
+        display: flex;
+        align-items: flex-start;
+        gap: 6px;
+      }
+      .query-info > kbd {
+        margin-top: 11px;
+      }
+      .query-info-card {
+        max-width: 560px;
+        background-color: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: none;
+        overflow: hidden;
+      }
+      .query-info-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 4px 4px 4px 12px;
+        gap: 8px;
+      }
+      .query-info-card:not(.collapsed) .query-info-header {
+        border-bottom: 1px solid var(--border);
+      }
+      .query-info-title {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--muted-foreground);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .query-info-toggle {
+        background: transparent;
+        border: none;
+        color: var(--muted-foreground);
+        cursor: pointer;
+        padding: 8px;
+        border-radius: calc(var(--radius) - 4px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s ease;
+      }
+      .query-info-toggle:hover {
+        background: var(--accent);
+        color: var(--foreground);
+      }
+      .query-info-toggle svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+        transition: transform 0.2s ease;
+      }
+      .query-info-toggle.collapsed svg {
+        transform: rotate(180deg);
+      }
+      .query-info-content {
+        max-height: 500px;
+        overflow: hidden;
+        transition: max-height 0.2s ease;
+      }
+      .query-info-content.collapsed {
+        max-height: 0;
+      }
+      .query-code-wrapper {
+        padding: 0;
+        max-height: 350px;
+        overflow: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--border) transparent;
+      }
+      .query-code-wrapper::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      .query-code-wrapper::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .query-code-wrapper::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 9999px;
+      }
+      .query-code-wrapper pre {
+        margin: 0 !important;
+        padding: 12px !important;
+        background: transparent !important;
+        font-size: 12px !important;
+        line-height: 1.5 !important;
+      }
+      .query-code-wrapper code {
+        font-family: "JetBrains Mono", "Fira Code", "SF Mono", Consolas, monospace !important;
+        font-size: 12px !important;
+      }
+      .query-meta {
+        padding: 8px 12px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .query-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+      }
+      .query-meta-label {
+        color: var(--muted-foreground);
+      }
+      .query-meta-value {
+        color: var(--foreground);
+        font-family: "JetBrains Mono", "Fira Code", monospace;
+      }
+      /* Query info responsiveness */
+      @media (max-width: 700px) {
+        .query-info {
+          display: none;
+        }
+      }
+      .query-info-card {
+        max-width: min(560px, calc(50vw - 120px));
+      }
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 10px 20px;
+        font-size: 13px;
+        color: var(--foreground);
+        z-index: 3000;
+        animation: toast-in 0.2s ease-out;
+      }
+      @keyframes toast-in {
+        from {
+          opacity: 0;
+          transform: translateX(-50%) translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
+        }
+      }
+      .shiki {
+        background: transparent !important;
+      }
+      /* Version footprint */
+      .version-footprint {
+        position: absolute;
+        bottom: 12px;
+        right: 12px;
+        z-index: 1000;
+        font-size: 11px;
+        color: var(--muted-foreground);
+        opacity: 0.3;
+        font-family: "JetBrains Mono", "Fira Code", monospace;
+      }
+      /* Loading overlay with progress bar */
+      .loading-overlay {
+        position: fixed;
+        inset: 0;
+        background: var(--background);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          opacity 0.3s ease,
+          visibility 0.3s ease;
+      }
+      .loading-overlay.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .loading-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        width: 320px;
+      }
+      .progress-title {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--foreground);
+        font-family: "JetBrains Mono", "Fira Code", monospace;
+      }
+      .progress-track {
+        height: 8px;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 9999px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        width: 0%;
+        background: var(--primary);
+        border-radius: 9999px;
+        transition: width 0.15s ease-out;
+      }
+      .progress-status {
+        font-size: 13px;
+        color: rgba(0, 0, 0, 0.5);
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading-overlay" id="loading-overlay">
+      <div class="loading-content">
+        <div class="progress-title">qq __RUN_ID__</div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="progress-status" id="progress-status">Initializing...</div>
+      </div>
+    </div>
+
+    <div class="main-container" id="main-container">
+      <div class="map-container" id="view-3d">
+        <div id="three-container" class="map"></div>
+      </div>
+      <div class="divider" id="divider"></div>
+      <div class="map-container" id="view-2d">
+        <div id="map-2d" class="map"></div>
+      </div>
+    </div>
+
+
+    <div class="controls-wrapper">
+      <div class="link-group">
+        <kbd>L</kbd>
+        <div class="link-toggle">
+          <button id="btn-link" class="active" title="Link camera views (L)">
+            <svg class="icon-active" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor">
+              <path
+                d="M419.5 96c-16.6 0-32.7 4.5-46.8 12.7-15.8-16-34.2-29.4-54.5-39.5 28.2-24 64.1-37.2 101.3-37.2 86.4 0 156.5 70 156.5 156.5 0 41.5-16.5 81.3-45.8 110.6l-71.1 71.1c-29.3 29.3-69.1 45.8-110.6 45.8-86.4 0-156.5-70-156.5-156.5 0-1.5 0-3 .1-4.5 .5-17.7 15.2-31.6 32.9-31.1s31.6 15.2 31.1 32.9c0 .9 0 1.8 0 2.6 0 51.1 41.4 92.5 92.5 92.5 24.5 0 48-9.7 65.4-27.1l71.1-71.1c17.3-17.3 27.1-40.9 27.1-65.4 0-51.1-41.4-92.5-92.5-92.5zM275.2 173.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5 0-48 9.7-65.4 27.1L91.1 258.2c-17.3 17.3-27.1 40.9-27.1 65.4 0 51.1 41.4 92.5 92.5 92.5 16.5 0 32.6-4.4 46.7-12.6 15.8 16 34.2 29.4 54.6 39.5-28.2 23.9-64 37.2-101.3 37.2-86.4 0-156.5-70-156.5-156.5 0-41.5 16.5-81.3 45.8-110.6l71.1-71.1c29.3-29.3 69.1-45.8 110.6-45.8 86.6 0 156.5 70.6 156.5 156.9 0 1.3 0 2.6 0 3.9-.4 17.7-15.1 31.6-32.8 31.2s-31.6-15.1-31.2-32.8c0-.8 0-1.5 0-2.3 0-33.7-18-63.3-44.8-79.6z"
+              />
+            </svg>
+            <svg class="icon-inactive" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor">
+              <path
+                d="M41-24.9c-9.4-9.4-24.6-9.4-33.9 0S-2.3-.3 7 9.1l528 528c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-122-122c4.2-3.4 8.3-7.1 12.1-10.9l71.1-71.1c29.3-29.3 45.8-69.1 45.8-110.6 0-86.4-70-156.5-156.5-156.5-37.3 0-73.1 13.3-101.3 37.2 20.3 10.1 38.7 23.5 54.5 39.5 14.1-8.3 30.2-12.7 46.8-12.7 51.1 0 92.5 41.4 92.5 92.5 0 24.5-9.7 48-27.1 65.4l-71.1 71.1c-3.9 3.9-8.1 7.4-12.6 10.5l-47.5-47.5c16.5-.9 29.7-14.4 30.2-31.1 0-1.3 0-2.6 0-3.9 0-86.3-69.9-156.9-156.5-156.9-19.2 0-37.9 3.5-55.5 10.2L41-24.9zM225.9 160c.6 0 1.1 0 1.7 0 15.1 0 29.5 3.7 42.1 10.2 1.8 1.2 3.6 2.3 5.5 3.1 26.8 16.3 44.8 45.9 44.8 79.6 0 .4 0 .8 0 1.2L225.9 160zM346.2 416L192 261.8c1.2 84.6 69.6 152.9 154.1 154.1zM139.7 209.5l-45.3-45.3-48.6 48.6c-29.3 29.3-45.8 69.1-45.8 110.6 0 86.4 70 156.5 156.5 156.5 37.2 0 73.1-13.3 101.3-37.2-20.3-10.1-38.8-23.5-54.6-39.5-14 8.2-30.1 12.6-46.7 12.6-51.1 0-92.5-41.4-92.5-92.5 0-24.5 9.7-48 27.1-65.4l48.6-48.6z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="controls">
+        <button id="btn-3d">
+          <svg class="icon icon-active" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+            <path
+              d="M224.3-2.5c19.8-11.4 44.2-11.4 64 0L464.2 99c19.8 11.4 32 32.6 32 55.4l0 203c0 22.9-12.2 44-32 55.4L288.3 514.5c-19.8 11.4-44.2 11.4-64 0L48.5 413c-19.8-11.4-32-32.6-32-55.4l0-203c0-22.9 12.2-44 32-55.4L224.3-2.5zm207.8 360l0-166.1-143.8 83 0 166.1 143.8-83z"
+            />
+          </svg>
+          <svg class="icon icon-inactive" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+            <path
+              d="M248.3 39.1c5-2.9 11-2.9 16 0l159.8 92.3-167.8 96.9-167.8-96.9 159.8-92.3zM64.5 173l167.8 96.9 0 193.8-159.8-92.3c-5-2.9-8-8.1-8-13.9l0-184.6zM280.3 463.7l0-193.8 167.8-96.9 0 184.6c0 5.7-3 11-8 13.9L280.3 463.7zm8-466.1c-19.8-11.4-44.2-11.4-64 0L48.5 99c-19.8 11.4-32 32.6-32 55.4l0 203c0 22.9 12.2 44 32 55.4L224.3 514.5c19.8 11.4 44.2 11.4 64 0L464.2 413c19.8-11.4 32-32.6 32-55.4l0-203c0-22.9-12.2-44-32-55.4L288.3-2.5z"
+            />
+          </svg>
+        </button>
+        <button id="btn-both" class="active">
+          <svg class="icon icon-active" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+            <path
+              d="M224.3-2.5c19.8-11.4 44.2-11.4 64 0L464.2 99c19.8 11.4 32 32.6 32 55.4l0 203c0 22.9-12.2 44-32 55.4L288.3 514.5c-19.8 11.4-44.2 11.4-64 0L48.5 413c-19.8-11.4-32-32.6-32-55.4l0-203c0-22.9 12.2-44 32-55.4L224.3-2.5zm207.8 360l0-166.1-143.8 83 0 166.1 143.8-83z"
+            />
+          </svg>
+          <svg class="icon icon-inactive" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+            <path
+              d="M248.3 39.1c5-2.9 11-2.9 16 0l159.8 92.3-167.8 96.9-167.8-96.9 159.8-92.3zM64.5 173l167.8 96.9 0 193.8-159.8-92.3c-5-2.9-8-8.1-8-13.9l0-184.6zM280.3 463.7l0-193.8 167.8-96.9 0 184.6c0 5.7-3 11-8 13.9L280.3 463.7zm8-466.1c-19.8-11.4-44.2-11.4-64 0L48.5 99c-19.8 11.4-32 32.6-32 55.4l0 203c0 22.9 12.2 44 32 55.4L224.3 514.5c19.8 11.4 44.2 11.4 64 0L464.2 413c19.8-11.4 32-32.6 32-55.4l0-203c0-22.9-12.2-44-32-55.4L288.3-2.5z"
+            /></svg
+          >+<svg class="icon icon-active" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor">
+            <path d="M64 32l320 0c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64L0 96C0 60.7 28.7 32 64 32z" />
+          </svg>
+          <svg class="icon icon-inactive" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor">
+            <path
+              d="M384 80c8.8 0 16 7.2 16 16l0 320c0 8.8-7.2 16-16 16L64 432c-8.8 0-16-7.2-16-16L48 96c0-8.8 7.2-16 16-16l320 0zM64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32z"
+            />
+          </svg>
+        </button>
+        <button id="btn-2d">
+          <svg class="icon icon-active" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor">
+            <path d="M64 32l320 0c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64L0 96C0 60.7 28.7 32 64 32z" />
+          </svg>
+          <svg class="icon icon-inactive" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor">
+            <path
+              d="M384 80c8.8 0 16 7.2 16 16l0 320c0 8.8-7.2 16-16 16L64 432c-8.8 0-16-7.2-16-16L48 96c0-8.8 7.2-16 16-16l320 0zM64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32z"
+            />
+          </svg>
+        </button>
+      </div>
+      <kbd class="view-kbd">V</kbd>
+    </div>
+
+    <div class="category-wrapper">
+      <div class="category-row">
+        <kbd>C</kbd>
+        <div class="combobox" id="category-combobox">
+          <button class="combobox-trigger" id="combobox-trigger" type="button" aria-expanded="false" aria-haspopup="listbox">
+            <span class="placeholder">Select category...</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m7 15 5 5 5-5" />
+              <path d="m7 9 5-5 5 5" />
+            </svg>
+          </button>
+          <div class="combobox-popover hidden" id="combobox-popover">
+            <div class="combobox-input-wrapper">
+              <input type="text" class="combobox-input" id="combobox-input" placeholder="Search category..." autocomplete="off" />
+            </div>
+            <div class="combobox-list" id="combobox-list" role="listbox"></div>
+          </div>
+        </div>
+      </div>
+      <div class="legend hidden" id="legend">
+        <div id="legend-items"></div>
+        <input type="color" class="color-picker-input" id="color-picker-input" />
+      </div>
+    </div>
+
+    <div class="style-wrapper">
+      <div class="style-row">
+        <div class="compass-toggle">
+          <button class="compass" id="compass" title="Reset bearing to north (N)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path
+                d="M477.9 75.5c4.5-11.8 1.7-25.2-7.2-34.1s-22.3-11.8-34.1-7.2l-416 160C7.9 199-.3 211.2 0 224.7s9.1 25.4 21.9 29.6l176.8 58.9 58.9 176.8c4.3 12.8 16.1 21.6 29.6 21.9s25.7-7.9 30.6-20.5l160-416z"
+              />
+            </svg>
+          </button>
+        </div>
+        <kbd>N</kbd>
+        <div class="style-toggle" style="display: none;">
+          <button id="btn-map" class="active" title="Map view">
+            <svg class="icon-active" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+              <path
+                d="M223.9 32l-76.2 0c-29.4 0-55.1 20.1-62.1 48.6L1.4 420.5C-6.1 450.7 16.8 480 48 480l175.9 0 0-64c0-17.7 14.3-32 32-32s32 14.3 32 32l0 64 176.1 0c31.2 0 54.1-29.3 46.6-59.5L426.5 80.6C419.4 52.1 393.8 32 364.3 32l-76.4 0 0 64c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-64zm64 192l0 64c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32s32 14.3 32 32z"
+              />
+            </svg>
+            <svg class="icon-inactive" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+              <path
+                d="M48.8 403.7c-.6 2-.8 4-.8 6.1 0 12.3 10 22.3 22.3 22.3l161.7 0 0-40c0-13.3 10.7-24 24-24s24 10.7 24 24l0 40 161.7 0c12.3 0 22.3-10 22.3-22.3 0-2-.3-4.1-.8-6.1L375 91.6C373 84.8 366.7 80 359.6 80l-79.6 0 0 40c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-40-79.6 0c-7.2 0-13.4 4.8-15.4 11.6l-88.2 312zM2.6 390.6l88.2-312C98.6 51 123.8 32 152.4 32l207.2 0c28.6 0 53.8 19 61.6 46.6l88.2 312c1.8 6.2 2.6 12.6 2.6 19.1 0 38.8-31.5 70.3-70.3 70.3L70.3 480c-38.8 0-70.3-31.5-70.3-70.3 0-6.5 .9-12.9 2.6-19.1zM280 216l0 80c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-80c0-13.3 10.7-24 24-24s24 10.7 24 24z"
+              />
+            </svg>
+          </button>
+          <button id="btn-satellite" title="Satellite view" style="display: none;">
+            <svg class="icon-active" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+              <path
+                d="M199 7c9.4-9.4 24.6-9.4 33.9 0l89.4 89.4 55-55c12.5-12.5 32.8-12.5 45.3 0l48 48c12.5 12.5 12.5 32.8 0 45.3l-55 55 89.4 89.4c9.4 9.4 9.4 24.6 0 33.9l-96 96c-9.4 9.4-24.6 9.4-33.9 0l-89.4-89.4-15.5 15.5c11.4 24.6 17.8 52 17.8 80.9 0 31.7-7.7 61.5-21.2 87.8-4.7 9-16.7 10.3-23.8 3.1l-96.3-96.3-60 60c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l60-60-96.3-96.3c-7.2-7.2-5.9-19.2 3.1-23.8 26.3-13.6 56.2-21.2 87.8-21.2 28.9 0 56.3 6.4 80.9 17.8L192.4 226.3 103 137c-9.4-9.4-9.4-24.6 0-33.9L199 7zm17 50.9l-62.1 62.1 72.4 72.4 62.1-62.1-72.4-72.4zM392 358.1l62.1-62.1-72.4-72.4-62.1 62.1 72.4 72.4z"
+              />
+            </svg>
+            <svg class="icon-inactive" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+              <path
+                d="M199.1 7c9.4-9.4 24.6-9.4 33.9 0l73.4 73.4 55-55c12.5-12.5 32.8-12.5 45.3 0l80 80c12.5 12.5 12.5 32.8 0 45.3l-55 55 73.4 73.4c9.4 9.4 9.4 24.6 0 33.9l-96 96c-9.4 9.4-24.6 9.4-33.9 0l-73.4-73.4-6.5 6.5c5.8 18.3 8.9 37.7 8.9 57.9 0 40.6-12.6 78.3-34.2 109.4-5.4 7.7-16.3 8.2-23 1.5L141 405 89 457c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l52-52-105.9-105.9c-6.6-6.6-6.2-17.6 1.5-23 31-21.5 68.7-34.2 109.4-34.2 20.2 0 39.6 3.1 57.9 8.9l6.5-6.5-73.4-73.4c-9.4-9.4-9.4-24.6 0-33.9l96-96zM335.6 301.7l56.4 56.4 62.1-62.1-56.4-56.4-62.1 62.1zM210.4 176.4l62.1-62.1-56.4-56.4-62.1 62.1 56.4 56.4zM273.4 296l168-168-57.4-57.4-168 168c23 14.8 42.5 34.4 57.4 57.4zM256 400c0-79.5-64.5-144-144-144-15.7 0-30.8 2.5-45 7.1L248.9 445c4.6-14.1 7.1-29.2 7.1-45z"
+              />
+            </svg>
+          </button>
+          <button id="btn-none" title="No background">
+            <svg class="icon-active" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+              <path
+                d="M502.6 54.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L413 53.8C369.6 20.1 315.2 0 256 0 114.6 0 0 114.6 0 256 0 315.2 20.1 369.6 53.8 413L9.4 457.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L99 458.2c43.3 33.7 97.8 53.8 157 53.8 141.4 0 256-114.6 256-256 0-59.2-20.1-113.6-53.8-157l44.4-44.4zM367.2 99.5L99.5 367.2C77.1 335.9 64 297.5 64 256 64 150 150 64 256 64 297.5 64 335.9 77.1 367.2 99.5zm-222.5 313L412.5 144.8c22.4 31.4 35.5 69.8 35.5 111.2 0 106-86 192-192 192-41.5 0-79.9-13.1-111.2-35.5z"
+              />
+            </svg>
+            <svg class="icon-inactive" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+              <path
+                d="M464 256c0-48.8-16.8-93.7-44.9-129.1L126.9 419.1c35.5 28.1 80.3 44.9 129.1 44.9 114.9 0 208-93.1 208-208zM453.2 92.7c36.7 44.3 58.8 101.2 58.8 163.3 0 141.4-114.6 256-256 256-62.1 0-118.9-22.1-163.3-58.8L41 505c-9.4 9.4-24.6 9.4-33.9 0S-2.3 480.4 7 471l51.8-51.8C22.1 374.9 0 318.1 0 256 0 114.6 114.6 0 256 0 318.1 0 374.9 22.1 419.3 58.8L471 7c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9L453.2 92.7zM92.9 385.1L385.1 92.9C349.7 64.8 304.8 48 256 48 141.1 48 48 141.1 48 256 48 304.8 64.8 349.7 92.9 385.1z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="hover-tooltip hidden" id="hover-tooltip">
+      <div class="tooltip-header">
+        <div class="tooltip-color"></div>
+        <span class="tooltip-label"></span>
+      </div>
+      <div class="tooltip-props"></div>
+    </div>
+
+    <div class="version-footprint">qq __VERSION__</div>
+
+    <script type="module">
+      import * as THREE from "three";
+      import initParquet, { readParquet } from "https://cdn.jsdelivr.net/npm/parquet-wasm@0.7.1/esm/parquet_wasm.js";
+      import * as arrow from "https://cdn.jsdelivr.net/npm/apache-arrow@18.0.0/+esm";
+
+      // Detect if running inside an iframe (for embedded mode)
+      const isEmbedded = (() => {
+        try {
+          return window.self !== window.top;
+        } catch (e) {
+          return true; // Cross-origin iframe
+        }
+      })();
+
+      // Add embedded class to body for CSS targeting
+      if (isEmbedded) {
+        document.body.classList.add("embedded");
+      }
+
+      // Cache reusable Three.js objects for raycasting (avoid GC pressure)
+      const _cachedNearNDC = new THREE.Vector4();
+      const _cachedFarNDC = new THREE.Vector4();
+      const _cachedNearWorld = new THREE.Vector4();
+      const _cachedFarWorld = new THREE.Vector4();
+      const _cachedRayOrigin = new THREE.Vector3();
+      const _cachedRayDirection = new THREE.Vector3();
+      const _cachedProjMatrixInverse = new THREE.Matrix4();
+
+      // Convert Arrow table from GeoParquet to GeoJSON FeatureCollection
+      function arrowTableToGeoJSON(table) {
+        const schema = table.schema;
+        const numRows = table.numRows;
+        const features = [];
+
+        // Find geometry column (typically named with geo metadata or Binary type)
+        let geoColumnIndex = -1;
+        const fieldNames = [];
+        for (let i = 0; i < schema.fields.length; i++) {
+          const field = schema.fields[i];
+          fieldNames.push(field.name);
+          // Check if this is the geometry column (Binary type or named 'geometry'/'geom')
+          const isBinary = field.type && (field.type.typeId === 4 || field.type.toString().includes("Binary"));
+          const isGeoName = field.name.toLowerCase().includes("geometry") || field.name.toLowerCase().includes("geom");
+          if (isBinary || isGeoName) {
+            if (geoColumnIndex === -1) geoColumnIndex = i;
+          }
+        }
+        // Fallback: use last column if no geometry column found (geometry often last)
+        if (geoColumnIndex === -1) geoColumnIndex = schema.fields.length - 1;
+
+        // Get all columns
+        const columns = [];
+        for (let i = 0; i < schema.fields.length; i++) {
+          columns.push(table.getChildAt(i));
+        }
+
+        // Build features
+        for (let rowIdx = 0; rowIdx < numRows; rowIdx++) {
+          const geoColumn = columns[geoColumnIndex];
+          const wkbValue = geoColumn.get(rowIdx);
+
+          if (!wkbValue) continue;
+
+          // Convert WKB to GeoJSON geometry
+          const geometry = wkbToGeoJSON(wkbValue);
+          if (!geometry) continue;
+
+          // Build properties from other columns
+          const properties = {};
+          for (let colIdx = 0; colIdx < schema.fields.length; colIdx++) {
+            if (colIdx !== geoColumnIndex) {
+              const fieldName = fieldNames[colIdx];
+              let value = columns[colIdx].get(rowIdx);
+              // Convert BigInt to Number for JSON serialization
+              if (typeof value === "bigint") {
+                value = Number(value);
+              }
+              properties[fieldName] = value;
+            }
+          }
+
+          features.push({
+            type: "Feature",
+            geometry: geometry,
+            properties: properties,
+          });
+        }
+
+        return {
+          type: "FeatureCollection",
+          crs: {
+            type: "name",
+            properties: { name: "urn:ogc:def:crs:EPSG::4326" },
+          },
+          features: features,
+        };
+      }
+
+      // Parse WKB (Well-Known Binary) to GeoJSON geometry
+      // Supports both ISO WKB (type >= 1000 for Z) and EWKB flags (0x80000000 for Z)
+      function wkbToGeoJSON(wkb) {
+        if (!wkb || wkb.length < 5) return null;
+
+        // Handle different input types from Arrow JS
+        let buffer, byteOffset, byteLength;
+        if (wkb instanceof ArrayBuffer) {
+          buffer = wkb;
+          byteOffset = 0;
+          byteLength = wkb.byteLength;
+          wkb = new Uint8Array(buffer); // Need array access for byte order check
+        } else if (wkb.buffer instanceof ArrayBuffer) {
+          buffer = wkb.buffer;
+          byteOffset = wkb.byteOffset || 0;
+          byteLength = wkb.byteLength || wkb.length;
+        } else {
+          // Fallback: convert to Uint8Array if it's array-like
+          const arr = new Uint8Array(wkb);
+          buffer = arr.buffer;
+          byteOffset = 0;
+          byteLength = arr.length;
+          wkb = arr;
+        }
+
+        const view = new DataView(buffer, byteOffset, byteLength);
+        let offset = 0;
+
+        const byteOrder = wkb[offset++];
+        const littleEndian = byteOrder === 1;
+
+        let typeWord = view.getUint32(offset, littleEndian);
+        offset += 4;
+
+        // Parse type word - supports both EWKB flags and ISO WKB format
+        // EWKB flags: 0x80000000 = Z, 0x40000000 = M, 0x20000000 = SRID
+        // ISO WKB: base_type + 1000 for Z, + 2000 for M, + 3000 for ZM
+        const ewkbHasZ = (typeWord & 0x80000000) !== 0;
+        const ewkbHasM = (typeWord & 0x40000000) !== 0;
+        const ewkbHasSrid = (typeWord & 0x20000000) !== 0;
+        let baseType = typeWord & 0x0fffffff;
+
+        // Skip SRID if present (EWKB extension)
+        if (ewkbHasSrid) {
+          offset += 4;
+        }
+
+        // Detect ISO WKB Z/M dimensions
+        const isoHasZ = baseType >= 1000 && baseType < 2000;
+        const isoHasM = baseType >= 2000 && baseType < 3000;
+        const isoHasZM = baseType >= 3000;
+
+        // Normalize to 2D base type
+        if (isoHasZM) baseType -= 3000;
+        else if (isoHasM) baseType -= 2000;
+        else if (isoHasZ) baseType -= 1000;
+
+        // Combined Z detection (either EWKB flag or ISO format)
+        let hasZ = ewkbHasZ || isoHasZ || isoHasZM;
+        let hasM = ewkbHasM || isoHasM || isoHasZM;
+        let geomType = baseType;
+
+        function readDouble() {
+          const val = view.getFloat64(offset, littleEndian);
+          offset += 8;
+          return val;
+        }
+
+        function readUint32() {
+          const val = view.getUint32(offset, littleEndian);
+          offset += 4;
+          return val;
+        }
+
+        function readPoint(localHasZ, localHasM) {
+          const coords = [readDouble(), readDouble()];
+          if (localHasZ) coords.push(readDouble());
+          if (localHasM) readDouble(); // Skip M value (not used in GeoJSON)
+          return coords;
+        }
+
+        function readLineString(localHasZ, localHasM) {
+          const numPoints = readUint32();
+          const coords = [];
+          for (let i = 0; i < numPoints; i++) {
+            coords.push(readPoint(localHasZ, localHasM));
+          }
+          return coords;
+        }
+
+        function readPolygon(localHasZ, localHasM) {
+          const numRings = readUint32();
+          const rings = [];
+          for (let i = 0; i < numRings; i++) {
+            rings.push(readLineString(localHasZ, localHasM));
+          }
+          return rings;
+        }
+
+        function readNestedGeometry() {
+          const nestedByteOrder = wkb[offset++];
+          const nestedLittleEndian = nestedByteOrder === 1;
+          let nestedTypeWord = view.getUint32(offset, nestedLittleEndian);
+          offset += 4;
+
+          // Parse nested type word - supports both EWKB flags and ISO WKB
+          const nestedEwkbHasZ = (nestedTypeWord & 0x80000000) !== 0;
+          const nestedEwkbHasM = (nestedTypeWord & 0x40000000) !== 0;
+          const nestedEwkbHasSrid = (nestedTypeWord & 0x20000000) !== 0;
+          let nestedBaseType = nestedTypeWord & 0x0fffffff;
+
+          if (nestedEwkbHasSrid) offset += 4; // Skip SRID
+
+          // Detect ISO WKB dimensions
+          const nestedIsoHasZ = nestedBaseType >= 1000 && nestedBaseType < 2000;
+          const nestedIsoHasM = nestedBaseType >= 2000 && nestedBaseType < 3000;
+          const nestedIsoHasZM = nestedBaseType >= 3000;
+
+          if (nestedIsoHasZM) nestedBaseType -= 3000;
+          else if (nestedIsoHasM) nestedBaseType -= 2000;
+          else if (nestedIsoHasZ) nestedBaseType -= 1000;
+
+          const nestedHasZ = nestedEwkbHasZ || nestedIsoHasZ || nestedIsoHasZM;
+          const nestedHasM = nestedEwkbHasM || nestedIsoHasM || nestedIsoHasZM;
+
+          return parseGeometry(nestedBaseType, nestedHasZ, nestedHasM);
+        }
+
+        function parseGeometry(type, localHasZ, localHasM) {
+          switch (type) {
+            case 1: // Point / PointZ
+              return { type: "Point", coordinates: readPoint(localHasZ, localHasM) };
+            case 2: // LineString / LineStringZ
+              return { type: "LineString", coordinates: readLineString(localHasZ, localHasM) };
+            case 3: // Polygon / PolygonZ
+              return { type: "Polygon", coordinates: readPolygon(localHasZ, localHasM) };
+            case 4: {
+              // MultiPoint / MultiPointZ
+              const numPoints = readUint32();
+              const coords = [];
+              for (let i = 0; i < numPoints; i++) {
+                const geom = readNestedGeometry();
+                if (geom && geom.coordinates) coords.push(geom.coordinates);
+              }
+              return { type: "MultiPoint", coordinates: coords };
+            }
+            case 5: {
+              // MultiLineString / MultiLineStringZ
+              const numLines = readUint32();
+              const coords = [];
+              for (let i = 0; i < numLines; i++) {
+                const geom = readNestedGeometry();
+                if (geom && geom.coordinates) coords.push(geom.coordinates);
+              }
+              return { type: "MultiLineString", coordinates: coords };
+            }
+            case 6: {
+              // MultiPolygon / MultiPolygonZ
+              const numPolygons = readUint32();
+              const coords = [];
+              for (let i = 0; i < numPolygons; i++) {
+                const geom = readNestedGeometry();
+                if (geom && geom.coordinates) coords.push(geom.coordinates);
+              }
+              return { type: "MultiPolygon", coordinates: coords };
+            }
+            case 7: {
+              // GeometryCollection / GeometryCollectionZ
+              const numGeometries = readUint32();
+              const geometries = [];
+              for (let i = 0; i < numGeometries; i++) {
+                geometries.push(readNestedGeometry());
+              }
+              return { type: "GeometryCollection", geometries: geometries };
+            }
+            default:
+              return null;
+          }
+        }
+
+        return parseGeometry(geomType, hasZ, hasM);
+      }
+
+      // Progress manager for loading feedback
+      const progress = {
+        overlay: null,
+        fill: null,
+        status: null,
+
+        init() {
+          this.overlay = document.getElementById("loading-overlay");
+          this.fill = document.getElementById("progress-fill");
+          this.status = document.getElementById("progress-status");
+        },
+
+        update(percent, message) {
+          if (this.fill) this.fill.style.width = `${Math.min(100, percent)}%`;
+          if (this.status) this.status.textContent = message;
+        },
+
+        hide() {
+          if (this.overlay) this.overlay.classList.add("hidden");
+        },
+      };
+
+      // Initialize progress tracking
+      progress.init();
+      progress.update(0, "Loading WASM module...");
+
+      // Initialize parquet-wasm and decode GeoParquet data
+      await initParquet();
+
+      progress.update(10, "Decoding data...");
+
+      const base64Data = "__GEOPARQUET_BASE64__";
+      const parquetBytes = Uint8Array.from(atob(base64Data), (c) => c.charCodeAt(0));
+
+      // parquet-wasm returns WASM objects, convert to Apache Arrow JS table via IPC
+      const wasmTable = readParquet(parquetBytes);
+      const ipcStream = wasmTable.intoIPCStream();
+      const arrowTable = arrow.tableFromIPC(ipcStream);
+
+      progress.update(20, "Processing geometry...");
+
+      const geojsonData = arrowTableToGeoJSON(arrowTable);
+
+      // Pre-compute minimum altitude per building (gmlid) in single O(n) pass
+      // This allows all surfaces of the same building to share the same ground reference
+      const buildingMinAlt = new Map();
+      for (const feature of geojsonData.features) {
+        const gmlid = feature.properties?.gmlid;
+        if (!gmlid) continue;
+
+        const coords = feature.geometry?.coordinates?.[0];
+        if (!coords) continue;
+
+        for (const c of coords) {
+          const z = c[2] ?? 0;
+          const current = buildingMinAlt.get(gmlid);
+          if (current === undefined || z < current) {
+            buildingMinAlt.set(gmlid, z);
+          }
+        }
+      }
+
+      const allColumns = __COLUMNS_JSON__;
+      // MAPTILER_STYLE is defined below with inlined style JSON
+
+      // ColorBrewer 20-color palette (colorblind-friendly)
+      const colorPalette = [
+        [228, 26, 28],
+        [55, 126, 184],
+        [77, 175, 74],
+        [152, 78, 163],
+        [255, 127, 0],
+        [255, 255, 51],
+        [166, 86, 40],
+        [247, 129, 191],
+        [153, 153, 153],
+        [0, 128, 128],
+        [128, 0, 0],
+        [0, 0, 128],
+        [128, 128, 0],
+        [128, 0, 128],
+        [0, 128, 0],
+        [70, 130, 180],
+        [255, 99, 71],
+        [147, 112, 219],
+        [60, 179, 113],
+        [255, 215, 0],
+      ];
+
+      let selectedCategory = __DEFAULT_CATEGORY__;
+      let categoryColorMap = {};
+      let hiddenCategories = new Set();
+      let uniformColor = [74, 158, 255]; // Default blue for "All" mode
+      let customColors = {
+        "surface_type:Boden": [59, 130, 246],   // blue
+        "surface_type:Wand": [255, 255, 255],    // white
+        "surface_type:Dach": [239, 68, 68],      // red
+        "queried:true": [255, 0, 0],                    // red
+        "queried:false": [224, 219, 217],                // white-700
+      }; // Persistent color storage: "category:value" -> [r, g, b]
+      let view3d;
+      let currentView = "both";
+      let mapStyle = "map"; // "map", "satellite", or "none"
+
+      let hoverTooltipLngLat = null; // Store hover position for updating on map move
+
+      // Toast notification - reuse single element to avoid DOM churn
+      let toastElement = null;
+      let toastTimeout = null;
+      function showToast(msg) {
+        if (!toastElement) {
+          toastElement = document.createElement("div");
+          toastElement.className = "toast";
+        }
+        clearTimeout(toastTimeout);
+        toastElement.textContent = msg;
+        if (!toastElement.parentNode) {
+          document.body.appendChild(toastElement);
+        }
+        // Reset animation by removing and re-adding
+        toastElement.style.animation = "none";
+        toastElement.offsetHeight; // trigger reflow
+        toastElement.style.animation = "";
+        toastTimeout = setTimeout(() => toastElement.remove(), 2500);
+      }
+
+      // Point-in-polygon test using ray casting algorithm
+      function pointInPolygon(x, y, ring) {
+        let inside = false;
+        for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+          const xi = ring[i][0],
+            yi = ring[i][1];
+          const xj = ring[j][0],
+            yj = ring[j][1];
+          if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) {
+            inside = !inside;
+          }
+        }
+        return inside;
+      }
+
+      // Calculate bounds from GeoJSON
+      function calculateBounds(geojson) {
+        let minLng = Infinity,
+          maxLng = -Infinity,
+          minLat = Infinity,
+          maxLat = -Infinity;
+        let minZ = Infinity,
+          maxZ = -Infinity;
+
+        function processCoords(coords) {
+          if (typeof coords[0] === "number") {
+            minLng = Math.min(minLng, coords[0]);
+            maxLng = Math.max(maxLng, coords[0]);
+            minLat = Math.min(minLat, coords[1]);
+            maxLat = Math.max(maxLat, coords[1]);
+            if (coords[2] !== undefined) {
+              minZ = Math.min(minZ, coords[2]);
+              maxZ = Math.max(maxZ, coords[2]);
+            }
+          } else {
+            coords.forEach(processCoords);
+          }
+        }
+
+        geojson.features.forEach((f) => {
+          if (f.geometry && f.geometry.coordinates) {
+            processCoords(f.geometry.coordinates);
+          }
+        });
+
+        return { minLng, maxLng, minLat, maxLat, minZ: minZ === Infinity ? 0 : minZ, maxZ: maxZ === -Infinity ? 0 : maxZ };
+      }
+
+      const bounds = calculateBounds(geojsonData);
+      const centerLng = (bounds.minLng + bounds.maxLng) / 2;
+      const centerLat = (bounds.minLat + bounds.maxLat) / 2;
+      const latRange = bounds.maxLat - bounds.minLat;
+      const lngRange = bounds.maxLng - bounds.minLng;
+      const range = Math.max(latRange, lngRange);
+      const zoom = Math.max(1, Math.min(18, 14 - Math.log2(range * 111)));
+
+      // Build category color map
+      function buildCategoryColorMap() {
+        categoryColorMap = {};
+        hiddenCategories.clear();
+        if (!selectedCategory) {
+          updateLegend();
+          return;
+        }
+
+        const uniqueValues = [...new Set(geojsonData.features.map((f) => f.properties[selectedCategory]))];
+        uniqueValues.sort();
+        uniqueValues.forEach((val, i) => {
+          // Check for stored custom color first
+          const customKey = `${selectedCategory}:${val}`;
+          if (customColors[customKey]) {
+            categoryColorMap[val] = customColors[customKey];
+          } else {
+            categoryColorMap[val] = colorPalette[i % colorPalette.length];
+          }
+        });
+
+        updateLegend();
+      }
+
+      function updateLegend() {
+        const legend = document.getElementById("legend");
+        const legendItems = document.getElementById("legend-items");
+
+        // Count total polygon features
+        const totalFeatures = geojsonData.features.filter((f) => f.geometry && (f.geometry.type === "Polygon" || f.geometry.type === "MultiPolygon")).length;
+
+        if (!selectedCategory) {
+          // Show uniform color info when no category selected
+          legend.classList.remove("hidden");
+          legendItems.innerHTML = `
+                    <div class="legend-item" id="uniform-color-item">
+                        <div class="legend-color" style="background: rgb(${uniformColor[0]}, ${uniformColor[1]}, ${uniformColor[2]})"></div>
+                        <span class="legend-label">All</span>
+                        <span class="legend-count">${totalFeatures}</span>
+                    </div>
+                `;
+
+          // Add color picker for uniform color
+          const uniformColorEl = document.querySelector("#uniform-color-item .legend-color");
+          if (uniformColorEl) {
+            uniformColorEl.addEventListener("click", (e) => {
+              e.stopPropagation();
+              openUniformColorPicker(uniformColorEl);
+            });
+          }
+          return;
+        }
+
+        // Count features per category
+        const categoryCounts = {};
+        geojsonData.features.forEach((f) => {
+          const val = String(f.properties[selectedCategory] ?? "null");
+          categoryCounts[val] = (categoryCounts[val] || 0) + 1;
+        });
+
+        legend.classList.remove("hidden");
+
+        // Use DocumentFragment to batch DOM updates (single reflow instead of N)
+        const fragment = document.createDocumentFragment();
+
+        Object.entries(categoryColorMap).forEach(([value, color], index) => {
+          const count = categoryCounts[value] || 0;
+          const item = document.createElement("div");
+          item.className = "legend-item";
+          item.dataset.legendIndex = index;
+          if (hiddenCategories.has(value)) {
+            item.classList.add("hidden-category");
+          }
+          // Keyboard shortcut: 1-9 for items 0-8, 0 for item 9
+          const kbdKey = index < 9 ? String(index + 1) : index === 9 ? "0" : null;
+          const kbdHtml = kbdKey ? `<span class="legend-kbd">${kbdKey}</span>` : '<span class="legend-kbd" style="visibility: hidden;">0</span>';
+          item.innerHTML = `
+                    <div class="legend-color" style="background: rgb(${color[0]}, ${color[1]}, ${color[2]})"></div>
+                    <span class="legend-label" title="${value}">${value === null || value === "null" ? "NULL" : value}</span>
+                    <span class="legend-count">${count}</span>
+                    ${kbdHtml}
+                    <span class="legend-kbd solo-kbd" title="Cycle solo (X)">X</span>
+                `;
+          // Click on label/count area toggles visibility
+          item.addEventListener("click", (e) => {
+            // Don't toggle if clicking on the color (that opens color picker)
+            if (e.target.classList.contains("legend-color")) return;
+
+            // Toggle visibility
+            if (hiddenCategories.has(value)) {
+              hiddenCategories.delete(value);
+              item.classList.remove("hidden-category");
+            } else {
+              hiddenCategories.add(value);
+              item.classList.add("hidden-category");
+            }
+            // Reset solo-next to first item (exit solo mode)
+            updateSoloNextIndicator();
+            updateVisibility();
+          });
+
+          // Click on color opens color picker
+          const colorEl = item.querySelector(".legend-color");
+          colorEl.addEventListener("click", (e) => {
+            e.stopPropagation();
+            openColorPicker(value, color, colorEl);
+          });
+
+          fragment.appendChild(item);
+        });
+
+        // Clear and append all items at once (single reflow)
+        legendItems.innerHTML = "";
+        legendItems.appendChild(fragment);
+
+        // Show X on first item if there are >1 categories
+        updateSoloNextIndicator();
+      }
+
+      // Update which item shows the X kbd (the next item that will be solo'd)
+      function updateSoloNextIndicator() {
+        const items = document.querySelectorAll(".legend-item");
+        const categories = Object.keys(categoryColorMap);
+
+        // Remove all solo-next classes
+        items.forEach((i) => i.classList.remove("solo-next"));
+
+        // Only show X if there are >1 categories
+        if (categories.length <= 1) return;
+
+        // Find current solo category (if any)
+        const visibleCategories = categories.filter((c) => !hiddenCategories.has(c));
+
+        let nextIndex;
+        if (visibleCategories.length === 1) {
+          // In solo mode - next will be the one after current
+          const currentSoloIndex = categories.indexOf(visibleCategories[0]);
+          nextIndex = (currentSoloIndex + 1) % categories.length;
+        } else {
+          // Not in solo mode - next will be the first
+          nextIndex = 0;
+        }
+
+        // Add solo-next to the next item
+        if (items[nextIndex]) {
+          items[nextIndex].classList.add("solo-next");
+        }
+      }
+
+      // Color picker functionality
+      let activeColorCategory = null;
+      let activeColorElement = null;
+
+      function openColorPicker(category, currentColor, colorElement) {
+        const picker = document.getElementById("color-picker-input");
+        activeColorCategory = category;
+        activeColorElement = colorElement;
+
+        // Set current color
+        picker.value = rgbToHex(currentColor[0], currentColor[1], currentColor[2]);
+
+        // Position near the color element and click to open
+        picker.click();
+      }
+
+      function openUniformColorPicker(colorElement) {
+        const picker = document.getElementById("color-picker-input");
+        activeColorCategory = "__uniform__";
+        activeColorElement = colorElement;
+
+        picker.value = rgbToHex(uniformColor[0], uniformColor[1], uniformColor[2]);
+        picker.click();
+      }
+
+      function updateUniformColor(newColor) {
+        uniformColor = newColor;
+
+        // Update legend color element
+        if (activeColorElement) {
+          activeColorElement.style.background = `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`;
+        }
+
+        // Update 3D view - all meshes
+        if (customLayer && customLayer.meshes) {
+          const threeColor = new THREE.Color(newColor[0] / 255, newColor[1] / 255, newColor[2] / 255);
+          const strokeColor = new THREE.Color(Math.max(0, newColor[0] / 255 - 0.08), Math.max(0, newColor[1] / 255 - 0.08), Math.max(0, newColor[2] / 255 - 0.08));
+
+          for (const mesh of customLayer.meshes) {
+            if (mesh.material) {
+              if (mesh.material.userData?.isFill) {
+                mesh.material.color = threeColor;
+                mesh.material.userData.batchColor = newColor;
+              } else {
+                mesh.material.color = strokeColor;
+                mesh.material.userData.batchColor = newColor;
+              }
+            }
+          }
+          map3d.triggerRepaint();
+        }
+
+        // Update 2D view
+        update2DColors();
+      }
+
+      function hexToRgb(hex) {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : [128, 128, 128];
+      }
+
+      function updateCategoryColor(category, newColor) {
+        // Get the old color before updating
+        const oldColor = categoryColorMap[category];
+
+        // Update color map
+        categoryColorMap[category] = newColor;
+
+        // Store persistently for this category:value combination
+        const customKey = `${selectedCategory}:${category}`;
+        customColors[customKey] = newColor;
+
+        // Update legend color element
+        if (activeColorElement) {
+          activeColorElement.style.background = `rgb(${newColor[0]}, ${newColor[1]}, ${newColor[2]})`;
+        }
+
+        // Update 3D view - find meshes by their batchColor
+        if (customLayer && customLayer.meshes && oldColor) {
+          const threeColor = new THREE.Color(newColor[0] / 255, newColor[1] / 255, newColor[2] / 255);
+          const strokeColor = new THREE.Color(Math.max(0, newColor[0] / 255 - 0.08), Math.max(0, newColor[1] / 255 - 0.08), Math.max(0, newColor[2] / 255 - 0.08));
+
+          for (const mesh of customLayer.meshes) {
+            const batchColor = mesh.material?.userData?.batchColor;
+            if (batchColor && batchColor[0] === oldColor[0] && batchColor[1] === oldColor[1] && batchColor[2] === oldColor[2]) {
+              if (mesh.material.userData?.isFill) {
+                mesh.material.color = threeColor;
+              } else {
+                mesh.material.color = strokeColor;
+              }
+              // Update the batchColor reference
+              mesh.material.userData.batchColor = newColor;
+            }
+          }
+          map3d.triggerRepaint();
+        }
+
+        // Update 2D view
+        update2DColors();
+      }
+
+      function getFeatureColor(feature) {
+        if (!selectedCategory) return [...uniformColor, 180];
+        const value = feature.properties[selectedCategory];
+        const color = categoryColorMap[value] || [128, 128, 128];
+        return [...color, 180];
+      }
+
+      function rgbToHex(r, g, b) {
+        return "#" + [r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("");
+      }
+
+      // Get polygon data with Z coordinates for 3D view
+      function getPolygonData() {
+        return geojsonData.features.filter((f) => {
+          if (!f.geometry || (f.geometry.type !== "Polygon" && f.geometry.type !== "MultiPolygon")) {
+            return false;
+          }
+          if (selectedCategory && hiddenCategories.has(String(f.properties[selectedCategory] ?? "null"))) {
+            return false;
+          }
+          return true;
+        });
+      }
+
+      // Track last hovered properties for context menu
+      let lastHoveredProperties = null;
+      // Track last mouse event for re-detection on category change
+      let _last3DMouseEvent = null;
+      let _last3DMouseTarget = null;
+
+      function formatTooltipValue(v) {
+        if (v === null || v === undefined) return "NULL";
+        const s = String(v);
+        return s.length > 60 ? s.slice(0, 57) + "..." : s;
+      }
+
+      function showHoverTooltip(x, y, properties, lngLat) {
+        lastHoveredProperties = properties;
+        if (lngLat) {
+          hoverTooltipLngLat = lngLat;
+        }
+
+        const tooltip = document.getElementById("hover-tooltip");
+        const header = tooltip.querySelector(".tooltip-header");
+        const colorDiv = tooltip.querySelector(".tooltip-color");
+        const labelSpan = tooltip.querySelector(".tooltip-label");
+        const propsDiv = tooltip.querySelector(".tooltip-props");
+
+        // Header: show selected category value with color swatch
+        if (selectedCategory) {
+          const value = String(properties[selectedCategory] ?? "null");
+          const color = categoryColorMap[value] || [128, 128, 128];
+          colorDiv.style.background = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+          labelSpan.textContent = `${selectedCategory}: ${value === "null" ? "NULL" : value}`;
+          header.style.display = "";
+        } else {
+          header.style.display = "none";
+        }
+
+        // Build property rows for all columns
+        let html = "";
+        for (const col of allColumns) {
+          if (col === selectedCategory) continue;
+          if (!(col in properties)) continue;
+          const val = formatTooltipValue(properties[col]);
+          const escapedCol = col.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+          const escapedVal = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+          html += `<span class="prop-key" title="${escapedCol}">${escapedCol}</span><span class="prop-val" title="${escapedVal}">${escapedVal}</span>`;
+        }
+        propsDiv.innerHTML = html;
+
+        tooltip.style.left = x + 12 + "px";
+        tooltip.style.top = y + 12 + "px";
+        tooltip.classList.remove("hidden");
+      }
+
+      function updateHoverTooltipPosition() {
+        if (!hoverTooltipLngLat || !map2d) return;
+        const tooltip = document.getElementById("hover-tooltip");
+        if (tooltip.classList.contains("hidden")) return;
+
+        try {
+          const point = map2d.project([hoverTooltipLngLat.lng, hoverTooltipLngLat.lat]);
+          const mapContainer = document.getElementById("map-2d");
+          const rect = mapContainer.getBoundingClientRect();
+          tooltip.style.left = rect.left + point.x + 12 + "px";
+          tooltip.style.top = rect.top + point.y + 12 + "px";
+        } catch (e) {
+          // Point outside viewport
+        }
+      }
+
+      function hideHoverTooltip() {
+        document.getElementById("hover-tooltip").classList.add("hidden");
+        hoverTooltipLngLat = null;
+        // Keep lastHoveredProperties for context menu use
+      }
+
+      // Three.js scene components
+      let cachedMinAlt = null;
+      let cachedScene = null;
+      let cachedCamera = null;
+      let cachedMeshes = [];
+      let customLayer = null;
+      let meshFadeProgress = 0;
+      let isInitialLoad = true;
+
+      // Single map per view
+      let map3d = null;
+      let map2d = null;
+
+      // Triangulate a 3D polygon using earcut
+      function triangulatePolygon(coords3d) {
+        if (coords3d.length < 3) return null;
+
+        // Find the best projection plane by computing polygon normal
+        let nx = 0,
+          ny = 0,
+          nz = 0;
+        for (let i = 0; i < coords3d.length; i++) {
+          const curr = coords3d[i];
+          const next = coords3d[(i + 1) % coords3d.length];
+          nx += (curr[1] - next[1]) * (curr[2] + next[2]);
+          ny += (curr[2] - next[2]) * (curr[0] + next[0]);
+          nz += (curr[0] - next[0]) * (curr[1] + next[1]);
+        }
+
+        // Normalize
+        const len = Math.sqrt(nx * nx + ny * ny + nz * nz);
+        if (len < 1e-10) return null;
+        nx /= len;
+        ny /= len;
+        nz /= len;
+
+        // Choose projection plane based on dominant normal component
+        let project2d;
+        const absNx = Math.abs(nx),
+          absNy = Math.abs(ny),
+          absNz = Math.abs(nz);
+
+        if (absNz >= absNx && absNz >= absNy) {
+          // Project onto XY plane (horizontal surfaces)
+          project2d = (p) => [p[0], p[1]];
+        } else if (absNy >= absNx) {
+          // Project onto XZ plane (vertical wall facing Y)
+          project2d = (p) => [p[0], p[2]];
+        } else {
+          // Project onto YZ plane (vertical wall facing X)
+          project2d = (p) => [p[1], p[2]];
+        }
+
+        // Create 2D coords for earcut
+        const coords2d = [];
+        for (const p of coords3d) {
+          const p2 = project2d(p);
+          coords2d.push(p2[0], p2[1]);
+        }
+
+        // Triangulate
+        const indices = earcut(coords2d);
+        if (indices.length === 0) return null;
+
+        return indices;
+      }
+
+      const MAPTILER_STYLE = __MAPTILER_STYLE_JSON__;
+      let vectorStyleLayers = [];
+
+      // Compute sun position from lat/lng and current time.
+      // Falls back to solar noon if sun is below horizon (nighttime).
+      function getSunPosition(lat, lng) {
+        try {
+          const now = new Date();
+          const startOfYear = new Date(now.getFullYear(), 0, 0);
+          const dayOfYear = Math.floor((now.getTime() - startOfYear.getTime()) / 86400000);
+
+          // Solar declination (Spencer, 1971)
+          const B = ((2 * Math.PI) / 365) * (dayOfYear - 81);
+          const declination = Math.asin(0.39779 * Math.sin(B));
+
+          // Equation of time (minutes)
+          const EoT = 9.87 * Math.sin(2 * B) - 7.53 * Math.cos(B) - 1.5 * Math.sin(B);
+
+          // Current time as UTC hours
+          const utcHours = now.getUTCHours() + now.getUTCMinutes() / 60;
+
+          // Solar time = UTC hours + lng/15 (geographic timezone) + EoT correction
+          const solarTime = utcHours + lng / 15 + EoT / 60;
+
+          // Hour angle: 0 at solar noon, positive in afternoon
+          const haRad = ((solarTime - 12) * 15 * Math.PI) / 180;
+
+          const latRad = (lat * Math.PI) / 180;
+          const sinElev =
+            Math.sin(latRad) * Math.sin(declination) +
+            Math.cos(latRad) * Math.cos(declination) * Math.cos(haRad);
+          let elevation = Math.asin(Math.max(-1, Math.min(1, sinElev)));
+          let azHa = haRad;
+
+          // If sun is below horizon, use solar noon instead
+          if (elevation <= 0) {
+            const sinElevNoon =
+              Math.sin(latRad) * Math.sin(declination) +
+              Math.cos(latRad) * Math.cos(declination); // cos(0) = 1 at noon
+            elevation = Math.asin(Math.max(-1, Math.min(1, sinElevNoon)));
+            azHa = 0; // noon = due south
+          }
+
+          // Azimuth (from south, clockwise positive)
+          const cosAz =
+            (Math.sin(declination) - Math.sin(elevation) * Math.sin(latRad)) /
+            (Math.cos(elevation) * Math.cos(latRad));
+          let azimuth = Math.acos(Math.max(-1, Math.min(1, cosAz)));
+          if (azHa > 0) azimuth = 2 * Math.PI - azimuth;
+
+          // Convert to Three.js scene coords (X=east, Y=up, Z=south)
+          // Azimuth is measured from south (0°), clockwise.
+          // The model matrix negates Y scale which mirrors the north-south
+          // axis visually, so we negate Z to compensate.
+          const dist = 300;
+          const x = dist * Math.cos(elevation) * Math.sin(azimuth);
+          const y = dist * Math.sin(elevation);
+          const z = -dist * Math.cos(elevation) * Math.cos(azimuth);
+
+          console.log("[sun] elevation:", (elevation * 180 / Math.PI).toFixed(1) + "°",
+            "azimuth:", (azimuth * 180 / Math.PI).toFixed(1) + "°",
+            "nighttime:", azHa === 0,
+            "pos:", x.toFixed(0), y.toFixed(0), z.toFixed(0));
+          return { x, y, z };
+        } catch (e) {
+          console.warn("[sun] calculation failed, using default:", e);
+          return { x: 100, y: 200, z: 150 };
+        }
+      }
+
+      // Initialize 3D Three.js view with MapLibre basemap using custom layer
+
+      function init3DView() {
+        buildCategoryColorMap();
+
+        map3d = new maplibregl.Map({
+          container: "three-container",
+          style: structuredClone(MAPTILER_STYLE),
+          center: [centerLng, centerLat],
+          zoom: zoom,
+          pitch: 60,
+          maxPitch: 90,
+          centerClampedToGround: false,
+          bearing: 0,
+          canvasContextAttributes: { antialias: true },
+          attributionControl: false,
+          dragRotate: false, // Disable default, use custom with reduced sensitivity
+          boxZoom: false, // Disable shift+drag zoom
+        });
+
+        // Custom drag rotation with reduced sensitivity
+        const rotationSensitivity = 0.3;
+        let isDragging = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        const container3d = document.getElementById("three-container");
+        container3d.addEventListener("mousedown", (e) => {
+          // Shift + left click to rotate
+          if (e.button === 0 && e.shiftKey) {
+            isDragging = true;
+            lastX = e.clientX;
+            lastY = e.clientY;
+            e.preventDefault();
+          }
+        });
+
+        window.addEventListener("mousemove", (e) => {
+          if (!isDragging || !map3d) return;
+          const deltaX = e.clientX - lastX;
+          const deltaY = e.clientY - lastY;
+          lastX = e.clientX;
+          lastY = e.clientY;
+
+          const currentBearing = map3d.getBearing();
+          const currentPitch = map3d.getPitch();
+          map3d.setBearing(currentBearing + deltaX * rotationSensitivity);
+          map3d.setPitch(Math.max(0, Math.min(90, currentPitch - deltaY * rotationSensitivity)));
+        });
+
+        window.addEventListener("mouseup", () => {
+          isDragging = false;
+        });
+
+        map3d.on("error", (e) => {
+          console.error("[map3d error]", e.error?.message || e);
+          const status = document.getElementById("progress-status");
+          if (status) status.textContent = "3D Error: " + (e.error?.message || "unknown");
+        });
+
+        map3d.on("load", () => {
+          // Track vector layer IDs for toggling (use first map that loads)
+          if (vectorStyleLayers.length === 0) {
+            vectorStyleLayers = map3d.getStyle().layers.map(l => l.id);
+          }
+          // Add satellite source and layer
+          map3d.addSource("satellite-tiles", {
+            type: "raster",
+            tiles: ["https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=xlQ4I66qbGWwrztUO21v"],
+            tileSize: 512,
+          });
+          map3d.addLayer({
+            id: "satellite-layer",
+            type: "raster",
+            source: "satellite-tiles",
+            paint: { "raster-opacity": 0 },
+          }, vectorStyleLayers[0]); // Insert below all vector layers
+          addThreeLayer(map3d);
+        });
+      }
+
+      function addThreeLayer(targetMap) {
+        // Calculate minimum Z from data for ground-relative positioning (cache it)
+        if (cachedMinAlt === null) {
+          cachedMinAlt = Infinity;
+          for (const feature of geojsonData.features) {
+            const coords = feature.geometry.coordinates[0];
+            for (const c of coords) {
+              if (c[2] !== undefined && c[2] < cachedMinAlt) cachedMinAlt = c[2];
+            }
+          }
+          if (!isFinite(cachedMinAlt)) cachedMinAlt = 0;
+        }
+        const minAlt = cachedMinAlt;
+
+        // Get model origin at ground level (buildings will be relative to this)
+        const modelOrigin = maplibregl.MercatorCoordinate.fromLngLat([centerLng, centerLat], 0);
+        const modelScale = modelOrigin.meterInMercatorCoordinateUnits();
+
+        customLayer = {
+          id: "three-layer",
+          type: "custom",
+          renderingMode: "3d",
+          scene: null,
+          camera: null,
+          renderer: null,
+          meshes: [],
+
+          onAdd: function (map, gl) {
+            // Create new scene and camera
+            this.camera = new THREE.Camera();
+            this.scene = new THREE.Scene();
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+            this.scene.add(ambientLight);
+
+            // Directional light with shadow support — position from real sun
+            this.directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
+            const sunPos = getSunPosition(centerLat, centerLng);
+            this.directionalLight.position.set(sunPos.x, sunPos.y, sunPos.z);
+            this.directionalLight.castShadow = true;
+
+            // Shadow camera configuration - adaptive resolution based on dataset size
+            const featureCount = getPolygonData().length;
+            const shadowSize = featureCount > 5000 ? 2048 : featureCount > 500 ? 1024 : 512;
+            this.directionalLight.shadow.mapSize.width = shadowSize;
+            this.directionalLight.shadow.mapSize.height = shadowSize;
+            this.directionalLight.shadow.camera.near = 1;
+            this.directionalLight.shadow.camera.far = 1000;
+            this.directionalLight.shadow.camera.left = -500;
+            this.directionalLight.shadow.camera.right = 500;
+            this.directionalLight.shadow.camera.top = 500;
+            this.directionalLight.shadow.camera.bottom = -500;
+            this.directionalLight.shadow.bias = -0.001;
+
+            this.scene.add(this.directionalLight);
+
+            // Ground plane to receive shadows
+            const groundGeometry = new THREE.PlaneGeometry(2000, 2000);
+            this.groundMaterial = new THREE.ShadowMaterial({
+              opacity: 0.6,
+            });
+            this.groundPlane = new THREE.Mesh(groundGeometry, this.groundMaterial);
+            this.groundPlane.rotation.x = -Math.PI / 2;
+            this.groundPlane.position.y = 0;
+            this.groundPlane.receiveShadow = true;
+            this.scene.add(this.groundPlane);
+
+            // Build meshes asynchronously during initial load
+            // This allows UI to remain responsive during large dataset processing
+            if (isInitialLoad) {
+              // Schedule async build - will run after this sync function returns
+              setTimeout(() => {
+                this.rebuildMeshesAsync(true).then(() => {
+                  progress.update(100, "Complete");
+                  targetMap.triggerRepaint();
+                });
+              }, 0);
+            } else {
+              // Subsequent rebuilds (category change) use sync version
+              this.rebuildMeshes();
+            }
+
+            // Cache for category updates
+            cachedScene = this.scene;
+            cachedCamera = this.camera;
+
+            // Create renderer with WebGL context
+            this.renderer = new THREE.WebGLRenderer({
+              canvas: map.getCanvas(),
+              context: gl,
+              antialias: true,
+            });
+            this.renderer.autoClear = false;
+            this.renderer.shadowMap.enabled = true;
+            this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+          },
+
+          // Synchronous rebuild for category changes (batched for performance)
+          rebuildMeshes: function () {
+            // Only fade on initial load
+            if (isInitialLoad) {
+              meshFadeProgress = 0;
+            } else {
+              meshFadeProgress = 1;
+            }
+
+            // Clear existing meshes
+            for (const mesh of this.meshes) {
+              this.scene.remove(mesh);
+              if (mesh.geometry) mesh.geometry.dispose();
+              if (mesh.material) mesh.material.dispose();
+            }
+            this.meshes = [];
+
+            const polygonData = getPolygonData();
+            if (polygonData.length === 0) {
+              cachedMeshes = this.meshes;
+              return;
+            }
+
+            // Calculate data bounds and adaptive grid size
+            const bounds = this.calculateBounds(polygonData);
+            const gridConfig = this.calculateGridSize(polygonData.length, bounds);
+
+            // Group features by color (and optionally grid cell for large datasets)
+            const batches = new Map();
+
+            for (const feature of polygonData) {
+              const coords = feature.geometry.coordinates[0];
+              const color = getFeatureColor(feature);
+              const colorKey = color.join("-");
+
+              let batchKey = colorKey;
+              if (gridConfig.useSpatial) {
+                // Calculate centroid for grid cell assignment
+                const centroid = this.getFeatureCentroid(coords);
+                const cellX = Math.floor((centroid.x - bounds.minX) / gridConfig.size);
+                const cellY = Math.floor((centroid.y - bounds.minY) / gridConfig.size);
+                batchKey = `${colorKey}|${cellX},${cellY}`;
+              }
+
+              if (!batches.has(batchKey)) {
+                batches.set(batchKey, {
+                  positions: [],
+                  indices: [],
+                  strokePositions: [],
+                  strokeIndices: [],
+                  color: color,
+                  baseVertex: 0,
+                  strokeBaseVertex: 0,
+                  featureProperties: [],
+                  triangleFeatureIndices: [], // Track which feature each triangle belongs to
+                  // Track bounds for this batch (for frustum culling)
+                  minX: Infinity,
+                  minY: Infinity,
+                  minZ: Infinity,
+                  maxX: -Infinity,
+                  maxY: -Infinity,
+                  maxZ: -Infinity,
+                });
+              }
+
+              const batch = batches.get(batchKey);
+              this.addFeatureToBatch(batch, coords, feature.properties, feature);
+            }
+
+            // Create one mesh per batch
+            for (const [, batch] of batches) {
+              if (batch.positions.length === 0) continue;
+              const meshes = this.createBatchedMesh(batch);
+              for (const mesh of meshes) {
+                this.scene.add(mesh);
+                this.meshes.push(mesh);
+              }
+            }
+
+            // Update cache
+            cachedMeshes = this.meshes;
+          },
+
+          // Calculate adaptive grid size based on data extent and feature count
+          calculateGridSize: function (featureCount, bounds) {
+            // For small datasets, skip spatial batching - color-only is sufficient
+            if (featureCount < 500) {
+              return { useSpatial: false, size: 0 };
+            }
+
+            // Calculate extent in meters
+            const extentX = bounds.maxX - bounds.minX;
+            const extentY = bounds.maxY - bounds.minY;
+            const maxExtent = Math.max(extentX, extentY, 100); // minimum 100m
+
+            // Target ~10 cells per dimension (100 cells total max)
+            // This keeps batches manageable: ~20 colors × ~100 cells = ~2000 batches max
+            const TARGET_CELLS = 10;
+            const gridSize = maxExtent / TARGET_CELLS;
+
+            // Clamp grid size: minimum 100m (urban detail), maximum 5000m (regional)
+            const clampedSize = Math.max(100, Math.min(5000, gridSize));
+
+            return { useSpatial: true, size: clampedSize };
+          },
+
+          // Calculate bounds of all features (in degrees)
+          calculateBounds: function (polygonData) {
+            let minLng = Infinity,
+              maxLng = -Infinity;
+            let minLat = Infinity,
+              maxLat = -Infinity;
+            for (const feature of polygonData) {
+              const coords = feature.geometry.coordinates[0];
+              for (const c of coords) {
+                if (c[0] < minLng) minLng = c[0];
+                if (c[0] > maxLng) maxLng = c[0];
+                if (c[1] < minLat) minLat = c[1];
+                if (c[1] > maxLat) maxLat = c[1];
+              }
+            }
+            // Convert to meters for grid calculation
+            const metersPerDegreeLng = 111320 * Math.cos((centerLat * Math.PI) / 180);
+            const metersPerDegreeLat = 111320;
+            return {
+              minX: (minLng - centerLng) * metersPerDegreeLng,
+              maxX: (maxLng - centerLng) * metersPerDegreeLng,
+              minY: (minLat - centerLat) * metersPerDegreeLat,
+              maxY: (maxLat - centerLat) * metersPerDegreeLat,
+            };
+          },
+
+          // Get centroid of a polygon (in meters from center)
+          getFeatureCentroid: function (coords) {
+            const metersPerDegreeLng = 111320 * Math.cos((centerLat * Math.PI) / 180);
+            const metersPerDegreeLat = 111320;
+            let sumX = 0,
+              sumY = 0;
+            for (const c of coords) {
+              sumX += (c[0] - centerLng) * metersPerDegreeLng;
+              sumY += (c[1] - centerLat) * metersPerDegreeLat;
+            }
+            return { x: sumX / coords.length, y: sumY / coords.length };
+          },
+
+          // Async rebuild with progress updates (used during initial load)
+          rebuildMeshesAsync: async function (showProgress = true) {
+            // Only fade on initial load
+            if (isInitialLoad) {
+              meshFadeProgress = 0;
+            } else {
+              meshFadeProgress = 1;
+            }
+
+            // Clear existing meshes
+            for (const mesh of this.meshes) {
+              this.scene.remove(mesh);
+              if (mesh.geometry) mesh.geometry.dispose();
+              if (mesh.material) mesh.material.dispose();
+            }
+            this.meshes = [];
+
+            const polygonData = getPolygonData();
+            const total = polygonData.length;
+
+            if (total === 0) {
+              cachedMeshes = this.meshes;
+              return;
+            }
+
+            // Calculate data bounds and adaptive grid size
+            const bounds = this.calculateBounds(polygonData);
+            const gridConfig = this.calculateGridSize(total, bounds);
+
+            const CHUNK_SIZE = 500;
+            const batches = new Map();
+
+            // Process features in chunks, yielding to UI
+            for (let i = 0; i < total; i += CHUNK_SIZE) {
+              const end = Math.min(i + CHUNK_SIZE, total);
+
+              for (let j = i; j < end; j++) {
+                const feature = polygonData[j];
+                const coords = feature.geometry.coordinates[0];
+                const color = getFeatureColor(feature);
+                const colorKey = color.join("-");
+
+                let batchKey = colorKey;
+                if (gridConfig.useSpatial) {
+                  // Calculate centroid for grid cell assignment
+                  const centroid = this.getFeatureCentroid(coords);
+                  const cellX = Math.floor((centroid.x - bounds.minX) / gridConfig.size);
+                  const cellY = Math.floor((centroid.y - bounds.minY) / gridConfig.size);
+                  batchKey = `${colorKey}|${cellX},${cellY}`;
+                }
+
+                if (!batches.has(batchKey)) {
+                  batches.set(batchKey, {
+                    positions: [],
+                    indices: [],
+                    strokePositions: [],
+                    strokeIndices: [],
+                    color: color,
+                    baseVertex: 0,
+                    strokeBaseVertex: 0,
+                    featureProperties: [],
+                    triangleFeatureIndices: [], // Track which feature each triangle belongs to
+                    minX: Infinity,
+                    minY: Infinity,
+                    minZ: Infinity,
+                    maxX: -Infinity,
+                    maxY: -Infinity,
+                    maxZ: -Infinity,
+                  });
+                }
+
+                const batch = batches.get(batchKey);
+                this.addFeatureToBatch(batch, coords, feature.properties, feature);
+              }
+
+              // Update progress and yield to UI
+              if (showProgress) {
+                const pct = 40 + (end / total) * 50;
+                progress.update(pct, `Building 3D geometry (${end.toLocaleString()} / ${total.toLocaleString()})...`);
+              }
+              await new Promise((r) => requestAnimationFrame(r));
+            }
+
+            // Create batched meshes
+            for (const [, batch] of batches) {
+              if (batch.positions.length === 0) continue;
+              const meshes = this.createBatchedMesh(batch);
+              for (const mesh of meshes) {
+                this.scene.add(mesh);
+                this.meshes.push(mesh);
+              }
+            }
+
+            // Update cache
+            cachedMeshes = this.meshes;
+          },
+
+          // Add a single feature's geometry to a spatial batch
+          addFeatureToBatch: function (batch, coords, properties, originalFeature) {
+            // Convert to local meters relative to center
+            // Use per-building minAlt so all surfaces of the same gmlid share ground reference
+            const gmlid = properties?.gmlid;
+            const baseAlt = gmlid ? (buildingMinAlt.get(gmlid) ?? minAlt) : minAlt;
+            const localCoords = coords.map((c) => {
+              const lng = c[0],
+                lat = c[1],
+                alt = (c[2] || 0) - baseAlt + 0.01; // Per-building ground reference + small offset to avoid clipping
+              const metersPerDegreeLng = 111320 * Math.cos((centerLat * Math.PI) / 180);
+              const metersPerDegreeLat = 111320;
+              return [(lng - centerLng) * metersPerDegreeLng, (lat - centerLat) * metersPerDegreeLat, alt];
+            });
+
+            const indices = triangulatePolygon(localCoords);
+            if (!indices) return;
+
+            // Get the feature index within this batch (will be used for triangle lookup)
+            const featureIndexInBatch = batch.featureProperties.length;
+
+            // Add fill geometry to batch and track bounds
+            const baseVertex = batch.baseVertex;
+            for (const p of localCoords) {
+              // coords3d: [east_meters, north_meters, up_meters]
+              // Three.js: X=east, Y=up, Z=-north
+              const x = p[0],
+                y = p[2],
+                z = -p[1];
+              batch.positions.push(x, y, z);
+
+              // Track bounds for frustum culling
+              if (x < batch.minX) batch.minX = x;
+              if (x > batch.maxX) batch.maxX = x;
+              if (y < batch.minY) batch.minY = y;
+              if (y > batch.maxY) batch.maxY = y;
+              if (z < batch.minZ) batch.minZ = z;
+              if (z > batch.maxZ) batch.maxZ = z;
+            }
+            for (const idx of indices) {
+              batch.indices.push(idx + baseVertex);
+            }
+            batch.baseVertex += localCoords.length;
+
+            // Track which feature each triangle belongs to (indices.length/3 triangles)
+            const numTriangles = indices.length / 3;
+            for (let t = 0; t < numTriangles; t++) {
+              batch.triangleFeatureIndices.push(featureIndexInBatch);
+            }
+
+            // Add stroke geometry (line segments for LineSegments)
+            const strokeBase = batch.strokeBaseVertex;
+            for (const p of localCoords) {
+              batch.strokePositions.push(p[0], p[2], -p[1]);
+            }
+            // Create line segments (pairs of indices for closed loop)
+            for (let i = 0; i < localCoords.length; i++) {
+              batch.strokeIndices.push(strokeBase + i, strokeBase + ((i + 1) % localCoords.length));
+            }
+            batch.strokeBaseVertex += localCoords.length;
+
+            // Store properties and original feature reference for this feature
+            batch.featureProperties.push({ properties, originalFeature });
+          },
+
+          // Create batched mesh from accumulated geometry
+          createBatchedMesh: function (batch) {
+            const color = batch.color;
+            const threeColor = new THREE.Color(color[0] / 255, color[1] / 255, color[2] / 255);
+            const strokeColor = new THREE.Color(Math.max(0, color[0] / 255 - 0.08), Math.max(0, color[1] / 255 - 0.08), Math.max(0, color[2] / 255 - 0.08));
+
+            const meshes = [];
+
+            // Create fill mesh
+            const fillGeometry = new THREE.BufferGeometry();
+            fillGeometry.setAttribute("position", new THREE.Float32BufferAttribute(batch.positions, 3));
+            fillGeometry.setIndex(batch.indices);
+            fillGeometry.computeVertexNormals();
+
+            // Set explicit bounding box for frustum culling
+            fillGeometry.boundingBox = new THREE.Box3(
+              new THREE.Vector3(batch.minX, batch.minY, batch.minZ),
+              new THREE.Vector3(batch.maxX, batch.maxY, batch.maxZ),
+            );
+            // Compute bounding sphere from bounding box
+            fillGeometry.boundingSphere = new THREE.Sphere();
+            fillGeometry.boundingBox.getBoundingSphere(fillGeometry.boundingSphere);
+
+            const targetOpacity = 1.0;
+            const initialOpacity = isInitialLoad ? 0 : targetOpacity;
+
+            const fillMaterial = new THREE.MeshLambertMaterial({
+              color: threeColor,
+              side: THREE.DoubleSide,
+              transparent: true,
+              opacity: initialOpacity,
+              depthWrite: true,
+            });
+            fillMaterial.userData = { targetOpacity, isFill: true, batchColor: color };
+
+            const fillMesh = new THREE.Mesh(fillGeometry, fillMaterial);
+            fillMesh.castShadow = true;
+            fillMesh.receiveShadow = true;
+            // Enable frustum culling (on by default, but be explicit)
+            fillMesh.frustumCulled = true;
+            fillMesh.userData = {
+              isBatched: true,
+              featureProperties: batch.featureProperties,
+              triangleFeatureIndices: batch.triangleFeatureIndices,
+            };
+            meshes.push(fillMesh);
+
+            // Create stroke using LineSegments for efficiency
+            if (batch.strokePositions.length > 0) {
+              const strokeGeometry = new THREE.BufferGeometry();
+              strokeGeometry.setAttribute("position", new THREE.Float32BufferAttribute(batch.strokePositions, 3));
+              strokeGeometry.setIndex(batch.strokeIndices);
+
+              // Set explicit bounding box for frustum culling (same as fill)
+              strokeGeometry.boundingBox = new THREE.Box3(
+                new THREE.Vector3(batch.minX, batch.minY, batch.minZ),
+                new THREE.Vector3(batch.maxX, batch.maxY, batch.maxZ),
+              );
+              strokeGeometry.boundingSphere = new THREE.Sphere();
+              strokeGeometry.boundingBox.getBoundingSphere(strokeGeometry.boundingSphere);
+
+              const strokeMaterial = new THREE.LineBasicMaterial({
+                color: strokeColor,
+                transparent: true,
+                opacity: isInitialLoad ? 0 : 1.0,
+              });
+              strokeMaterial.userData = { targetOpacity: 1.0, isStroke: true, batchColor: color };
+
+              const lineSegments = new THREE.LineSegments(strokeGeometry, strokeMaterial);
+              lineSegments.frustumCulled = true;
+              lineSegments.userData = { isBatched: true };
+              meshes.push(lineSegments);
+            }
+
+            return meshes;
+          },
+
+          updateOpacity: function () {
+            // Surfaces always fully opaque
+            for (const mesh of this.meshes) {
+              if (mesh.material && mesh.material.userData) {
+                if (mesh.material.userData.isFill) {
+                  mesh.material.userData.targetOpacity = 1.0;
+                  mesh.material.opacity = 1.0;
+                  mesh.material.depthWrite = true;
+                }
+              }
+            }
+            if (this.groundMaterial) {
+              this.groundMaterial.opacity = 0.6;
+            }
+            targetMap.triggerRepaint();
+          },
+
+          render: function (gl, args) {
+            // Skip rendering if 3D view is hidden
+            if (currentView === "2d") return;
+
+            // Animate mesh fade-in (only on initial load)
+            if (meshFadeProgress < 1) {
+              meshFadeProgress = Math.min(1, meshFadeProgress + 0.05);
+              for (const mesh of this.meshes) {
+                if (mesh.material && mesh.material.userData && mesh.material.userData.targetOpacity !== undefined) {
+                  mesh.material.opacity = mesh.material.userData.targetOpacity * meshFadeProgress;
+                }
+              }
+              if (meshFadeProgress >= 1) {
+                isInitialLoad = false;
+              }
+              targetMap.triggerRepaint();
+            }
+
+            // Transform Three.js scene (meters, Y-up) to MapLibre clip space
+            // v5 API: matrix is in args.defaultProjectionData.mainMatrix
+            const m = new THREE.Matrix4().fromArray(args.defaultProjectionData.mainMatrix);
+
+            // Build model matrix: position at origin, scale from meters to Mercator
+            const l = new THREE.Matrix4()
+              .makeTranslation(modelOrigin.x, modelOrigin.y, modelOrigin.z)
+              .scale(new THREE.Vector3(modelScale, -modelScale, modelScale));
+
+            // Rotation to convert Y-up (Three.js) to Z-up (Mercator)
+            const rotationX = new THREE.Matrix4().makeRotationAxis(new THREE.Vector3(1, 0, 0), Math.PI / 2);
+
+            this.camera.projectionMatrix = m.multiply(l).multiply(rotationX);
+
+            this.renderer.resetState();
+            this.renderer.render(this.scene, this.camera);
+          },
+        };
+
+        targetMap.addLayer(customLayer);
+
+        // Handle resize: update Three.js renderer when map canvas resizes
+        targetMap.on("resize", () => {
+          if (customLayer && customLayer.renderer) {
+            const canvas = targetMap.getCanvas();
+            customLayer.renderer.setSize(canvas.width, canvas.height, false);
+            targetMap.triggerRepaint();
+          }
+        });
+
+        // Update view3d reference for category updates
+        view3d = {
+          map: map3d,
+          setProps: () => {
+            if (customLayer && customLayer.rebuildMeshes) {
+              customLayer.rebuildMeshes();
+              map3d.triggerRepaint();
+            }
+          },
+        };
+
+        // Force render when map is fully loaded
+        targetMap.once("idle", () => {
+          targetMap.triggerRepaint();
+        });
+
+        // 3D hover using raycaster (batched mesh aware)
+        const raycaster = new THREE.Raycaster();
+        const container = document.getElementById("three-container");
+        const container3dCanvas = container.querySelector("canvas");
+
+        // Helper: set up raycaster for a given NDC coordinate, using the MapLibre camera
+        function setupRaycasterForNDC(ndcX, ndcY) {
+          if (!customLayer || !customLayer.camera) return false;
+
+          _cachedNearNDC.set(ndcX, ndcY, -1, 1);
+          _cachedFarNDC.set(ndcX, ndcY, 1, 1);
+
+          _cachedProjMatrixInverse.copy(customLayer.camera.projectionMatrix).invert();
+
+          _cachedNearWorld.copy(_cachedNearNDC).applyMatrix4(_cachedProjMatrixInverse);
+          _cachedNearWorld.divideScalar(_cachedNearWorld.w);
+
+          _cachedFarWorld.copy(_cachedFarNDC).applyMatrix4(_cachedProjMatrixInverse);
+          _cachedFarWorld.divideScalar(_cachedFarWorld.w);
+
+          _cachedRayOrigin.set(_cachedNearWorld.x, _cachedNearWorld.y, _cachedNearWorld.z);
+          _cachedRayDirection
+            .set(_cachedFarWorld.x - _cachedNearWorld.x, _cachedFarWorld.y - _cachedNearWorld.y, _cachedFarWorld.z - _cachedNearWorld.z)
+            .normalize();
+
+          raycaster.set(_cachedRayOrigin, _cachedRayDirection);
+          return true;
+        }
+
+        // Helper: get fill meshes to test for raycasting
+        function getFillMeshesToTest() {
+          if (!customLayer || customLayer.meshes.length === 0) return [];
+          const meshesToTest = [];
+          for (const mesh of customLayer.meshes) {
+            if (mesh.isMesh && mesh.material?.userData?.isFill) {
+              if (selectedCategory && mesh.material.userData.batchColor) {
+                const batchColor = mesh.material.userData.batchColor;
+                for (const [catValue, catColor] of Object.entries(categoryColorMap)) {
+                  if (catColor[0] === batchColor[0] && catColor[1] === batchColor[1] && catColor[2] === batchColor[2]) {
+                    if (hiddenCategories.has(catValue)) continue;
+                  }
+                }
+              }
+              meshesToTest.push(mesh);
+            }
+          }
+          return meshesToTest;
+        }
+
+        // Mousemove handler for MapLibre 3D hover
+        handle3DMouseMove = function (e, targetEl) {
+          _last3DMouseEvent = e;
+          _last3DMouseTarget = targetEl;
+          if (!customLayer || customLayer.meshes.length === 0) return;
+          if (!customLayer.camera) return;
+
+          const rect = targetEl.getBoundingClientRect();
+          const mouseX = e.clientX - rect.left;
+          const mouseY = e.clientY - rect.top;
+
+          const ndcX = (mouseX / rect.width) * 2 - 1;
+          const ndcY = -(mouseY / rect.height) * 2 + 1;
+
+          if (!setupRaycasterForNDC(ndcX, ndcY)) return;
+
+          const meshesToTest = getFillMeshesToTest();
+          const intersects = raycaster.intersectObjects(meshesToTest);
+          if (intersects.length > 0) {
+            const hitMesh = intersects[0].object;
+            const faceIndex = intersects[0].faceIndex;
+
+            if (hitMesh.userData?.isBatched && hitMesh.userData?.triangleFeatureIndices && faceIndex !== undefined) {
+              const featureIndexInBatch = hitMesh.userData.triangleFeatureIndices[faceIndex];
+              const featureData = hitMesh.userData.featureProperties[featureIndexInBatch];
+
+              if (featureData && featureData.properties) {
+                showHoverTooltip(e.clientX, e.clientY, featureData.properties);
+                targetEl.style.cursor = selectedCategory ? "crosshair" : "";
+                return;
+              }
+            }
+          }
+          hideHoverTooltip();
+          targetEl.style.cursor = "";
+        };
+
+        container.addEventListener("mousemove", (e) => {
+          handle3DMouseMove(e, container3dCanvas || container);
+        });
+
+        container.addEventListener("mouseleave", () => {
+          _last3DMouseEvent = null;
+          _last3DMouseTarget = null;
+          hideHoverTooltip();
+          if (container3dCanvas) container3dCanvas.style.cursor = "";
+        });
+
+      }
+
+      // Initialize 2D MapLibre view with native GeoJSON rendering
+      function init2DView() {
+        map2d = new maplibregl.Map({
+          container: "map-2d",
+          style: structuredClone(MAPTILER_STYLE),
+          center: [centerLng, centerLat],
+          zoom: zoom,
+          maxPitch: 0,
+          pitchWithRotate: false,
+          attributionControl: false,
+          boxZoom: false, // Disable shift+drag zoom
+        });
+
+        map2d.on("error", (e) => {
+          console.error("[map2d error]", e.error?.message || e);
+          const status = document.getElementById("progress-status");
+          if (status) status.textContent = "2D Error: " + (e.error?.message || "unknown");
+        });
+
+        map2d.on("load", () => {
+          // Track vector layer IDs for toggling
+          if (vectorStyleLayers.length === 0) {
+            vectorStyleLayers = map2d.getStyle().layers.map(l => l.id);
+          }
+          // Add satellite source and layer
+          map2d.addSource("satellite-tiles", {
+            type: "raster",
+            tiles: ["https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=xlQ4I66qbGWwrztUO21v"],
+            tileSize: 512,
+          });
+          map2d.addLayer({
+            id: "satellite-layer",
+            type: "raster",
+            source: "satellite-tiles",
+            paint: { "raster-opacity": 0 },
+          }, vectorStyleLayers[0]);
+
+          map2d.addSource("geojson-data", {
+            type: "geojson",
+            data: geojsonData,
+          });
+
+          // Add fill layer
+          map2d.addLayer({
+            id: "geojson-fill",
+            type: "fill",
+            source: "geojson-data",
+            paint: {
+              "fill-color": "#4a9eff",
+              "fill-opacity": 0.1,
+            },
+          });
+
+          // Add outline layer
+          map2d.addLayer({
+            id: "geojson-outline",
+            type: "line",
+            source: "geojson-data",
+            paint: {
+              "line-color": "#4a9eff",
+              "line-width": 2,
+            },
+          });
+
+          // Update label positions on map move
+          map2d.on("move", () => {
+            updateHoverTooltipPosition();
+          });
+
+          update2DColors();
+
+          // Hover tooltip for 2D view
+          map2d.on("mousemove", "geojson-fill", (e) => {
+            if (e.features && e.features.length > 0) {
+              const feature = e.features[0];
+              const rect = map2d.getCanvas().getBoundingClientRect();
+              showHoverTooltip(rect.left + e.point.x, rect.top + e.point.y, feature.properties, e.lngLat);
+              map2d.getCanvas().style.cursor = selectedCategory ? "crosshair" : "";
+            }
+          });
+
+          map2d.on("mouseleave", "geojson-fill", () => {
+            hideHoverTooltip();
+            map2d.getCanvas().style.cursor = "";
+          });
+
+        });
+      }
+
+      function update2DColors() {
+        if (!map2d || !map2d.getLayer("geojson-fill")) return;
+
+        if (!selectedCategory) {
+          const uniformHex = rgbToHex(uniformColor[0], uniformColor[1], uniformColor[2]);
+          map2d.setPaintProperty("geojson-fill", "fill-color", uniformHex);
+          map2d.setPaintProperty("geojson-outline", "line-color", uniformHex);
+        } else {
+          // Build match expression for colors
+          // Convert value to string, handling null specially (to-string returns "" for null)
+          const entries = Object.entries(categoryColorMap);
+          if (entries.length === 0) {
+            map2d.setPaintProperty("geojson-fill", "fill-color", "#808080");
+            map2d.setPaintProperty("geojson-outline", "line-color", "#808080");
+          } else {
+            const valueExpr = ["case", ["==", ["get", selectedCategory], null], "null", ["to-string", ["get", selectedCategory]]];
+            const matchExpr = ["match", valueExpr];
+            entries.forEach(([value, color]) => {
+              matchExpr.push(value);
+              matchExpr.push(rgbToHex(color[0], color[1], color[2]));
+            });
+            matchExpr.push("#808080"); // default color
+
+            map2d.setPaintProperty("geojson-fill", "fill-color", matchExpr);
+            map2d.setPaintProperty("geojson-outline", "line-color", matchExpr);
+          }
+        }
+
+        // Add filter for hidden categories
+        if (selectedCategory && hiddenCategories.size > 0) {
+          const hiddenValues = Array.from(hiddenCategories);
+          // Convert value to string, handling null specially
+          const valueExpr = ["case", ["==", ["get", selectedCategory], null], "null", ["to-string", ["get", selectedCategory]]];
+          const filterExpr = ["!", ["in", valueExpr, ["literal", hiddenValues]]];
+          map2d.setFilter("geojson-fill", filterExpr);
+          map2d.setFilter("geojson-outline", filterExpr);
+        } else {
+          map2d.setFilter("geojson-fill", null);
+          map2d.setFilter("geojson-outline", null);
+        }
+      }
+
+      // handle3DMouseMove is defined inside addThreeLayer; expose a reference
+      let handle3DMouseMove = null;
+
+      function redetect3DHover() {
+        if (handle3DMouseMove && _last3DMouseEvent && _last3DMouseTarget) {
+          handle3DMouseMove(_last3DMouseEvent, _last3DMouseTarget);
+        }
+      }
+
+      function updateLayers() {
+        buildCategoryColorMap();
+
+        if (view3d && view3d.setProps) {
+          view3d.setProps();
+        }
+
+        update2DColors();
+        redetect3DHover();
+      }
+
+      function updateVisibility() {
+        if (view3d && view3d.setProps) {
+          view3d.setProps();
+        }
+
+        update2DColors();
+        redetect3DHover();
+      }
+
+      // View toggle buttons
+      let viewSwitching = false;
+      function setView(view) {
+        currentView = view;
+        hideHoverTooltip();
+        viewSwitching = true;
+
+        document.querySelectorAll(".controls button").forEach((b) => b.classList.remove("active"));
+        document.getElementById("btn-" + (view === "both" ? "both" : view === "3d" ? "3d" : "2d")).classList.add("active");
+
+        const container3d = document.getElementById("view-3d");
+        const container2d = document.getElementById("view-2d");
+        const divider = document.getElementById("divider");
+
+        if (view === "both") {
+          container3d.classList.remove("hidden");
+          container2d.classList.remove("hidden");
+          divider.classList.remove("hidden");
+          // Reset to default 50/50 split
+          container3d.style.flex = "";
+          container3d.style.width = "";
+          container2d.style.flex = "";
+          container2d.style.width = "";
+          // Resume rendering on both maps
+          if (map3d) map3d.triggerRepaint();
+          if (map2d) map2d.triggerRepaint();
+        } else if (view === "3d") {
+          container3d.classList.remove("hidden");
+          container2d.classList.add("hidden");
+          divider.classList.add("hidden");
+          // Stop rendering on hidden map
+          if (map2d) map2d.stop();
+        } else {
+          container3d.classList.add("hidden");
+          container2d.classList.remove("hidden");
+          divider.classList.add("hidden");
+          // Stop rendering on hidden map
+          if (map3d) map3d.stop();
+        }
+
+        // Trigger resize after a short delay, then re-enable syncing
+        setTimeout(() => {
+          if (map3d) map3d.resize();
+          if (map2d) map2d.resize();
+          setTimeout(() => {
+            viewSwitching = false;
+          }, 50);
+        }, 100);
+      }
+
+      // Divider drag to resize views
+      function initDividerDrag() {
+        const divider = document.getElementById("divider");
+        const container3d = document.getElementById("view-3d");
+        const container2d = document.getElementById("view-2d");
+        const mainContainer = document.querySelector(".main-container");
+
+        let isDragging = false;
+        let resizeScheduled = false;
+
+        divider.addEventListener("mousedown", (e) => {
+          if (currentView !== "both") return;
+          isDragging = true;
+          document.body.style.cursor = "col-resize";
+          document.body.style.userSelect = "none";
+          e.preventDefault();
+        });
+
+        document.addEventListener("mousemove", (e) => {
+          if (!isDragging) return;
+
+          const containerRect = mainContainer.getBoundingClientRect();
+          const containerWidth = containerRect.width;
+          let percentage = ((e.clientX - containerRect.left) / containerWidth) * 100;
+
+          // Snap to middle (50%) when within 3% of center
+          if (Math.abs(percentage - 50) < 3) {
+            percentage = 50;
+          }
+
+          // Clamp between 20% and 80%
+          percentage = Math.max(20, Math.min(80, percentage));
+
+          // Use calc to account for divider width
+          container3d.style.flex = "none";
+          container3d.style.width = `calc(${percentage}% - 0.5px)`;
+          container2d.style.flex = "none";
+          container2d.style.width = `calc(${100 - percentage}% - 0.5px)`;
+
+          // Throttle map resize to once per frame
+          if (!resizeScheduled) {
+            resizeScheduled = true;
+            requestAnimationFrame(() => {
+              if (map3d) map3d.resize();
+              if (map2d) map2d.resize();
+              resizeScheduled = false;
+            });
+          }
+        });
+
+        document.addEventListener("mouseup", () => {
+          if (isDragging) {
+            isDragging = false;
+            document.body.style.cursor = "";
+            document.body.style.userSelect = "";
+            // Final resize to ensure maps are correctly sized
+            if (map3d) map3d.resize();
+            if (map2d) map2d.resize();
+          }
+        });
+      }
+
+      // Initialize when DOM is ready (or immediately if already loaded)
+      async function initApp() {
+        // Combobox setup
+        const comboboxTrigger = document.getElementById("combobox-trigger");
+        const comboboxPopover = document.getElementById("combobox-popover");
+        const comboboxInput = document.getElementById("combobox-input");
+        const comboboxList = document.getElementById("combobox-list");
+        const categoryOptions = ["", ...allColumns]; // Empty string = "None"
+        let comboboxOpen = false;
+
+        function getOptionLabel(value) {
+          return value === "" ? "None (uniform color)" : value;
+        }
+
+        function updateComboboxTrigger() {
+          const span = comboboxTrigger.querySelector("span");
+          if (selectedCategory) {
+            span.textContent = selectedCategory;
+            span.classList.remove("placeholder");
+          } else {
+            span.textContent = "Select category...";
+            span.classList.add("placeholder");
+          }
+        }
+
+        function renderComboboxItems(filter = "") {
+          const filterLower = filter.toLowerCase();
+          const filtered = categoryOptions.filter((opt) => getOptionLabel(opt).toLowerCase().includes(filterLower));
+
+          if (filtered.length === 0) {
+            comboboxList.innerHTML = '<div class="combobox-empty">No category found.</div>';
+            return;
+          }
+
+          comboboxList.innerHTML = filtered
+            .map((opt) => {
+              const label = getOptionLabel(opt);
+              const isSelected = (opt === "" && !selectedCategory) || opt === selectedCategory;
+              const checkClass = isSelected ? "" : "check-hidden";
+              return `
+                        <div class="combobox-item${isSelected ? " selected" : ""}" data-value="${opt}" role="option">
+                            <svg class="${checkClass}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>${label}</span>
+                        </div>
+                    `;
+            })
+            .join("");
+
+          // Add click handlers
+          comboboxList.querySelectorAll(".combobox-item").forEach((item) => {
+            item.addEventListener("click", () => {
+              const value = item.dataset.value;
+              selectedCategory = value || null;
+              updateComboboxTrigger();
+              closeCombobox();
+              updateLayers();
+            });
+          });
+        }
+
+        function openCombobox() {
+          comboboxOpen = true;
+          comboboxPopover.classList.remove("hidden");
+          comboboxTrigger.setAttribute("aria-expanded", "true");
+          comboboxInput.value = "";
+          renderComboboxItems();
+          comboboxInput.focus();
+        }
+
+        function closeCombobox() {
+          comboboxOpen = false;
+          comboboxPopover.classList.add("hidden");
+          comboboxTrigger.setAttribute("aria-expanded", "false");
+          comboboxTrigger.focus();
+        }
+
+        comboboxTrigger.addEventListener("click", () => {
+          if (comboboxOpen) {
+            closeCombobox();
+          } else {
+            openCombobox();
+          }
+        });
+
+        comboboxInput.addEventListener("input", (e) => {
+          renderComboboxItems(e.target.value);
+        });
+
+        comboboxInput.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            closeCombobox();
+          } else if (e.key === "Enter") {
+            const firstItem = comboboxList.querySelector(".combobox-item");
+            if (firstItem) firstItem.click();
+          }
+        });
+
+        // Close on outside click
+        document.addEventListener("click", (e) => {
+          if (comboboxOpen && !e.target.closest("#category-combobox")) {
+            closeCombobox();
+          }
+        });
+
+        // Initialize trigger text
+        updateComboboxTrigger();
+
+        // Color picker event handler
+        const colorPickerInput = document.getElementById("color-picker-input");
+        colorPickerInput.addEventListener("input", (e) => {
+          if (activeColorCategory !== null) {
+            const newColor = hexToRgb(e.target.value);
+            if (activeColorCategory === "__uniform__") {
+              updateUniformColor(newColor);
+            } else {
+              updateCategoryColor(activeColorCategory, newColor);
+            }
+          }
+        });
+
+        document.getElementById("btn-both").addEventListener("click", () => setView("both"));
+        document.getElementById("btn-3d").addEventListener("click", () => setView("3d"));
+        document.getElementById("btn-2d").addEventListener("click", () => setView("2d"));
+        document.getElementById("btn-link").addEventListener("click", toggleCameraLink);
+
+        // Keyboard shortcuts - O(1) lookup instead of if-chain
+        const keyHandlers = {
+          v: () => {
+            // Cycle view modes: both -> 3d -> 2d -> both
+            const views = ["both", "3d", "2d"];
+            const idx = views.indexOf(currentView);
+            setView(views[(idx + 1) % views.length]);
+          },
+          c: () => {
+            // Cycle categories: null -> col1 -> col2 -> ... -> null
+            const currentIdx = categoryOptions.indexOf(selectedCategory || "");
+            const nextIdx = (currentIdx + 1) % categoryOptions.length;
+            selectedCategory = categoryOptions[nextIdx] || null;
+            updateComboboxTrigger();
+            updateLayers();
+          },
+          m: () => {
+            // Cycle through map styles: map -> none -> map
+            const styles = ["map", "none"];
+            const idx = styles.indexOf(mapStyle);
+            setMapStyle(styles[(idx + 1) % styles.length]);
+          },
+          n: () => {
+            if (map3d) map3d.easeTo({ bearing: 0, duration: 300 });
+            if (map2d) map2d.easeTo({ bearing: 0, duration: 300 });
+          },
+          l: () => toggleCameraLink(),
+          " ": () => toggleCameraLink(),
+          a: () => {
+            const currentBearing = map3d ? map3d.getBearing() : 0;
+            if (map3d) map3d.easeTo({ bearing: currentBearing - 15, duration: 150 });
+            if (map2d && cameraLinked) map2d.easeTo({ bearing: currentBearing - 15, duration: 150 });
+          },
+          d: () => {
+            const currentBearing = map3d ? map3d.getBearing() : 0;
+            if (map3d) map3d.easeTo({ bearing: currentBearing + 15, duration: 150 });
+            if (map2d && cameraLinked) map2d.easeTo({ bearing: currentBearing + 15, duration: 150 });
+          },
+          w: () => {
+            const currentPitch = map3d ? map3d.getPitch() : 0;
+            if (map3d) map3d.easeTo({ pitch: Math.min(90, currentPitch + 10), duration: 150 });
+          },
+          s: () => {
+            const currentPitch = map3d ? map3d.getPitch() : 0;
+            if (map3d) map3d.easeTo({ pitch: Math.max(0, currentPitch - 10), duration: 150 });
+          },
+          r: () => {
+            const currentZoom = map3d ? map3d.getZoom() : map2d.getZoom();
+            if (map3d) map3d.easeTo({ zoom: currentZoom + 0.5, duration: 150 });
+            if (map2d) map2d.easeTo({ zoom: currentZoom + 0.5, duration: 150 });
+          },
+          f: () => {
+            const currentZoom = map3d ? map3d.getZoom() : map2d.getZoom();
+            if (map3d) map3d.easeTo({ zoom: currentZoom - 0.5, duration: 150 });
+            if (map2d) map2d.easeTo({ zoom: currentZoom - 0.5, duration: 150 });
+          },
+          x: () => {
+            if (!selectedCategory || Object.keys(categoryColorMap).length <= 1) return;
+            const categories = Object.keys(categoryColorMap);
+            const visibleCategories = categories.filter((c) => !hiddenCategories.has(c));
+            let nextSoloIndex = visibleCategories.length === 1 ? (categories.indexOf(visibleCategories[0]) + 1) % categories.length : 0;
+            hiddenCategories.clear();
+            categories.forEach((cat, idx) => {
+              if (idx !== nextSoloIndex) hiddenCategories.add(cat);
+            });
+            document.querySelectorAll(".legend-item").forEach((item, idx) => {
+              item.classList.toggle("hidden-category", hiddenCategories.has(categories[idx]));
+            });
+            updateSoloNextIndicator();
+            updateVisibility();
+          },
+          z: () => {
+            if (!selectedCategory || Object.keys(categoryColorMap).length <= 1) return;
+            hiddenCategories.clear();
+            document.querySelectorAll(".legend-item").forEach((item) => item.classList.remove("hidden-category"));
+            updateSoloNextIndicator();
+            updateVisibility();
+          },
+        };
+
+        // Number key handlers for legend items (1-9, 0)
+        const numKeyHandler = (key) => {
+          const legendIndex = key === "0" ? 9 : parseInt(key) - 1;
+          const legendItem = document.querySelector(`.legend-item[data-legend-index="${legendIndex}"]`);
+          if (legendItem) legendItem.click();
+        };
+
+        document.addEventListener("keydown", (e) => {
+          // Skip if typing in input fields
+          if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+
+          // Skip modifier key combos
+          if (e.ctrlKey || e.metaKey || e.altKey) return;
+          const key = e.key.toLowerCase();
+          if (keyHandlers[key]) {
+            keyHandlers[key]();
+          } else if (e.key >= "0" && e.key <= "9") {
+            numKeyHandler(e.key);
+          }
+        });
+
+        // Initialize views with progress tracking
+        progress.update(30, "Initializing views...");
+
+        // Initialize both views
+        init2DView();
+        init3DView();
+        initDividerDrag();
+
+        // Hide progress when 2D is ready
+        map2d.once("idle", async () => {
+          progress.update(40, "2D view ready, building 3D...");
+          await new Promise((r) => setTimeout(r, 100));
+          progress.hide();
+        });
+
+        // Sync views - simple center/zoom/bearing sync
+        let syncing = false;
+        let cameraLinked = true;
+
+        function sync3dTo2d() {
+          if (syncing || viewSwitching || currentView !== "both" || !cameraLinked) return;
+          syncing = true;
+
+          map2d.setCenter(map3d.getCenter());
+          map2d.setZoom(map3d.getZoom());
+          map2d.setBearing(map3d.getBearing());
+
+          syncing = false;
+        }
+
+        function sync2dTo3d() {
+          if (syncing || viewSwitching || currentView !== "both" || !cameraLinked) return;
+          syncing = true;
+
+          map3d.setCenter(map2d.getCenter());
+          map3d.setZoom(map2d.getZoom());
+          map3d.setBearing(map2d.getBearing());
+
+          syncing = false;
+        }
+
+        function toggleCameraLink() {
+          cameraLinked = !cameraLinked;
+          const btnLink = document.getElementById("btn-link");
+          btnLink.classList.toggle("active", cameraLinked);
+        }
+
+        // Wait for both maps to load before setting up sync
+        let mapsLoaded = 0;
+        function onMapLoad() {
+          mapsLoaded++;
+          if (mapsLoaded === 2) {
+            map3d.on("move", sync3dTo2d);
+            map2d.on("move", sync2dTo3d);
+          }
+        }
+
+        map3d.on("load", onMapLoad);
+        map2d.on("load", onMapLoad);
+
+        // Style toggle functionality
+        const btnMap = document.getElementById("btn-map");
+        const btnSatellite = document.getElementById("btn-satellite");
+        const btnNone = document.getElementById("btn-none");
+
+        function setMapStyle(style) {
+          if (mapStyle === style) return;
+
+          const wasNone = mapStyle === "none";
+          mapStyle = style;
+
+          // Update button states
+          btnMap.classList.toggle("active", mapStyle === "map");
+          btnSatellite.classList.toggle("active", mapStyle === "satellite");
+          btnNone.classList.toggle("active", mapStyle === "none");
+
+          // Toggle layer visibility on both maps
+          const showVector = mapStyle === "map";
+          const satOpacity = mapStyle === "satellite" ? 1 : 0;
+
+          // Toggle vector style layers visibility
+          for (const map of [map3d, map2d]) {
+            for (const layerId of vectorStyleLayers) {
+              if (map.getLayer(layerId)) {
+                map.setLayoutProperty(layerId, "visibility", showVector ? "visible" : "none");
+              }
+            }
+            if (map.getLayer("satellite-layer")) {
+              map.setPaintProperty("satellite-layer", "raster-opacity", satOpacity);
+            }
+          }
+
+          // Update Three.js mesh opacity
+          if (customLayer && customLayer.updateOpacity) {
+            customLayer.updateOpacity();
+          }
+        }
+
+        btnMap.addEventListener("click", () => setMapStyle("map"));
+        btnSatellite.addEventListener("click", () => setMapStyle("satellite"));
+        btnNone.addEventListener("click", () => setMapStyle("none"));
+
+        // Compass functionality
+        const compass = document.getElementById("compass");
+        const compassSvg = compass.querySelector("svg");
+        let currentCompassRotation = -45; // Icon points 45° to top-right
+
+        function updateCompass() {
+          // Icon points 45° to top-right, subtract 45 to make it point up at bearing=0
+          const bearing = map3d ? map3d.getBearing() : 0;
+          let targetRotation = -bearing - 45;
+
+          // Find the shortest rotation path
+          let delta = targetRotation - currentCompassRotation;
+          // Normalize delta to [-180, 180]
+          while (delta > 180) delta -= 360;
+          while (delta < -180) delta += 360;
+
+          currentCompassRotation += delta;
+          compassSvg.style.transform = `rotate(${currentCompassRotation}deg)`;
+        }
+
+        // Update compass on map move
+        function setupCompassSync() {
+          if (map3d) {
+            map3d.on("rotate", updateCompass);
+            updateCompass();
+          }
+        }
+
+        map3d.on("load", setupCompassSync);
+
+        // Click to reset bearing to north
+        compass.addEventListener("click", () => {
+          if (map3d) {
+            map3d.easeTo({ bearing: 0, duration: 300 });
+          }
+          if (map2d) {
+            map2d.easeTo({ bearing: 0, duration: 300 });
+          }
+        });
+      }
+
+      // Run initApp - DOM is already ready since ES modules are deferred
+      function safeInitApp() {
+        initApp().catch((e) => {
+          console.error("initApp failed:", e);
+          const status = document.getElementById("progress-status");
+          if (status) status.textContent = "Error: " + e.message;
+        });
+      }
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", safeInitApp);
+      } else {
+        safeInitApp();
+      }
+    </script>
+  </body>
+</html>

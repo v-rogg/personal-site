@@ -5,7 +5,7 @@ PRAGMA foreign_keys = ON;
 
 -- Users table
 CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id TEXT PRIMARY KEY,
     email TEXT,
     ts_created INTEGER NOT NULL,
     CONSTRAINT email_unique UNIQUE(email)
@@ -16,7 +16,8 @@ CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 -- Sessions table (with geo data)
 CREATE TABLE IF NOT EXISTS sessions (
     id TEXT PRIMARY KEY,
-    user_id INTEGER,
+    user_id TEXT,
+    user_agent TEXT,
     country_code TEXT,
     region TEXT,
     ts_created INTEGER NOT NULL,
@@ -34,7 +35,7 @@ CREATE TABLE IF NOT EXISTS signatures (
     session_id TEXT,
     name TEXT NOT NULL,
     signature TEXT NOT NULL,
-    approved INTEGER NOT NULL DEFAULT 0,
+    approved INTEGER DEFAULT NULL,
     ts_created INTEGER NOT NULL,
     ts_modified INTEGER,
     FOREIGN KEY (session_id) REFERENCES sessions(id)
@@ -46,22 +47,22 @@ CREATE INDEX IF NOT EXISTS idx_signatures_created ON signatures(ts_created);
 
 -- Events table
 CREATE TABLE IF NOT EXISTS events (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id TEXT PRIMARY KEY,
     session_id TEXT NOT NULL,
     event_name TEXT NOT NULL,
-    timestamp INTEGER NOT NULL,
+    ts INTEGER NOT NULL,
     properties TEXT,
     FOREIGN KEY (session_id) REFERENCES sessions(id)
 );
 
 CREATE INDEX IF NOT EXISTS idx_events_session ON events(session_id);
 CREATE INDEX IF NOT EXISTS idx_events_name ON events(event_name);
-CREATE INDEX IF NOT EXISTS idx_events_timestamp ON events(timestamp);
-CREATE INDEX IF NOT EXISTS idx_events_name_ts ON events(event_name, timestamp);
+CREATE INDEX IF NOT EXISTS idx_events_ts ON events(ts);
+CREATE INDEX IF NOT EXISTS idx_events_name_ts ON events(event_name, ts);
 
 -- Page views table (engagement tracking)
 CREATE TABLE IF NOT EXISTS page_views (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id TEXT PRIMARY KEY,
     session_id TEXT NOT NULL,
     path TEXT NOT NULL,
     referrer TEXT,

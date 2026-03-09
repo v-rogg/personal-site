@@ -50,6 +50,7 @@ services:
       - EMAIL_FROM=${EMAIL_FROM:-noreply@valentinrogg.de}
       - EMAIL_TO=${EMAIL_TO:-mail@valentinrogg.de}
       - BASE_URL=${BASE_URL:-https://valentinrogg.de}
+      - GML_CACHE_MAX_BYTES=20000000000
     volumes:
       - ./data:/data
     networks:

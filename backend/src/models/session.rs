@@ -4,7 +4,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize, sqlx::FromRow)]
 pub struct Session {
     pub id: String,
-    pub user_id: Option<i64>,
+    pub user_id: Option<String>,
+    pub user_agent: Option<String>,
     pub country_code: Option<String>,
     pub region: Option<String>,
     pub ts_created: i64,

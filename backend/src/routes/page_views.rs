@@ -23,12 +23,15 @@ pub async fn create_page_view(
     // Ensure session exists
     sqlx::query(
         r#"
-        INSERT INTO sessions (id, ts_created, ts_last_seen)
-        VALUES (?, ?, ?)
-        ON CONFLICT(id) DO UPDATE SET ts_last_seen = excluded.ts_last_seen
+        INSERT INTO sessions (id, user_agent, ts_created, ts_last_seen)
+        VALUES (?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+            ts_last_seen = excluded.ts_last_seen,
+            user_agent = COALESCE(sessions.user_agent, excluded.user_agent)
         "#,
     )
     .bind(&req.session_id)
+    .bind(&req.user_agent)
     .bind(now)
     .bind(now)
     .execute(&state.db)

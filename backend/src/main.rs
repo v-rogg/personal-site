@@ -54,7 +54,15 @@ async fn main() -> anyhow::Result<()> {
     let api_routes = Router::new()
         .nest("/signatures", signatures_routes)
         .nest("/tracking", tracking_routes)
+        .route("/geo/buildings/stream", get(routes::stream_geo_buildings))
+        .route("/geo/buildings/{key}", get(routes::get_cached_buildings))
         .route("/contact", post(routes::submit_contact));
+
+    // Start background GML cache eviction task
+    tokio::spawn(routes::gml_cache_eviction(
+        state.db.clone(),
+        config.gml_cache_max_bytes,
+    ));
 
     let app = Router::new()
         .nest("/api", api_routes)

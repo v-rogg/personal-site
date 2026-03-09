@@ -25,6 +25,9 @@ pub struct Config {
 
     // GeoIP settings
     pub geoip_db_path: Option<String>,
+
+    // GML cache settings
+    pub gml_cache_max_bytes: u64,
 }
 
 impl Config {
@@ -53,6 +56,10 @@ impl Config {
             base_url: env::var("BASE_URL")
                 .unwrap_or_else(|_| "https://valentinrogg.de".to_string()),
             geoip_db_path: env::var("GEOIP_DB_PATH").ok(),
+            gml_cache_max_bytes: env::var("GML_CACHE_MAX_BYTES")
+                .ok()
+                .and_then(|v| v.parse().ok())
+                .unwrap_or(2_000_000_000),
         }
     }
 }

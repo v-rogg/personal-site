@@ -33,5 +33,7 @@ services:
       - EMAIL_FROM=${EMAIL_FROM:-noreply@valentinrogg.de}
       - EMAIL_TO=${EMAIL_TO:-mail@valentinrogg.de}
       - BASE_URL=http://localhost:8080
+      - GEO_MAP_TEMPLATE_PATH=/app/templates/geo_map.html
     volumes:
       - ./data:/data
+      - ./backend/src/templates/geo_map.html:/app/templates/geo_map.html:ro

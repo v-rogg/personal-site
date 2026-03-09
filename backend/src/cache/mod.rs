@@ -44,10 +44,6 @@ impl SignatureCache {
             .cloned()
     }
 
-    pub async fn refresh(&self, pool: &SqlitePool) -> anyhow::Result<()> {
-        self.load(pool).await
-    }
-
     /// Check if a signature is in the cache
     pub async fn contains(&self, id: &str) -> bool {
         self.signatures.read().await.iter().any(|s| s.id == id)

@@ -100,8 +100,4 @@ impl GeoIpService {
         None
     }
 
-    /// Check if service is available (database loaded)
-    pub fn is_available(&self) -> bool {
-        self.reader.is_some()
-    }
 }

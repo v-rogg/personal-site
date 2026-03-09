@@ -45,10 +45,6 @@ pub async fn run_migrations(pool: &SqlitePool) -> anyhow::Result<()> {
     // Run migrations in order
     let migrations = [
         ("001_init", include_str!("../../migrations/001_init.sql")),
-        (
-            "002_schema_updates",
-            include_str!("../../migrations/002_schema_updates.sql"),
-        ),
     ];
 
     for (name, sql) in migrations {

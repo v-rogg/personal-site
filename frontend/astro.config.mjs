@@ -23,8 +23,12 @@ export default defineConfig({
 		},
 		server: {
 			proxy: {
-				// In dev mode, proxy /files/* to Caddy running in Docker
+				// In dev mode, proxy to Caddy running in Docker
 				"/files": {
+					target: "http://localhost:8080",
+					changeOrigin: true
+				},
+				"/api": {
 					target: "http://localhost:8080",
 					changeOrigin: true
 				}

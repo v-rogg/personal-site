@@ -7,7 +7,7 @@ description = "Unified API service for valentinrogg.de"
 
 [dependencies]
 # Web framework
-axum = { version = "0.7", features = ["macros"] }
+axum = { version = "0.8", features = ["macros"] }
 tokio = { version = "1", features = ["full"] }
 tower = "0.5"
 tower-http = { version = "0.6", features = ["cors", "trace", "compression-gzip"] }
@@ -27,13 +27,24 @@ flate2 = "1"
 chrono = { version = "0.4", features = ["serde"] }
 
 # HTTP client (for Friendly Captcha verification)
-reqwest = { version = "0.12", features = ["json"] }
+reqwest = { version = "0.12", features = ["json", "blocking"] }
 
 # Email (SMTP)
 lettre = { version = "0.11", features = ["tokio1-native-tls"] }
 
 # GeoIP lookup
 maxminddb = "0.24"
+
+# XML parsing (CityGML)
+quick-xml = "0.37"
+
+# GeoParquet output
+arrow = { version = "54", default-features = false, features = ["ipc"] }
+parquet = { version = "54", default-features = false, features = ["arrow", "snap", "zstd"] }
+
+# SSE streaming
+tokio-stream = "0.1"
+futures = "0.3"
 
 # Environment & config
 dotenvy = "0.15"
